@@ -19,29 +19,36 @@ const features = [
   {
     icon: Infinity,
     title: "Unlimited Scans",
-    description: "Scan as many issues as you need"
+    description: "Scan as many issues as you need",
+    free: "3 per month",
+    premium: "Unlimited"
   },
   {
     icon: Zap,
     title: "Detailed Cost Estimates",
-    description: "Know exactly what repairs will cost"
+    description: "Know exactly what repairs will cost",
+    free: "Basic only",
+    premium: "Full breakdown"
   },
   {
     icon: Clock,
     title: "Step-by-Step DIY Guides",
-    description: "Fix things yourself with confidence"
+    description: "Fix things yourself with confidence",
+    free: "Not included",
+    premium: "Included"
   },
   {
     icon: Shield,
     title: "Full Repair History",
-    description: "Track all your home maintenance"
+    description: "Track all your home maintenance",
+    free: "Recent only",
+    premium: "Complete history"
   }
 ];
 
 export default function Upgrade() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [selectedPlan, setSelectedPlan] = useState("monthly");
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -60,14 +67,14 @@ export default function Upgrade() {
 
   if (isPremium) {
     return (
-      <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center p-5">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-5">
         <div className="text-center">
-          <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
-            <Check className="w-10 h-10 text-emerald-600" />
+          <div className="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+            <Check className="w-10 h-10 text-emerald-400" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-2">You're Premium!</h1>
-          <p className="text-slate-500 mb-6">Enjoy all the premium features</p>
-          <Button onClick={() => navigate(createPageUrl("Home"))}>
+          <h1 className="text-2xl font-bold text-slate-100 mb-2">You're Premium!</h1>
+          <p className="text-slate-400 mb-6">Enjoy all the premium features</p>
+          <Button onClick={() => navigate(createPageUrl("Home"))} className="bg-blue-600 hover:bg-blue-700">
             Go Home
           </Button>
         </div>
@@ -76,14 +83,14 @@ export default function Upgrade() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#6B9080]/10 to-[#FAFBFC]">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-transparent">
         <div className="max-w-lg mx-auto px-5 py-4">
           <Button 
             variant="ghost" 
             size="icon" 
-            className="rounded-xl bg-white/80 backdrop-blur-sm"
+            className="rounded-xl bg-slate-800/80 backdrop-blur-sm text-slate-300 hover:bg-slate-700"
             onClick={() => navigate(-1)}
           >
             <ArrowLeft className="w-5 h-5" />
@@ -91,107 +98,79 @@ export default function Upgrade() {
         </div>
       </header>
 
-      <main className="max-w-lg mx-auto px-5 py-6 space-y-8">
+      <main className="max-w-lg mx-auto px-5 py-6 space-y-8 pb-12">
         {/* Hero */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center pt-4"
         >
-          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#6B9080] to-[#4A6B5D] flex items-center justify-center mx-auto mb-6 shadow-lg shadow-[#6B9080]/30">
-            <Sparkles className="w-10 h-10 text-white" />
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-blue-600/30 border border-blue-500/30">
+            <Sparkles className="w-10 h-10 text-blue-100" />
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-3">
-            Upgrade to Premium
+          <h1 className="text-3xl font-bold text-slate-100 mb-3">
+            QuoFix Premium
           </h1>
-          <p className="text-slate-600 max-w-xs mx-auto">
-            Get unlimited access to all features and take control of your home maintenance
+          <p className="text-slate-400 max-w-sm mx-auto leading-relaxed">
+            Professional home maintenance insights for less than a coffee
           </p>
         </motion.div>
 
-        {/* Features */}
+        {/* Pricing Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100"
+          className="bg-gradient-to-br from-slate-800 to-slate-800/95 rounded-3xl p-8 shadow-2xl border border-slate-700/50"
         >
-          <h2 className="font-semibold text-slate-900 mb-4">What you'll get</h2>
+          <div className="text-center mb-8">
+            <div className="flex items-end justify-center gap-2 mb-2">
+              <span className="text-5xl font-bold text-slate-100">£0.99</span>
+            </div>
+            <p className="text-slate-400 font-medium">per week</p>
+            <p className="text-sm text-slate-500 mt-2">Billed weekly • Cancel anytime</p>
+          </div>
+
+          <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent mb-6" />
+
           <div className="space-y-4">
             {features.map((feature, i) => (
               <div key={i} className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#6B9080]/10 flex items-center justify-center flex-shrink-0">
-                  <feature.icon className="w-5 h-5 text-[#6B9080]" />
+                <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center flex-shrink-0 border border-blue-500/30">
+                  <feature.icon className="w-5 h-5 text-blue-400" />
                 </div>
-                <div>
-                  <p className="font-medium text-slate-900">{feature.title}</p>
-                  <p className="text-sm text-slate-500">{feature.description}</p>
+                <div className="flex-1">
+                  <p className="font-semibold text-slate-200">{feature.title}</p>
+                  <p className="text-sm text-slate-400 mt-0.5">{feature.description}</p>
+                  <div className="flex items-center gap-3 mt-2">
+                    <span className="text-xs text-slate-500 line-through">Free: {feature.free}</span>
+                    <span className="text-xs text-blue-400 font-medium">Premium: {feature.premium}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* Pricing */}
+        {/* Trust Indicators */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="space-y-3"
+          className="grid grid-cols-3 gap-4"
         >
-          <button
-            onClick={() => setSelectedPlan("yearly")}
-            className={`w-full p-5 rounded-2xl border-2 transition-all ${
-              selectedPlan === "yearly" 
-                ? "border-[#6B9080] bg-[#6B9080]/5" 
-                : "border-slate-200 bg-white"
-            }`}
-          >
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-900">Yearly</span>
-                <span className="text-xs font-medium bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
-                  Save 40%
-                </span>
-              </div>
-              <div className={`w-5 h-5 rounded-full border-2 ${selectedPlan === "yearly" ? "border-[#6B9080] bg-[#6B9080]" : "border-slate-300"}`}>
-                {selectedPlan === "yearly" && (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-white" />
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="text-left">
-              <span className="text-2xl font-bold text-slate-900">$4.99</span>
-              <span className="text-slate-500">/month</span>
-              <p className="text-sm text-slate-500 mt-1">Billed annually at $59.88</p>
-            </div>
-          </button>
-
-          <button
-            onClick={() => setSelectedPlan("monthly")}
-            className={`w-full p-5 rounded-2xl border-2 transition-all ${
-              selectedPlan === "monthly" 
-                ? "border-[#6B9080] bg-[#6B9080]/5" 
-                : "border-slate-200 bg-white"
-            }`}
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-semibold text-slate-900">Monthly</span>
-              <div className={`w-5 h-5 rounded-full border-2 ${selectedPlan === "monthly" ? "border-[#6B9080] bg-[#6B9080]" : "border-slate-300"}`}>
-                {selectedPlan === "monthly" && (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-white" />
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="text-left">
-              <span className="text-2xl font-bold text-slate-900">$7.99</span>
-              <span className="text-slate-500">/month</span>
-            </div>
-          </button>
+          <div className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50 text-center">
+            <Shield className="w-6 h-6 text-emerald-400 mx-auto mb-2" />
+            <p className="text-xs text-slate-400 font-medium">Secure</p>
+          </div>
+          <div className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50 text-center">
+            <Clock className="w-6 h-6 text-blue-400 mx-auto mb-2" />
+            <p className="text-xs text-slate-400 font-medium">Cancel Anytime</p>
+          </div>
+          <div className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50 text-center">
+            <Check className="w-6 h-6 text-purple-400 mx-auto mb-2" />
+            <p className="text-xs text-slate-400 font-medium">Instant Access</p>
+          </div>
         </motion.div>
 
         {/* CTA */}
@@ -204,14 +183,31 @@ export default function Upgrade() {
           <Button
             onClick={() => upgradeMutation.mutate()}
             disabled={upgradeMutation.isPending}
-            className="w-full h-14 rounded-2xl bg-gradient-to-r from-[#6B9080] to-[#4A6B5D] hover:from-[#5A7D6E] hover:to-[#3A5A4D] text-white font-semibold text-lg shadow-lg shadow-[#6B9080]/20"
+            className="w-full h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-lg shadow-lg shadow-blue-600/30 border border-blue-500/30"
           >
-            {upgradeMutation.isPending ? "Processing..." : "Start Premium"}
+            {upgradeMutation.isPending ? "Processing..." : "Start Premium - £0.99/week"}
           </Button>
           
-          <p className="text-center text-xs text-slate-500">
-            Cancel anytime. No commitment required.
-          </p>
+          <div className="text-center space-y-1">
+            <p className="text-xs text-slate-500">
+              Charged weekly to your account
+            </p>
+            <p className="text-xs text-slate-600">
+              By subscribing, you agree to our Terms of Service
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Money Back Guarantee */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 text-center"
+        >
+          <Check className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
+          <p className="text-sm font-semibold text-slate-200 mb-1">7-Day Money Back Guarantee</p>
+          <p className="text-xs text-slate-400">Not satisfied? Get a full refund within 7 days</p>
         </motion.div>
       </main>
     </div>

@@ -46,14 +46,14 @@ export default function ResponsibilityTag({ responsibility, userType }) {
   const { label, sublabel, icon: Icon, bgColor, textColor, iconColor } = config[displayType] || config.varies;
 
   return (
-    <div className={cn("rounded-2xl p-4", bgColor)}>
+    <div className="bg-slate-800 rounded-2xl p-4 border border-slate-700/50">
       <div className="flex items-start gap-3">
-        <div className={cn("w-10 h-10 rounded-full bg-white/60 flex items-center justify-center flex-shrink-0")}>
+        <div className={cn("w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0", bgColor)}>
           <Icon className={cn("w-5 h-5", iconColor)} />
         </div>
         <div>
-          <p className={cn("font-medium", textColor)}>{label}</p>
-          <p className={cn("text-sm opacity-75", textColor)}>{sublabel}</p>
+          <p className="font-medium text-slate-200">{label}</p>
+          <p className="text-sm text-slate-400">{sublabel}</p>
         </div>
       </div>
     </div>

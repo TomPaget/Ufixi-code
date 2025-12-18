@@ -20,17 +20,17 @@ export default function ActionButtons({
         className={cn(
           "w-full h-14 rounded-2xl justify-start gap-4 border-2",
           isPremium 
-            ? "border-[#6B9080] text-[#6B9080] hover:bg-[#6B9080]/5" 
-            : "border-slate-200 text-slate-400"
+            ? "border-emerald-500 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20" 
+            : "border-slate-700 bg-slate-800 text-slate-500"
         )}
         disabled={!isPremium}
       >
         <div className={cn(
           "w-10 h-10 rounded-xl flex items-center justify-center",
-          isPremium ? "bg-[#6B9080]/10" : "bg-slate-100"
+          isPremium ? "bg-emerald-500/20 border border-emerald-500/30" : "bg-slate-700"
         )}>
           {isPremium ? (
-            <Wrench className="w-5 h-5" />
+            <Wrench className="w-5 h-5 text-emerald-400" />
           ) : (
             <Lock className="w-4 h-4" />
           )}
@@ -47,10 +47,10 @@ export default function ActionButtons({
         <Button
           onClick={onLandlord}
           variant="outline"
-          className="w-full h-14 rounded-2xl justify-start gap-4 border-2 border-teal-500 text-teal-600 hover:bg-teal-50"
+          className="w-full h-14 rounded-2xl justify-start gap-4 border-2 border-teal-500 bg-teal-500/10 text-teal-300 hover:bg-teal-500/20"
         >
-          <div className="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center">
-            <MessageSquare className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-500/30 flex items-center justify-center">
+            <MessageSquare className="w-5 h-5 text-teal-400" />
           </div>
           <div className="text-left">
             <p className="font-medium">Talk to Landlord</p>
@@ -62,10 +62,10 @@ export default function ActionButtons({
       <Button
         onClick={onProfessional}
         variant="outline"
-        className="w-full h-14 rounded-2xl justify-start gap-4 border-2 border-blue-500 text-blue-600 hover:bg-blue-50"
+        className="w-full h-14 rounded-2xl justify-start gap-4 border-2 border-blue-500 bg-blue-500/10 text-blue-300 hover:bg-blue-500/20"
       >
-        <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center">
-          <Phone className="w-5 h-5" />
+        <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
+          <Phone className="w-5 h-5 text-blue-400" />
         </div>
         <div className="text-left">
           <p className="font-medium">Find a Professional</p>

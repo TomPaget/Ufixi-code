@@ -108,7 +108,7 @@ export default function MediaUploader({ onUpload, isLoading }) {
                 key={type}
                 className={cn(
                   "flex flex-col items-center justify-center gap-2 p-6 rounded-2xl border-2 border-dashed cursor-pointer transition-all",
-                  "border-slate-200 hover:border-[#6B9080] hover:bg-[#6B9080]/5",
+                  "border-slate-600 hover:border-blue-500 hover:bg-blue-500/10",
                   "active:scale-95"
                 )}
               >
@@ -119,10 +119,10 @@ export default function MediaUploader({ onUpload, isLoading }) {
                   className="hidden"
                   onChange={(e) => handleFileSelect(e, type)}
                 />
-                <div className="w-12 h-12 rounded-full bg-[#6B9080]/10 flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-[#6B9080]" />
+                <div className="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center border border-blue-500/30">
+                  <Icon className="w-6 h-6 text-blue-400" />
                 </div>
-                <span className="text-sm font-medium text-slate-600">{label}</span>
+                <span className="text-sm font-medium text-slate-300">{label}</span>
               </label>
             ))}
           </motion.div>

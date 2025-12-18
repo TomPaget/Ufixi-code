@@ -89,18 +89,18 @@ export default function IssueDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#6B9080] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (!issue) {
     return (
-      <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-slate-500 mb-4">Issue not found</p>
-          <Button onClick={() => navigate(createPageUrl("Home"))}>
+          <p className="text-slate-400 mb-4">Issue not found</p>
+          <Button onClick={() => navigate(createPageUrl("Home"))} className="bg-blue-600 hover:bg-blue-700">
             Go Home
           </Button>
         </div>
@@ -109,28 +109,28 @@ export default function IssueDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFBFC]">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-[#FAFBFC]/80 backdrop-blur-lg border-b border-slate-100">
+      <header className="sticky top-0 z-10 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button 
             variant="ghost" 
             size="icon" 
-            className="rounded-xl"
+            className="rounded-xl hover:bg-slate-800 text-slate-400 hover:text-slate-300"
             onClick={() => navigate(-1)}
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div className="flex-1">
-            <h1 className="font-semibold text-slate-900 truncate">{issue.title}</h1>
-            <p className="text-sm text-slate-500">
+            <h1 className="font-semibold text-slate-100 truncate">{issue.title}</h1>
+            <p className="text-sm text-slate-400">
               {format(new Date(issue.created_date), "MMMM d, yyyy")}
             </p>
           </div>
         </div>
       </header>
 
-      <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
+      <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
         {/* Media Preview */}
         {issue.media_url && (
           <motion.div
@@ -189,23 +189,23 @@ export default function IssueDetail() {
         </div>
 
         {/* Explanation */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-100">
-          <h2 className="font-semibold text-slate-900 mb-3">What's happening?</h2>
-          <p className="text-slate-600 leading-relaxed">{issue.explanation}</p>
+        <div className="bg-slate-800 rounded-2xl p-5 border border-slate-700/50">
+          <h2 className="font-semibold text-slate-100 mb-3">What's happening?</h2>
+          <p className="text-slate-300 leading-relaxed">{issue.explanation}</p>
         </div>
 
         {/* Risks */}
         {issue.risks?.length > 0 && (
-          <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+          <div className="bg-slate-800 rounded-2xl border border-slate-700/50 overflow-hidden">
             <button
               onClick={() => setShowRisks(!showRisks)}
-              className="w-full p-5 flex items-center justify-between"
+              className="w-full p-5 flex items-center justify-between hover:bg-slate-700/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center">
-                  <AlertTriangle className="w-5 h-5 text-amber-600" />
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center border border-amber-500/30">
+                  <AlertTriangle className="w-5 h-5 text-amber-400" />
                 </div>
-                <span className="font-semibold text-slate-900">Risks if ignored</span>
+                <span className="font-semibold text-slate-100">Risks if ignored</span>
               </div>
               {showRisks ? (
                 <ChevronUp className="w-5 h-5 text-slate-400" />
@@ -222,10 +222,10 @@ export default function IssueDetail() {
                   exit={{ height: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-5 pb-5">
-                    <ul className="space-y-2">
+                  <div className="px-5 pb-5 border-t border-slate-700/50">
+                    <ul className="space-y-2 pt-4">
                       {issue.risks.map((risk, i) => (
-                        <li key={i} className="flex items-start gap-2 text-slate-600">
+                        <li key={i} className="flex items-start gap-2 text-slate-300">
                           <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 flex-shrink-0" />
                           {risk}
                         </li>
@@ -246,7 +246,7 @@ export default function IssueDetail() {
 
         {/* Cost Estimates */}
         <div>
-          <h2 className="font-semibold text-slate-900 mb-3">Estimated Costs</h2>
+          <h2 className="font-semibold text-slate-200 mb-3">Estimated Costs</h2>
           <CostEstimate
             diyMin={issue.diy_cost_min}
             diyMax={issue.diy_cost_max}
@@ -257,17 +257,17 @@ export default function IssueDetail() {
           {!isPremium && (
             <Button
               variant="link"
-              className="w-full mt-2 text-[#6B9080]"
+              className="w-full mt-2 text-blue-400 hover:text-blue-300"
               onClick={() => navigate(createPageUrl("Upgrade"))}
             >
-              Upgrade to see detailed estimates
+              Upgrade to see detailed estimates - £0.99/week
             </Button>
           )}
         </div>
 
         {/* Action Buttons */}
         <div>
-          <h2 className="font-semibold text-slate-900 mb-3">What do you want to do?</h2>
+          <h2 className="font-semibold text-slate-200 mb-3">What do you want to do?</h2>
           <ActionButtons
             onDIY={() => setShowDIY(true)}
             onLandlord={() => setShowLandlord(true)}

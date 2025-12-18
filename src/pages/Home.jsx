@@ -116,19 +116,19 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFBFC]">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-[#FAFBFC]/80 backdrop-blur-lg border-b border-slate-100">
+      <header className="sticky top-0 z-10 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#6B9080] to-[#4A6B5D] flex items-center justify-center">
-              <span className="text-white font-bold text-lg">K</span>
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-600/30 border border-blue-500/30">
+              <span className="text-blue-100 font-bold text-lg">Q</span>
             </div>
-            <span className="font-semibold text-xl text-slate-900">Kora</span>
+            <span className="font-bold text-xl text-slate-100">QuoFix</span>
           </div>
           <Link to={createPageUrl("Settings")}>
-            <Button variant="ghost" size="icon" className="rounded-xl">
-              <Settings className="w-5 h-5 text-slate-500" />
+            <Button variant="ghost" size="icon" className="rounded-xl hover:bg-slate-800 text-slate-400 hover:text-slate-300">
+              <Settings className="w-5 h-5" />
             </Button>
           </Link>
         </div>
@@ -139,13 +139,13 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center py-4"
+          className="bg-gradient-to-br from-slate-800 to-slate-800/95 rounded-3xl p-6 border border-slate-700/50 shadow-xl"
         >
-          <h1 className="text-2xl font-bold text-slate-900 mb-2">
-            What's the issue?
+          <h1 className="text-2xl font-bold text-slate-100 mb-2">
+            What needs fixing?
           </h1>
-          <p className="text-slate-500">
-            Take a photo, video, or audio to get help
+          <p className="text-slate-400">
+            Upload media to receive professional assessment
           </p>
         </motion.div>
 
@@ -157,7 +157,7 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100"
+              className="bg-slate-800 rounded-3xl p-5 shadow-xl border border-slate-700/50"
             >
               <MediaUploader 
                 onUpload={handleMediaUpload} 
@@ -167,7 +167,7 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
                 <Button
                   variant="ghost"
                   onClick={() => setShowScanner(false)}
-                  className="w-full mt-4 text-slate-500"
+                  className="w-full mt-4 text-slate-400 hover:bg-slate-700 hover:text-slate-300"
                 >
                   Cancel
                 </Button>
@@ -182,14 +182,14 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
             >
               <Button
                 onClick={() => canScan ? setShowScanner(true) : navigate(createPageUrl("Upgrade"))}
-                className="w-full h-16 rounded-2xl bg-gradient-to-r from-[#6B9080] to-[#5A7D6E] hover:from-[#5A7D6E] hover:to-[#4A6B5D] text-white shadow-lg shadow-[#6B9080]/20"
+                className="w-full h-16 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-xl shadow-blue-600/30 border border-blue-500/30 font-semibold"
               >
                 <Plus className="w-5 h-5 mr-2" />
-                <span className="font-semibold">Scan New Issue</span>
+                <span>Scan New Issue</span>
               </Button>
               
               {!isPremium && (
-                <p className="text-center text-sm text-slate-500 mt-3">
+                <p className="text-center text-sm text-slate-400 mt-3">
                   {scansLeft > 0 
                     ? `${scansLeft} free scans remaining this month`
                     : "No free scans left"
@@ -202,22 +202,24 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
 
         {/* Subscription Banner for Free Users */}
         {!isPremium && scansLeft <= 1 && (
-          <SubscriptionBanner 
-            scansLeft={scansLeft}
-            onUpgrade={() => navigate(createPageUrl("Upgrade"))}
-          />
+          <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 border border-blue-500/30 shadow-xl">
+            <SubscriptionBanner 
+              scansLeft={scansLeft}
+              onUpgrade={() => navigate(createPageUrl("Upgrade"))}
+            />
+          </div>
         )}
 
         {/* Recent Issues */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-slate-900 flex items-center gap-2">
-              <History className="w-4 h-4" />
+            <h2 className="font-semibold text-slate-200 flex items-center gap-2">
+              <History className="w-5 h-5 text-blue-400" />
               Recent Issues
             </h2>
             <Link 
               to={createPageUrl("History")}
-              className="text-sm text-[#6B9080] font-medium"
+              className="text-sm text-blue-400 font-medium hover:text-blue-300"
             >
               View All
             </Link>
@@ -226,7 +228,7 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
           {issuesLoading ? (
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-white rounded-2xl h-24 animate-pulse" />
+                <div key={i} className="bg-slate-800 rounded-2xl h-24 animate-pulse border border-slate-700/50" />
               ))}
             </div>
           ) : issues.length > 0 ? (
@@ -236,12 +238,12 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-white rounded-2xl border border-slate-100">
-              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-8 h-8 text-slate-300" />
+            <div className="text-center py-12 bg-slate-800/50 rounded-2xl border border-slate-700/50">
+              <div className="w-16 h-16 rounded-full bg-slate-700/50 flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-8 h-8 text-slate-500" />
               </div>
-              <p className="text-slate-500">No issues scanned yet</p>
-              <p className="text-sm text-slate-400 mt-1">
+              <p className="text-slate-400">No issues scanned yet</p>
+              <p className="text-sm text-slate-500 mt-1">
                 Tap the button above to get started
               </p>
             </div>
