@@ -13,6 +13,7 @@ import TradesPending from './pages/TradesPending';
 import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
+import TradesProfile from './pages/TradesProfile';
 import __Layout from './Layout.jsx';
 
 
@@ -32,6 +33,7 @@ export const PAGES = {
     "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
+    "TradesProfile": TradesProfile,
 }
 
 export const pagesConfig = {
