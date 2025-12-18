@@ -314,7 +314,7 @@ Return as many results as possible (at least 10-15 if available).`,
                 <SelectTrigger className={cn(
                   "border-2",
                   theme === "dark"
-                    ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
                     : "bg-white border-[#1E3A57]/20"
                 )}>
                   <SelectValue />
@@ -341,7 +341,7 @@ Return as many results as possible (at least 10-15 if available).`,
                 <SelectTrigger className={cn(
                   "border-2",
                   theme === "dark"
-                    ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
                     : "bg-white border-[#1E3A57]/20"
                 )}>
                   <SelectValue />
@@ -365,7 +365,7 @@ Return as many results as possible (at least 10-15 if available).`,
                 <SelectTrigger className={cn(
                   "border-2",
                   theme === "dark"
-                    ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
                     : "bg-white border-[#1E3A57]/20"
                 )}>
                   <SelectValue />
@@ -390,7 +390,7 @@ Return as many results as possible (at least 10-15 if available).`,
                 <SelectTrigger className={cn(
                   "border-2",
                   theme === "dark"
-                    ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
                     : "bg-white border-[#1E3A57]/20"
                 )}>
                   <SelectValue />
