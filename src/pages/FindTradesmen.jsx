@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, MapPin, Star, Navigation, Phone, Mail, Filter, DollarSign } from "lucide-react";
+import { ArrowLeft, MapPin, Star, Navigation, Phone, Mail, Filter, DollarSign, RefreshCw, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -27,6 +27,9 @@ export default function FindTradesmen() {
   const [sortBy, setSortBy] = useState("rating");
   const [maxCost, setMaxCost] = useState("any");
   const [searchRadius, setSearchRadius] = useState(5);
+  const [tradesmen, setTradesmen] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showMap, setShowMap] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -37,10 +40,12 @@ export default function FindTradesmen() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLocation({
+          const loc = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
-          });
+          };
+          setLocation(loc);
+          searchLocalTradesmen(loc);
         },
         (error) => {
           setLocationError(error.message);
@@ -49,62 +54,88 @@ export default function FindTradesmen() {
     }
   }, []);
 
-  const handlePostcodeSearch = () => {
-    // In a real app, you'd geocode the postcode here
-    console.log("Searching for postcode:", postcode);
+  const searchLocalTradesmen = async (loc = location) => {
+    if (!loc) return;
+    
+    setLoading(true);
+    try {
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Find ALL local tradesmen (plumbers, electricians, carpenters, general handymen, HVAC, etc.) near coordinates ${loc.lat}, ${loc.lng}.
+
+Use Google Search and Google Maps to find:
+- Business name
+- Trade/specialty
+- Phone number
+- Average rating (1-5 stars)
+- Number of reviews
+- Approximate distance in miles
+- Hourly rate estimate (in GBP)
+- Email if available
+- Business address
+
+Return as many results as possible (at least 10-15 if available).`,
+        add_context_from_internet: true,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            tradesmen: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  name: { type: "string" },
+                  trade: { type: "string" },
+                  rating: { type: "number" },
+                  reviews: { type: "number" },
+                  distance: { type: "number" },
+                  hourlyRate: { type: "number" },
+                  phone: { type: "string" },
+                  email: { type: "string" },
+                  address: { type: "string" },
+                  verified: { type: "boolean" }
+                },
+                required: ["name", "trade", "phone"]
+              }
+            }
+          },
+          required: ["tradesmen"]
+        }
+      });
+
+      setTradesmen(result.tradesmen || []);
+    } catch (error) {
+      console.error("Search failed:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Mock tradesmen data - in production, this would come from Google Places API
-  const mockTradesmen = [
-    {
-      id: 1,
-      name: "Quick Fix Plumbing",
-      trade: "plumber",
-      rating: 4.8,
-      reviews: 127,
-      distance: 0.8,
-      hourlyRate: 65,
-      phone: "020 1234 5678",
-      email: "contact@quickfix.com",
-      verified: true
-    },
-    {
-      id: 2,
-      name: "Spark & Co Electrical",
-      trade: "electrician",
-      rating: 4.9,
-      reviews: 203,
-      distance: 1.2,
-      hourlyRate: 75,
-      phone: "020 8765 4321",
-      email: "info@sparkco.com",
-      verified: true
-    },
-    {
-      id: 3,
-      name: "HomeHandy Services",
-      trade: "general",
-      rating: 4.5,
-      reviews: 89,
-      distance: 2.1,
-      hourlyRate: 45,
-      phone: "020 5555 1234",
-      verified: false
-    },
-    {
-      id: 4,
-      name: "Elite Plumbing Solutions",
-      trade: "plumber",
-      rating: 4.7,
-      reviews: 156,
-      distance: 2.8,
-      hourlyRate: 70,
-      phone: "020 9999 8888",
-      verified: true
+  const handlePostcodeSearch = async () => {
+    setLoading(true);
+    try {
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Geocode this UK postcode: ${postcode}. Return latitude and longitude.`,
+        add_context_from_internet: true,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            lat: { type: "number" },
+            lng: { type: "number" }
+          },
+          required: ["lat", "lng"]
+        }
+      });
+      
+      setLocation(result);
+      await searchLocalTradesmen(result);
+    } catch (error) {
+      console.error("Geocoding failed:", error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
-  const filteredTradesmen = mockTradesmen
+  const filteredTradesmen = tradesmen
     .filter(t => tradeType === "all" || t.trade === tradeType)
     .filter(t => t.distance <= searchRadius)
     .filter(t => maxCost === "any" || t.hourlyRate <= parseInt(maxCost))
@@ -120,11 +151,11 @@ export default function FindTradesmen() {
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#1E3A57]" : "bg-white"
+      theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
     )}>
       <header className={cn(
         "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#1E3A57] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
+        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
       )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button
@@ -140,38 +171,53 @@ export default function FindTradesmen() {
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className={cn(
-            "font-bold text-lg",
-            theme === "dark" ? "text-white" : "text-[#1E3A57]"
-          )}>Find Local Tradesmen</h1>
+          <div className="flex items-center gap-3 flex-1">
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-lg bg-[#F7B600] text-[#0F1E2E]">
+              Q
+            </div>
+            <h1 className={cn(
+              "font-bold text-lg",
+              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+            )}>Find Local Tradesmen</h1>
+          </div>
         </div>
       </header>
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
-        {/* Location Status */}
+        {/* Location & Refresh */}
         <div className={cn(
           "rounded-2xl p-5 border-2",
           theme === "dark"
-            ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
+            ? "bg-[#1A2F42] border-[#57CFA4]/30"
             : "bg-[#57CFA4]/10 border-[#57CFA4]/30"
         )}>
           {location ? (
-            <div className="flex items-center gap-3">
-              <MapPin className="w-6 h-6 text-[#57CFA4]" />
-              <div>
-                <p className={cn(
-                  "font-semibold",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>
-                  Location Enabled
-                </p>
-                <p className={cn(
-                  "text-sm",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
-                  Showing tradesmen near you
-                </p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <MapPin className="w-6 h-6 text-[#57CFA4]" />
+                <div>
+                  <p className={cn(
+                    "font-semibold",
+                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                  )}>
+                    Location Enabled
+                  </p>
+                  <p className={cn(
+                    "text-sm",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                  )}>
+                    {tradesmen.length} tradesmen found
+                  </p>
+                </div>
               </div>
+              <Button
+                onClick={() => searchLocalTradesmen()}
+                disabled={loading}
+                className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] gap-2"
+              >
+                <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
+                Refresh
+              </Button>
             </div>
           ) : (
             <div>
@@ -204,11 +250,48 @@ export default function FindTradesmen() {
           )}
         </div>
 
+        {/* Map Toggle */}
+        {location && tradesmen.length > 0 && (
+          <Button
+            onClick={() => setShowMap(!showMap)}
+            variant="outline"
+            className={cn(
+              "w-full border-2 gap-2",
+              theme === "dark"
+                ? "bg-[#1A2F42] border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
+                : "bg-white border-[#1E3A57]/20 text-[#1E3A57] hover:bg-slate-50"
+            )}
+          >
+            <Map className="w-4 h-4" />
+            {showMap ? "Hide Map" : "Show Map"}
+          </Button>
+        )}
+
+        {/* Mini Map */}
+        {showMap && location && (
+          <div className={cn(
+            "rounded-2xl overflow-hidden border-2",
+            theme === "dark"
+              ? "bg-[#1A2F42] border-[#57CFA4]/30"
+              : "bg-white border-[#1E3A57]/20"
+          )}>
+            <div className="h-64 relative bg-slate-200">
+              <iframe
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                src={`https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=tradesmen+near+${location.lat},${location.lng}&zoom=13`}
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        )}
+
         {/* Filters */}
         <div className={cn(
           "rounded-2xl p-5 space-y-4 border-2",
           theme === "dark"
-            ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
+            ? "bg-[#1A2F42] border-[#57CFA4]/30"
             : "bg-white border-[#1E3A57]/20"
         )}>
           <div className="flex items-center gap-2 mb-3">
@@ -325,14 +408,46 @@ export default function FindTradesmen() {
 
         {/* Results */}
         <div className="space-y-3">
-          <p className={cn(
-            "text-sm font-medium",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-          )}>
-            {filteredTradesmen.length} tradesmen found
-          </p>
+          {loading ? (
+            <div className="text-center py-12">
+              <RefreshCw className="w-8 h-8 animate-spin text-[#57CFA4] mx-auto mb-3" />
+              <p className={cn(
+                "text-sm",
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+              )}>
+                Searching Google for local tradesmen...
+              </p>
+            </div>
+          ) : filteredTradesmen.length === 0 ? (
+            <div className={cn(
+              "text-center py-12 rounded-2xl border-2",
+              theme === "dark"
+                ? "bg-[#1A2F42] border-[#57CFA4]/30"
+                : "bg-white border-[#1E3A57]/20"
+            )}>
+              <MapPin className="w-12 h-12 mx-auto mb-3 text-[#57CFA4]" />
+              <p className={cn(
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
+              )}>
+                No tradesmen found
+              </p>
+              <p className={cn(
+                "text-sm mt-1",
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+              )}>
+                Try enabling location or entering a postcode
+              </p>
+            </div>
+          ) : (
+            <>
+              <p className={cn(
+                "text-sm font-medium",
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+              )}>
+                {filteredTradesmen.length} tradesmen found
+              </p>
 
-          {filteredTradesmen.map((tradesman, i) => (
+              {filteredTradesmen.map((tradesman, i) => (
             <motion.div
               key={tradesman.id}
               initial={{ opacity: 0, y: 20 }}
@@ -341,7 +456,7 @@ export default function FindTradesmen() {
               className={cn(
                 "rounded-2xl p-4 border-2",
                 theme === "dark"
-                  ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
+                  ? "bg-[#1A2F42] border-[#57CFA4]/30"
                   : "bg-white border-[#1E3A57]/20"
               )}
             >
@@ -430,7 +545,9 @@ export default function FindTradesmen() {
                 )}
               </div>
             </motion.div>
-          ))}
+              ))}
+            </>
+          )}
         </div>
       </main>
     </div>

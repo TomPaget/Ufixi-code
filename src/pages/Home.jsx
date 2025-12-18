@@ -146,14 +146,14 @@ export default function Home() {
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#1E3A57]" : "bg-white"
+      theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
     )}>
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
       
       {/* Header */}
       <header className={cn(
         "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#1E3A57] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
+        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
       )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <Button 
@@ -173,7 +173,7 @@ export default function Home() {
           <div className={cn(
             "w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg",
             theme === "dark"
-              ? "bg-[#F7B600] text-[#1E3A57]"
+              ? "bg-[#F7B600] text-[#0F1E2E]"
               : "bg-[#1E3A57] text-white"
           )}>
             Q
