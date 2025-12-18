@@ -12,7 +12,7 @@ const menuItems = [
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: Users, label: "My Contractors", page: "Contractors" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
-  { icon: Settings, label: "Settings", page: "Settings" }
+  { icon: Settings, label: "My Account", page: "Settings" }
 ];
 
 export default function HamburgerMenu({ isOpen, onClose }) {

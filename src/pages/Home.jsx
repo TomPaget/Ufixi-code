@@ -51,7 +51,7 @@ export default function Home() {
   const currency = user?.currency || "GBP";
   const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[currency];
 
-  const handleMediaUpload = async (fileUrl, mediaType) => {
+  const handleMediaUpload = async (fileUrl, mediaType, additionalInfo = {}) => {
     setUploadedMedia({ url: fileUrl, type: mediaType });
     
     if (!canScan) {
@@ -63,11 +63,19 @@ export default function Home() {
 
     try {
       const userType = user?.user_type || "renter";
-      
+
+      const contextInfo = [
+        additionalInfo.description && `User description: ${additionalInfo.description}`,
+        additionalInfo.location && `Location: ${additionalInfo.location}`,
+        additionalInfo.duration && `Duration: ${additionalInfo.duration}`
+      ].filter(Boolean).join("\n");
+
       const analysis = await base44.integrations.Core.InvokeLLM({
         prompt: `You are a home maintenance expert helping ${userType}s understand household issues.
 
-      Analyze this ${mediaType} of a household problem and provide:
+    ${contextInfo ? `Additional context from user:\n${contextInfo}\n` : ""}
+
+    Analyze this ${mediaType} of a household problem and provide:
       1. A clear, simple title for the issue (2-5 words)
       2. A friendly, non-technical explanation that a non-expert would understand (2-3 sentences)
       3. Urgency level: "ignore" (cosmetic/minor), "fix_soon" (within weeks), or "fix_now" (immediate safety/damage risk)
@@ -80,15 +88,17 @@ export default function Home() {
       Water leaks should typically be 7-9 depending on severity.
       5. Type of tradesman needed (e.g., "plumber", "electrician", "general handyman")
       6. 2-4 risks if ignored
-      7. Cost estimates for DIY repair (min and max in ${currency})
-      8. Cost estimates for professional repair (min and max in ${currency})
+      7. Cost estimates for DIY repair (min and max in ${currency}) - search online for CURRENT, REALISTIC prices from UK trade websites and DIY stores
+      8. Cost estimates for professional repair (min and max in ${currency}) - search Checkatrade, Google, and trade websites for CURRENT, REALISTIC hourly rates and job costs in the UK
       9. Who is typically responsible: "renter", "landlord", "homeowner", or "varies"
       10. 3-5 step-by-step DIY instructions (simple, actionable)
       11. If landlord's responsibility, 2-3 talking points for the tenant
 
-      Be reassuring but honest. Focus on reducing anxiety while being practical.`,
-        file_urls: [fileUrl],
-        response_json_schema: {
+      Be reassuring but honest. Focus on reducing anxiety while being practical. 
+      IMPORTANT: Use real-time web data to provide accurate, current pricing for the UK market.`,
+              file_urls: [fileUrl],
+              add_context_from_internet: true,
+              response_json_schema: {
           type: "object",
           properties: {
             title: { type: "string" },
