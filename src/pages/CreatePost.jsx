@@ -44,7 +44,8 @@ export default function CreatePost() {
         ...postData,
         moderation_status: "approved",
         is_moderated: true,
-        author_name: user?.full_name || "Anonymous"
+        author_name: user?.full_name || "Anonymous",
+        author_is_trades: user?.account_type === "trades" && user?.trades_status === "approved"
       });
 
       return post;
@@ -163,9 +164,13 @@ export default function CreatePost() {
               <SelectItem value="general">General</SelectItem>
               <SelectItem value="plumbing">Plumbing</SelectItem>
               <SelectItem value="electrical">Electrical</SelectItem>
-              <SelectItem value="diy_tips">DIY Tips</SelectItem>
+              <SelectItem value="diy">DIY</SelectItem>
+              <SelectItem value="mechanical">Mechanical</SelectItem>
+              <SelectItem value="utilities">Utilities</SelectItem>
+              <SelectItem value="carpentry">Carpentry (Wood)</SelectItem>
               <SelectItem value="landlord_advice">Landlord Advice</SelectItem>
-              <SelectItem value="recommendations">Recommendations</SelectItem>
+              <SelectItem value="renter_advice">Renter Advice</SelectItem>
+              <SelectItem value="other">Other</SelectItem>
             </SelectContent>
           </Select>
         </div>

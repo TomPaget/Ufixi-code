@@ -15,9 +15,13 @@ const categories = [
   { value: "general", label: "General" },
   { value: "plumbing", label: "Plumbing" },
   { value: "electrical", label: "Electrical" },
-  { value: "diy_tips", label: "DIY Tips" },
+  { value: "diy", label: "DIY" },
+  { value: "mechanical", label: "Mechanical" },
+  { value: "utilities", label: "Utilities" },
+  { value: "carpentry", label: "Carpentry (Wood)" },
   { value: "landlord_advice", label: "Landlord Advice" },
-  { value: "recommendations", label: "Recommendations" }
+  { value: "renter_advice", label: "Renter Advice" },
+  { value: "other", label: "Other" }
 ];
 
 export default function Forum() {
@@ -129,17 +133,24 @@ export default function Forum() {
                       : "bg-white border-[#1E3A57]/20 hover:border-[#57CFA4]/50"
                   )}>
                     <div className="flex items-start justify-between gap-3 mb-2">
-                      <h3 className={cn(
-                        "font-bold",
-                        theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                      )}>{post.title}</h3>
+                      <div className="flex-1">
+                        <h3 className={cn(
+                          "font-bold",
+                          theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                        )}>{post.title}</h3>
+                        {post.author_is_trades && (
+                          <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-blue-500 text-white mt-1">
+                            ✓ Verified Trades
+                          </span>
+                        )}
+                      </div>
                       <span className={cn(
-                        "text-xs px-2 py-1 rounded-full capitalize border-2",
+                        "text-xs px-2 py-1 rounded-full capitalize border-2 whitespace-nowrap",
                         theme === "dark"
                           ? "bg-[#F7B600]/20 text-[#F7B600] border-[#F7B600]"
                           : "bg-[#F7B600]/20 text-[#F7B600] border-[#F7B600]"
                       )}>
-                        {post.category.replace("_", " ")}
+                        {post.category.replace(/_/g, " ")}
                       </span>
                     </div>
                     <p className={cn(
