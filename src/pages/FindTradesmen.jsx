@@ -60,20 +60,38 @@ export default function FindTradesmen() {
     setLoading(true);
     try {
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Find ALL local tradesmen (plumbers, electricians, carpenters, general handymen, HVAC, etc.) near coordinates ${loc.lat}, ${loc.lng}.
+        prompt: `Find ALL local tradespeople (plumbers, electricians, carpenters, general handymen, HVAC, etc.) near coordinates ${loc.lat}, ${loc.lng}.
 
-Use Google Search and Google Maps to find:
+SEARCH COMPREHENSIVELY ACROSS MULTIPLE SOURCES:
+1. Google Search & Google Maps - for business listings
+2. Facebook - search for local tradesperson pages, groups, and recommendations
+3. Local Facebook Groups - scan community groups for recommended tradespeople
+4. Bing, DuckDuckGo, and other search engines
+5. Review sites (Trustpilot, Checkatrade, etc.)
+6. Local business directories
+7. Social media profiles and posts
+
+For EACH tradesperson found, gather:
 - Business name
-- Trade/specialty
+- Trade/specialty (plumber, electrician, carpenter, etc.)
 - Phone number
-- Average rating (1-5 stars)
-- Number of reviews
-- Approximate distance in miles
-- Hourly rate estimate (in GBP)
+- Average rating (1-5 stars) from any available source
+- Number of reviews/recommendations
+- Approximate distance in miles from ${loc.lat}, ${loc.lng}
+- Hourly rate estimate (in GBP) if available
 - Email if available
-- Business address
+- Business address or service area
+- Social media presence (if found on Facebook or other platforms)
+- Any verified badges or certifications mentioned
 
-Return as many results as possible (at least 10-15 if available).`,
+Prioritize tradespeople with:
+- Active social media presence
+- Recent Facebook posts or activity
+- Community recommendations from local groups
+- Verified business profiles
+- Positive reviews
+
+Return as many results as possible (aim for 15-25+ if available). Include both established businesses and independent tradespeople found on social media.`,
         add_context_from_internet: true,
         response_json_schema: {
           type: "object",
@@ -92,7 +110,8 @@ Return as many results as possible (at least 10-15 if available).`,
                   phone: { type: "string" },
                   email: { type: "string" },
                   address: { type: "string" },
-                  verified: { type: "boolean" }
+                  verified: { type: "boolean" },
+                  source: { type: "string" }
                 },
                 required: ["name", "trade", "phone"]
               }
@@ -415,7 +434,7 @@ Return as many results as possible (at least 10-15 if available).`,
                 "text-sm",
                 theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
               )}>
-                Searching Google for local tradesmen...
+                Searching Google, Facebook, local groups & more...
               </p>
             </div>
           ) : filteredTradesmen.length === 0 ? (
@@ -497,7 +516,7 @@ Return as many results as possible (at least 10-15 if available).`,
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 mb-3 text-sm">
+              <div className="flex items-center gap-4 mb-3 text-sm flex-wrap">
                 <div className="flex items-center gap-1">
                   <Navigation className="w-4 h-4 text-[#F7B600]" />
                   <span className={cn(
@@ -506,14 +525,26 @@ Return as many results as possible (at least 10-15 if available).`,
                     {tradesman.distance} mi
                   </span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <DollarSign className="w-4 h-4 text-[#F7B600]" />
-                  <span className={cn(
-                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                {tradesman.hourlyRate && (
+                  <div className="flex items-center gap-1">
+                    <DollarSign className="w-4 h-4 text-[#F7B600]" />
+                    <span className={cn(
+                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                    )}>
+                      {currencySymbol}{tradesman.hourlyRate}/hr
+                    </span>
+                  </div>
+                )}
+                {tradesman.source && (
+                  <div className={cn(
+                    "text-xs px-2 py-1 rounded-full",
+                    theme === "dark"
+                      ? "bg-[#57CFA4]/20 text-[#57CFA4]"
+                      : "bg-slate-100 text-slate-600"
                   )}>
-                    {currencySymbol}{tradesman.hourlyRate}/hr
-                  </span>
-                </div>
+                    {tradesman.source}
+                  </div>
+                )}
               </div>
 
               <div className="flex gap-2">
