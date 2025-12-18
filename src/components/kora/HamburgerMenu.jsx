@@ -6,8 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
 
-import { MessageCircle, HelpCircle } from "lucide-react";
-
 const menuItems = [
   { icon: Home, label: "Home", page: "Home" },
   { icon: History, label: "History", page: "History" },
