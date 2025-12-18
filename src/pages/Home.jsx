@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Plus, History, Settings, Sparkles, Users, Calendar, TrendingUp } from "lucide-react";
+import { Plus, History, Menu, Sparkles, Users, Calendar, TrendingUp } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import MediaUploader from "@/components/kora/MediaUploader";
 import IssueCard from "@/components/kora/IssueCard";
 import SubscriptionBanner from "@/components/kora/SubscriptionBanner";
 import Disclaimer from "@/components/kora/Disclaimer";
+import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,7 @@ export default function Home() {
   const [showScanner, setShowScanner] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [uploadedMedia, setUploadedMedia] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -45,6 +47,9 @@ export default function Home() {
   const scansUsed = user?.scans_used_this_month || 0;
   const scansLeft = FREE_SCAN_LIMIT - scansUsed;
   const canScan = isPremium || scansLeft > 0;
+  
+  const currency = user?.currency || "GBP";
+  const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[currency];
 
   const handleMediaUpload = async (fileUrl, mediaType) => {
     setUploadedMedia({ url: fileUrl, type: mediaType });
@@ -121,45 +126,40 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" 
-        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" 
-        : "bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50"
+      theme === "dark" ? "bg-[#1E3A57]" : "bg-white"
     )}>
+      <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      
       {/* Header */}
       <header className={cn(
-        "sticky top-0 z-10 backdrop-blur-lg border-b",
-        theme === "dark"
-          ? "bg-slate-900/80 border-slate-700/50"
-          : "bg-white/80 border-slate-200"
+        "sticky top-0 z-30 border-b",
+        theme === "dark" ? "bg-[#1E3A57] border-[#57CFA4]/20" : "bg-white border-slate-200"
       )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className={cn(
-              "w-9 h-9 rounded-xl flex items-center justify-center shadow-lg",
-              theme === "dark"
-                ? "bg-gradient-to-br from-blue-600 to-blue-700 shadow-blue-600/30 border border-blue-500/30"
-                : "bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/20 border border-blue-400/30"
-            )}>
-              <span className={cn(
-                "font-bold text-lg",
-                theme === "dark" ? "text-blue-100" : "text-white"
-              )}>Q</span>
-            </div>
-            <span className={cn(
-              "font-bold text-xl",
-              theme === "dark" ? "text-slate-100" : "text-slate-900"
-            )}>QuoFix</span>
-          </div>
-          <Link to={createPageUrl("Settings")}>
-            <Button variant="ghost" size="icon" className={cn(
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setMenuOpen(true)}
+            className={cn(
               "rounded-xl",
               theme === "dark"
-                ? "hover:bg-slate-800 text-slate-400 hover:text-slate-300"
-                : "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
-            )}>
-              <Settings className="w-5 h-5" />
-            </Button>
-          </Link>
+                ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
+                : "hover:bg-slate-100 text-[#1E3A57]"
+            )}
+          >
+            <Menu className="w-5 h-5" />
+          </Button>
+          
+          <div className={cn(
+            "w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg",
+            theme === "dark"
+              ? "bg-[#F7B600] text-[#1E3A57]"
+              : "bg-[#1E3A57] text-white"
+          )}>
+            Q
+          </div>
+          
+          <div className="w-10" />
         </div>
       </header>
 
@@ -169,20 +169,20 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className={cn(
-            "rounded-3xl p-6 shadow-xl",
+            "rounded-2xl p-6 border",
             theme === "dark"
-              ? "bg-gradient-to-br from-slate-800 to-slate-800/95 border border-slate-700/50"
-              : "bg-gradient-to-br from-white to-blue-50/50 border border-blue-100"
+              ? "bg-[#1E3A57] border-[#57CFA4]/30"
+              : "bg-[#1E3A57]/5 border-[#1E3A57]/20"
           )}
         >
           <h1 className={cn(
             "text-2xl font-bold mb-2",
-            theme === "dark" ? "text-slate-100" : "text-slate-900"
+            theme === "dark" ? "text-white" : "text-[#1E3A57]"
           )}>
             What needs fixing?
           </h1>
           <p className={cn(
-            theme === "dark" ? "text-slate-400" : "text-slate-600"
+            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
           )}>
             Upload media to receive professional assessment
           </p>
@@ -196,66 +196,57 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
             className="grid grid-cols-3 gap-3"
           >
             <div className={cn(
-              "rounded-2xl p-4 text-center",
+              "rounded-2xl p-4 text-center border",
               theme === "dark"
-                ? "bg-slate-800/50 border border-slate-700/50"
-                : "bg-white border border-slate-200"
+                ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
+                : "bg-white border-slate-200"
             )}>
-              <TrendingUp className={cn(
-                "w-5 h-5 mx-auto mb-1",
-                theme === "dark" ? "text-blue-400" : "text-blue-600"
-              )} />
+              <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
               <p className={cn(
                 "text-xl font-bold",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
               )}>
                 {issues.filter(i => i.status === "active").length}
               </p>
               <p className={cn(
                 "text-xs",
-                theme === "dark" ? "text-slate-500" : "text-slate-600"
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
               )}>Active</p>
             </div>
             <div className={cn(
-              "rounded-2xl p-4 text-center",
+              "rounded-2xl p-4 text-center border",
               theme === "dark"
-                ? "bg-slate-800/50 border border-slate-700/50"
-                : "bg-white border border-slate-200"
+                ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
+                : "bg-white border-slate-200"
             )}>
-              <Calendar className={cn(
-                "w-5 h-5 mx-auto mb-1",
-                theme === "dark" ? "text-amber-400" : "text-amber-600"
-              )} />
+              <Calendar className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
               <p className={cn(
                 "text-xl font-bold",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
               )}>
                 {issues.filter(i => i.urgency === "fix_soon").length}
               </p>
               <p className={cn(
                 "text-xs",
-                theme === "dark" ? "text-slate-500" : "text-slate-600"
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
               )}>Fix Soon</p>
             </div>
             <div className={cn(
-              "rounded-2xl p-4 text-center",
+              "rounded-2xl p-4 text-center border",
               theme === "dark"
-                ? "bg-slate-800/50 border border-slate-700/50"
-                : "bg-white border border-slate-200"
+                ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
+                : "bg-white border-slate-200"
             )}>
-              <History className={cn(
-                "w-5 h-5 mx-auto mb-1",
-                theme === "dark" ? "text-emerald-400" : "text-emerald-600"
-              )} />
+              <History className="w-5 h-5 mx-auto mb-1 text-[#57CFA4]" />
               <p className={cn(
                 "text-xl font-bold",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
               )}>
                 {issues.filter(i => i.status === "resolved").length}
               </p>
               <p className={cn(
                 "text-xs",
-                theme === "dark" ? "text-slate-500" : "text-slate-600"
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
               )}>Resolved</p>
             </div>
           </motion.div>
@@ -270,10 +261,10 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               className={cn(
-                "rounded-3xl p-5 shadow-xl",
+                "rounded-2xl p-5 border",
                 theme === "dark"
-                  ? "bg-slate-800 border border-slate-700/50"
-                  : "bg-white border border-slate-200"
+                  ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
+                  : "bg-white border-slate-200"
               )}
             >
               <MediaUploader 
@@ -287,8 +278,8 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
                   className={cn(
                     "w-full mt-4",
                     theme === "dark"
-                      ? "text-slate-400 hover:bg-slate-700 hover:text-slate-300"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                      ? "text-[#57CFA4] hover:bg-[#57CFA4]/10"
+                      : "text-[#1E3A57] hover:bg-slate-100"
                   )}
                 >
                   Cancel
@@ -304,12 +295,7 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
             >
               <Button
                 onClick={() => canScan ? setShowScanner(true) : navigate(createPageUrl("Upgrade"))}
-                className={cn(
-                  "w-full h-16 rounded-2xl font-semibold shadow-xl",
-                  theme === "dark"
-                    ? "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-blue-600/30 border border-blue-500/30"
-                    : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-blue-500/20"
-                )}
+                className="w-full h-16 rounded-2xl font-semibold bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57]"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 <span>Scan New Issue</span>
@@ -318,7 +304,7 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
               {!isPremium && (
                 <p className={cn(
                   "text-center text-sm mt-3",
-                  theme === "dark" ? "text-slate-400" : "text-slate-600"
+                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
                 )}>
                   {scansLeft > 0 
                     ? `${scansLeft} free scans remaining this month`
@@ -342,7 +328,7 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
                   : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
               )}
             >
-              <Users className="w-5 h-5 text-blue-500" />
+              <Users className="w-5 h-5 text-[#F7B600]" />
               <span className="text-sm font-medium">Contractors</span>
             </Button>
           </Link>
@@ -356,7 +342,7 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
                   : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
               )}
             >
-              <Calendar className="w-5 h-5 text-amber-500" />
+              <Calendar className="w-5 h-5 text-[#57CFA4]" />
               <span className="text-sm font-medium">Reminders</span>
             </Button>
           </Link>

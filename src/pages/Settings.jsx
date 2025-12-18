@@ -18,6 +18,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -408,10 +415,79 @@ export default function Settings() {
           </Button>
         </motion.div>
 
+        {/* Language & Currency */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className={cn(
+            "rounded-2xl p-5 border",
+            theme === "dark"
+              ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
+              : "bg-white border-slate-200"
+          )}
+        >
+          <h3 className={cn(
+            "font-semibold mb-4",
+            theme === "dark" ? "text-white" : "text-[#1E3A57]"
+          )}>Language & Currency</h3>
+          
+          <div className="space-y-3">
+            <div>
+              <Label className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
+                Language
+              </Label>
+              <Select 
+                value={user?.language || "en"} 
+                onValueChange={(val) => updateUserMutation.mutate({ language: val })}
+              >
+                <SelectTrigger className={cn(
+                  "mt-1",
+                  theme === "dark"
+                    ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
+                    : "bg-white border-slate-200"
+                )}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="es">Español</SelectItem>
+                  <SelectItem value="fr">Français</SelectItem>
+                  <SelectItem value="de">Deutsch</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
+                Currency
+              </Label>
+              <Select 
+                value={user?.currency || "GBP"} 
+                onValueChange={(val) => updateUserMutation.mutate({ currency: val })}
+              >
+                <SelectTrigger className={cn(
+                  "mt-1",
+                  theme === "dark"
+                    ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
+                    : "bg-white border-slate-200"
+                )}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="GBP">£ GBP (British Pound)</SelectItem>
+                  <SelectItem value="USD">$ USD (US Dollar)</SelectItem>
+                  <SelectItem value="EUR">€ EUR (Euro)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </motion.section>
+
         {/* App Version */}
         <p className={cn(
           "text-center text-xs",
-          theme === "dark" ? "text-slate-500" : "text-slate-400"
+          theme === "dark" ? "text-[#57CFA4]/50" : "text-[#1E3A57]/40"
         )}>
           QuoFix v1.0.0
         </p>

@@ -1,21 +1,21 @@
+import Contractors from './pages/Contractors';
+import History from './pages/History';
 import Home from './pages/Home';
 import IssueDetail from './pages/IssueDetail';
-import History from './pages/History';
+import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
 import Upgrade from './pages/Upgrade';
-import Contractors from './pages/Contractors';
-import Reminders from './pages/Reminders';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "Contractors": Contractors,
+    "History": History,
     "Home": Home,
     "IssueDetail": IssueDetail,
-    "History": History,
+    "Reminders": Reminders,
     "Settings": Settings,
     "Upgrade": Upgrade,
-    "Contractors": Contractors,
-    "Reminders": Reminders,
 }
 
 export const pagesConfig = {
