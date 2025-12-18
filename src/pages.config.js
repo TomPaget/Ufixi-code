@@ -14,6 +14,8 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import TradesProfile from './pages/TradesProfile';
+import Messages from './pages/Messages';
+import Chat from './pages/Chat';
 import __Layout from './Layout.jsx';
 
 
@@ -34,6 +36,8 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "TradesProfile": TradesProfile,
+    "Messages": Messages,
+    "Chat": Chat,
 }
 
 export const pagesConfig = {

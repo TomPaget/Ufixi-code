@@ -560,20 +560,38 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
                   <Phone className="w-4 h-4" />
                   Call
                 </a>
-                {tradesman.email && (
-                  <a
-                    href={`mailto:${tradesman.email}`}
-                    className={cn(
-                      "flex-1 flex items-center justify-center gap-2 py-2 rounded-xl border-2 font-semibold text-sm transition-colors",
-                      theme === "dark"
-                        ? "border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
-                        : "border-[#1E3A57]/20 text-[#1E3A57] hover:bg-slate-50"
-                    )}
-                  >
-                    <Mail className="w-4 h-4" />
-                    Email
-                  </a>
-                )}
+                <button
+                  onClick={async () => {
+                    // Create or find conversation
+                    const existingConvos = await base44.entities.Conversation.filter({
+                      participant_1_name: tradesman.name
+                    });
+                    
+                    let convoId;
+                    if (existingConvos.length > 0) {
+                      convoId = existingConvos[0].id;
+                    } else {
+                      const newConvo = await base44.entities.Conversation.create({
+                        participant_1_id: user.id,
+                        participant_1_name: user.full_name,
+                        participant_2_id: tradesman.name,
+                        participant_2_name: tradesman.name,
+                        last_message_date: new Date().toISOString()
+                      });
+                      convoId = newConvo.id;
+                    }
+                    navigate(createPageUrl(`Chat?id=${convoId}`));
+                  }}
+                  className={cn(
+                    "flex-1 flex items-center justify-center gap-2 py-2 rounded-xl border-2 font-semibold text-sm transition-colors",
+                    theme === "dark"
+                      ? "border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
+                      : "border-[#1E3A57]/20 text-[#1E3A57] hover:bg-slate-50"
+                  )}
+                >
+                  <Mail className="w-4 h-4" />
+                  Message
+                </button>
               </div>
             </motion.div>
               ))}
