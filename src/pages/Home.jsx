@@ -44,8 +44,8 @@ export default function Home() {
   });
 
   const isPremium = user?.subscription_tier === "premium";
-  const scansUsed = user?.scans_used_this_month || 0;
-  const scansLeft = FREE_SCAN_LIMIT - scansUsed;
+  const totalScansUsed = user?.total_scans_used || 0;
+  const scansLeft = Math.max(0, FREE_SCAN_LIMIT - totalScansUsed);
   const canScan = isPremium || scansLeft > 0;
   
   const currency = user?.currency || "GBP";
@@ -130,7 +130,7 @@ export default function Home() {
       // Update scan count for free users
       if (!isPremium) {
         await base44.auth.updateMe({
-          scans_used_this_month: scansUsed + 1
+          total_scans_used: totalScansUsed + 1
         });
       }
 
@@ -327,8 +327,8 @@ export default function Home() {
                   theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
                 )}>
                   {scansLeft > 0 
-                    ? `${scansLeft} free scans remaining this month`
-                    : "No free scans left"
+                    ? `${scansLeft} of 3 free scans remaining`
+                    : "All free scans used - Upgrade to continue"
                   }
                 </p>
               )}

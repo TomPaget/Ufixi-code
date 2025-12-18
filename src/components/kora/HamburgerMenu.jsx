@@ -1,17 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { X, Home, History, Users, Calendar, Settings, MapPin } from "lucide-react";
+import { X, Home, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
 
+import { MessageCircle, HelpCircle } from "lucide-react";
+
 const menuItems = [
   { icon: Home, label: "Home", page: "Home" },
   { icon: History, label: "History", page: "History" },
+  { icon: MessageCircle, label: "Community Forum", page: "Forum" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: Users, label: "My Contractors", page: "Contractors" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
+  { icon: HelpCircle, label: "Support Chat", page: "Support" },
   { icon: Settings, label: "My Account", page: "Settings" }
 ];
 

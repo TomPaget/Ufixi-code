@@ -117,24 +117,68 @@ export default function Upgrade() {
         </motion.div>
 
         {/* Pricing Card */}
-        <motion.div
+        <div className="space-y-4">
+          {/* Weekly Plan */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-gradient-to-br from-slate-800 to-slate-800/95 rounded-3xl p-6 shadow-2xl border border-slate-700/50"
+          >
+            <div className="text-center mb-6">
+              <div className="flex items-end justify-center gap-2 mb-2">
+                <span className="text-4xl font-bold text-slate-100">£0.99</span>
+              </div>
+              <p className="text-slate-400 font-medium">per week</p>
+              <p className="text-sm text-slate-500 mt-1">Billed weekly • Cancel anytime</p>
+            </div>
+
+          <Button
+            onClick={() => upgradeMutation.mutate()}
+            disabled={upgradeMutation.isPending}
+            className="w-full h-12 rounded-2xl bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-white font-semibold"
+          >
+            {upgradeMutation.isPending ? "Processing..." : "Choose Weekly"}
+          </Button>
+          </motion.div>
+
+          {/* Yearly Plan */}
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-slate-800 to-slate-800/95 rounded-3xl p-8 shadow-2xl border border-slate-700/50"
-        >
-          <div className="text-center mb-8">
+          transition={{ delay: 0.15 }}
+          className="bg-gradient-to-br from-emerald-900/50 to-emerald-800/50 rounded-3xl p-6 shadow-2xl border-2 border-emerald-500/50 relative overflow-hidden"
+          >
+          <div className="absolute top-4 right-4 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+            SAVE 17%
+          </div>
+          <div className="text-center mb-6">
             <div className="flex items-end justify-center gap-2 mb-2">
-              <span className="text-5xl font-bold text-slate-100">£0.99</span>
+              <span className="text-4xl font-bold text-slate-100">£300</span>
             </div>
-            <p className="text-slate-400 font-medium">per week</p>
-            <p className="text-sm text-slate-500 mt-2">Billed weekly • Cancel anytime</p>
+            <p className="text-slate-300 font-medium">per year</p>
+            <p className="text-sm text-emerald-400 mt-1">Save £52 compared to weekly</p>
+          </div>
+          <Button
+            onClick={() => upgradeMutation.mutate()}
+            disabled={upgradeMutation.isPending}
+            className="w-full h-12 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold"
+          >
+            {upgradeMutation.isPending ? "Processing..." : "Choose Yearly"}
+          </Button>
+          </motion.div>
           </div>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent mb-6" />
-
+          {/* Features */}
+          <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-gradient-to-br from-slate-800 to-slate-800/95 rounded-3xl p-6 shadow-2xl border border-slate-700/50"
+          >
+          <h3 className="text-lg font-bold text-slate-100 mb-4">Premium Features</h3>
           <div className="space-y-4">
-            {features.map((feature, i) => (
+          {features.map((feature, i) => (
               <div key={i} className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center flex-shrink-0 border border-blue-500/30">
                   <feature.icon className="w-5 h-5 text-blue-400" />
@@ -149,8 +193,31 @@ export default function Upgrade() {
                 </div>
               </div>
             ))}
-          </div>
-        </motion.div>
+            </div>
+            </motion.div>
+
+            {/* Payment Methods */}
+            <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50"
+            >
+            <p className={cn("text-xs font-medium mb-3 text-center text-slate-400")}>
+            Secure payment via
+            </p>
+            <div className="flex items-center justify-center gap-4">
+            <div className="px-4 py-2 bg-white rounded-lg">
+              <span className="font-semibold text-slate-900">Apple Pay</span>
+            </div>
+            <div className="px-4 py-2 bg-white rounded-lg">
+              <span className="font-semibold text-blue-600">PayPal</span>
+            </div>
+            <div className="px-4 py-2 bg-white rounded-lg">
+              <span className="font-semibold text-slate-900">Card</span>
+            </div>
+            </div>
+            </motion.div>
 
         {/* Trust Indicators */}
         <motion.div
@@ -173,30 +240,7 @@ export default function Upgrade() {
           </div>
         </motion.div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="space-y-4"
-        >
-          <Button
-            onClick={() => upgradeMutation.mutate()}
-            disabled={upgradeMutation.isPending}
-            className="w-full h-14 rounded-2xl bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] font-semibold text-lg"
-          >
-            {upgradeMutation.isPending ? "Processing..." : `Start Premium - ${user?.currency === "USD" ? "$0.99" : user?.currency === "EUR" ? "€0.99" : "£0.99"}/week`}
-          </Button>
-          
-          <div className="text-center space-y-1">
-            <p className="text-xs text-slate-500">
-              Charged weekly to your account
-            </p>
-            <p className="text-xs text-slate-600">
-              By subscribing, you agree to our Terms of Service
-            </p>
-          </div>
-        </motion.div>
+
 
         {/* Money Back Guarantee */}
         <motion.div

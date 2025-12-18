@@ -6,6 +6,9 @@ import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
 import Upgrade from './pages/Upgrade';
 import FindTradesmen from './pages/FindTradesmen';
+import Forum from './pages/Forum';
+import CreatePost from './pages/CreatePost';
+import Support from './pages/Support';
 import __Layout from './Layout.jsx';
 
 
@@ -18,6 +21,9 @@ export const PAGES = {
     "Settings": Settings,
     "Upgrade": Upgrade,
     "FindTradesmen": FindTradesmen,
+    "Forum": Forum,
+    "CreatePost": CreatePost,
+    "Support": Support,
 }
 
 export const pagesConfig = {
