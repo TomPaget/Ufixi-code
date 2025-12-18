@@ -66,19 +66,27 @@ export default function Home() {
       
       const analysis = await base44.integrations.Core.InvokeLLM({
         prompt: `You are a home maintenance expert helping ${userType}s understand household issues.
-        
-Analyze this ${mediaType} of a household problem and provide:
-1. A clear, simple title for the issue (2-5 words)
-2. A friendly, non-technical explanation that a non-expert would understand (2-3 sentences)
-3. Urgency level: "ignore" (cosmetic/minor), "fix_soon" (within weeks), or "fix_now" (immediate safety/damage risk)
-4. 2-4 risks if ignored
-5. Cost estimates for DIY repair (min and max in USD)
-6. Cost estimates for professional repair (min and max in USD)
-7. Who is typically responsible: "renter", "landlord", "homeowner", or "varies"
-8. 3-5 step-by-step DIY instructions (simple, actionable)
-9. If landlord's responsibility, 2-3 talking points for the tenant
 
-Be reassuring but honest. Focus on reducing anxiety while being practical.`,
+      Analyze this ${mediaType} of a household problem and provide:
+      1. A clear, simple title for the issue (2-5 words)
+      2. A friendly, non-technical explanation that a non-expert would understand (2-3 sentences)
+      3. Urgency level: "ignore" (cosmetic/minor), "fix_soon" (within weeks), or "fix_now" (immediate safety/damage risk)
+      4. Severity score from 1-10 where:
+      - 1-2: Cosmetic issues, no rush
+      - 3-4: Minor issues, can wait weeks/months
+      - 5-6: Moderate issues, fix within weeks
+      - 7-8: Serious issues, fix within days (e.g., major leaks, electrical sparks)
+      - 9-10: CRITICAL EMERGENCY, fix immediately (e.g., gas leaks, flooding, fire hazards)
+      Water leaks should typically be 7-9 depending on severity.
+      5. Type of tradesman needed (e.g., "plumber", "electrician", "general handyman")
+      6. 2-4 risks if ignored
+      7. Cost estimates for DIY repair (min and max in ${currency})
+      8. Cost estimates for professional repair (min and max in ${currency})
+      9. Who is typically responsible: "renter", "landlord", "homeowner", or "varies"
+      10. 3-5 step-by-step DIY instructions (simple, actionable)
+      11. If landlord's responsibility, 2-3 talking points for the tenant
+
+      Be reassuring but honest. Focus on reducing anxiety while being practical.`,
         file_urls: [fileUrl],
         response_json_schema: {
           type: "object",
@@ -86,6 +94,8 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
             title: { type: "string" },
             explanation: { type: "string" },
             urgency: { type: "string", enum: ["ignore", "fix_soon", "fix_now"] },
+            severity_score: { type: "number", minimum: 1, maximum: 10 },
+            trade_type: { type: "string" },
             risks: { type: "array", items: { type: "string" } },
             diy_cost_min: { type: "number" },
             diy_cost_max: { type: "number" },
@@ -95,7 +105,7 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
             diy_steps: { type: "array", items: { type: "string" } },
             landlord_talking_points: { type: "array", items: { type: "string" } }
           },
-          required: ["title", "explanation", "urgency", "risks", "responsibility"]
+          required: ["title", "explanation", "urgency", "severity_score", "trade_type", "risks", "responsibility"]
         }
       });
 
@@ -132,8 +142,8 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
       
       {/* Header */}
       <header className={cn(
-        "sticky top-0 z-30 border-b",
-        theme === "dark" ? "bg-[#1E3A57] border-[#57CFA4]/20" : "bg-white border-slate-200"
+        "sticky top-0 z-30 border-b-2",
+        theme === "dark" ? "bg-[#1E3A57] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
       )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <Button 
@@ -169,10 +179,10 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className={cn(
-            "rounded-2xl p-6 border",
+            "rounded-2xl p-6 border-2",
             theme === "dark"
-              ? "bg-[#1E3A57] border-[#57CFA4]/30"
-              : "bg-[#1E3A57]/5 border-[#1E3A57]/20"
+              ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
+              : "bg-[#57CFA4]/10 border-[#57CFA4]/30"
           )}
         >
           <h1 className={cn(

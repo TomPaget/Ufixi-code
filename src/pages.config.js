@@ -5,6 +5,7 @@ import IssueDetail from './pages/IssueDetail';
 import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
 import Upgrade from './pages/Upgrade';
+import FindTradesmen from './pages/FindTradesmen';
 import __Layout from './Layout.jsx';
 
 
@@ -16,6 +17,7 @@ export const PAGES = {
     "Reminders": Reminders,
     "Settings": Settings,
     "Upgrade": Upgrade,
+    "FindTradesmen": FindTradesmen,
 }
 
 export const pagesConfig = {

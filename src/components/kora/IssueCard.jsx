@@ -3,6 +3,8 @@ import { ChevronRight, Image, Video, Mic } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import UrgencyBadge from "./UrgencyBadge";
+import SeverityBadge from "./SeverityBadge";
+import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
 
 const mediaIcons = {
@@ -25,7 +27,12 @@ export default function IssueCard({ issue }) {
       to={createPageUrl(`IssueDetail?id=${issue.id}`)}
       className="block"
     >
-      <div className="bg-slate-800 rounded-2xl border border-slate-700/50 p-4 hover:bg-slate-700/50 hover:border-slate-600/50 transition-all active:scale-[0.98]">
+      <div className={cn(
+        "rounded-2xl p-4 transition-all active:scale-[0.98] border-2",
+        theme === "dark"
+          ? "bg-[#1E3A57]/50 border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+          : "bg-white border-[#1E3A57]/20 hover:border-[#57CFA4]/50"
+      )}>
         <div className="flex gap-4">
           {issue.media_url && issue.media_type === "photo" ? (
             <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-700 border border-slate-600/50">
@@ -52,7 +59,8 @@ export default function IssueCard({ issue }) {
               <ChevronRight className="w-5 h-5 text-slate-500 flex-shrink-0" />
             </div>
             
-            <div className="flex items-center gap-2 mt-3">
+            <div className="flex items-center gap-2 mt-3 flex-wrap">
+              {issue.severity_score && <SeverityBadge severity={issue.severity_score} />}
               <UrgencyBadge urgency={issue.urgency} size="small" />
               <span className={cn(
                 "text-xs font-medium px-2 py-1 rounded-full capitalize border",
