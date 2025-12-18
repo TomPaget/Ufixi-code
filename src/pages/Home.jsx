@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Plus, History, Settings, Sparkles } from "lucide-react";
+import { Plus, History, Settings, Sparkles, Users, Calendar, TrendingUp } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
@@ -10,12 +10,15 @@ import MediaUploader from "@/components/kora/MediaUploader";
 import IssueCard from "@/components/kora/IssueCard";
 import SubscriptionBanner from "@/components/kora/SubscriptionBanner";
 import Disclaimer from "@/components/kora/Disclaimer";
+import { useTheme } from "@/components/kora/ThemeProvider";
+import { cn } from "@/lib/utils";
 
 const FREE_SCAN_LIMIT = 3;
 
 export default function Home() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { theme } = useTheme();
   const [showScanner, setShowScanner] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [uploadedMedia, setUploadedMedia] = useState(null);
@@ -116,18 +119,44 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className={cn(
+      "min-h-screen pb-20",
+      theme === "dark" 
+        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" 
+        : "bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50"
+    )}>
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
+      <header className={cn(
+        "sticky top-0 z-10 backdrop-blur-lg border-b",
+        theme === "dark"
+          ? "bg-slate-900/80 border-slate-700/50"
+          : "bg-white/80 border-slate-200"
+      )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-600/30 border border-blue-500/30">
-              <span className="text-blue-100 font-bold text-lg">Q</span>
+            <div className={cn(
+              "w-9 h-9 rounded-xl flex items-center justify-center shadow-lg",
+              theme === "dark"
+                ? "bg-gradient-to-br from-blue-600 to-blue-700 shadow-blue-600/30 border border-blue-500/30"
+                : "bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/20 border border-blue-400/30"
+            )}>
+              <span className={cn(
+                "font-bold text-lg",
+                theme === "dark" ? "text-blue-100" : "text-white"
+              )}>Q</span>
             </div>
-            <span className="font-bold text-xl text-slate-100">QuoFix</span>
+            <span className={cn(
+              "font-bold text-xl",
+              theme === "dark" ? "text-slate-100" : "text-slate-900"
+            )}>QuoFix</span>
           </div>
           <Link to={createPageUrl("Settings")}>
-            <Button variant="ghost" size="icon" className="rounded-xl hover:bg-slate-800 text-slate-400 hover:text-slate-300">
+            <Button variant="ghost" size="icon" className={cn(
+              "rounded-xl",
+              theme === "dark"
+                ? "hover:bg-slate-800 text-slate-400 hover:text-slate-300"
+                : "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
+            )}>
               <Settings className="w-5 h-5" />
             </Button>
           </Link>
@@ -139,15 +168,98 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-slate-800 to-slate-800/95 rounded-3xl p-6 border border-slate-700/50 shadow-xl"
+          className={cn(
+            "rounded-3xl p-6 shadow-xl",
+            theme === "dark"
+              ? "bg-gradient-to-br from-slate-800 to-slate-800/95 border border-slate-700/50"
+              : "bg-gradient-to-br from-white to-blue-50/50 border border-blue-100"
+          )}
         >
-          <h1 className="text-2xl font-bold text-slate-100 mb-2">
+          <h1 className={cn(
+            "text-2xl font-bold mb-2",
+            theme === "dark" ? "text-slate-100" : "text-slate-900"
+          )}>
             What needs fixing?
           </h1>
-          <p className="text-slate-400">
+          <p className={cn(
+            theme === "dark" ? "text-slate-400" : "text-slate-600"
+          )}>
             Upload media to receive professional assessment
           </p>
         </motion.div>
+
+        {/* Quick Stats */}
+        {issues.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="grid grid-cols-3 gap-3"
+          >
+            <div className={cn(
+              "rounded-2xl p-4 text-center",
+              theme === "dark"
+                ? "bg-slate-800/50 border border-slate-700/50"
+                : "bg-white border border-slate-200"
+            )}>
+              <TrendingUp className={cn(
+                "w-5 h-5 mx-auto mb-1",
+                theme === "dark" ? "text-blue-400" : "text-blue-600"
+              )} />
+              <p className={cn(
+                "text-xl font-bold",
+                theme === "dark" ? "text-slate-200" : "text-slate-900"
+              )}>
+                {issues.filter(i => i.status === "active").length}
+              </p>
+              <p className={cn(
+                "text-xs",
+                theme === "dark" ? "text-slate-500" : "text-slate-600"
+              )}>Active</p>
+            </div>
+            <div className={cn(
+              "rounded-2xl p-4 text-center",
+              theme === "dark"
+                ? "bg-slate-800/50 border border-slate-700/50"
+                : "bg-white border border-slate-200"
+            )}>
+              <Calendar className={cn(
+                "w-5 h-5 mx-auto mb-1",
+                theme === "dark" ? "text-amber-400" : "text-amber-600"
+              )} />
+              <p className={cn(
+                "text-xl font-bold",
+                theme === "dark" ? "text-slate-200" : "text-slate-900"
+              )}>
+                {issues.filter(i => i.urgency === "fix_soon").length}
+              </p>
+              <p className={cn(
+                "text-xs",
+                theme === "dark" ? "text-slate-500" : "text-slate-600"
+              )}>Fix Soon</p>
+            </div>
+            <div className={cn(
+              "rounded-2xl p-4 text-center",
+              theme === "dark"
+                ? "bg-slate-800/50 border border-slate-700/50"
+                : "bg-white border border-slate-200"
+            )}>
+              <History className={cn(
+                "w-5 h-5 mx-auto mb-1",
+                theme === "dark" ? "text-emerald-400" : "text-emerald-600"
+              )} />
+              <p className={cn(
+                "text-xl font-bold",
+                theme === "dark" ? "text-slate-200" : "text-slate-900"
+              )}>
+                {issues.filter(i => i.status === "resolved").length}
+              </p>
+              <p className={cn(
+                "text-xs",
+                theme === "dark" ? "text-slate-500" : "text-slate-600"
+              )}>Resolved</p>
+            </div>
+          </motion.div>
+        )}
 
         {/* Scanner Section */}
         <AnimatePresence mode="wait">
@@ -157,7 +269,12 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-slate-800 rounded-3xl p-5 shadow-xl border border-slate-700/50"
+              className={cn(
+                "rounded-3xl p-5 shadow-xl",
+                theme === "dark"
+                  ? "bg-slate-800 border border-slate-700/50"
+                  : "bg-white border border-slate-200"
+              )}
             >
               <MediaUploader 
                 onUpload={handleMediaUpload} 
@@ -167,7 +284,12 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
                 <Button
                   variant="ghost"
                   onClick={() => setShowScanner(false)}
-                  className="w-full mt-4 text-slate-400 hover:bg-slate-700 hover:text-slate-300"
+                  className={cn(
+                    "w-full mt-4",
+                    theme === "dark"
+                      ? "text-slate-400 hover:bg-slate-700 hover:text-slate-300"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                  )}
                 >
                   Cancel
                 </Button>
@@ -182,14 +304,22 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
             >
               <Button
                 onClick={() => canScan ? setShowScanner(true) : navigate(createPageUrl("Upgrade"))}
-                className="w-full h-16 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-xl shadow-blue-600/30 border border-blue-500/30 font-semibold"
+                className={cn(
+                  "w-full h-16 rounded-2xl font-semibold shadow-xl",
+                  theme === "dark"
+                    ? "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-blue-600/30 border border-blue-500/30"
+                    : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-blue-500/20"
+                )}
               >
                 <Plus className="w-5 h-5 mr-2" />
                 <span>Scan New Issue</span>
               </Button>
               
               {!isPremium && (
-                <p className="text-center text-sm text-slate-400 mt-3">
+                <p className={cn(
+                  "text-center text-sm mt-3",
+                  theme === "dark" ? "text-slate-400" : "text-slate-600"
+                )}>
                   {scansLeft > 0 
                     ? `${scansLeft} free scans remaining this month`
                     : "No free scans left"
@@ -200,9 +330,46 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
           )}
         </AnimatePresence>
 
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 gap-3">
+          <Link to={createPageUrl("Contractors")}>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full h-20 rounded-2xl flex-col gap-2",
+                theme === "dark"
+                  ? "bg-slate-800/50 border-slate-700 hover:bg-slate-700 text-slate-300"
+                  : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
+              )}
+            >
+              <Users className="w-5 h-5 text-blue-500" />
+              <span className="text-sm font-medium">Contractors</span>
+            </Button>
+          </Link>
+          <Link to={createPageUrl("Reminders")}>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full h-20 rounded-2xl flex-col gap-2",
+                theme === "dark"
+                  ? "bg-slate-800/50 border-slate-700 hover:bg-slate-700 text-slate-300"
+                  : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
+              )}
+            >
+              <Calendar className="w-5 h-5 text-amber-500" />
+              <span className="text-sm font-medium">Reminders</span>
+            </Button>
+          </Link>
+        </div>
+
         {/* Subscription Banner for Free Users */}
         {!isPremium && scansLeft <= 1 && (
-          <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 border border-blue-500/30 shadow-xl">
+          <div className={cn(
+            "rounded-3xl p-6 shadow-xl",
+            theme === "dark"
+              ? "bg-gradient-to-br from-blue-600 to-blue-700 border border-blue-500/30"
+              : "bg-gradient-to-br from-blue-500 to-blue-600 border border-blue-400/30"
+          )}>
             <SubscriptionBanner 
               scansLeft={scansLeft}
               onUpgrade={() => navigate(createPageUrl("Upgrade"))}
@@ -213,13 +380,24 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
         {/* Recent Issues */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-slate-200 flex items-center gap-2">
-              <History className="w-5 h-5 text-blue-400" />
+            <h2 className={cn(
+              "font-semibold flex items-center gap-2",
+              theme === "dark" ? "text-slate-200" : "text-slate-900"
+            )}>
+              <History className={cn(
+                "w-5 h-5",
+                theme === "dark" ? "text-blue-400" : "text-blue-600"
+              )} />
               Recent Issues
             </h2>
             <Link 
               to={createPageUrl("History")}
-              className="text-sm text-blue-400 font-medium hover:text-blue-300"
+              className={cn(
+                "text-sm font-medium",
+                theme === "dark" 
+                  ? "text-blue-400 hover:text-blue-300" 
+                  : "text-blue-600 hover:text-blue-700"
+              )}
             >
               View All
             </Link>
@@ -228,7 +406,12 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
           {issuesLoading ? (
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-slate-800 rounded-2xl h-24 animate-pulse border border-slate-700/50" />
+                <div key={i} className={cn(
+                  "rounded-2xl h-24 animate-pulse",
+                  theme === "dark"
+                    ? "bg-slate-800 border border-slate-700/50"
+                    : "bg-slate-100"
+                )} />
               ))}
             </div>
           ) : issues.length > 0 ? (
@@ -238,12 +421,28 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-              <div className="w-16 h-16 rounded-full bg-slate-700/50 flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-8 h-8 text-slate-500" />
+            <div className={cn(
+              "text-center py-12 rounded-2xl",
+              theme === "dark"
+                ? "bg-slate-800/50 border border-slate-700/50"
+                : "bg-white border border-slate-200"
+            )}>
+              <div className={cn(
+                "w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4",
+                theme === "dark" ? "bg-slate-700/50" : "bg-slate-100"
+              )}>
+                <Sparkles className={cn(
+                  "w-8 h-8",
+                  theme === "dark" ? "text-slate-500" : "text-slate-400"
+                )} />
               </div>
-              <p className="text-slate-400">No issues scanned yet</p>
-              <p className="text-sm text-slate-500 mt-1">
+              <p className={cn(
+                theme === "dark" ? "text-slate-400" : "text-slate-600"
+              )}>No issues scanned yet</p>
+              <p className={cn(
+                "text-sm mt-1",
+                theme === "dark" ? "text-slate-500" : "text-slate-500"
+              )}>
                 Tap the button above to get started
               </p>
             </div>
