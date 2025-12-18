@@ -322,10 +322,10 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
             <Button
               variant="outline"
               className={cn(
-                "w-full h-20 rounded-2xl flex-col gap-2",
+                "w-full h-20 rounded-2xl flex-col gap-2 border",
                 theme === "dark"
-                  ? "bg-slate-800/50 border-slate-700 hover:bg-slate-700 text-slate-300"
-                  : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
+                  ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:bg-[#57CFA4]/10 text-white"
+                  : "bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
               )}
             >
               <Users className="w-5 h-5 text-[#F7B600]" />
@@ -336,10 +336,10 @@ Be reassuring but honest. Focus on reducing anxiety while being practical.`,
             <Button
               variant="outline"
               className={cn(
-                "w-full h-20 rounded-2xl flex-col gap-2",
+                "w-full h-20 rounded-2xl flex-col gap-2 border",
                 theme === "dark"
-                  ? "bg-slate-800/50 border-slate-700 hover:bg-slate-700 text-slate-300"
-                  : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
+                  ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:bg-[#57CFA4]/10 text-white"
+                  : "bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
               )}
             >
               <Calendar className="w-5 h-5 text-[#57CFA4]" />

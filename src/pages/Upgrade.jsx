@@ -183,9 +183,9 @@ export default function Upgrade() {
           <Button
             onClick={() => upgradeMutation.mutate()}
             disabled={upgradeMutation.isPending}
-            className="w-full h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-lg shadow-lg shadow-blue-600/30 border border-blue-500/30"
+            className="w-full h-14 rounded-2xl bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] font-semibold text-lg"
           >
-            {upgradeMutation.isPending ? "Processing..." : "Start Premium - £0.99/week"}
+            {upgradeMutation.isPending ? "Processing..." : `Start Premium - ${user?.currency === "USD" ? "$0.99" : user?.currency === "EUR" ? "€0.99" : "£0.99"}/week`}
           </Button>
           
           <div className="text-center space-y-1">
