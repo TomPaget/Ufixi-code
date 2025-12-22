@@ -24,6 +24,7 @@ import TradesProfile from './pages/TradesProfile';
 import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
+import ContractorManagement from './pages/ContractorManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -54,6 +55,7 @@ export const PAGES = {
     "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
+    "ContractorManagement": ContractorManagement,
 }
 
 export const pagesConfig = {
