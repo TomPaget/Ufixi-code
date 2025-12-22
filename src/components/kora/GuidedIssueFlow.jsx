@@ -22,7 +22,7 @@ import { useTheme } from "@/components/kora/ThemeProvider";
 
 export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const { theme } = useTheme();
-  const [step, setStep] = useState("upload"); // upload, triage, questions, suggestions, analyze
+  const [step, setStep] = useState("upload"); // upload, details, triage, questions, suggestions, analyze
   const [mediaType, setMediaType] = useState(null);
   const [mediaFile, setMediaFile] = useState(null);
   const [mediaUrl, setMediaUrl] = useState(null);
@@ -32,6 +32,12 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [suggestions, setSuggestions] = useState(null);
+  
+  // User-provided details
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [duration, setDuration] = useState("");
+  const [category, setCategory] = useState("");
 
   // Step 1: Upload media
   const handleFileSelect = async (type, file) => {
@@ -40,6 +46,12 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
     setMediaUrl(URL.createObjectURL(file));
   };
 
+  // Step 2: Move to details entry
+  const handleContinueToDetails = () => {
+    setStep("details");
+  };
+
+  // Step 3: Upload and analyze
   const handleUpload = async () => {
     if (!mediaFile) return;
 
@@ -187,8 +199,11 @@ Be practical, safety-conscious, and helpful.`,
       ).join("\n");
 
       await onComplete(mediaUrl, mediaType, {
-        description: `${issueType.brief_description}\n\nAdditional details:\n${answersText}`,
-        category: issueType.category
+        description: description || issueType.brief_description,
+        category: category || issueType.category,
+        location,
+        duration,
+        questionsAndAnswers: answersText
       });
     } catch (error) {
       console.error("Full analysis failed:", error);
@@ -313,21 +328,11 @@ Be practical, safety-conscious, and helpful.`,
                 Retake
               </Button>
               <Button
-                onClick={handleUpload}
-                disabled={uploading || analyzing}
+                onClick={handleContinueToDetails}
                 className="flex-1 bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
               >
-                {uploading || analyzing ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Analyzing...
-                  </>
-                ) : (
-                  <>
-                    Continue
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </>
-                )}
+                Continue
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </div>
@@ -344,7 +349,7 @@ Be practical, safety-conscious, and helpful.`,
     );
   }
 
-  if (step === "questions") {
+  if (step === "details") {
     return (
       <div className={cn(
         "rounded-2xl p-6 border",
@@ -354,6 +359,138 @@ Be practical, safety-conscious, and helpful.`,
       )}>
         <button
           onClick={() => setStep("upload")}
+          className={cn(
+            "flex items-center gap-2 mb-4 text-sm",
+            theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+          )}
+        >
+          <ChevronLeft className="w-4 h-4" />
+          Back
+        </button>
+
+        <h3 className={cn(
+          "font-semibold mb-2",
+          theme === "dark" ? "text-white" : "text-[#1E3A57]"
+        )}>
+          Describe the issue
+        </h3>
+        <p className={cn(
+          "text-sm mb-4",
+          theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+        )}>
+          Tell us more details to help our AI provide the best solution
+        </p>
+
+        <div className="space-y-4 mb-6">
+          <div>
+            <Label className={cn(
+              "mb-2 block",
+              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+            )}>
+              What's the problem? *
+            </Label>
+            <Textarea
+              placeholder="Describe what's happening... (e.g., 'Water is leaking from under the sink')"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className={cn(
+                "min-h-24",
+                theme === "dark"
+                  ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                  : "bg-white border-slate-200"
+              )}
+            />
+          </div>
+
+          <div>
+            <Label className={cn(
+              "mb-2 block",
+              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+            )}>
+              Where is it located?
+            </Label>
+            <Input
+              placeholder="e.g., Kitchen sink, Living room, Bathroom"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className={cn(
+                theme === "dark"
+                  ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                  : "bg-white border-slate-200"
+              )}
+            />
+          </div>
+
+          <div>
+            <Label className={cn(
+              "mb-2 block",
+              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+            )}>
+              How long has this been happening?
+            </Label>
+            <Input
+              placeholder="e.g., Just started, Few days, A week"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+              className={cn(
+                theme === "dark"
+                  ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                  : "bg-white border-slate-200"
+              )}
+            />
+          </div>
+
+          <div>
+            <Label className={cn(
+              "mb-2 block",
+              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+            )}>
+              Issue category (optional)
+            </Label>
+            <RadioGroup value={category} onValueChange={setCategory}>
+              <div className="grid grid-cols-2 gap-2">
+                {["plumbing", "electrical", "hvac", "structural", "appliance", "other"].map((cat) => (
+                  <div key={cat} className="flex items-center space-x-2">
+                    <RadioGroupItem value={cat} id={cat} />
+                    <Label htmlFor={cat} className="cursor-pointer capitalize">{cat}</Label>
+                  </div>
+                ))}
+              </div>
+            </RadioGroup>
+          </div>
+        </div>
+
+        <Button
+          onClick={handleUpload}
+          disabled={!description.trim() || uploading || analyzing}
+          className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+        >
+          {uploading || analyzing ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Analyzing...
+            </>
+          ) : (
+            <>
+              Analyze Issue
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </>
+          )}
+        </Button>
+      </div>
+    );
+  }
+
+  if (step === "questions") {
+    return (
+      <div className={cn(
+        "rounded-2xl p-6 border",
+        theme === "dark"
+          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+          : "bg-white border-slate-200"
+      )}>
+        <button
+          onClick={() => setStep("details")}
           className={cn(
             "flex items-center gap-2 mb-4 text-sm",
             theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
