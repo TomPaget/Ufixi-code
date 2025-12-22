@@ -92,11 +92,12 @@ export default function Home() {
       8. Cost estimates for professional repair (min and max in ${currency}) - search online for CURRENT, REALISTIC hourly rates and job costs
       9. Who is typically responsible: "renter", "landlord", "homeowner", or "varies"
       10. 5-8 DETAILED step-by-step DIY instructions with specific actions, safety warnings, and tips. Each step should be clear and actionable with measurements, timings, or specific techniques where relevant.
-      11. List of 3-6 products/tools needed for DIY repair. For each product include:
+      11. List of 3-6 products/tools needed for DIY repair specific to ${user?.country || "UK"}. For each product include:
           - Product name (be specific, e.g., "Adjustable wrench 10-inch" not just "wrench")
-          - Brief description of what it's for
-          - Amazon search URL (format: https://www.amazon.co.uk/s?k=SEARCH_TERMS where SEARCH_TERMS is URL-encoded product name)
-          - Estimated cost range
+          - Brief description of what it's for and why it's needed
+          - Amazon search URL appropriate for the country (${user?.country === "US" ? "amazon.com" : user?.country === "CA" ? "amazon.ca" : user?.country === "AU" ? "amazon.com.au" : "amazon.co.uk"}) in format: https://www.amazon.DOMAIN/s?k=SEARCH_TERMS where SEARCH_TERMS is URL-encoded product name
+          - Estimated cost range in ${currency}
+          - Make sure these are REAL products commonly available in ${user?.country || "UK"}
       12. If landlord's responsibility, 2-3 talking points for the tenant
 
       Be reassuring but honest. Focus on reducing anxiety while being practical and thorough. 

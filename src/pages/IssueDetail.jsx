@@ -268,6 +268,46 @@ export default function IssueDetail() {
           )}
         </div>
 
+        {/* Products Needed */}
+        {issue?.products_needed?.length > 0 && (
+          <div>
+            <h2 className="font-semibold text-slate-200 mb-3 flex items-center gap-2">
+              <ShoppingCart className="w-5 h-5" />
+              Tools & Materials Needed
+            </h2>
+            <div className="space-y-3">
+              {issue.products_needed.map((product, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-slate-800 border border-slate-700/50 rounded-2xl p-4 hover:border-blue-500/50 transition-colors"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-slate-100 mb-1">{product.name}</h4>
+                      <p className="text-sm text-slate-400 mb-2">{product.description}</p>
+                      {product.estimatedCost && (
+                        <p className="text-xs text-slate-500">Est. cost: {product.estimatedCost}</p>
+                      )}
+                    </div>
+                    <a
+                      href={product.amazonSearchUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium whitespace-nowrap flex items-center gap-2 transition-colors flex-shrink-0"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      View
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Action Buttons */}
         <div>
           <h2 className="font-semibold text-slate-200 mb-3">What do you want to do?</h2>
