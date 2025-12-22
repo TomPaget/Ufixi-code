@@ -20,6 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import MaintenanceAlerts from "@/components/kora/MaintenanceAlerts";
+import PotentialJobs from "@/components/kora/PotentialJobs";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
@@ -122,6 +123,9 @@ export default function TradesDashboard() {
       </header>
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
+        {/* AI Job Matching */}
+        <PotentialJobs />
+
         {/* Maintenance Opportunities */}
         <MaintenanceAlerts userId={user?.id} />
 
