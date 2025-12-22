@@ -28,6 +28,7 @@ const tradesMenuItems = [
   { icon: Home, label: "Home", page: "Home" },
   { icon: LayoutDashboard, label: "My Dashboard", page: "TradesDashboard" },
   { icon: Bell, label: "Notifications", page: "Notifications" },
+  { icon: Settings, label: "Manage Business", page: "ContractorManagement" },
   { icon: Briefcase, label: "My Profile", page: "TradesProfile" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
