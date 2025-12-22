@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { format } from "date-fns";
-import { ArrowLeft, Plus, Calendar, Check, Clock } from "lucide-react";
+import { ArrowLeft, Plus, Calendar, Check, Clock, Home, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -39,10 +39,17 @@ export default function Reminders() {
     category: "other"
   });
 
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => base44.auth.me()
+  });
+
   const { data: reminders = [], isLoading } = useQuery({
     queryKey: ["reminders"],
     queryFn: () => base44.entities.Reminder.list("reminder_date")
   });
+
+  const hasHomeProfile = user?.property_type || user?.heating_type || (user?.appliances && user.appliances.length > 0);
 
   const createMutation = useMutation({
     mutationFn: (data) => base44.entities.Reminder.create(data),
@@ -125,6 +132,43 @@ export default function Reminders() {
       </header>
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
+        {/* Home Profile Banner */}
+        {!hasHomeProfile && (
+          <div
+            onClick={() => navigate(createPageUrl("HomeProfile"))}
+            className={cn(
+              "rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02]",
+              theme === "dark"
+                ? "bg-gradient-to-br from-blue-900/50 to-purple-900/50 border-blue-500/50"
+                : "bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200"
+            )}
+          >
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#F7B600] flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-5 h-5 text-[#0F1E2E]" />
+              </div>
+              <div className="flex-1">
+                <h3 className={cn(
+                  "font-semibold mb-1",
+                  theme === "dark" ? "text-white" : "text-slate-900"
+                )}>
+                  Get Proactive Maintenance Reminders
+                </h3>
+                <p className={cn(
+                  "text-sm mb-2",
+                  theme === "dark" ? "text-slate-300" : "text-slate-600"
+                )}>
+                  Set up your home profile and we'll automatically suggest maintenance tasks based on your property
+                </p>
+                <div className="flex items-center gap-2 text-sm text-blue-400 font-medium">
+                  <Home className="w-4 h-4" />
+                  Set Up Home Profile
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Upcoming */}
         <section>
           <h2 className={cn(
