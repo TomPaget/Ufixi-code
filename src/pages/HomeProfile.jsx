@@ -12,20 +12,27 @@ import {
   X,
   Loader2,
   Sparkles,
-  CheckCircle2
+  CheckCircle2,
+  History,
+  Users,
+  Briefcase
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import IssueCard from "@/components/kora/IssueCard";
 
 export default function HomeProfile() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const queryClient = useQueryClient();
+  const [activeTab, setActiveTab] = useState("profile");
 
   const [propertyType, setPropertyType] = useState("");
   const [propertyAge, setPropertyAge] = useState("");
@@ -38,6 +45,24 @@ export default function HomeProfile() {
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => base44.auth.me()
+  });
+
+  const { data: issues = [] } = useQuery({
+    queryKey: ["issues"],
+    queryFn: () => base44.entities.Issue.list("-created_date"),
+    enabled: activeTab === "history"
+  });
+
+  const { data: jobs = [] } = useQuery({
+    queryKey: ["user-jobs"],
+    queryFn: () => base44.entities.Job.filter({ customer_id: user?.id }, "-created_date"),
+    enabled: !!user && activeTab === "jobs"
+  });
+
+  const { data: contractors = [] } = useQuery({
+    queryKey: ["contractors"],
+    queryFn: () => base44.entities.Contractor.list(),
+    enabled: activeTab === "contractors"
   });
 
   useEffect(() => {
@@ -208,7 +233,31 @@ Return realistic, UK-standard maintenance schedules.`,
         </div>
       </header>
 
-      <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
+      <main className="max-w-lg mx-auto px-5 py-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className={cn(
+            "w-full grid grid-cols-4 mb-6",
+            theme === "dark" ? "bg-[#1A2F42]" : "bg-slate-100"
+          )}>
+            <TabsTrigger value="profile" className="flex items-center gap-2">
+              <Home className="w-4 h-4" />
+              <span className="hidden sm:inline">Profile</span>
+            </TabsTrigger>
+            <TabsTrigger value="history" className="flex items-center gap-2">
+              <History className="w-4 h-4" />
+              <span className="hidden sm:inline">History</span>
+            </TabsTrigger>
+            <TabsTrigger value="jobs" className="flex items-center gap-2">
+              <Briefcase className="w-4 h-4" />
+              <span className="hidden sm:inline">Jobs</span>
+            </TabsTrigger>
+            <TabsTrigger value="contractors" className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              <span className="hidden sm:inline">Contractors</span>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="profile" className="space-y-6">
         {/* Info Banner */}
         <div className={cn(
           "rounded-2xl p-4 border",
@@ -538,6 +587,202 @@ Return realistic, UK-standard maintenance schedules.`,
         )}>
           Based on your home profile, we'll create personalized maintenance reminders to keep your property in top condition
         </p>
+          </TabsContent>
+
+          <TabsContent value="history">
+            <div className="space-y-4">
+              <h2 className={cn(
+                "text-xl font-bold",
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
+              )}>Issue History</h2>
+              {issues.length === 0 ? (
+                <div className={cn(
+                  "text-center py-12 rounded-2xl border",
+                  theme === "dark"
+                    ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                    : "bg-white border-slate-200"
+                )}>
+                  <History className={cn(
+                    "w-12 h-12 mx-auto mb-3",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+                  )} />
+                  <p className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-slate-500")}>
+                    No issues yet
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {issues.map((issue) => (
+                    <IssueCard key={issue.id} issue={issue} />
+                  ))}
+                </div>
+              )}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="jobs">
+            <div className="space-y-4">
+              <h2 className={cn(
+                "text-xl font-bold",
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
+              )}>My Jobs</h2>
+              {jobs.length === 0 ? (
+                <div className={cn(
+                  "text-center py-12 rounded-2xl border",
+                  theme === "dark"
+                    ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                    : "bg-white border-slate-200"
+                )}>
+                  <Briefcase className={cn(
+                    "w-12 h-12 mx-auto mb-3",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+                  )} />
+                  <p className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-slate-500")}>
+                    No jobs yet
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {jobs.map((job) => (
+                    <div
+                      key={job.id}
+                      onClick={() => navigate(createPageUrl(`JobDetail?id=${job.id}`))}
+                      className={cn(
+                        "p-4 rounded-2xl border cursor-pointer transition-all hover:scale-[1.02]",
+                        theme === "dark"
+                          ? "bg-[#1A2F42] border-[#57CFA4]/20 hover:border-[#57CFA4]/40"
+                          : "bg-white border-slate-200 hover:border-slate-300"
+                      )}
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h3 className={cn(
+                            "font-semibold",
+                            theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                          )}>
+                            {job.title}
+                          </h3>
+                          <p className={cn(
+                            "text-sm",
+                            theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                          )}>
+                            {job.tradesperson_name || "No tradesperson assigned"}
+                          </p>
+                        </div>
+                        <span className={cn(
+                          "px-2 py-1 rounded-full text-xs capitalize",
+                          job.status === "completed"
+                            ? "bg-green-500/20 text-green-400"
+                            : job.status === "in_progress"
+                            ? "bg-blue-500/20 text-blue-400"
+                            : "bg-yellow-500/20 text-yellow-400"
+                        )}>
+                          {job.status}
+                        </span>
+                      </div>
+                      {job.estimated_cost && (
+                        <p className={cn(
+                          "text-sm font-semibold",
+                          theme === "dark" ? "text-[#F7B600]" : "text-[#1E3A57]"
+                        )}>
+                          £{job.estimated_cost}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="contractors">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className={cn(
+                  "text-xl font-bold",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>My Contractors</h2>
+                <Button
+                  size="sm"
+                  onClick={() => navigate(createPageUrl("Contractors"))}
+                  className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+                >
+                  <Plus className="w-4 h-4 mr-1" />
+                  Add
+                </Button>
+              </div>
+              {contractors.length === 0 ? (
+                <div className={cn(
+                  "text-center py-12 rounded-2xl border",
+                  theme === "dark"
+                    ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                    : "bg-white border-slate-200"
+                )}>
+                  <Users className={cn(
+                    "w-12 h-12 mx-auto mb-3",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+                  )} />
+                  <p className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-slate-500")}>
+                    No contractors saved yet
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {contractors.map((contractor) => (
+                    <div
+                      key={contractor.id}
+                      className={cn(
+                        "p-4 rounded-2xl border",
+                        theme === "dark"
+                          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                          : "bg-white border-slate-200"
+                      )}
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h3 className={cn(
+                            "font-semibold",
+                            theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                          )}>
+                            {contractor.name}
+                          </h3>
+                          <p className={cn(
+                            "text-sm capitalize",
+                            theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                          )}>
+                            {contractor.specialty}
+                          </p>
+                        </div>
+                        {contractor.rating && (
+                          <div className="flex items-center gap-1">
+                            <span className="text-[#F7B600]">★</span>
+                            <span className={cn(
+                              "font-semibold",
+                              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                            )}>
+                              {contractor.rating}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      {contractor.phone && (
+                        <a
+                          href={`tel:${contractor.phone}`}
+                          className={cn(
+                            "text-sm",
+                            theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
+                          )}
+                        >
+                          {contractor.phone}
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
