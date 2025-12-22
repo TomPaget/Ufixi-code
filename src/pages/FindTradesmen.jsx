@@ -20,10 +20,13 @@ import { cn } from "@/lib/utils";
 export default function FindTradesmen() {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const urlParams = new URLSearchParams(window.location.search);
+  const prefilledTrade = urlParams.get("trade");
+  
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
   const [postcode, setPostcode] = useState("");
-  const [tradeType, setTradeType] = useState("all");
+  const [tradeType, setTradeType] = useState(prefilledTrade || "all");
   const [sortBy, setSortBy] = useState("rating");
   const [maxCost, setMaxCost] = useState("any");
   const [searchRadius, setSearchRadius] = useState(5);
@@ -59,8 +62,9 @@ export default function FindTradesmen() {
     
     setLoading(true);
     try {
+      const tradeFilter = tradeType && tradeType !== "all" ? ` specializing in ${tradeType}` : "";
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Find ALL local tradespeople (plumbers, electricians, carpenters, general handymen, HVAC, etc.) near coordinates ${loc.lat}, ${loc.lng}.
+        prompt: `Find ALL local tradespeople${tradeFilter} (plumbers, electricians, carpenters, general handymen, HVAC, etc.) near coordinates ${loc.lat}, ${loc.lng}.
 
 SEARCH COMPREHENSIVELY ACROSS MULTIPLE SOURCES:
 1. Google Search & Google Maps - for business listings
@@ -340,11 +344,14 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Trades</SelectItem>
-                  <SelectItem value="plumber">Plumber</SelectItem>
-                  <SelectItem value="electrician">Electrician</SelectItem>
+                  <SelectItem value="plumbing">Plumbing</SelectItem>
+                  <SelectItem value="electrical">Electrical</SelectItem>
                   <SelectItem value="general">General</SelectItem>
-                  <SelectItem value="carpenter">Carpenter</SelectItem>
+                  <SelectItem value="carpentry">Carpentry</SelectItem>
                   <SelectItem value="hvac">HVAC</SelectItem>
+                  <SelectItem value="roofing">Roofing</SelectItem>
+                  <SelectItem value="painting">Painting</SelectItem>
+                  <SelectItem value="appliances">Appliances</SelectItem>
                 </SelectContent>
               </Select>
             </div>

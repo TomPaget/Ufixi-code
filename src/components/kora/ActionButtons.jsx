@@ -1,6 +1,8 @@
 import { Wrench, MessageSquare, Phone, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 
 export default function ActionButtons({ 
   onDIY, 
@@ -8,8 +10,10 @@ export default function ActionButtons({
   onProfessional, 
   userType,
   isPremium,
-  responsibility 
+  responsibility,
+  tradeType
 }) {
+  const navigate = useNavigate();
   const showLandlord = userType === "renter" && responsibility === "landlord";
 
   return (
@@ -60,7 +64,13 @@ export default function ActionButtons({
       )}
 
       <Button
-        onClick={onProfessional}
+        onClick={() => {
+          if (tradeType) {
+            navigate(createPageUrl(`FindTradesmen?trade=${tradeType}`));
+          } else {
+            onProfessional();
+          }
+        }}
         variant="outline"
         className="w-full h-14 rounded-2xl justify-start gap-4 border-2 border-blue-500 bg-blue-500/10 text-blue-300 hover:bg-blue-500/20"
       >

@@ -275,6 +275,7 @@ export default function IssueDetail() {
             userType={userType}
             isPremium={isPremium}
             responsibility={issue.responsibility}
+            tradeType={issue.trade_type}
           />
         </div>
 

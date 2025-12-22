@@ -1,4 +1,6 @@
 import { Wrench, HardHat } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 
 export default function CostEstimate({ 
   diyMin, 
@@ -7,11 +9,18 @@ export default function CostEstimate({
   proMax, 
   isPremium = false 
 }) {
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => base44.auth.me()
+  });
+
+  const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[user?.currency || "GBP"];
+
   const formatCost = (min, max) => {
     if (!isPremium) return "Upgrade to see";
     if (!min && !max) return "Varies";
-    if (min === max) return `$${min}`;
-    return `$${min} - $${max}`;
+    if (min === max) return `${currencySymbol}${min}`;
+    return `${currencySymbol}${min} - ${currencySymbol}${max}`;
   };
 
   return (
