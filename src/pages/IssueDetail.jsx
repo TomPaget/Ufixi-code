@@ -209,8 +209,23 @@ export default function IssueDetail() {
         {/* Explanation */}
         <div className="bg-slate-800 rounded-2xl p-5 border border-slate-700/50">
           <h2 className="font-semibold text-slate-100 mb-3">What's happening?</h2>
-          <p className="text-slate-300 leading-relaxed">{issue.explanation}</p>
-        </div>
+            <p className="text-slate-300 leading-relaxed">{issue.explanation}</p>
+
+            {/* Historical Insights */}
+            {issue.historical_insights?.recommended_approach && (
+              <div className="mt-4 p-4 bg-blue-900/30 rounded-xl border border-blue-500/30">
+                <p className="text-sm font-semibold text-blue-400 mb-2">
+                  💡 Based on {issue.historical_insights.similar_cases_count} similar cases:
+                </p>
+                <p className="text-sm text-blue-200">{issue.historical_insights.recommended_approach}</p>
+                {issue.historical_insights.estimated_success_rate && (
+                  <p className="text-xs text-blue-300 mt-2">
+                    Estimated DIY success rate: {issue.historical_insights.estimated_success_rate}%
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
 
         {/* Safety Warnings */}
         {issue.safety_warnings?.length > 0 && (

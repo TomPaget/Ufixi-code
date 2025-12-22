@@ -71,12 +71,62 @@ export default function Home() {
         additionalInfo.duration && `Duration: ${additionalInfo.duration}`
       ].filter(Boolean).join("\n");
 
+      // Analyze user sentiment and emotional state
+      let sentimentData = null;
+      if (additionalInfo.description) {
+        try {
+          const { data: sentiment } = await base44.functions.invoke('analyzeSentiment', {
+            text: additionalInfo.description,
+            context: 'User submitting home repair issue'
+          });
+          sentimentData = sentiment.analysis;
+        } catch (error) {
+          console.error('Sentiment analysis failed:', error);
+        }
+      }
+
+      // Get similar historical issues for cross-reference
+      let historicalInsights = null;
+      try {
+        const { data: similarData } = await base44.functions.invoke('getSimilarIssues', {
+          issueDescription: additionalInfo.description || 'Issue from uploaded media',
+          category: additionalInfo.category,
+          tradeType: null
+        });
+        if (similarData.insights) {
+          historicalInsights = similarData.insights;
+        }
+      } catch (error) {
+        console.error('Historical analysis failed:', error);
+      }
+
       const analysis = await base44.integrations.Core.InvokeLLM({
         prompt: `You are a certified home maintenance professional with 20+ years of experience conducting detailed property inspections and repairs across all trades.
 
       IMPORTANT: Perform an EXHAUSTIVE, PROFESSIONAL-GRADE analysis using visual inspection, technical knowledge, and industry standards.
 
       ${contextInfo ? `User-Provided Context:\n${contextInfo}\n` : ""}
+
+      ${sentimentData ? `
+      USER EMOTIONAL ANALYSIS:
+      - Emotional State: ${sentimentData.emotional_state}
+      - Sentiment: ${sentimentData.sentiment_score > 0.3 ? 'Positive/Calm' : sentimentData.sentiment_score < -0.3 ? 'Stressed/Anxious' : 'Neutral'}
+      - Hidden Concerns: ${sentimentData.hidden_concerns?.join(', ') || 'None detected'}
+      - Urgency Indicators: ${sentimentData.urgency_indicators?.join(', ') || 'None'}
+
+      IMPORTANT: Adjust your tone and response based on the user's emotional state. If they're anxious, provide extra reassurance. If they show urgency indicators, acknowledge the time sensitivity.
+      ` : ""}
+
+      ${historicalInsights ? `
+      HISTORICAL DATA ANALYSIS (${historicalInsights.similar_issue_ids?.length || 0} similar cases):
+      - Recommended Approach: ${historicalInsights.recommended_approach}
+      - Success Rate: ${historicalInsights.estimated_success_rate}%
+      - Key Success Factors: ${historicalInsights.success_factors?.join('; ') || 'N/A'}
+      - Warning Signs: ${historicalInsights.warning_signs?.join('; ') || 'None'}
+      - Common Patterns: ${historicalInsights.common_patterns?.join('; ') || 'None'}
+
+      LEVERAGE THIS DATA: Use these historical insights to inform your recommendations. If similar cases had high success with DIY, emphasize that. If they required professionals, note why.
+      ` : ""}
 
       CRITICAL SAFETY MANDATE: Prioritize user safety. If ANY aspect suggests electrical hazards, gas leaks, structural instability, water damage, or life-threatening conditions, you MUST explicitly flag this and recommend immediate professional intervention.
 
@@ -278,12 +328,19 @@ export default function Home() {
               }
               });
 
-      // Create the issue
+      // Create the issue with sentiment and historical data
       const newIssue = await createIssueMutation.mutateAsync({
         ...analysis,
         media_url: fileUrl,
         media_type: mediaType,
-        status: "active"
+        status: "active",
+        sentiment_analysis: sentimentData,
+        historical_insights: historicalInsights ? {
+          similar_cases_count: historicalInsights.similar_issue_ids?.length || 0,
+          recommended_approach: historicalInsights.recommended_approach,
+          success_factors: historicalInsights.success_factors,
+          estimated_success_rate: historicalInsights.estimated_success_rate
+        } : null
       });
 
       // Update scan count for free users
