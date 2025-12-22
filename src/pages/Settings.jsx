@@ -14,7 +14,10 @@ import {
   Shield,
   Moon,
   Sun,
-  Edit2
+  Edit2,
+  Camera,
+  MapPin,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -39,6 +42,8 @@ export default function Settings() {
   const [editingProfile, setEditingProfile] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [requestingLocation, setRequestingLocation] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -70,6 +75,60 @@ export default function Settings() {
       display_name: displayName,
       bio: bio
     });
+  };
+
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingPhoto(true);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      await updateUserMutation.mutateAsync({ profile_picture_url: file_url });
+    } catch (error) {
+      console.error("Photo upload error:", error);
+    } finally {
+      setUploadingPhoto(false);
+    }
+  };
+
+  const handleRequestLocation = () => {
+    setRequestingLocation(true);
+    
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          
+          // Get approximate city/area using reverse geocoding via LLM
+          try {
+            const locationData = await base44.integrations.Core.InvokeLLM({
+              prompt: `Given these coordinates: latitude ${latitude}, longitude ${longitude}, return ONLY the city name and country. Format: "City, Country". Be concise.`,
+              add_context_from_internet: true
+            });
+
+            await updateUserMutation.mutateAsync({
+              location_latitude: latitude,
+              location_longitude: longitude,
+              approximate_location: locationData,
+              location_services_enabled: true
+            });
+          } catch (error) {
+            console.error("Location error:", error);
+          } finally {
+            setRequestingLocation(false);
+          }
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          setRequestingLocation(false);
+          alert("Unable to access location. Please enable location services in your browser settings.");
+        }
+      );
+    } else {
+      setRequestingLocation(false);
+      alert("Location services are not supported by your browser.");
+    }
   };
 
   const isPremium = user?.subscription_tier === "premium";
@@ -122,16 +181,46 @@ export default function Settings() {
           )}
         >
           <div className="flex items-center gap-4 mb-6">
-            <div className={cn(
-              "w-14 h-14 rounded-full flex items-center justify-center shadow-lg",
-              theme === "dark"
-                ? "bg-gradient-to-br from-blue-600 to-blue-700 shadow-blue-600/30 border border-blue-500/30"
-                : "bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/20 border border-blue-400/30"
-            )}>
-              <User className={cn(
-                "w-7 h-7",
-                theme === "dark" ? "text-blue-100" : "text-white"
-              )} />
+            <div className="relative">
+              {user?.profile_picture_url ? (
+                <img
+                  src={user.profile_picture_url}
+                  alt="Profile"
+                  className="w-14 h-14 rounded-full object-cover shadow-lg"
+                />
+              ) : (
+                <div className={cn(
+                  "w-14 h-14 rounded-full flex items-center justify-center shadow-lg",
+                  theme === "dark"
+                    ? "bg-gradient-to-br from-blue-600 to-blue-700 shadow-blue-600/30 border border-blue-500/30"
+                    : "bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/20 border border-blue-400/30"
+                )}>
+                  <User className={cn(
+                    "w-7 h-7",
+                    theme === "dark" ? "text-blue-100" : "text-white"
+                  )} />
+                </div>
+              )}
+              <label className={cn(
+                "absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg",
+                uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform",
+                theme === "dark"
+                  ? "bg-[#57CFA4]"
+                  : "bg-[#57CFA4]"
+              )}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handlePhotoUpload}
+                  disabled={uploadingPhoto}
+                />
+                {uploadingPhoto ? (
+                  <Loader2 className="w-3 h-3 text-white animate-spin" />
+                ) : (
+                  <Camera className="w-3 h-3 text-white" />
+                )}
+              </label>
             </div>
             <div className="flex-1">
               <h2 className={cn(
@@ -204,6 +293,60 @@ export default function Settings() {
               </Button>
             </div>
           )}
+
+          {/* Location Section */}
+          <div className={cn(
+            "rounded-xl p-4 border",
+            theme === "dark"
+              ? "bg-slate-700/50 border-slate-600/50"
+              : "bg-slate-50 border-slate-200"
+          )}>
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-3 flex-1">
+                <MapPin className={cn(
+                  "w-5 h-5 mt-0.5",
+                  user?.location_services_enabled
+                    ? "text-[#57CFA4]"
+                    : theme === "dark" ? "text-slate-400" : "text-slate-500"
+                )} />
+                <div className="flex-1">
+                  <p className={cn(
+                    "font-medium text-sm",
+                    theme === "dark" ? "text-slate-200" : "text-slate-900"
+                  )}>
+                    Location Services
+                  </p>
+                  <p className={cn(
+                    "text-xs mt-0.5",
+                    theme === "dark" ? "text-slate-400" : "text-slate-600"
+                  )}>
+                    {user?.location_services_enabled && user?.approximate_location
+                      ? user.approximate_location
+                      : "Enable to find local tradespeople"}
+                  </p>
+                </div>
+              </div>
+              <Button
+                size="sm"
+                onClick={handleRequestLocation}
+                disabled={requestingLocation}
+                className={cn(
+                  "rounded-xl",
+                  user?.location_services_enabled
+                    ? "bg-slate-500 hover:bg-slate-600"
+                    : "bg-[#57CFA4] hover:bg-[#57CFA4]/90"
+                )}
+              >
+                {requestingLocation ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : user?.location_services_enabled ? (
+                  "Update"
+                ) : (
+                  "Enable"
+                )}
+              </Button>
+            </div>
+          </div>
 
           {user?.bio && !editingProfile && (
             <p className={cn(
