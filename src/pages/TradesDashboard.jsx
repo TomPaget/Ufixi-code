@@ -32,9 +32,10 @@ export default function TradesDashboard() {
     queryFn: () => base44.auth.me()
   });
 
-  const { data: workRequests = [] } = useQuery({
-    queryKey: ["workRequests"],
-    queryFn: () => base44.entities.WorkRequest.filter({ tradesperson_id: user?.id }, "-created_date")
+  const { data: jobs = [] } = useQuery({
+    queryKey: ["jobs"],
+    queryFn: () => base44.entities.Job.filter({ tradesperson_id: user?.id }, "-created_date"),
+    enabled: !!user
   });
 
   const { data: availableJobs = [] } = useQuery({
@@ -55,28 +56,16 @@ export default function TradesDashboard() {
     queryFn: () => base44.entities.Testimonial.filter({ tradesperson_id: user?.id }, "-created_date")
   });
 
-  const updateRequestMutation = useMutation({
-    mutationFn: ({ id, status }) => base44.entities.WorkRequest.update(id, { 
-      status,
-      ...(status === "completed" && { 
-        completion_date: new Date().toISOString().split("T")[0],
-        can_review: true
-      })
-    }),
+  const updateJobMutation = useMutation({
+    mutationFn: ({ id, updates }) => base44.entities.Job.update(id, updates),
     onSuccess: () => {
-      queryClient.invalidateQueries(["workRequests"]);
-      if (updateRequestMutation.variables?.status === "completed") {
-        base44.auth.updateMe({
-          trades_jobs_completed: (user?.trades_jobs_completed || 0) + 1
-        });
-        queryClient.invalidateQueries(["user"]);
-      }
+      queryClient.invalidateQueries(["jobs"]);
     }
   });
 
-  const pendingRequests = workRequests.filter(r => r.status === "pending");
-  const activeJobs = workRequests.filter(r => r.status === "accepted");
-  const completedJobs = workRequests.filter(r => r.status === "completed");
+  const pendingRequests = jobs.filter(r => r.status === "pending");
+  const activeJobs = jobs.filter(r => r.status === "in_progress");
+  const completedJobs = jobs.filter(r => r.status === "completed");
   const approvedTestimonials = testimonials.filter(t => t.moderation_status === "approved");
   const pendingTestimonials = testimonials.filter(t => t.moderation_status === "pending");
 
@@ -297,7 +286,7 @@ export default function TradesDashboard() {
                         responses_count: (job.responses_count || 0) + 1
                       });
                       queryClient.invalidateQueries(["availableJobs"]);
-                      queryClient.invalidateQueries(["workRequests"]);
+                      queryClient.invalidateQueries(["jobs"]);
                     }}
                     className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90"
                   >
@@ -345,19 +334,24 @@ export default function TradesDashboard() {
                   </p>
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => updateRequestMutation.mutate({ id: request.id, status: "accepted" })}
+                      onClick={() => updateJobMutation.mutate({ 
+                        id: request.id, 
+                        updates: { 
+                          status: "accepted",
+                          start_date: new Date().toISOString()
+                        }
+                      })}
                       className="flex-1 bg-[#57CFA4] hover:bg-[#57CFA4]/90"
                     >
                       <CheckCircle2 className="w-4 h-4 mr-2" />
                       Accept
                     </Button>
                     <Button
-                      onClick={() => updateRequestMutation.mutate({ id: request.id, status: "declined" })}
+                      onClick={() => navigate(createPageUrl(`JobDetail?id=${request.id}`))}
                       variant="outline"
                       className="flex-1"
                     >
-                      <XCircle className="w-4 h-4 mr-2" />
-                      Decline
+                      View Details
                     </Button>
                   </div>
                 </div>
@@ -401,13 +395,30 @@ export default function TradesDashboard() {
                   <p className={cn("text-sm mb-4", theme === "dark" ? "text-white" : "text-slate-700")}>
                     {job.description}
                   </p>
-                  <Button
-                    onClick={() => updateRequestMutation.mutate({ id: job.id, status: "completed" })}
-                    className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90"
-                  >
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
-                    Mark as Completed
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => navigate(createPageUrl(`JobDetail?id=${job.id}`))}
+                      className="flex-1 bg-[#57CFA4] hover:bg-[#57CFA4]/90"
+                    >
+                      Manage Job
+                    </Button>
+                    <Button
+                      onClick={async () => {
+                        const convo = await base44.entities.Conversation.filter({
+                          participant_1_id: user.id,
+                          participant_2_id: job.customer_id
+                        });
+                        if (convo.length > 0) {
+                          navigate(createPageUrl(`Chat?id=${convo[0].id}`));
+                        }
+                      }}
+                      variant="outline"
+                      className="flex-1"
+                    >
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Chat
+                    </Button>
+                  </div>
                 </div>
               ))
             )}
