@@ -7,15 +7,16 @@ import {
   ArrowLeft, 
   Upload, 
   Loader2, 
-  X, 
-  Plus,
+  X,
   Clock,
   MapPin,
   Star,
   Briefcase,
   Calendar,
   Award,
-  Image as ImageIcon
+  Image as ImageIcon,
+  AlertTriangle,
+  CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -61,7 +62,6 @@ export default function TradesProfile() {
       setSpecialties(user.trades_specialties || [user.trades_specialty].filter(Boolean));
       setWorkingHours(user.trades_working_hours || workingHours);
       setGallery(user.trades_gallery || []);
-      setTestimonials(user.trades_testimonials || []);
     }
   }, [user]);
 
@@ -101,24 +101,23 @@ export default function TradesProfile() {
     setGallery(updated);
   };
 
-  const addTestimonial = () => {
-    setTestimonials([...testimonials, {
-      customer_name: "",
-      rating: 5,
-      comment: "",
-      date: new Date().toISOString().split("T")[0]
-    }]);
-  };
+  const { data: approvedTestimonials = [] } = useQuery({
+    queryKey: ["testimonials", user?.id],
+    queryFn: () => base44.entities.Testimonial.filter({
+      tradesperson_id: user?.id,
+      moderation_status: "approved"
+    }),
+    enabled: !!user
+  });
 
-  const updateTestimonial = (index, field, value) => {
-    const updated = [...testimonials];
-    updated[index][field] = value;
-    setTestimonials(updated);
-  };
-
-  const removeTestimonial = (index) => {
-    setTestimonials(testimonials.filter((_, i) => i !== index));
-  };
+  const { data: pendingTestimonials = [] } = useQuery({
+    queryKey: ["pending-testimonials", user?.id],
+    queryFn: () => base44.entities.Testimonial.filter({
+      tradesperson_id: user?.id,
+      moderation_status: "pending"
+    }),
+    enabled: !!user
+  });
 
   const toggleSpecialty = (specialty) => {
     if (specialties.includes(specialty)) {
@@ -136,8 +135,7 @@ export default function TradesProfile() {
       trades_years_operated: parseInt(yearsOperated) || 0,
       trades_specialties: specialties,
       trades_working_hours: workingHours,
-      trades_gallery: gallery,
-      trades_testimonials: testimonials
+      trades_gallery: gallery
     });
   };
 
@@ -435,85 +433,181 @@ export default function TradesProfile() {
 
         {/* Testimonials Tab */}
         {activeTab === "testimonials" && (
-          <div className="space-y-4">
-            <Button
-              onClick={addTestimonial}
-              className="w-full border-2 border-dashed gap-2 bg-transparent hover:bg-[#57CFA4]/10 text-[#57CFA4] border-[#57CFA4]/30"
-            >
-              <Plus className="w-4 h-4" />
-              Add Testimonial
-            </Button>
+          <div className="space-y-6">
+            {/* Pending Reviews */}
+            {pendingTestimonials.length > 0 && (
+              <div>
+                <h3 className={cn(
+                  "font-semibold mb-3 flex items-center gap-2",
+                  theme === "dark" ? "text-[#F7B600]" : "text-[#1E3A57]"
+                )}>
+                  <AlertTriangle className="w-5 h-5" />
+                  Pending Review ({pendingTestimonials.length})
+                </h3>
+                <div className="space-y-3">
+                  {pendingTestimonials.map((testimonial) => (
+                    <div
+                      key={testimonial.id}
+                      className={cn(
+                        "rounded-2xl p-4 border-2",
+                        theme === "dark"
+                          ? "bg-[#1A2F42] border-[#F7B600]/30"
+                          : "bg-amber-50 border-amber-200"
+                      )}
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <p className={cn(
+                            "font-semibold",
+                            theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                          )}>
+                            {testimonial.customer_name}
+                          </p>
+                          <div className="flex gap-1 mt-1">
+                            {[1, 2, 3, 4, 5].map(star => (
+                              <Star
+                                key={star}
+                                className={cn(
+                                  "w-4 h-4",
+                                  star <= testimonial.rating
+                                    ? "fill-[#F7B600] text-[#F7B600]"
+                                    : "text-slate-300"
+                                )}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <span className={cn(
+                          "text-xs px-2 py-1 rounded-full",
+                          theme === "dark"
+                            ? "bg-[#F7B600]/20 text-[#F7B600]"
+                            : "bg-amber-100 text-amber-700"
+                        )}>
+                          Under Review
+                        </span>
+                      </div>
+                      <p className={cn(
+                        "text-sm",
+                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                      )}>
+                        {testimonial.comment}
+                      </p>
+                      {testimonial.moderation_flags?.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {testimonial.moderation_flags.map((flag, i) => (
+                            <span
+                              key={i}
+                              className="text-xs px-2 py-1 rounded-full bg-red-500/10 text-red-600"
+                            >
+                              {flag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "rounded-2xl p-4 border-2 space-y-3",
+            {/* Approved Reviews */}
+            <div>
+              <h3 className={cn(
+                "font-semibold mb-3 flex items-center gap-2",
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+              )}>
+                <CheckCircle2 className="w-5 h-5" />
+                Published Reviews ({approvedTestimonials.length})
+              </h3>
+              {approvedTestimonials.length === 0 ? (
+                <div className={cn(
+                  "text-center py-8 rounded-2xl border-2",
                   theme === "dark"
                     ? "bg-[#1A2F42] border-[#57CFA4]/30"
                     : "bg-white border-slate-200"
-                )}
-              >
-                <div className="flex items-center justify-between">
-                  <Input
-                    placeholder="Customer name"
-                    value={testimonial.customer_name}
-                    onChange={(e) => updateTestimonial(index, "customer_name", e.target.value)}
-                    className={cn(
-                      "flex-1 border-2",
-                      theme === "dark"
-                        ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                        : "bg-white border-slate-200"
-                    )}
-                  />
-                  <button
-                    onClick={() => removeTestimonial(index)}
-                    className="ml-2 text-red-500"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
+                )}>
+                  <Star className={cn(
+                    "w-12 h-12 mx-auto mb-3",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+                  )} />
+                  <p className={cn(
+                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                  )}>
+                    No reviews yet
+                  </p>
+                  <p className={cn(
+                    "text-sm mt-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                  )}>
+                    Customer reviews will appear here after moderation
+                  </p>
                 </div>
-
-                <div className="flex items-center gap-2">
-                  <span className={cn(
-                    "text-sm",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                  )}>Rating:</span>
-                  <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5].map(star => (
-                      <button
-                        key={star}
-                        onClick={() => updateTestimonial(index, "rating", star)}
-                        className="focus:outline-none"
-                      >
-                        <Star
-                          className={cn(
-                            "w-5 h-5",
-                            star <= testimonial.rating
-                              ? "fill-[#F7B600] text-[#F7B600]"
-                              : theme === "dark"
-                                ? "text-[#57CFA4]/30"
-                                : "text-slate-300"
-                          )}
-                        />
-                      </button>
-                    ))}
-                  </div>
+              ) : (
+                <div className="space-y-3">
+                  {approvedTestimonials.map((testimonial) => (
+                    <div
+                      key={testimonial.id}
+                      className={cn(
+                        "rounded-2xl p-4 border-2",
+                        theme === "dark"
+                          ? "bg-[#1A2F42] border-[#57CFA4]/30"
+                          : "bg-white border-slate-200"
+                      )}
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <p className={cn(
+                            "font-semibold",
+                            theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                          )}>
+                            {testimonial.customer_name}
+                          </p>
+                          <div className="flex gap-1 mt-1">
+                            {[1, 2, 3, 4, 5].map(star => (
+                              <Star
+                                key={star}
+                                className={cn(
+                                  "w-4 h-4",
+                                  star <= testimonial.rating
+                                    ? "fill-[#F7B600] text-[#F7B600]"
+                                    : "text-slate-300"
+                                )}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <span className={cn(
+                          "text-xs",
+                          theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                        )}>
+                          Score: {testimonial.moderation_score}/100
+                        </span>
+                      </div>
+                      <p className={cn(
+                        "text-sm",
+                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                      )}>
+                        {testimonial.comment}
+                      </p>
+                    </div>
+                  ))}
                 </div>
+              )}
+            </div>
 
-                <Textarea
-                  placeholder="Customer feedback..."
-                  value={testimonial.comment}
-                  onChange={(e) => updateTestimonial(index, "comment", e.target.value)}
-                  className={cn(
-                    "border-2 min-h-20",
-                    theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                      : "bg-white border-slate-200"
-                  )}
-                />
-              </div>
-            ))}
+            <div className={cn(
+              "rounded-2xl p-4 border-2",
+              theme === "dark"
+                ? "bg-[#1A2F42]/50 border-[#57CFA4]/20"
+                : "bg-slate-50 border-slate-200"
+            )}>
+              <p className={cn(
+                "text-sm",
+                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+              )}>
+                <strong>Note:</strong> All customer testimonials are automatically moderated by AI for profanity, fake reviews, and inappropriate content before publication.
+              </p>
+            </div>
           </div>
         )}
       </main>
