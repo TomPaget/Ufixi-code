@@ -37,6 +37,19 @@ export default function TradesDashboard() {
     queryFn: () => base44.entities.WorkRequest.filter({ tradesperson_id: user?.id }, "-created_date")
   });
 
+  const { data: availableJobs = [] } = useQuery({
+    queryKey: ["availableJobs"],
+    queryFn: async () => {
+      const jobs = await base44.entities.JobPosting.filter({ status: "open" }, "-created_date");
+      // Filter by tradesperson's specialty
+      return jobs.filter(job => 
+        user?.trades_specialties?.includes(job.trade_type) || 
+        user?.trades_specialty === job.trade_type
+      );
+    },
+    enabled: !!user
+  });
+
   const { data: testimonials = [] } = useQuery({
     queryKey: ["testimonials"],
     queryFn: () => base44.entities.Testimonial.filter({ tradesperson_id: user?.id }, "-created_date")
@@ -210,19 +223,90 @@ export default function TradesDashboard() {
         </div>
 
         {/* Tabs */}
-        <Tabs defaultValue="requests" className="w-full">
+        <Tabs defaultValue="jobs" className="w-full">
           <TabsList className={cn(
-            "w-full grid grid-cols-3",
+            "w-full grid grid-cols-4",
             theme === "dark" ? "bg-[#1A2F42]" : "bg-slate-100"
           )}>
-            <TabsTrigger value="requests">
-              Requests {pendingRequests.length > 0 && (
-                <Badge className="ml-2 bg-red-500">{pendingRequests.length}</Badge>
+            <TabsTrigger value="jobs">
+              Jobs {availableJobs.length > 0 && (
+                <Badge className="ml-1 bg-[#F7B600] text-xs">{availableJobs.length}</Badge>
               )}
             </TabsTrigger>
-            <TabsTrigger value="active">Active {activeJobs.length > 0 && `(${activeJobs.length})`}</TabsTrigger>
+            <TabsTrigger value="requests">
+              Requests {pendingRequests.length > 0 && (
+                <Badge className="ml-1 bg-red-500 text-xs">{pendingRequests.length}</Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="active">Active</TabsTrigger>
             <TabsTrigger value="reviews">Reviews</TabsTrigger>
           </TabsList>
+
+          {/* Available Jobs */}
+          <TabsContent value="jobs" className="space-y-3 mt-4">
+            {availableJobs.length === 0 ? (
+              <div className={cn(
+                "text-center py-12 rounded-2xl border",
+                theme === "dark"
+                  ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                  : "bg-white border-slate-200"
+              )}>
+                <Briefcase className={cn("w-12 h-12 mx-auto mb-3", theme === "dark" ? "text-[#57CFA4]" : "text-slate-400")} />
+                <p className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-slate-600")}>
+                  No jobs available for your specialties
+                </p>
+              </div>
+            ) : (
+              availableJobs.map((job) => (
+                <div key={job.id} className={cn(
+                  "rounded-2xl p-4 border",
+                  theme === "dark"
+                    ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                    : "bg-white border-slate-200"
+                )}>
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className={cn("font-semibold", theme === "dark" ? "text-white" : "text-slate-900")}>
+                        {job.title}
+                      </h3>
+                      <p className={cn("text-xs mt-1", theme === "dark" ? "text-[#57CFA4]" : "text-slate-500")}>
+                        Posted by {job.customer_name}
+                      </p>
+                    </div>
+                    <Badge className="bg-[#F7B600] text-[#0F1E2E]">{job.urgency}</Badge>
+                  </div>
+                  <p className={cn("text-sm mb-3", theme === "dark" ? "text-white" : "text-slate-700")}>
+                    {job.description}
+                  </p>
+                  {(job.budget_min || job.budget_max) && (
+                    <p className={cn("text-sm mb-3", theme === "dark" ? "text-[#F7B600]" : "text-yellow-600")}>
+                      Budget: £{job.budget_min} - £{job.budget_max}
+                    </p>
+                  )}
+                  <Button
+                    onClick={async () => {
+                      await base44.entities.WorkRequest.create({
+                        customer_id: job.customer_id,
+                        customer_name: job.customer_name,
+                        tradesperson_id: user?.id,
+                        tradesperson_name: user?.trades_business_name || user?.display_name || user?.full_name,
+                        description: `Response to: ${job.title}`,
+                        status: "pending"
+                      });
+                      await base44.entities.JobPosting.update(job.id, {
+                        responses_count: (job.responses_count || 0) + 1
+                      });
+                      queryClient.invalidateQueries(["availableJobs"]);
+                      queryClient.invalidateQueries(["workRequests"]);
+                    }}
+                    className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90"
+                  >
+                    Send Quote
+                  </Button>
+                </div>
+              ))
+            )}
+          </TabsContent>
 
           {/* Pending Requests */}
           <TabsContent value="requests" className="space-y-3 mt-4">

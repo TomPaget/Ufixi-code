@@ -20,6 +20,8 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import Notifications from './pages/Notifications';
+import PostJob from './pages/PostJob';
+import MyJobs from './pages/MyJobs';
 import __Layout from './Layout.jsx';
 
 
@@ -46,6 +48,8 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "Notifications": Notifications,
+    "PostJob": PostJob,
+    "MyJobs": MyJobs,
 }
 
 export const pagesConfig = {
