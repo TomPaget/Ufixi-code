@@ -19,6 +19,7 @@ const customerMenuItems = [
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: Users, label: "My Contractors", page: "Contractors" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
+  { icon: Home, label: "Home Profile", page: "HomeProfile" },
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
   { icon: Settings, label: "My Account", page: "Settings" }
 ];
