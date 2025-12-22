@@ -6,6 +6,7 @@ import Forum from './pages/Forum';
 import ForumPost from './pages/ForumPost';
 import History from './pages/History';
 import Home from './pages/Home';
+import HomeProfile from './pages/HomeProfile';
 import IssueDetail from './pages/IssueDetail';
 import Messages from './pages/Messages';
 import MyJobs from './pages/MyJobs';
@@ -22,7 +23,6 @@ import TradesProfile from './pages/TradesProfile';
 import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
-import HomeProfile from './pages/HomeProfile';
 import __Layout from './Layout.jsx';
 
 
@@ -35,6 +35,7 @@ export const PAGES = {
     "ForumPost": ForumPost,
     "History": History,
     "Home": Home,
+    "HomeProfile": HomeProfile,
     "IssueDetail": IssueDetail,
     "Messages": Messages,
     "MyJobs": MyJobs,
@@ -51,7 +52,6 @@ export const PAGES = {
     "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
-    "HomeProfile": HomeProfile,
 }
 
 export const pagesConfig = {

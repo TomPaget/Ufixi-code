@@ -86,43 +86,52 @@ export default function FindTradesmen() {
       const certsFilter = certifications.length > 0 ? ` with certifications: ${certifications.join(", ")}` : "";
       
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Find ALL local tradespeople${tradeFilter}${servicesFilter}${experienceFilter}${availabilityFilter}${certsFilter} near ${user?.postcode || ""}, ${user?.country || "UK"} (coordinates ${loc.lat}, ${loc.lng}).
+        prompt: `You are a LOCAL tradesperson finder. Your mission is to find REAL tradespeople who ACTUALLY service the postcode ${user?.postcode || ""} in ${user?.country || "UK"}.
 
-SEARCH COMPREHENSIVELY ACROSS MULTIPLE SOURCES:
-1. Google Search & Google Maps - for business listings
-2. Facebook - search for local tradesperson pages, groups, and recommendations
-3. Local Facebook Groups - scan community groups for recommended tradespeople
-4. Bing, DuckDuckGo, and other search engines
-5. Review sites (Trustpilot, Checkatrade, etc.)
-6. Local business directories
-7. Social media profiles and posts
+**LOCATION ACCURACY IS CRITICAL:**
+- Coordinates: ${loc.lat}, ${loc.lng}
+- Postcode/Zip: ${user?.postcode || ""}
+- Country: ${user?.country || "UK"}
 
-For EACH tradesperson found, gather:
-- Business name
-- Trade/specialty (plumber, electrician, carpenter, etc.)
-- Phone number
-- Average rating (1-5 stars) from any available source
-- Number of reviews/recommendations
-- Approximate distance in miles from ${loc.lat}, ${loc.lng}
-- Hourly rate estimate (in currency) if available
+**MANDATORY SEARCH SOURCES (use ALL of these):**
+1. **Google Maps Business Listings** - Search "${tradeType || "tradesmen"} near ${user?.postcode || ""}"
+2. **Checkatrade** - Verified local tradespeople in this exact postcode area
+3. **RatedPeople** - Search by postcode for local professionals
+4. **TrustATrader** - Check local listings
+5. **MyBuilder** - Local tradesperson profiles
+6. **Google Business** - Local business listings with reviews
+7. **Bing Maps** - Additional local business data
+8. **Local directories** - Yell, Thomson Local for this postcode
+9. **Facebook Business Pages** - Local tradespeople serving this area
+10. **Google Search** - "${tradeType || "tradesman"} ${user?.postcode || ""}"
+
+**SEARCH REQUIREMENTS:**
+Trade Type: ${tradeType || "any"}${servicesFilter}${experienceFilter}${availabilityFilter}${certsFilter}
+
+**STRICT VALIDATION:**
+- Each tradesperson MUST actually service ${user?.postcode || ""}
+- Verify they operate within ${searchRadius} miles of this location
+- Include ONLY tradespeople with verifiable contact details
+- Must have actual business presence (not generic results)
+
+**For EACH tradesperson, provide:**
+- Business name (from actual listing)
+- Trade/specialty
+- Phone number (verified from listing)
+- Postcode/service area (confirm it matches)
+- Average rating from reviews (Checkatrade, Google, etc.)
+- Number of reviews
+- Distance in miles from ${loc.lat}, ${loc.lng}
+- Hourly rate (realistic for ${user?.country || "UK"})
 - Email if available
-- Business address or service area
-- Years of experience or time in business
-- Specific services offered (e.g., emergency repairs, installations, maintenance, inspections)
-- Availability (emergency 24/7, same-day, standard)
-- Certifications, licenses, or accreditations (Gas Safe, NICEIC, etc.)
-- Social media presence (if found on Facebook or other platforms)
-- Any verified badges or certifications mentioned
-- IMPORTANT: The direct URL/link where this tradesperson was found (Google Maps listing, Facebook page, website, business directory, etc.)
+- Years in business
+- Services offered (from their actual profile)
+- Availability
+- Certifications (Gas Safe, NICEIC, etc.)
+- Source URL (direct link to their listing)
 
-Prioritize tradespeople with:
-- Active social media presence
-- Recent Facebook posts or activity
-- Community recommendations from local groups
-- Verified business profiles
-- Positive reviews
-
-Return as many results as possible (aim for 15-25+ if available). Include both established businesses and independent tradespeople found on social media.`,
+**QUALITY OVER QUANTITY:**
+Return 8-15 REAL local tradespeople. Better to have fewer accurate results than many generic ones.`,
         add_context_from_internet: true,
         response_json_schema: {
           type: "object",
