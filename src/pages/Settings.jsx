@@ -284,6 +284,62 @@ export default function Settings() {
                   )}
                 />
               </div>
+              
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label className={cn(
+                    "text-sm mb-1 block",
+                    theme === "dark" ? "text-slate-300" : "text-slate-700"
+                  )}>
+                    Country
+                  </Label>
+                  <Select
+                    value={user?.country || ""}
+                    onValueChange={(value) => {
+                      base44.auth.updateMe({ country: value });
+                      queryClient.invalidateQueries(["user"]);
+                    }}
+                  >
+                    <SelectTrigger className={cn(
+                      theme === "dark"
+                        ? "bg-slate-700 border-slate-600 text-white"
+                        : "bg-white border-slate-200"
+                    )}>
+                      <SelectValue placeholder="Select country" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="UK">United Kingdom</SelectItem>
+                      <SelectItem value="US">United States</SelectItem>
+                      <SelectItem value="CA">Canada</SelectItem>
+                      <SelectItem value="AU">Australia</SelectItem>
+                      <SelectItem value="IE">Ireland</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className={cn(
+                    "text-sm mb-1 block",
+                    theme === "dark" ? "text-slate-300" : "text-slate-700"
+                  )}>
+                    Postcode
+                  </Label>
+                  <Input
+                    value={user?.postcode || ""}
+                    onChange={(e) => {
+                      base44.auth.updateMe({ postcode: e.target.value });
+                      queryClient.invalidateQueries(["user"]);
+                    }}
+                    placeholder="e.g., SW1A 1AA"
+                    className={cn(
+                      theme === "dark"
+                        ? "bg-slate-700 border-slate-600 text-white"
+                        : "bg-white border-slate-200"
+                    )}
+                  />
+                </div>
+              </div>
+              
               <Button
                 onClick={handleSaveProfile}
                 disabled={updateUserMutation.isPending}
