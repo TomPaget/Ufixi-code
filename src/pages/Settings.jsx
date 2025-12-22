@@ -13,11 +13,14 @@ import {
   User,
   Shield,
   Moon,
-  Sun
+  Sun,
+  Edit2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -33,16 +36,24 @@ export default function Settings() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { theme, toggleTheme } = useTheme();
+  const [editingProfile, setEditingProfile] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+  const [bio, setBio] = useState("");
 
   const { data: user } = useQuery({
     queryKey: ["user"],
-    queryFn: () => base44.auth.me()
+    queryFn: () => base44.auth.me(),
+    onSuccess: (data) => {
+      setDisplayName(data?.display_name || data?.full_name || "");
+      setBio(data?.bio || "");
+    }
   });
 
   const updateUserMutation = useMutation({
     mutationFn: (data) => base44.auth.updateMe(data),
     onSuccess: () => {
       queryClient.invalidateQueries(["user"]);
+      setEditingProfile(false);
     }
   });
 
@@ -52,6 +63,13 @@ export default function Settings() {
 
   const handleLogout = () => {
     base44.auth.logout();
+  };
+
+  const handleSaveProfile = () => {
+    updateUserMutation.mutate({
+      display_name: displayName,
+      bio: bio
+    });
   };
 
   const isPremium = user?.subscription_tier === "premium";
@@ -115,17 +133,88 @@ export default function Settings() {
                 theme === "dark" ? "text-blue-100" : "text-white"
               )} />
             </div>
-            <div>
+            <div className="flex-1">
               <h2 className={cn(
                 "font-semibold",
                 theme === "dark" ? "text-slate-100" : "text-slate-900"
-              )}>{user?.full_name || "User"}</h2>
+              )}>{user?.display_name || user?.full_name || "User"}</h2>
               <p className={cn(
                 "text-sm",
                 theme === "dark" ? "text-slate-400" : "text-slate-600"
               )}>{user?.email}</p>
             </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setEditingProfile(!editingProfile)}
+              className={cn(
+                "rounded-xl",
+                theme === "dark" ? "hover:bg-slate-700" : "hover:bg-slate-100"
+              )}
+            >
+              <Edit2 className="w-4 h-4" />
+            </Button>
           </div>
+
+          {editingProfile && (
+            <div className="space-y-3 mb-4">
+              <div>
+                <Label className={cn(
+                  "text-sm mb-1 block",
+                  theme === "dark" ? "text-slate-300" : "text-slate-700"
+                )}>
+                  Display Name
+                </Label>
+                <Input
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  placeholder="Your display name"
+                  className={cn(
+                    theme === "dark"
+                      ? "bg-slate-700 border-slate-600 text-white"
+                      : "bg-white border-slate-200"
+                  )}
+                />
+              </div>
+              <div>
+                <Label className={cn(
+                  "text-sm mb-1 block",
+                  theme === "dark" ? "text-slate-300" : "text-slate-700"
+                )}>
+                  Bio
+                </Label>
+                <Textarea
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  placeholder="Tell others about yourself..."
+                  className={cn(
+                    "h-20",
+                    theme === "dark"
+                      ? "bg-slate-700 border-slate-600 text-white"
+                      : "bg-white border-slate-200"
+                  )}
+                />
+              </div>
+              <Button
+                onClick={handleSaveProfile}
+                disabled={updateUserMutation.isPending}
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
+                {updateUserMutation.isPending ? "Saving..." : "Save Changes"}
+              </Button>
+            </div>
+          )}
+
+          {user?.bio && !editingProfile && (
+            <p className={cn(
+              "text-sm mb-4 p-3 rounded-xl",
+              theme === "dark"
+                ? "bg-slate-700/50 text-slate-300"
+                : "bg-slate-50 text-slate-600"
+            )}>
+              {user.bio}
+            </p>
+          )}
 
           <div className={cn(
             "flex items-center justify-between p-3 rounded-xl border",

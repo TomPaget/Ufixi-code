@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { X, Home, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail } from "lucide-react";
+import { X, Home, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 
-const menuItems = [
+const customerMenuItems = [
   { icon: Home, label: "Home", page: "Home" },
   { icon: History, label: "History", page: "History" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
-  { icon: Briefcase, label: "Trades Account", page: "TradesSignup", tradesOnly: false },
+  { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: Users, label: "My Contractors", page: "Contractors" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
@@ -19,8 +21,26 @@ const menuItems = [
   { icon: Settings, label: "My Account", page: "Settings" }
 ];
 
+const tradesMenuItems = [
+  { icon: Home, label: "Home", page: "Home" },
+  { icon: LayoutDashboard, label: "My Dashboard", page: "TradesDashboard" },
+  { icon: Briefcase, label: "My Profile", page: "TradesProfile" },
+  { icon: Mail, label: "Messages", page: "Messages" },
+  { icon: MessageCircle, label: "Community Forum", page: "Forum" },
+  { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
+  { icon: HelpCircle, label: "Support Chat", page: "Support" },
+  { icon: Settings, label: "My Account", page: "Settings" }
+];
+
 export default function HamburgerMenu({ isOpen, onClose }) {
   const { theme } = useTheme();
+  
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => base44.auth.me()
+  });
+
+  const menuItems = user?.account_type === "trades" ? tradesMenuItems : customerMenuItems;
 
   return (
     <AnimatePresence>
