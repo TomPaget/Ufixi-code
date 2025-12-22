@@ -44,6 +44,14 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
 
   // Step 1: Upload media
   const handleFileSelect = async (type, file) => {
+    if (!file) return;
+    
+    // Validate video format - only MP4 is reliably supported by AI analysis
+    if (type === "video" && !file.type.includes("mp4")) {
+      alert("Only MP4 video format is supported for AI analysis. Please convert your video to MP4 or use a photo instead.");
+      return;
+    }
+    
     setMediaType(type);
     setMediaFile(file);
     setMediaUrl(URL.createObjectURL(file));
@@ -276,7 +284,7 @@ Be practical, safety-conscious, and helpful.`,
                 )}>
                   <input
                     type="file"
-                    accept="video/*"
+                    accept="video/mp4"
                     capture="environment"
                     className="hidden"
                     onChange={(e) => handleFileSelect("video", e.target.files[0])}
@@ -360,7 +368,7 @@ Be practical, safety-conscious, and helpful.`,
               )}>
                 <input
                   type="file"
-                  accept="video/*"
+                  accept="video/mp4"
                   className="hidden"
                   onChange={(e) => handleFileSelect("video", e.target.files[0])}
                 />
@@ -369,7 +377,7 @@ Be practical, safety-conscious, and helpful.`,
                   "text-xs text-center",
                   theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
                 )}>
-                  Upload Video
+                  Upload Video (MP4)
                 </span>
               </label>
 
