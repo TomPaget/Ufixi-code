@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Upload, Loader2, CheckCircle2, TrendingUp } from "lucide-react";
+import { Sparkles, Upload, Loader2, CheckCircle2, TrendingUp, FileText, ChevronRight } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { format } from "date-fns";
 
 export default function JobAssistant({ onComplete, initialDescription = "" }) {
   const { theme } = useTheme();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0); // Start at 0 to show issue selection
+  const [selectedIssue, setSelectedIssue] = useState(null);
   const [description, setDescription] = useState(initialDescription);
   const [analyzing, setAnalyzing] = useState(false);
   const [suggestions, setSuggestions] = useState(null);
@@ -20,27 +23,55 @@ export default function JobAssistant({ onComplete, initialDescription = "" }) {
   const [photos, setPhotos] = useState([]);
   const [uploading, setUploading] = useState(false);
 
+  const { data: issues = [] } = useQuery({
+    queryKey: ["issues"],
+    queryFn: () => base44.entities.Issue.filter({ status: "active" }, "-created_date", 20)
+  });
+
+  const handleSelectIssue = (issue) => {
+    setSelectedIssue(issue);
+    setDescription(issue.description || issue.explanation || "");
+    setPhotos(issue.media_url ? [issue.media_url] : []);
+    setStep(1);
+  };
+
   const handleAnalyzeDescription = async () => {
     if (!description.trim()) return;
     
     setAnalyzing(true);
     try {
+      const issueContext = selectedIssue ? `
+
+EXISTING ISSUE ANALYSIS:
+- Issue Title: ${selectedIssue.title}
+- Issue Explanation: ${selectedIssue.explanation}
+- Detected Trade Type: ${selectedIssue.trade_type || "Not specified"}
+- Urgency: ${selectedIssue.urgency}
+- Severity Score: ${selectedIssue.severity_score}/10
+- DIY Steps Available: ${selectedIssue.diy_steps?.length || 0} steps
+- Products Needed: ${selectedIssue.products_needed?.length || 0} items
+- Estimated DIY Cost: £${selectedIssue.diy_cost_min}-£${selectedIssue.diy_cost_max}
+- Estimated Professional Cost: £${selectedIssue.pro_cost_min}-£${selectedIssue.pro_cost_max}
+
+Use this professional diagnosis to create an accurate job posting with correct terminology.` : "";
+
       const result = await base44.integrations.Core.InvokeLLM({
         prompt: `Analyze this job description and provide helpful suggestions:
 
 "${description}"
+${issueContext}
 
 Provide:
 1. The most appropriate trade type (plumbing, electrical, hvac, carpentry, roofing, painting, general, appliances, other)
-2. Specific services needed (3-5 specific tasks)
+2. Specific services needed (3-5 specific tasks using professional terminology)
 3. Recommended details the customer should add (missing information)
 4. Photo suggestions (what angles/areas would help tradespeople quote accurately)
-5. Estimated budget range in GBP for this type of work (realistic UK pricing)
+5. Estimated budget range in GBP for this type of work (realistic UK pricing${selectedIssue ? " - use the professional cost estimates from the issue analysis" : ""})
 6. Urgency level (low, medium, high, urgent)
-7. Improved job title (concise, clear, professional)
-8. Enhanced description (more detailed, professional, clear expectations)
+7. Improved job title (concise, clear, professional - use correct trade terminology)
+8. Enhanced description (professional, detailed, uses correct terms from the issue analysis)
 
-Be specific and practical. Focus on helping the customer get accurate quotes.`,
+Be specific and practical. Use professional trade terminology. Focus on helping the customer get accurate quotes.`,
         add_context_from_internet: true,
         response_json_schema: {
           type: "object",
@@ -106,13 +137,120 @@ Be specific and practical. Focus on helping the customer get accurate quotes.`,
       budget_min: suggestions?.budget_min,
       budget_max: suggestions?.budget_max,
       photos: photos,
-      urgency: suggestions?.urgency || "medium"
+      urgency: suggestions?.urgency || "medium",
+      issue_id: selectedIssue?.id
     });
   };
 
   return (
     <div className="space-y-4">
       <AnimatePresence mode="wait">
+        {/* Step 0: Select Issue (Optional) */}
+        {step === 0 && (
+          <motion.div
+            key="step0"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="space-y-3"
+          >
+            <div className={cn(
+              "rounded-2xl p-5 border",
+              theme === "dark"
+                ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                : "bg-white border-slate-200"
+            )}>
+              <div className="flex items-center gap-2 mb-3">
+                <FileText className="w-5 h-5 text-[#F7B600]" />
+                <h3 className={cn(
+                  "font-semibold",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
+                  Link to Existing Issue?
+                </h3>
+              </div>
+              <p className={cn(
+                "text-sm mb-4",
+                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+              )}>
+                Select a previously scanned issue to auto-fill details with professional terminology
+              </p>
+
+              {issues.length === 0 ? (
+                <div className="text-center py-4">
+                  <p className={cn(
+                    "text-sm mb-3",
+                    theme === "dark" ? "text-white" : "text-slate-600"
+                  )}>
+                    No active issues found
+                  </p>
+                  <Button
+                    onClick={() => setStep(1)}
+                    className="bg-[#57CFA4] hover:bg-[#57CFA4]/90"
+                  >
+                    Start from Scratch
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <div className="space-y-2 max-h-64 overflow-y-auto mb-3">
+                    {issues.map((issue) => (
+                      <button
+                        key={issue.id}
+                        onClick={() => handleSelectIssue(issue)}
+                        className={cn(
+                          "w-full text-left p-3 rounded-xl border transition-all",
+                          theme === "dark"
+                            ? "bg-[#0F1E2E] border-[#57CFA4]/20 hover:border-[#57CFA4] hover:bg-[#57CFA4]/10"
+                            : "bg-white border-slate-200 hover:border-[#57CFA4] hover:bg-[#57CFA4]/5"
+                        )}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1">
+                            <p className={cn(
+                              "font-medium text-sm",
+                              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                            )}>
+                              {issue.title}
+                            </p>
+                            <p className={cn(
+                              "text-xs mt-1 line-clamp-1",
+                              theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                            )}>
+                              {issue.explanation}
+                            </p>
+                            <div className="flex items-center gap-2 mt-2">
+                              {issue.trade_type && (
+                                <Badge className="text-xs bg-[#F7B600] text-[#0F1E2E]">
+                                  {issue.trade_type}
+                                </Badge>
+                              )}
+                              <span className={cn(
+                                "text-xs",
+                                theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                              )}>
+                                {format(new Date(issue.created_date), "MMM d")}
+                              </span>
+                            </div>
+                          </div>
+                          <ChevronRight className="w-5 h-5 text-[#57CFA4] flex-shrink-0" />
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  <Button
+                    onClick={() => setStep(1)}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Skip - Start from Scratch
+                  </Button>
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
+
         {/* Step 1: Describe the Job */}
         {step === 1 && (
           <motion.div
@@ -133,15 +271,37 @@ Be specific and practical. Focus on helping the customer get accurate quotes.`,
                 "font-semibold",
                 theme === "dark" ? "text-white" : "text-[#1E3A57]"
               )}>
-                Describe Your Job
+                {selectedIssue ? "Add Job Details" : "Describe Your Job"}
               </h3>
             </div>
+
+            {selectedIssue && (
+              <div className={cn(
+                "rounded-xl p-3 mb-4 border",
+                theme === "dark"
+                  ? "bg-[#F7B600]/10 border-[#F7B600]/30"
+                  : "bg-[#F7B600]/5 border-[#F7B600]/30"
+              )}>
+                <p className="text-xs font-medium text-[#F7B600] mb-1">
+                  ✓ Linked Issue
+                </p>
+                <p className={cn(
+                  "text-sm font-semibold",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
+                  {selectedIssue.title}
+                </p>
+              </div>
+            )}
 
             <p className={cn(
               "text-sm mb-4",
               theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
             )}>
-              Tell us what needs to be done. Our AI will help you create a detailed job posting.
+              {selectedIssue 
+                ? "Add any additional details or specific requirements for the job."
+                : "Tell us what needs to be done. Our AI will help you create a detailed job posting."
+              }
             </p>
 
             <Textarea
@@ -156,23 +316,40 @@ Be specific and practical. Focus on helping the customer get accurate quotes.`,
               )}
             />
 
-            <Button
-              onClick={handleAnalyzeDescription}
-              disabled={!description.trim() || analyzing}
-              className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90"
-            >
-              {analyzing ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Analyzing...
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-4 h-4 mr-2" />
-                  Get AI Suggestions
-                </>
+            <div className="flex gap-2">
+              {selectedIssue && (
+                <Button
+                  onClick={() => {
+                    setSelectedIssue(null);
+                    setStep(0);
+                  }}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Change Issue
+                </Button>
               )}
-            </Button>
+              <Button
+                onClick={handleAnalyzeDescription}
+                disabled={!description.trim() || analyzing}
+                className={cn(
+                  "bg-[#57CFA4] hover:bg-[#57CFA4]/90",
+                  selectedIssue ? "flex-1" : "w-full"
+                )}
+              >
+                {analyzing ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Analyzing...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Get AI Suggestions
+                  </>
+                )}
+              </Button>
+            </div>
           </motion.div>
         )}
 
