@@ -40,7 +40,11 @@ export default function FindTradesmen() {
   });
 
   useEffect(() => {
-    if (navigator.geolocation) {
+    // Use user's postcode if available
+    if (user?.postcode && user?.country) {
+      setPostcode(user.postcode);
+      handlePostcodeSearch(user.postcode);
+    } else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const loc = {
@@ -55,7 +59,7 @@ export default function FindTradesmen() {
         }
       );
     }
-  }, []);
+  }, [user?.postcode, user?.country]);
 
   const searchLocalTradesmen = async (loc = location) => {
     if (!loc) return;
@@ -87,6 +91,7 @@ For EACH tradesperson found, gather:
 - Business address or service area
 - Social media presence (if found on Facebook or other platforms)
 - Any verified badges or certifications mentioned
+- IMPORTANT: The direct URL/link where this tradesperson was found (Google Maps listing, Facebook page, website, business directory, etc.)
 
 Prioritize tradespeople with:
 - Active social media presence
@@ -115,7 +120,8 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
                   email: { type: "string" },
                   address: { type: "string" },
                   verified: { type: "boolean" },
-                  source: { type: "string" }
+                  source: { type: "string" },
+                  sourceUrl: { type: "string" }
                 },
                 required: ["name", "trade", "phone"]
               }
@@ -133,11 +139,12 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
     }
   };
 
-  const handlePostcodeSearch = async () => {
+  const handlePostcodeSearch = async (code = postcode) => {
     setLoading(true);
     try {
+      const country = user?.country || "UK";
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Geocode this UK postcode: ${postcode}. Return latitude and longitude.`,
+        prompt: `Geocode this postcode/zip code: ${code} in ${country}. Return latitude and longitude.`,
         add_context_from_internet: true,
         response_json_schema: {
           type: "object",
@@ -475,15 +482,17 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
 
               {filteredTradesmen.map((tradesman, i) => (
             <motion.div
-              key={tradesman.id}
+              key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
+              onClick={() => tradesman.sourceUrl && window.open(tradesman.sourceUrl, '_blank')}
               className={cn(
-                "rounded-2xl p-4 border-2",
+                "rounded-2xl p-4 border-2 transition-all",
+                tradesman.sourceUrl ? "cursor-pointer hover:scale-[1.02]" : "",
                 theme === "dark"
-                  ? "bg-[#1A2F42] border-[#57CFA4]/30"
-                  : "bg-white border-[#1E3A57]/20"
+                  ? "bg-[#1A2F42] border-[#57CFA4]/30 hover:border-[#57CFA4]"
+                  : "bg-white border-[#1E3A57]/20 hover:border-[#57CFA4]"
               )}
             >
               <div className="flex items-start justify-between mb-3">
@@ -557,6 +566,7 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
               <div className="flex gap-2">
                 <a
                   href={`tel:${tradesman.phone}`}
+                  onClick={(e) => e.stopPropagation()}
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 py-2 rounded-xl border-2 font-semibold text-sm transition-colors",
                     theme === "dark"
@@ -568,7 +578,8 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
                   Call
                 </a>
                 <button
-                  onClick={async () => {
+                  onClick={async (e) => {
+                    e.stopPropagation();
                     // Create or find conversation
                     const existingConvos = await base44.entities.Conversation.filter({
                       participant_1_name: tradesman.name

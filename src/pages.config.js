@@ -8,6 +8,9 @@ import History from './pages/History';
 import Home from './pages/Home';
 import IssueDetail from './pages/IssueDetail';
 import Messages from './pages/Messages';
+import MyJobs from './pages/MyJobs';
+import Notifications from './pages/Notifications';
+import PostJob from './pages/PostJob';
 import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
 import Support from './pages/Support';
@@ -19,9 +22,6 @@ import TradesProfile from './pages/TradesProfile';
 import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
-import Notifications from './pages/Notifications';
-import PostJob from './pages/PostJob';
-import MyJobs from './pages/MyJobs';
 import __Layout from './Layout.jsx';
 
 
@@ -36,6 +36,9 @@ export const PAGES = {
     "Home": Home,
     "IssueDetail": IssueDetail,
     "Messages": Messages,
+    "MyJobs": MyJobs,
+    "Notifications": Notifications,
+    "PostJob": PostJob,
     "Reminders": Reminders,
     "Settings": Settings,
     "Support": Support,
@@ -47,9 +50,6 @@ export const PAGES = {
     "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
-    "Notifications": Notifications,
-    "PostJob": PostJob,
-    "MyJobs": MyJobs,
 }
 
 export const pagesConfig = {
