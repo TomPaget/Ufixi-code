@@ -179,13 +179,24 @@ Return 8-15 REAL local tradespeople. Better to have fewer accurate results than 
     try {
       const country = user?.country || "UK";
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Geocode this postcode/zip code: ${code} in ${country}. Return latitude and longitude.`,
+        prompt: `Use Google Maps API or Google geocoding to convert this postcode/zip code to exact coordinates:
+        
+Postcode: ${code}
+Country: ${country}
+
+IMPORTANT: 
+- Verify this is a valid postcode for ${country}
+- Return the precise latitude and longitude
+- Use Google Maps data to ensure accuracy
+
+Return the exact lat/lng coordinates.`,
         add_context_from_internet: true,
         response_json_schema: {
           type: "object",
           properties: {
             lat: { type: "number" },
-            lng: { type: "number" }
+            lng: { type: "number" },
+            formatted_address: { type: "string" }
           },
           required: ["lat", "lng"]
         }
@@ -195,6 +206,7 @@ Return 8-15 REAL local tradespeople. Better to have fewer accurate results than 
       await searchLocalTradesmen(result);
     } catch (error) {
       console.error("Geocoding failed:", error);
+      setLocationError("Invalid postcode. Please check and try again.");
     } finally {
       setLoading(false);
     }
@@ -727,7 +739,7 @@ Return 8-15 REAL local tradespeople. Better to have fewer accurate results than 
                 "text-sm",
                 theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
               )}>
-                Searching Google, Facebook, local groups & more...
+                Searching Google Maps, Checkatrade, RatedPeople & local directories...
               </p>
             </div>
           ) : filteredTradesmen.length === 0 ? (
