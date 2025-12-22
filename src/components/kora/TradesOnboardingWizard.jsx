@@ -14,7 +14,8 @@ import {
   Briefcase,
   FileCheck,
   CreditCard,
-  Building2
+  Building2,
+  Sparkles
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
@@ -30,6 +31,7 @@ export default function TradesOnboardingWizard({ onComplete }) {
   const { theme } = useTheme();
   const [currentStep, setCurrentStep] = useState(1);
   const [uploading, setUploading] = useState(false);
+  const [verifying, setVerifying] = useState(false);
 
   // Step 1: Business Details
   const [businessName, setBusinessName] = useState("");
@@ -101,36 +103,57 @@ export default function TradesOnboardingWizard({ onComplete }) {
   };
 
   const handleSubmit = async () => {
-    const documents = [
-      { type: "insurance", url: insuranceUrl, status: "pending" },
-      { type: "license", url: licenseUrl, status: "pending" }
-    ];
+    setVerifying(true);
     
-    if (certificationUrl) {
-      documents.push({ type: "certification", url: certificationUrl, status: "pending" });
+    try {
+      const documents = [
+        { type: "insurance", url: insuranceUrl, status: "pending" },
+        { type: "license", url: licenseUrl, status: "pending" }
+      ];
+      
+      if (certificationUrl) {
+        documents.push({ type: "certification", url: certificationUrl, status: "pending" });
+      }
+
+      // Save profile first
+      await base44.auth.updateMe({
+        account_type: "trades",
+        is_trades: true,
+        trades_business_name: businessName,
+        trades_service_area: serviceArea,
+        trades_location: location,
+        trades_years_operated: parseInt(yearsOperated) || 0,
+        trades_specialties: specialties,
+        trades_bio: bio,
+        trades_verification_documents: documents,
+        trades_bank_account_name: accountName,
+        trades_bank_sort_code: sortCode,
+        trades_bank_account_number: accountNumber,
+        trades_company_number: hasCompany === "yes" ? companyNumber : null,
+        trades_insurance_provider: insuranceProvider,
+        trades_insurance_policy_number: policyNumber,
+        trades_onboarding_completed: true,
+        trades_status: "pending"
+      });
+
+      // Trigger AI verification
+      const documentUrls = [insuranceUrl, licenseUrl];
+      if (certificationUrl) documentUrls.push(certificationUrl);
+
+      const verificationResult = await base44.functions.invoke('verifyTradesDocuments', {
+        documentUrls,
+        businessName,
+        businessNumber: companyNumber
+      });
+
+      console.log('Verification result:', verificationResult);
+
+      onComplete();
+    } catch (error) {
+      console.error('Submission failed:', error);
+    } finally {
+      setVerifying(false);
     }
-
-    await base44.auth.updateMe({
-      account_type: "trades",
-      is_trades: true,
-      trades_business_name: businessName,
-      trades_service_area: serviceArea,
-      trades_location: location,
-      trades_years_operated: parseInt(yearsOperated) || 0,
-      trades_specialties: specialties,
-      trades_bio: bio,
-      trades_verification_documents: documents,
-      trades_bank_account_name: accountName,
-      trades_bank_sort_code: sortCode,
-      trades_bank_account_number: accountNumber,
-      trades_company_number: hasCompany === "yes" ? companyNumber : null,
-      trades_insurance_provider: insuranceProvider,
-      trades_insurance_policy_number: policyNumber,
-      trades_onboarding_completed: true,
-      trades_status: "pending"
-    });
-
-    onComplete();
   };
 
   return (
@@ -680,6 +703,7 @@ export default function TradesOnboardingWizard({ onComplete }) {
         <Button
           onClick={handleNext}
           disabled={
+            verifying ||
             (currentStep === 1 && !isStep1Valid) ||
             (currentStep === 2 && !isStep2Valid) ||
             (currentStep === 3 && !isStep3Valid) ||
@@ -687,10 +711,15 @@ export default function TradesOnboardingWizard({ onComplete }) {
           }
           className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] rounded-xl flex-1"
         >
-          {currentStep === 4 ? (
+          {verifying ? (
             <>
-              Complete Setup
-              <CheckCircle2 className="w-4 h-4 ml-2" />
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Verifying Documents...
+            </>
+          ) : currentStep === 4 ? (
+            <>
+              <Sparkles className="w-4 h-4 mr-2" />
+              Submit & Verify
             </>
           ) : (
             <>
