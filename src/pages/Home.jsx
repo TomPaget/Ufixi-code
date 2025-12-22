@@ -11,7 +11,7 @@ import IssueCard from "@/components/kora/IssueCard";
 import SubscriptionBanner from "@/components/kora/SubscriptionBanner";
 import Disclaimer from "@/components/kora/Disclaimer";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
-import MaintenanceInsights from "@/components/kora/MaintenanceInsights";
+import MaintenanceAlerts from "@/components/kora/MaintenanceAlerts";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 
@@ -462,10 +462,8 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* AI Maintenance Insights */}
-        {issues.length > 0 && (
-          <MaintenanceInsights />
-        )}
+        {/* AI Maintenance Predictions */}
+        <MaintenanceAlerts userId={user?.id} />
 
         {/* Subscription Banner for Free Users */}
         {!isPremium && scansLeft <= 1 && (
