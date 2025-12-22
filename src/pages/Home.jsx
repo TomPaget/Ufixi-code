@@ -77,6 +77,8 @@ export default function Home() {
 
       ${contextInfo ? `User-Provided Context:\n${contextInfo}\n` : ""}
 
+      CRITICAL SAFETY MANDATE: Prioritize user safety. If ANY aspect suggests electrical hazards, gas leaks, structural instability, water damage, or life-threatening conditions, you MUST explicitly flag this and recommend immediate professional intervention.
+
       ANALYSIS FRAMEWORK - Complete ALL sections thoroughly:
 
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -154,20 +156,47 @@ export default function Home() {
       Include: VAT/tax considerations, emergency surcharges, weekend rates
 
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      7. DETAILED DIY REPAIR PROTOCOL
+      7. SAFETY WARNINGS & PRECAUTIONS
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      Provide 6-10 PROFESSIONAL-GRADE steps:
+      List 3-6 CRITICAL safety considerations:
+      - Immediate hazards (electrical shock, gas exposure, structural collapse, water damage)
+      - Required safety equipment (PPE, tools, protective gear)
+      - Isolation requirements (turn off water/gas/electricity)
+      - Environmental dangers (mold, asbestos, lead paint)
+      - When to evacuate or call emergency services
+
+      Be EXPLICIT about life-threatening risks. Use clear warnings like "⚠️ DANGER", "🔴 STOP", "⛔ DO NOT ATTEMPT"
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      8. WHEN TO CALL A PROFESSIONAL
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Provide clear criteria for when DIY is NOT appropriate:
+      - Complexity indicators: "If you see X, call a professional"
+      - Legal/code requirements: Gas Safe, Part P electrical, structural certification
+      - Risk thresholds: "If problem affects multiple rooms/floors"
+      - Skill level: "Requires advanced plumbing/electrical knowledge"
+      - Tool requirements: "Needs specialized equipment costing £500+"
+      - Time constraints: "Emergency repairs needed within 24 hours"
+
+      Include specific tradesperson type needed and typical urgency level.
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      9. STEP-BY-STEP DIY RESOLUTION GUIDE
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Provide 6-10 ACTIONABLE, PROFESSIONAL-GRADE steps ONLY if DIY is safe:
       - Each step: Specific action with measurements, torque specs, techniques
-      - Safety precautions: PPE, isolation procedures, hazard warnings
+      - Safety checkpoints: Verify safe conditions before proceeding
       - Pro tips: Techniques to avoid common mistakes
-      - Quality checks: How to verify correct installation
-      - Time estimates: Per step and total
-      - Skill level required: Beginner/Intermediate/Advanced
+      - Visual checks: "You should see/hear/feel X"
+      - Quality verification: How to test the repair worked
+      - Time estimates: Per step and total duration
+      - Skill level: Beginner/Intermediate/Advanced
+      - STOP points: "If you encounter X, stop immediately and call professional"
 
-      Example: "Step 3: Using a 22mm adjustable wrench, turn the compression nut counter-clockwise exactly 1.5 turns. Apply steady pressure to avoid stripping the brass threads. You should feel slight resistance. If it spins freely, the olive seal is damaged and requires replacement."
+      Example: "Step 3: ⚠️ SAFETY: Ensure water is OFF and area is dry. Using a 22mm adjustable wrench, turn the compression nut counter-clockwise exactly 1.5 turns. Apply steady pressure to avoid stripping brass threads. You should feel slight resistance. 🔴 STOP if: Nut spins freely (damaged seal) or you see corrosion - call plumber."
 
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      8. MATERIALS & TOOLS SPECIFICATION
+      10. MATERIALS & TOOLS SPECIFICATION
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       List 4-8 specific items for ${user?.country || "UK"} market:
       - Exact product specification (sizes, ratings, standards)
@@ -177,7 +206,7 @@ export default function Home() {
       - Alternatives if not available
 
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      9. LIABILITY & RESPONSIBILITY (${userType})
+      11. LIABILITY & RESPONSIBILITY (${userType})
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       Determine: "renter", "landlord", "homeowner", "varies"
       - Legal basis: Reference tenancy agreements, building codes
@@ -209,6 +238,20 @@ export default function Home() {
                   severity_score: { type: "number", minimum: 1, maximum: 10 },
                   trade_type: { type: "string" },
                   risks: { type: "array", items: { type: "string" } },
+                  safety_warnings: { 
+                    type: "array", 
+                    items: { type: "string" },
+                    description: "Critical safety warnings and precautions" 
+                  },
+                  call_professional_if: { 
+                    type: "array", 
+                    items: { type: "string" },
+                    description: "Specific conditions when professional help is required" 
+                  },
+                  diy_safe: { 
+                    type: "boolean",
+                    description: "Whether DIY repair is safe for homeowner to attempt" 
+                  },
                   diy_cost_min: { type: "number" },
                   diy_cost_max: { type: "number" },
                   pro_cost_min: { type: "number" },
@@ -230,7 +273,7 @@ export default function Home() {
                   },
                   landlord_talking_points: { type: "array", items: { type: "string" } }
                 },
-                required: ["title", "explanation", "urgency", "severity_score", "trade_type", "risks", "responsibility"]
+                required: ["title", "explanation", "urgency", "severity_score", "trade_type", "risks", "safety_warnings", "call_professional_if", "diy_safe", "responsibility"]
               }
               });
 
