@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, Send, Paperclip, Loader2, X } from "lucide-react";
+import { ArrowLeft, Send, Paperclip, Loader2, X, Check, CheckCheck, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/components/kora/ThemeProvider";
@@ -22,6 +22,8 @@ export default function Chat() {
   const [messageText, setMessageText] = useState("");
   const [attachments, setAttachments] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const typingTimeoutRef = useRef(null);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -39,9 +41,9 @@ export default function Chat() {
 
   const { data: messages = [] } = useQuery({
     queryKey: ["messages", conversationId],
-    queryFn: () => base44.entities.Message.filter({ conversation_id: conversationId }, "-created_date"),
+    queryFn: () => base44.entities.Message.filter({ conversation_id: conversationId }, "created_date"),
     enabled: !!conversationId,
-    refetchInterval: 3000 // Poll every 3 seconds
+    refetchInterval: 1000 // Real-time polling every second
   });
 
   useEffect(() => {
@@ -49,11 +51,14 @@ export default function Chat() {
   }, [messages]);
 
   useEffect(() => {
-    // Mark messages as read
+    // Mark messages as read with read receipts
     if (messages.length > 0 && user) {
       const unreadMessages = messages.filter(m => m.sender_id !== user.id && !m.read);
       unreadMessages.forEach(msg => {
-        base44.entities.Message.update(msg.id, { read: true });
+        base44.entities.Message.update(msg.id, { 
+          read: true,
+          read_at: new Date().toISOString()
+        });
       });
       
       // Update conversation unread count
@@ -65,6 +70,24 @@ export default function Chat() {
       }
     }
   }, [messages, user, conversationId]);
+
+  // Check for typing indicator
+  useEffect(() => {
+    if (conversation && user) {
+      const otherPersonTyping = conversation.typing_user_id && 
+        conversation.typing_user_id !== user.id;
+      
+      if (otherPersonTyping) {
+        const typingTime = new Date(conversation.typing_timestamp);
+        const now = new Date();
+        const secondsAgo = (now - typingTime) / 1000;
+        
+        setIsTyping(secondsAgo < 3); // Show typing if within last 3 seconds
+      } else {
+        setIsTyping(false);
+      }
+    }
+  }, [conversation, user]);
 
   const sendMessageMutation = useMutation({
     mutationFn: async ({ content, media_urls }) => {
@@ -130,12 +153,32 @@ Return whether any image should be blocked.`,
 
       // Update conversation
       const isParticipant1 = conversation.participant_1_id === user.id;
+      const otherId = isParticipant1 ? conversation.participant_2_id : conversation.participant_1_id;
+      
       await base44.entities.Conversation.update(conversationId, {
-        last_message: content,
+        last_message: content || "📷 Photo",
         last_message_date: new Date().toISOString(),
         [isParticipant1 ? "unread_count_2" : "unread_count_1"]: 
-          (isParticipant1 ? conversation.unread_count_2 : conversation.unread_count_1) + 1
+          (isParticipant1 ? conversation.unread_count_2 : conversation.unread_count_1) + 1,
+        typing_user_id: null,
+        typing_timestamp: null
       });
+
+      // Send notification to other user
+      try {
+        await base44.functions.invoke('sendNotification', {
+          userId: otherId,
+          title: "New Message",
+          message: `${user.display_name || user.full_name}: ${content || "Sent a photo"}`,
+          type: "message",
+          priority: "normal",
+          relatedEntityType: "Conversation",
+          relatedEntityId: conversationId,
+          actionUrl: `Chat?id=${conversationId}`
+        });
+      } catch (error) {
+        console.error("Notification error:", error);
+      }
 
       return message;
     },
@@ -149,18 +192,45 @@ Return whether any image should be blocked.`,
   });
 
   const handleFileUpload = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
 
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
-      setAttachments([...attachments, file_url]);
+      const uploadPromises = files.map(file =>
+        base44.integrations.Core.UploadFile({ file })
+      );
+      const results = await Promise.all(uploadPromises);
+      const urls = results.map(r => r.file_url);
+      setAttachments([...attachments, ...urls]);
     } catch (error) {
       console.error("Upload failed:", error);
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleTyping = (value) => {
+    setMessageText(value);
+    
+    // Clear existing timeout
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    // Update typing indicator
+    base44.entities.Conversation.update(conversationId, {
+      typing_user_id: user?.id,
+      typing_timestamp: new Date().toISOString()
+    });
+
+    // Clear typing after 2 seconds
+    typingTimeoutRef.current = setTimeout(() => {
+      base44.entities.Conversation.update(conversationId, {
+        typing_user_id: null,
+        typing_timestamp: null
+      });
+    }, 2000);
   };
 
   const handleSend = () => {
@@ -208,10 +278,20 @@ Return whether any image should be blocked.`,
             )}>
               {otherPerson?.charAt(0).toUpperCase()}
             </div>
-            <h1 className={cn(
-              "font-bold text-lg",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>{otherPerson}</h1>
+            <div>
+              <h1 className={cn(
+                "font-bold text-lg",
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
+              )}>{otherPerson}</h1>
+              {isTyping && (
+                <p className={cn(
+                  "text-xs",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
+                )}>
+                  typing...
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -219,11 +299,11 @@ Return whether any image should be blocked.`,
       {/* Messages */}
       <main className="flex-1 max-w-lg mx-auto w-full px-5 py-6 overflow-y-auto">
         <div className="space-y-4">
-          {messages.reverse().map((message) => {
+          {messages.map((message) => {
             const isMine = message.sender_id === user?.id;
 
             return (
-              <div key={message.id} className={cn("flex", isMine ? "justify-end" : "justify-start")}>
+              <div key={message.id} className={cn("flex flex-col", isMine ? "items-end" : "items-start")}>
                 <div className={cn(
                   "max-w-[75%] rounded-2xl px-4 py-2",
                   isMine
@@ -235,17 +315,30 @@ Return whether any image should be blocked.`,
                       : "bg-slate-100 text-[#1E3A57]"
                 )}>
                   {message.content && <p className="break-words">{message.content}</p>}
-                  {message.media_urls?.map((url, i) => (
-                    <img key={i} src={url} alt="Attachment" className="mt-2 rounded-xl max-w-full" />
-                  ))}
-                  <span className={cn(
-                    "text-xs block mt-1",
-                    isMine
-                      ? "opacity-70"
-                      : theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-                  )}>
-                    {format(new Date(message.created_date), "h:mm a")}
-                  </span>
+                  {message.media_urls?.length > 0 && (
+                    <div className="mt-2 space-y-2">
+                      {message.media_urls.map((url, i) => (
+                        <img key={i} src={url} alt="Attachment" className="rounded-xl max-w-full cursor-pointer hover:opacity-90" onClick={() => window.open(url, '_blank')} />
+                      ))}
+                    </div>
+                  )}
+                  <div className="flex items-center gap-1 mt-1">
+                    <span className={cn(
+                      "text-xs",
+                      isMine
+                        ? "opacity-70"
+                        : theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                    )}>
+                      {format(new Date(message.created_date), "h:mm a")}
+                    </span>
+                    {isMine && (
+                      message.read ? (
+                        <CheckCheck className={cn("w-3 h-3", "opacity-70")} />
+                      ) : (
+                        <Check className={cn("w-3 h-3", "opacity-70")} />
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             );
@@ -289,14 +382,14 @@ Return whether any image should be blocked.`,
                 ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
                 : "hover:bg-slate-100 text-slate-600"
             )}>
-              <input type="file" accept="image/*,.pdf,.doc,.docx" className="hidden" onChange={handleFileUpload} />
-              {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Paperclip className="w-5 h-5" />}
+              <input type="file" accept="image/*" multiple className="hidden" onChange={handleFileUpload} />
+              {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <ImageIcon className="w-5 h-5" />}
             </label>
             <Input
               placeholder="Type a message..."
               value={messageText}
-              onChange={(e) => setMessageText(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleSend()}
+              onChange={(e) => handleTyping(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
               className={cn(
                 "flex-1 border-2",
                 theme === "dark"
