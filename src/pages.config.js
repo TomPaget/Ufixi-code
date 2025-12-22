@@ -18,6 +18,7 @@ import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import TradesPayment from './pages/TradesPayment';
 import TradesBoost from './pages/TradesBoost';
+import TradesDashboard from './pages/TradesDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -42,6 +43,7 @@ export const PAGES = {
     "Upgrade": Upgrade,
     "TradesPayment": TradesPayment,
     "TradesBoost": TradesBoost,
+    "TradesDashboard": TradesDashboard,
 }
 
 export const pagesConfig = {
