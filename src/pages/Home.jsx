@@ -73,11 +73,11 @@ export default function Home() {
       const analysis = await base44.integrations.Core.InvokeLLM({
         prompt: `You are a home maintenance expert helping ${userType}s understand household issues.
 
-    ${contextInfo ? `Additional context from user:\n${contextInfo}\n` : ""}
+      ${contextInfo ? `Additional context from user:\n${contextInfo}\n` : ""}
 
-    Analyze this ${mediaType} of a household problem and provide:
+      Analyze this ${mediaType} of a household problem and provide:
       1. A clear, simple title for the issue (2-5 words)
-      2. A friendly, non-technical explanation that a non-expert would understand (2-3 sentences)
+      2. A DETAILED, friendly explanation that a non-expert would understand (4-6 sentences). Explain what's happening, why it's happening, and what could make it worse. Be thorough but accessible.
       3. Urgency level: "ignore" (cosmetic/minor), "fix_soon" (within weeks), or "fix_now" (immediate safety/damage risk)
       4. Severity score from 1-10 where:
       - 1-2: Cosmetic issues, no rush
@@ -87,37 +87,55 @@ export default function Home() {
       - 9-10: CRITICAL EMERGENCY, fix immediately (e.g., gas leaks, flooding, fire hazards)
       Water leaks should typically be 7-9 depending on severity.
       5. Type of tradesman needed (e.g., "plumber", "electrician", "general handyman")
-      6. 2-4 risks if ignored
-      7. Cost estimates for DIY repair (min and max in ${currency}) - search online for CURRENT, REALISTIC prices from UK trade websites and DIY stores
-      8. Cost estimates for professional repair (min and max in ${currency}) - search Checkatrade, Google, and trade websites for CURRENT, REALISTIC hourly rates and job costs in the UK
+      6. 3-5 specific risks if ignored (be detailed about consequences)
+      7. Cost estimates for DIY repair (min and max in ${currency}) - search online for CURRENT, REALISTIC prices
+      8. Cost estimates for professional repair (min and max in ${currency}) - search online for CURRENT, REALISTIC hourly rates and job costs
       9. Who is typically responsible: "renter", "landlord", "homeowner", or "varies"
-      10. 3-5 step-by-step DIY instructions (simple, actionable)
-      11. If landlord's responsibility, 2-3 talking points for the tenant
+      10. 5-8 DETAILED step-by-step DIY instructions with specific actions, safety warnings, and tips. Each step should be clear and actionable with measurements, timings, or specific techniques where relevant.
+      11. List of 3-6 products/tools needed for DIY repair. For each product include:
+          - Product name (be specific, e.g., "Adjustable wrench 10-inch" not just "wrench")
+          - Brief description of what it's for
+          - Amazon search URL (format: https://www.amazon.co.uk/s?k=SEARCH_TERMS where SEARCH_TERMS is URL-encoded product name)
+          - Estimated cost range
+      12. If landlord's responsibility, 2-3 talking points for the tenant
 
-      Be reassuring but honest. Focus on reducing anxiety while being practical. 
-      IMPORTANT: Use real-time web data to provide accurate, current pricing for the UK market.`,
+      Be reassuring but honest. Focus on reducing anxiety while being practical and thorough. 
+      IMPORTANT: Use real-time web data to provide accurate, current pricing.`,
               file_urls: [fileUrl],
               add_context_from_internet: true,
               response_json_schema: {
-          type: "object",
-          properties: {
-            title: { type: "string" },
-            explanation: { type: "string" },
-            urgency: { type: "string", enum: ["ignore", "fix_soon", "fix_now"] },
-            severity_score: { type: "number", minimum: 1, maximum: 10 },
-            trade_type: { type: "string" },
-            risks: { type: "array", items: { type: "string" } },
-            diy_cost_min: { type: "number" },
-            diy_cost_max: { type: "number" },
-            pro_cost_min: { type: "number" },
-            pro_cost_max: { type: "number" },
-            responsibility: { type: "string", enum: ["renter", "landlord", "homeowner", "varies"] },
-            diy_steps: { type: "array", items: { type: "string" } },
-            landlord_talking_points: { type: "array", items: { type: "string" } }
-          },
-          required: ["title", "explanation", "urgency", "severity_score", "trade_type", "risks", "responsibility"]
-        }
-      });
+                type: "object",
+                properties: {
+                  title: { type: "string" },
+                  explanation: { type: "string" },
+                  urgency: { type: "string", enum: ["ignore", "fix_soon", "fix_now"] },
+                  severity_score: { type: "number", minimum: 1, maximum: 10 },
+                  trade_type: { type: "string" },
+                  risks: { type: "array", items: { type: "string" } },
+                  diy_cost_min: { type: "number" },
+                  diy_cost_max: { type: "number" },
+                  pro_cost_min: { type: "number" },
+                  pro_cost_max: { type: "number" },
+                  responsibility: { type: "string", enum: ["renter", "landlord", "homeowner", "varies"] },
+                  diy_steps: { type: "array", items: { type: "string" } },
+                  products_needed: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        name: { type: "string" },
+                        description: { type: "string" },
+                        amazonSearchUrl: { type: "string" },
+                        estimatedCost: { type: "string" }
+                      },
+                      required: ["name", "description", "amazonSearchUrl"]
+                    }
+                  },
+                  landlord_talking_points: { type: "array", items: { type: "string" } }
+                },
+                required: ["title", "explanation", "urgency", "severity_score", "trade_type", "risks", "responsibility"]
+              }
+              });
 
       // Create the issue
       await createIssueMutation.mutateAsync({
