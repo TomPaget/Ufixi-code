@@ -376,7 +376,6 @@ export default function Home() {
 
     } catch (error) {
       console.error("Analysis failed:", error);
-      alert(`Failed to analyze issue: ${error.message || 'Unknown error'}. Please try again.`);
     } finally {
       setAnalyzing(false);
       setShowScanner(false);

@@ -59,12 +59,12 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
     if (!mediaFile) return;
 
     setUploading(true);
-    setAnalyzing(true);
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file: mediaFile });
       setMediaUrl(file_url);
       
       // Quick AI triage to identify issue type
+      setAnalyzing(true);
       const triage = await base44.integrations.Core.InvokeLLM({
         prompt: `Analyze this ${mediaType} and identify:
 1. The category of problem (plumbing, electrical, structural, appliance, hvac, other)
@@ -128,7 +128,6 @@ Examples:
       setStep("questions");
     } catch (error) {
       console.error("Upload/analysis failed:", error);
-      alert(`Failed to analyze issue: ${error.message || 'Unknown error'}. Please try again.`);
     } finally {
       setUploading(false);
       setAnalyzing(false);

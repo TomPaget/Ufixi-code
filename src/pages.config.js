@@ -1,4 +1,5 @@
 import Chat from './pages/Chat';
+import ContractorManagement from './pages/ContractorManagement';
 import Contractors from './pages/Contractors';
 import CreatePost from './pages/CreatePost';
 import FindTradesmen from './pages/FindTradesmen';
@@ -24,12 +25,12 @@ import TradesProfile from './pages/TradesProfile';
 import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
-import ContractorManagement from './pages/ContractorManagement';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Chat": Chat,
+    "ContractorManagement": ContractorManagement,
     "Contractors": Contractors,
     "CreatePost": CreatePost,
     "FindTradesmen": FindTradesmen,
@@ -55,7 +56,6 @@ export const PAGES = {
     "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
-    "ContractorManagement": ContractorManagement,
 }
 
 export const pagesConfig = {
