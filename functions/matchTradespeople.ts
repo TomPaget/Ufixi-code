@@ -4,91 +4,81 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
-    
+
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { jobDetails, jobId } = await req.json();
-    
-    // Fetch all verified tradespeople
+    const { issueId } = await req.json();
+
+    if (!issueId) {
+      return Response.json({ error: 'Issue ID is required' }, { status: 400 });
+    }
+
+    // Get issue details
+    const issues = await base44.entities.Issue.filter({ id: issueId });
+    if (issues.length === 0) {
+      return Response.json({ error: 'Issue not found' }, { status: 404 });
+    }
+    const issue = issues[0];
+
+    // Get all approved tradespeople
     const tradespeople = await base44.asServiceRole.entities.User.filter({
       account_type: 'trades',
-      trades_verified: true
+      trades_status: 'approved'
     });
 
     if (tradespeople.length === 0) {
-      return Response.json({ matches: [] });
+      return Response.json({
+        success: true,
+        matches: [],
+        message: 'No tradespeople available yet'
+      });
     }
 
-    // Fetch testimonials for all tradespeople
-    const allTestimonials = await base44.asServiceRole.entities.Testimonial.filter({
-      moderation_status: 'approved'
-    });
+    // Prepare tradespeople data for AI analysis
+    const tradesData = tradespeople.map(t => ({
+      id: t.id,
+      name: t.trades_business_name || t.full_name,
+      specialty: t.trades_specialty,
+      specialties: t.trades_specialties,
+      location: t.trades_location,
+      service_area: t.trades_service_area,
+      hourly_rate: t.trades_hourly_rate,
+      rating: t.trades_rating || 3,
+      years_operated: t.trades_years_operated,
+      bio: t.trades_bio?.substring(0, 150)
+    }));
 
-    // Prepare tradesperson profiles with ratings
-    const tradespeopleProfiles = tradespeople.map(tp => {
-      const reviews = allTestimonials.filter(t => t.tradesperson_id === tp.id);
-      const avgRating = reviews.length > 0 
-        ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length 
-        : 0;
-      
-      return {
-        id: tp.id,
-        name: tp.trades_business_name || tp.full_name,
-        specialty: tp.trades_specialty,
-        specialties: tp.trades_specialties || [],
-        postcode: tp.postcode,
-        hourly_rate: tp.trades_hourly_rate,
-        years_experience: tp.trades_years_experience,
-        rating: avgRating,
-        review_count: reviews.length,
-        bio: tp.trades_bio,
-        availability: tp.trades_availability,
-        service_radius: tp.trades_service_radius || 10
-      };
-    });
+    // AI-powered matching
+    const matchAnalysis = await base44.integrations.Core.InvokeLLM({
+      prompt: `You are an expert at matching home repair issues with the best tradesperson for the job.
 
-    // Use AI to match and rank tradespeople
-    const matching = await base44.asServiceRole.integrations.Core.InvokeLLM({
-      prompt: `You are an expert job-matching AI system that connects customers with the best tradespeople.
+ISSUE DETAILS:
+- Title: ${issue.title}
+- Description: ${issue.explanation}
+- Trade Type: ${issue.trade_type}
+- Urgency: ${issue.urgency}
+- Severity: ${issue.severity_score}/10
+- User Location: ${user.trades_location || 'Not specified'}
+- Estimated Cost: ${issue.pro_cost_min}-${issue.pro_cost_max}
 
-CUSTOMER JOB REQUEST:
-Title: ${jobDetails.title}
-Description: ${jobDetails.description}
-Trade Type: ${jobDetails.trade_type}
-Budget: £${jobDetails.budget_min || 0} - £${jobDetails.budget_max || 'flexible'}
-Location: ${user.postcode || 'Not specified'}
-Urgency: ${jobDetails.urgency || 'medium'}
+AVAILABLE TRADESPEOPLE:
+${JSON.stringify(tradesData, null, 2)}
 
-AVAILABLE TRADESPEOPLE (${tradespeopleProfiles.length}):
-${JSON.stringify(tradespeopleProfiles, null, 2)}
+TASK:
+Analyze and rank the top 3-5 most suitable tradespeople for this job based on:
+1. Specialty match (primary factor)
+2. Location/service area proximity
+3. Hourly rate (cost-effectiveness)
+4. Rating and experience
+5. Urgency compatibility
 
-MATCHING CRITERIA (in order of importance):
-1. SPECIALTY MATCH: Does their trade specialty match the job type? (Critical - reject if no match)
-2. LOCATION: Are they within service radius of customer? (Use postcode for distance estimate)
-3. PRICE FIT: Does their hourly rate fit customer's budget?
-4. AVAILABILITY: Can they take on work now?
-5. REPUTATION: Higher ratings and more reviews = better
-6. EXPERIENCE: More years = better for complex jobs
-
-MATCHING ALGORITHM:
-For each tradesperson, calculate:
-- Match Score (0-100): Overall compatibility
-- Specialty Match: "perfect", "good", "partial", or "none" (reject if none)
-- Distance: Estimated miles (use UK geography knowledge)
-- Price Compatibility: "under_budget", "in_budget", "over_budget"
-- Recommendation Reason: 2-3 sentence explanation of why they're a good fit
-
-Return TOP 5 best matches only, sorted by match_score (highest first).
-
-IMPORTANT:
-- Only include tradespeople with specialty_match !== "none"
-- Prioritize exact specialty matches
-- Consider budget constraints seriously
-- Factor in reputation heavily for high-value jobs
-- For urgent jobs, prioritize availability`,
-      add_context_from_internet: true,
+For each match, provide:
+- Match score (0-100)
+- Why they're suitable
+- Estimated cost for this job
+- Recommended contact action (quote, visit, emergency_call)`,
       response_json_schema: {
         type: "object",
         properties: {
@@ -98,45 +88,60 @@ IMPORTANT:
               type: "object",
               properties: {
                 tradesperson_id: { type: "string" },
-                tradesperson_name: { type: "string" },
-                match_score: { 
-                  type: "number",
-                  minimum: 0,
-                  maximum: 100
-                },
-                specialty_match: {
+                match_score: { type: "number", minimum: 0, maximum: 100 },
+                suitability_reason: { type: "string" },
+                estimated_job_cost: { type: "number" },
+                recommended_action: { 
                   type: "string",
-                  enum: ["perfect", "good", "partial"]
+                  enum: ["request_quote", "request_visit", "emergency_call", "general_inquiry"]
                 },
-                distance_miles: { type: "number" },
-                price_compatibility: {
-                  type: "string",
-                  enum: ["under_budget", "in_budget", "over_budget"]
+                pros: {
+                  type: "array",
+                  items: { type: "string" }
                 },
-                recommendation_reason: { type: "string" },
-                estimated_hourly_rate: { type: "number" },
-                rating: { type: "number" },
-                review_count: { type: "number" },
-                years_experience: { type: "number" }
+                considerations: {
+                  type: "array",
+                  items: { type: "string" }
+                }
               },
-              required: ["tradesperson_id", "match_score", "recommendation_reason"]
+              required: ["tradesperson_id", "match_score", "suitability_reason"]
             }
-          }
-        }
+          },
+          overall_recommendation: { type: "string" }
+        },
+        required: ["matches"]
       }
+    });
+
+    // Enrich matches with full tradesperson data
+    const enrichedMatches = matchAnalysis.matches.map(match => {
+      const tradesperson = tradespeople.find(t => t.id === match.tradesperson_id);
+      return {
+        ...match,
+        tradesperson: {
+          id: tradesperson.id,
+          name: tradesperson.trades_business_name || tradesperson.full_name,
+          specialty: tradesperson.trades_specialty,
+          location: tradesperson.trades_location,
+          hourly_rate: tradesperson.trades_hourly_rate,
+          rating: tradesperson.trades_rating || 3,
+          years_operated: tradesperson.trades_years_operated,
+          bio: tradesperson.trades_bio
+        }
+      };
     });
 
     return Response.json({
       success: true,
-      matches: matching.matches || [],
-      total_considered: tradespeopleProfiles.length
+      matches: enrichedMatches,
+      overall_recommendation: matchAnalysis.overall_recommendation,
+      total_available: tradespeople.length
     });
 
   } catch (error) {
-    console.error('Matching failed:', error);
-    return Response.json({ 
-      error: error.message,
-      stack: error.stack 
+    console.error('Tradesperson matching error:', error);
+    return Response.json({
+      error: error.message
     }, { status: 500 });
   }
 });

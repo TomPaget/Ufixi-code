@@ -33,6 +33,7 @@ import CostEstimate from "@/components/kora/CostEstimate";
 import ResponsibilityTag from "@/components/kora/ResponsibilityTag";
 import ActionButtons from "@/components/kora/ActionButtons";
 import Disclaimer from "@/components/kora/Disclaimer";
+import TradespersonMatcher from "@/components/kora/TradespersonMatcher";
 
 const mediaIcons = {
   photo: Image,
@@ -381,6 +382,11 @@ export default function IssueDetail() {
               ))}
             </div>
           </div>
+        )}
+
+        {/* AI Tradesperson Matching */}
+        {issue.trade_type && (
+          <TradespersonMatcher issueId={issueId} />
         )}
 
         {/* Action Buttons */}
