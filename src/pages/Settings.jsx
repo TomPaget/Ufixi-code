@@ -17,13 +17,24 @@ import {
   Edit2,
   Camera,
   MapPin,
-  Loader2
+  Loader2,
+  Bell,
+  Check,
+  Trash2,
+  AlertTriangle,
+  Briefcase,
+  Calendar,
+  CreditCard,
+  MessageCircle,
+  Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -34,11 +45,29 @@ import {
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+
+const typeIcons = {
+  issue_update: AlertTriangle,
+  work_request: Briefcase,
+  appointment: Calendar,
+  payment: CreditCard,
+  message: MessageCircle,
+  general: Info
+};
+
+const priorityColors = {
+  low: "text-blue-500",
+  normal: "text-slate-500",
+  high: "text-orange-500",
+  urgent: "text-red-500"
+};
 
 export default function Settings() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { theme, toggleTheme } = useTheme();
+  const [activeTab, setActiveTab] = useState("account");
   const [editingProfile, setEditingProfile] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
@@ -51,6 +80,38 @@ export default function Settings() {
     onSuccess: (data) => {
       setDisplayName(data?.display_name || data?.full_name || "");
       setBio(data?.bio || "");
+    }
+  });
+
+  const { data: notifications = [] } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: () => base44.entities.Notification.filter({ user_id: user?.id }, "-created_date"),
+    enabled: !!user && activeTab === "notifications"
+  });
+
+  const markReadMutation = useMutation({
+    mutationFn: (id) => base44.entities.Notification.update(id, { read: true }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["notifications"]);
+    }
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => base44.entities.Notification.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["notifications"]);
+    }
+  });
+
+  const markAllReadMutation = useMutation({
+    mutationFn: async () => {
+      const unreadIds = notifications.filter(n => !n.read).map(n => n.id);
+      await Promise.all(unreadIds.map(id => 
+        base44.entities.Notification.update(id, { read: true })
+      ));
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["notifications"]);
     }
   });
 
@@ -131,6 +192,16 @@ export default function Settings() {
     }
   };
 
+  const handleNotificationClick = (notification) => {
+    if (!notification.read) {
+      markReadMutation.mutate(notification.id);
+    }
+    if (notification.action_url) {
+      navigate(createPageUrl(notification.action_url));
+    }
+  };
+
+  const unreadNotifications = notifications.filter(n => !n.read);
   const isPremium = user?.subscription_tier === "premium";
 
   return (
@@ -168,7 +239,23 @@ export default function Settings() {
         </div>
       </header>
 
-      <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
+      <main className="max-w-lg mx-auto px-5 py-6 pb-12">
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className={cn(
+            "w-full grid grid-cols-3 mb-6",
+            theme === "dark" ? "bg-slate-800" : "bg-slate-100"
+          )}>
+            <TabsTrigger value="account">Account</TabsTrigger>
+            <TabsTrigger value="notifications" className="relative">
+              Notifications
+              {unreadNotifications.length > 0 && (
+                <Badge className="ml-1 bg-red-500 text-white">{unreadNotifications.length}</Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="preferences">Preferences</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="account" className="space-y-6">
         {/* Profile Section */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -749,6 +836,236 @@ export default function Settings() {
             Log Out
           </Button>
         </motion.div>
+          </TabsContent>
+
+          <TabsContent value="notifications">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className={cn(
+                  "text-xl font-bold",
+                  theme === "dark" ? "text-white" : "text-slate-900"
+                )}>Your Notifications</h2>
+                {unreadNotifications.length > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => markAllReadMutation.mutate()}
+                    className={cn(
+                      "text-sm",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
+                    )}
+                  >
+                    Mark all read
+                  </Button>
+                )}
+              </div>
+
+              <Tabs defaultValue="unread">
+                <TabsList className={cn(
+                  "w-full grid grid-cols-2 mb-4",
+                  theme === "dark" ? "bg-[#1A2F42]" : "bg-slate-100"
+                )}>
+                  <TabsTrigger value="unread">
+                    Unread {unreadNotifications.length > 0 && (
+                      <Badge className="ml-2 bg-red-500">{unreadNotifications.length}</Badge>
+                    )}
+                  </TabsTrigger>
+                  <TabsTrigger value="all">All</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="unread" className="space-y-3">
+                  {unreadNotifications.length === 0 ? (
+                    <div className={cn(
+                      "text-center py-12 rounded-2xl border",
+                      theme === "dark"
+                        ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                        : "bg-white border-slate-200"
+                    )}>
+                      <Bell className={cn(
+                        "w-12 h-12 mx-auto mb-3",
+                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+                      )} />
+                      <p className={cn(
+                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                      )}>
+                        No unread notifications
+                      </p>
+                    </div>
+                  ) : (
+                    unreadNotifications.map((notification) => {
+                      const Icon = typeIcons[notification.type] || Info;
+                      return (
+                        <div
+                          key={notification.id}
+                          onClick={() => handleNotificationClick(notification)}
+                          className={cn(
+                            "rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02]",
+                            theme === "dark"
+                              ? "bg-[#1A2F42] border-[#57CFA4]"
+                              : "bg-blue-50 border-blue-200"
+                          )}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className={cn(
+                              "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
+                              theme === "dark"
+                                ? "bg-[#57CFA4]/20"
+                                : "bg-blue-100"
+                            )}>
+                              <Icon className={cn(
+                                "w-5 h-5",
+                                priorityColors[notification.priority]
+                              )} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2 mb-1">
+                                <h3 className={cn(
+                                  "font-semibold text-sm",
+                                  theme === "dark" ? "text-white" : "text-slate-900"
+                                )}>
+                                  {notification.title}
+                                </h3>
+                                <p className={cn(
+                                  "text-xs whitespace-nowrap",
+                                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                                )}>
+                                  {format(new Date(notification.created_date), "MMM d")}
+                                </p>
+                              </div>
+                              <p className={cn(
+                                "text-sm",
+                                theme === "dark" ? "text-white" : "text-slate-700"
+                              )}>
+                                {notification.message}
+                              </p>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  markReadMutation.mutate(notification.id);
+                                }}
+                              >
+                                <Check className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 text-red-500"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  deleteMutation.mutate(notification.id);
+                                }}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </TabsContent>
+
+                <TabsContent value="all" className="space-y-3">
+                  {notifications.length === 0 ? (
+                    <div className={cn(
+                      "text-center py-12 rounded-2xl border",
+                      theme === "dark"
+                        ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                        : "bg-white border-slate-200"
+                    )}>
+                      <Bell className={cn(
+                        "w-12 h-12 mx-auto mb-3",
+                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+                      )} />
+                      <p className={cn(
+                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                      )}>
+                        No notifications yet
+                      </p>
+                    </div>
+                  ) : (
+                    notifications.map((notification) => {
+                      const Icon = typeIcons[notification.type] || Info;
+                      return (
+                        <div
+                          key={notification.id}
+                          onClick={() => handleNotificationClick(notification)}
+                          className={cn(
+                            "rounded-2xl p-4 border cursor-pointer transition-all hover:scale-[1.01]",
+                            notification.read
+                              ? theme === "dark"
+                                ? "bg-[#1A2F42]/50 border-[#57CFA4]/20"
+                                : "bg-white border-slate-200"
+                              : theme === "dark"
+                                ? "bg-[#1A2F42] border-[#57CFA4]"
+                                : "bg-blue-50 border-blue-200"
+                          )}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className={cn(
+                              "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
+                              theme === "dark"
+                                ? "bg-[#57CFA4]/20"
+                                : "bg-blue-100"
+                            )}>
+                              <Icon className={cn(
+                                "w-5 h-5",
+                                priorityColors[notification.priority]
+                              )} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2 mb-1">
+                                <h3 className={cn(
+                                  "font-semibold text-sm",
+                                  notification.read
+                                    ? theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                                    : theme === "dark" ? "text-white" : "text-slate-900"
+                                )}>
+                                  {notification.title}
+                                </h3>
+                                <p className={cn(
+                                  "text-xs whitespace-nowrap",
+                                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                                )}>
+                                  {format(new Date(notification.created_date), "MMM d")}
+                                </p>
+                              </div>
+                              <p className={cn(
+                                "text-sm",
+                                notification.read
+                                  ? theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                                  : theme === "dark" ? "text-white" : "text-slate-700"
+                              )}>
+                                {notification.message}
+                              </p>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-red-500"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                deleteMutation.mutate(notification.id);
+                              }}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </TabsContent>
+              </Tabs>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="preferences" className="space-y-6">
 
         {/* Notification Preferences */}
         <motion.section
@@ -908,6 +1225,8 @@ export default function Settings() {
         )}>
           QuoFix v1.0.0
         </p>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
