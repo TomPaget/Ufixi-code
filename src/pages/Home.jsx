@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import MediaUploader from "@/components/kora/MediaUploader";
+import GuidedIssueFlow from "@/components/kora/GuidedIssueFlow";
 import IssueCard from "@/components/kora/IssueCard";
 import SubscriptionBanner from "@/components/kora/SubscriptionBanner";
 import Disclaimer from "@/components/kora/Disclaimer";
@@ -51,9 +51,7 @@ export default function Home() {
   const currency = user?.currency || "GBP";
   const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[currency];
 
-  const handleMediaUpload = async (fileUrl, mediaType, additionalInfo = {}) => {
-    setUploadedMedia({ url: fileUrl, type: mediaType });
-    
+  const handleIssueComplete = async (fileUrl, mediaType, additionalInfo = {}) => {
     if (!canScan) {
       navigate(createPageUrl("Upgrade"));
       return;
@@ -65,7 +63,8 @@ export default function Home() {
       const userType = user?.user_type || "renter";
 
       const contextInfo = [
-        additionalInfo.description && `User description: ${additionalInfo.description}`,
+        additionalInfo.description && `${additionalInfo.description}`,
+        additionalInfo.category && `Category: ${additionalInfo.category}`,
         additionalInfo.location && `Location: ${additionalInfo.location}`,
         additionalInfo.duration && `Duration: ${additionalInfo.duration}`
       ].filter(Boolean).join("\n");
@@ -73,9 +72,9 @@ export default function Home() {
       const analysis = await base44.integrations.Core.InvokeLLM({
         prompt: `You are a home maintenance expert helping ${userType}s understand household issues.
 
-      ${contextInfo ? `Additional context from user:\n${contextInfo}\n` : ""}
+    ${contextInfo ? `Context from user:\n${contextInfo}\n` : ""}
 
-      Analyze this ${mediaType} of a household problem and provide:
+    Analyze this ${mediaType} of a household problem and provide:
       1. A clear, simple title for the issue (2-5 words)
       2. A DETAILED, friendly explanation that a non-expert would understand (4-6 sentences). Explain what's happening, why it's happening, and what could make it worse. Be thorough but accessible.
       3. Urgency level: "ignore" (cosmetic/minor), "fix_soon" (within weeks), or "fix_now" (immediate safety/damage risk)
@@ -158,7 +157,6 @@ export default function Home() {
     } finally {
       setAnalyzing(false);
       setShowScanner(false);
-      setUploadedMedia(null);
     }
   };
 
@@ -299,31 +297,11 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className={cn(
-                "rounded-2xl p-5 border",
-                theme === "dark"
-                  ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
-                  : "bg-white border-slate-200"
-              )}
             >
-              <MediaUploader 
-                onUpload={handleMediaUpload} 
-                isLoading={analyzing}
+              <GuidedIssueFlow 
+                onComplete={handleIssueComplete}
+                onCancel={() => setShowScanner(false)}
               />
-              {!analyzing && (
-                <Button
-                  variant="ghost"
-                  onClick={() => setShowScanner(false)}
-                  className={cn(
-                    "w-full mt-4",
-                    theme === "dark"
-                      ? "text-[#57CFA4] hover:bg-[#57CFA4]/10"
-                      : "text-[#1E3A57] hover:bg-slate-100"
-                  )}
-                >
-                  Cancel
-                </Button>
-              )}
             </motion.div>
           ) : (
             <motion.div
