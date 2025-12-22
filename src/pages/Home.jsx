@@ -70,37 +70,133 @@ export default function Home() {
       ].filter(Boolean).join("\n");
 
       const analysis = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are a home maintenance expert helping ${userType}s understand household issues.
+        prompt: `You are a certified home maintenance professional with 20+ years of experience conducting detailed property inspections and repairs across all trades.
 
-    ${contextInfo ? `Context from user:\n${contextInfo}\n` : ""}
+      IMPORTANT: Perform an EXHAUSTIVE, PROFESSIONAL-GRADE analysis using visual inspection, technical knowledge, and industry standards.
 
-    Analyze this ${mediaType} of a household problem and provide:
-      1. A clear, simple title for the issue (2-5 words)
-      2. A DETAILED, friendly explanation that a non-expert would understand (4-6 sentences). Explain what's happening, why it's happening, and what could make it worse. Be thorough but accessible.
-      3. Urgency level: "ignore" (cosmetic/minor), "fix_soon" (within weeks), or "fix_now" (immediate safety/damage risk)
-      4. Severity score from 1-10 where:
-      - 1-2: Cosmetic issues, no rush
-      - 3-4: Minor issues, can wait weeks/months
-      - 5-6: Moderate issues, fix within weeks
-      - 7-8: Serious issues, fix within days (e.g., major leaks, electrical sparks)
-      - 9-10: CRITICAL EMERGENCY, fix immediately (e.g., gas leaks, flooding, fire hazards)
-      Water leaks should typically be 7-9 depending on severity.
-      5. Type of tradesman needed (e.g., "plumber", "electrician", "general handyman")
-      6. 3-5 specific risks if ignored (be detailed about consequences)
-      7. Cost estimates for DIY repair (min and max in ${currency}) - search online for CURRENT, REALISTIC prices
-      8. Cost estimates for professional repair (min and max in ${currency}) - search online for CURRENT, REALISTIC hourly rates and job costs
-      9. Who is typically responsible: "renter", "landlord", "homeowner", or "varies"
-      10. 5-8 DETAILED step-by-step DIY instructions with specific actions, safety warnings, and tips. Each step should be clear and actionable with measurements, timings, or specific techniques where relevant.
-      11. List of 3-6 products/tools needed for DIY repair specific to ${user?.country || "UK"}. For each product include:
-          - Product name (be specific, e.g., "Adjustable wrench 10-inch" not just "wrench")
-          - Brief description of what it's for and why it's needed
-          - Amazon search URL appropriate for the country (${user?.country === "US" ? "amazon.com" : user?.country === "CA" ? "amazon.ca" : user?.country === "AU" ? "amazon.com.au" : "amazon.co.uk"}) in format: https://www.amazon.DOMAIN/s?k=SEARCH_TERMS where SEARCH_TERMS is URL-encoded product name
-          - Estimated cost range in ${currency}
-          - Make sure these are REAL products commonly available in ${user?.country || "UK"}
-      12. If landlord's responsibility, 2-3 talking points for the tenant
+      ${contextInfo ? `User-Provided Context:\n${contextInfo}\n` : ""}
 
-      Be reassuring but honest. Focus on reducing anxiety while being practical and thorough. 
-      IMPORTANT: Use real-time web data to provide accurate, current pricing.`,
+      ANALYSIS FRAMEWORK - Complete ALL sections thoroughly:
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      1. VISUAL INSPECTION & DIAGNOSIS
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Examine this ${mediaType} with forensic attention to detail. Look for:
+      - Primary defect/damage visible
+      - Secondary indicators (staining, discoloration, wear patterns, corrosion)
+      - Surrounding context clues (age of materials, installation quality)
+      - Code violations or safety hazards
+      - Environmental factors (moisture, temperature, structural stress)
+
+      Create a precise, professional title (use technical terminology): e.g., "Failed Compression Valve with Mineral Buildup" not "Leaking Tap"
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      2. ROOT CAUSE ANALYSIS
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Provide a COMPREHENSIVE 6-8 sentence explanation covering:
+      - WHAT is broken/failing (specific component names, materials, mechanisms)
+      - WHY it's happening (deterioration, manufacturing defect, installation error, age, environmental factors)
+      - HOW the system is supposed to work normally (technical operation)
+      - WHAT is currently malfunctioning in the mechanism
+      - PROGRESSION: How this issue developed and will worsen over time
+      - SECONDARY EFFECTS: What other systems/components this affects
+      - TECHNICAL CONTEXT: Industry standards, typical lifespan, common failure modes
+
+      Use proper technical terminology but explain complex terms. Reference building codes where relevant.
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      3. SEVERITY ASSESSMENT (1-10 Scale)
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Rate with forensic precision:
+      - 1-2: Cosmetic only, no functional impact, purely aesthetic
+      - 3-4: Minor deterioration, functioning but degraded, can wait months
+      - 5-6: Moderate problem, increasing damage risk, fix within 2-4 weeks
+      - 7-8: Serious concern, active damage occurring, requires intervention within 48-72 hours
+      - 9-10: CRITICAL HAZARD - immediate safety risk, active flooding/fire/gas/electrical danger
+
+      Consider: Safety risk, damage rate, cost escalation, building code violations
+
+      Urgency: "ignore", "fix_soon", "fix_now" (align with severity)
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      4. RISK & CONSEQUENCE ANALYSIS
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      List 4-6 specific, detailed risks if not addressed:
+      - Timeline: When each risk materializes (days, weeks, months)
+      - Impact: Specific damage (structural, safety, financial, health)
+      - Cascading effects: What else fails as a result
+      - Cost implications: Repair cost escalation percentages
+      Example: "Within 2-3 weeks: Persistent moisture will rot the subfloor joists (£800-£1,500 structural repair), potentially causing floor collapse risk and invalidating home insurance claims"
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      5. SPECIALIST TRADE IDENTIFICATION
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Specify exact trade: "plumber", "electrician", "gas engineer", "carpenter", "structural engineer", "HVAC technician", etc.
+      Include any required certifications: "Gas Safe registered engineer required" or "Part P qualified electrician"
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      6. PROFESSIONAL COST ANALYSIS (${currency})
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Research CURRENT ${user?.country || "UK"} pricing for ${new Date().getFullYear()}:
+
+      DIY Costs (materials only):
+      - Minimum: Include basic replacement parts
+      - Maximum: Include all tools if not owned + premium parts
+      - Specify: Parts breakdown (valves, fittings, sealants, etc.)
+
+      Professional Costs (labor + materials):
+      - Minimum: Quick fix, standard parts, single visit
+      - Maximum: Complex repair, emergency callout, premium parts, multiple visits
+      - Typical hourly rates: ${user?.country === "UK" ? "£45-£85/hr" : "$60-$120/hr"} depending on trade
+      - Callout fees: ${user?.country === "UK" ? "£50-£100" : "$75-$150"}
+
+      Include: VAT/tax considerations, emergency surcharges, weekend rates
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      7. DETAILED DIY REPAIR PROTOCOL
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Provide 6-10 PROFESSIONAL-GRADE steps:
+      - Each step: Specific action with measurements, torque specs, techniques
+      - Safety precautions: PPE, isolation procedures, hazard warnings
+      - Pro tips: Techniques to avoid common mistakes
+      - Quality checks: How to verify correct installation
+      - Time estimates: Per step and total
+      - Skill level required: Beginner/Intermediate/Advanced
+
+      Example: "Step 3: Using a 22mm adjustable wrench, turn the compression nut counter-clockwise exactly 1.5 turns. Apply steady pressure to avoid stripping the brass threads. You should feel slight resistance. If it spins freely, the olive seal is damaged and requires replacement."
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      8. MATERIALS & TOOLS SPECIFICATION
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      List 4-8 specific items for ${user?.country || "UK"} market:
+      - Exact product specification (sizes, ratings, standards)
+      - Purpose and critical importance
+      - Amazon search URL (properly formatted for ${user?.country === "US" ? "amazon.com" : user?.country === "CA" ? "amazon.ca" : user?.country === "AU" ? "amazon.com.au" : "amazon.co.uk"})
+      - Current price range in ${currency}
+      - Alternatives if not available
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      9. LIABILITY & RESPONSIBILITY (${userType})
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      Determine: "renter", "landlord", "homeowner", "varies"
+      - Legal basis: Reference tenancy agreements, building codes
+      - If landlord responsibility: Provide 3-4 professional communication talking points with specific legal references
+      - If tenant responsibility: Explain maintenance obligations
+      - Gray areas: Explain when responsibility is disputed
+
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      ANALYSIS STANDARDS:
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      ✓ Use precise technical terminology (explain terms)
+      ✓ Reference building codes, British Standards (BS), or local codes
+      ✓ Include manufacturer specifications where relevant  
+      ✓ Cite real-time web research for current pricing
+      ✓ Provide measurements, tolerances, specifications
+      ✓ Consider ${user?.country || "UK"}-specific regulations and products
+      ✓ Account for property type, age, construction methods
+      ✓ Professional-grade analysis that would satisfy an insurance claim or surveyor report
+
+      CRITICAL: This analysis may be used for insurance claims, landlord disputes, or contractor quotes. Be thorough, accurate, and professionally credible.`,
               file_urls: [fileUrl],
               add_context_from_internet: true,
               response_json_schema: {
