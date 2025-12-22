@@ -17,9 +17,11 @@ export default function TradesSignup() {
   const [businessName, setBusinessName] = useState("");
   const [specialty, setSpecialty] = useState("");
   const [location, setLocation] = useState("");
-  const [proofFile, setProofFile] = useState(null);
+  const [insuranceFile, setInsuranceFile] = useState(null);
+  const [registrationFile, setRegistrationFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [proofUrl, setProofUrl] = useState("");
+  const [insuranceUrl, setInsuranceUrl] = useState("");
+  const [registrationUrl, setRegistrationUrl] = useState("");
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -28,32 +30,38 @@ export default function TradesSignup() {
 
   const submitMutation = useMutation({
     mutationFn: async (data) => {
-      // AI vetting process
+      // AI vetting process for insurance and registration
       const vetting = await base44.integrations.Core.InvokeLLM({
         prompt: `You are vetting a tradesperson application for QuoFix.
 
 Business Name: ${data.businessName}
 Specialty: ${data.specialty}
 Location: ${data.location}
-Proof Document: ${data.proofUrl}
 
-Analyze the provided proof document and determine if this is a legitimate business.
+Analyze the provided documents:
+1. Insurance Document
+2. Company Registration Document
+
 Check for:
-1. Valid business registration/license documents
-2. Insurance certificates
-3. Professional certifications
-4. Contact information consistency
+- Valid insurance certificate with coverage details
+- Current insurance dates (not expired)
+- Proper business registration/license
+- Company details match the application
+- Professional certifications if applicable
+- Document authenticity (not obviously fake/edited)
 
-Return your assessment.`,
-        file_urls: [data.proofUrl],
+Return your assessment with detailed reasons.`,
+        file_urls: [data.insuranceUrl, data.registrationUrl],
         response_json_schema: {
           type: "object",
           properties: {
             approved: { type: "boolean" },
             reason: { type: "string" },
-            confidence: { type: "number" }
+            confidence: { type: "number" },
+            insurance_valid: { type: "boolean" },
+            registration_valid: { type: "boolean" }
           },
-          required: ["approved", "reason", "confidence"]
+          required: ["approved", "reason", "confidence", "insurance_valid", "registration_valid"]
         }
       });
 
@@ -63,32 +71,49 @@ Return your assessment.`,
         trades_business_name: data.businessName,
         trades_specialty: data.specialty,
         trades_location: data.location,
-        trades_proof_url: data.proofUrl,
-        trades_status: vetting.approved && vetting.confidence >= 0.7 ? "approved" : "pending",
-        subscription_tier: vetting.approved && vetting.confidence >= 0.7 ? "trades" : user.subscription_tier
+        trades_insurance_url: data.insuranceUrl,
+        trades_registration_url: data.registrationUrl,
+        trades_verified: vetting.approved && vetting.confidence >= 0.75,
+        trades_subscription_active: false
       });
 
       return vetting;
     },
     onSuccess: (vetting) => {
       queryClient.invalidateQueries(["user"]);
-      if (vetting.approved && vetting.confidence >= 0.7) {
-        navigate(createPageUrl("TradesSuccess"));
+      if (vetting.approved && vetting.confidence >= 0.75) {
+        navigate(createPageUrl("TradesPayment"));
       } else {
         navigate(createPageUrl("TradesPending"));
       }
     }
   });
 
-  const handleProofUpload = async (e) => {
+  const handleInsuranceUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
-      setProofUrl(file_url);
-      setProofFile(file.name);
+      setInsuranceUrl(file_url);
+      setInsuranceFile(file.name);
+    } catch (error) {
+      console.error("Upload failed:", error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleRegistrationUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      setRegistrationUrl(file_url);
+      setRegistrationFile(file.name);
     } catch (error) {
       console.error("Upload failed:", error);
     } finally {
@@ -101,7 +126,8 @@ Return your assessment.`,
       businessName,
       specialty,
       location,
-      proofUrl
+      insuranceUrl,
+      registrationUrl
     });
   };
 
@@ -186,7 +212,7 @@ Return your assessment.`,
               ? "bg-[#F7B600]/20 border-[#F7B600] text-[#F7B600]"
               : "bg-[#F7B600]/20 border-[#F7B600] text-[#F7B600]"
           )}>
-            £1.99 / week
+            £2.99 / week
           </div>
         </div>
 
@@ -266,15 +292,15 @@ Return your assessment.`,
               "text-sm font-medium mb-2 block",
               theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
             )}>
-              Proof of Business
+              Insurance Certificate *
             </label>
             <p className={cn(
               "text-xs mb-2",
               theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
             )}>
-              Upload business license, insurance, or certification
+              Upload valid public liability insurance
             </p>
-            {proofFile ? (
+            {insuranceFile ? (
               <div className={cn(
                 "rounded-2xl p-4 border-2 flex items-center justify-between",
                 theme === "dark"
@@ -284,9 +310,9 @@ Return your assessment.`,
                 <span className={cn(
                   "text-sm truncate",
                   theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>{proofFile}</span>
+                )}>{insuranceFile}</span>
                 <button
-                  onClick={() => { setProofFile(null); setProofUrl(""); }}
+                  onClick={() => { setInsuranceFile(null); setInsuranceUrl(""); }}
                   className="text-red-500 text-sm ml-2"
                 >
                   Remove
@@ -294,19 +320,72 @@ Return your assessment.`,
               </div>
             ) : (
               <label className={cn(
-                "flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-2xl cursor-pointer",
+                "flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-2xl cursor-pointer",
                 theme === "dark"
                   ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
                   : "border-[#1E3A57]/20 hover:bg-slate-50"
               )}>
-                <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={handleProofUpload} />
+                <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={handleInsuranceUpload} />
                 {uploading ? (
-                  <Loader2 className="w-8 h-8 animate-spin text-[#57CFA4]" />
+                  <Loader2 className="w-6 h-6 animate-spin text-[#57CFA4]" />
                 ) : (
                   <>
-                    <Upload className={cn("w-8 h-8 mb-2", theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/50")} />
+                    <Upload className={cn("w-6 h-6 mb-2", theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/50")} />
                     <span className={cn("text-sm", theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
-                      Upload document
+                      Upload insurance
+                    </span>
+                  </>
+                )}
+              </label>
+            )}
+          </div>
+
+          <div>
+            <label className={cn(
+              "text-sm font-medium mb-2 block",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+            )}>
+              Company Registration *
+            </label>
+            <p className={cn(
+              "text-xs mb-2",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+            )}>
+              Upload business registration or license
+            </p>
+            {registrationFile ? (
+              <div className={cn(
+                "rounded-2xl p-4 border-2 flex items-center justify-between",
+                theme === "dark"
+                  ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
+                  : "bg-white border-[#1E3A57]/20"
+              )}>
+                <span className={cn(
+                  "text-sm truncate",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>{registrationFile}</span>
+                <button
+                  onClick={() => { setRegistrationFile(null); setRegistrationUrl(""); }}
+                  className="text-red-500 text-sm ml-2"
+                >
+                  Remove
+                </button>
+              </div>
+            ) : (
+              <label className={cn(
+                "flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-2xl cursor-pointer",
+                theme === "dark"
+                  ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                  : "border-[#1E3A57]/20 hover:bg-slate-50"
+              )}>
+                <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={handleRegistrationUpload} />
+                {uploading ? (
+                  <Loader2 className="w-6 h-6 animate-spin text-[#57CFA4]" />
+                ) : (
+                  <>
+                    <Upload className={cn("w-6 h-6 mb-2", theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/50")} />
+                    <span className={cn("text-sm", theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
+                      Upload registration
                     </span>
                   </>
                 )}
@@ -316,13 +395,13 @@ Return your assessment.`,
 
           <Button
             onClick={handleSubmit}
-            disabled={!businessName || !specialty || !location || !proofUrl || submitMutation.isPending}
+            disabled={!businessName || !specialty || !location || !insuranceUrl || !registrationUrl || submitMutation.isPending}
             className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] h-12 rounded-2xl font-semibold"
           >
             {submitMutation.isPending ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Verifying...
+                Verifying Documents...
               </>
             ) : (
               "Submit Application"
