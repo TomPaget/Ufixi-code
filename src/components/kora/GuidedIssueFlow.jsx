@@ -31,6 +31,7 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const [mediaUrl, setMediaUrl] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
+  const [error, setError] = useState(null);
   const [issueType, setIssueType] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
@@ -61,6 +62,7 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
     if (!mediaFile) return;
 
     setUploading(true);
+    setError(null);
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file: mediaFile });
       setMediaUrl(file_url);
@@ -130,6 +132,7 @@ Examples:
       setStep("questions");
     } catch (error) {
       console.error("Upload/analysis failed:", error);
+      setError(error.message || "Failed to analyze. Please try again or use a different file format.");
     } finally {
       setUploading(false);
       setAnalyzing(false);
@@ -139,6 +142,7 @@ Examples:
   // Step 2: Answer questions and get AI suggestions
   const handleQuestionsSubmit = async () => {
     setAnalyzing(true);
+    setError(null);
     try {
       const answersText = questions.map(q => 
         `${q.question}: ${answers[q.id] || "Not answered"}`
@@ -190,6 +194,7 @@ Be practical, safety-conscious, and helpful.`,
       setStep("suggestions");
     } catch (error) {
       console.error("Suggestions failed:", error);
+      setError(error.message || "Failed to get suggestions. Please try again.");
     } finally {
       setAnalyzing(false);
     }
@@ -198,6 +203,7 @@ Be practical, safety-conscious, and helpful.`,
   // Step 3: Full analysis
   const handleFullAnalysis = async () => {
     setAnalyzing(true);
+    setError(null);
     try {
       const answersText = questions.map(q => 
         `${q.question}: ${answers[q.id] || "Not answered"}`
@@ -212,7 +218,7 @@ Be practical, safety-conscious, and helpful.`,
       });
     } catch (error) {
       console.error("Full analysis failed:", error);
-    } finally {
+      setError(error.message || "Failed to complete analysis. Please try again.");
       setAnalyzing(false);
     }
   };
@@ -564,6 +570,12 @@ Be practical, safety-conscious, and helpful.`,
           </div>
         </div>
 
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
+            <p className="text-sm text-red-800">{error}</p>
+          </div>
+        )}
+
         <Button
           onClick={handleUpload}
           disabled={!description.trim() || uploading || analyzing}
@@ -676,6 +688,12 @@ Be practical, safety-conscious, and helpful.`,
             </div>
           ))}
         </div>
+
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
+            <p className="text-sm text-red-800">{error}</p>
+          </div>
+        )}
 
         <Button
           onClick={handleQuestionsSubmit}
@@ -799,6 +817,12 @@ Be practical, safety-conscious, and helpful.`,
 
         {/* Action Buttons */}
         <div className="space-y-3">
+          {error && (
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200">
+              <p className="text-sm text-red-800">{error}</p>
+            </div>
+          )}
+
           <Button
             onClick={handleFullAnalysis}
             disabled={analyzing}
