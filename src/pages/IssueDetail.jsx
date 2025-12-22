@@ -12,7 +12,10 @@ import {
   Video, 
   Mic,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  ShoppingCart,
+  ExternalLink,
+  AlertCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -285,19 +288,70 @@ export default function IssueDetail() {
 
       {/* DIY Dialog */}
       <Dialog open={showDIY} onOpenChange={setShowDIY}>
-        <DialogContent className="max-w-lg mx-4 rounded-3xl">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl">
           <DialogHeader>
-            <DialogTitle>DIY Repair Guide</DialogTitle>
+            <DialogTitle className="text-xl">DIY Repair Guide</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4 mt-4">
+          
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg mb-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-amber-800">
+                <p className="font-semibold mb-1">Important Disclaimer</p>
+                <p>This is <strong>informational guidance only</strong>, not professional advice. QuoFix provides general information to help you understand your issue. For safety-critical repairs, electrical work, gas work, or if you're unsure, always consult a qualified professional. We are not responsible for any outcomes from following this guidance.</p>
+              </div>
+            </div>
+          </div>
+
+          {issue?.products_needed?.length > 0 && (
+            <div className="mb-6">
+              <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                <ShoppingCart className="w-5 h-5 text-blue-600" />
+                Tools & Materials Needed
+              </h3>
+              <div className="space-y-3">
+                {issue.products_needed.map((product, i) => (
+                  <div key={i} className="border rounded-xl p-4 hover:border-blue-500 transition-colors bg-slate-50">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-slate-900">{product.name}</h4>
+                        <p className="text-sm text-slate-600 mt-1">{product.description}</p>
+                        {product.estimatedCost && (
+                          <p className="text-sm text-slate-500 mt-1">Est. cost: {product.estimatedCost}</p>
+                        )}
+                      </div>
+                      <a
+                        href={product.amazonSearchUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium whitespace-nowrap flex items-center gap-2 transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        View on Amazon
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">Step-by-Step Instructions</h3>
             {issue.diy_steps?.map((step, i) => (
-              <div key={i} className="flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-[#6B9080]/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-semibold text-[#6B9080]">{i + 1}</span>
+              <div key={i} className="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                  {i + 1}
                 </div>
-                <p className="text-slate-600 pt-1">{step}</p>
+                <p className="text-slate-700 pt-2 leading-relaxed">{step}</p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-6 bg-blue-50 border border-blue-200 p-4 rounded-xl">
+            <p className="text-sm text-blue-800">
+              <strong>Safety First:</strong> If at any point you feel uncomfortable or unsure, stop and contact a professional. It's better to pay for expert help than risk injury or property damage.
+            </p>
           </div>
         </DialogContent>
       </Dialog>
