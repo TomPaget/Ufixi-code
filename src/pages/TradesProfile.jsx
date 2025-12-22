@@ -553,6 +553,46 @@ Return as array of specialty strings.`,
                 ))}
               </div>
             </div>
+
+            {/* Account Type Switch */}
+            <div className={cn(
+              "p-4 rounded-xl border",
+              theme === "dark"
+                ? "bg-slate-700/50 border-slate-600/50"
+                : "bg-slate-50 border-slate-200"
+            )}>
+              <h4 className={cn(
+                "font-semibold mb-2",
+                theme === "dark" ? "text-slate-200" : "text-slate-900"
+              )}>Account Type</h4>
+              <p className={cn(
+                "text-sm mb-3",
+                theme === "dark" ? "text-slate-400" : "text-slate-600"
+              )}>
+                Switch to a standard customer account if you no longer want to receive job requests.
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  if (confirm("Are you sure you want to switch to a standard account? You'll no longer receive job requests from customers.")) {
+                    updateMutation.mutate({
+                      is_trades: false,
+                      trades_status: null,
+                      account_type: "customer"
+                    });
+                  }
+                }}
+                disabled={updateMutation.isPending}
+                className={cn(
+                  "w-full rounded-xl",
+                  theme === "dark"
+                    ? "border-slate-600 hover:bg-slate-700 text-slate-300"
+                    : "border-slate-300 hover:bg-slate-50"
+                )}
+              >
+                Switch to Standard Account
+              </Button>
+            </div>
           </>
         )}
 
