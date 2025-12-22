@@ -1,11 +1,13 @@
 import { format } from "date-fns";
-import { ChevronRight, Image, Video, Mic } from "lucide-react";
+import { ChevronRight, Image, Video, Mic, DollarSign, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import UrgencyBadge from "./UrgencyBadge";
 import SeverityBadge from "./SeverityBadge";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 
 const mediaIcons = {
   photo: Image,
@@ -31,6 +33,14 @@ const getStatusStyle = (status, theme) => {
 export default function IssueCard({ issue, showCost = false, showResolutionDate = false }) {
   const { theme } = useTheme();
   const MediaIcon = mediaIcons[issue.media_type] || Image;
+  
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => base44.auth.me()
+  });
+  
+  const currency = user?.currency || "GBP";
+  const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[currency];
 
   return (
     <Link 
@@ -102,6 +112,30 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
               )}>
                 {issue.status?.replace("_", " ")}
               </span>
+              
+              {showCost && (issue.pro_cost_min || issue.pro_cost_max) && (
+                <span className={cn(
+                  "text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1",
+                  theme === "dark"
+                    ? "bg-[#F7B600]/20 text-[#F7B600]"
+                    : "bg-yellow-100 text-yellow-700"
+                )}>
+                  <DollarSign className="w-3 h-3" />
+                  {currencySymbol}{issue.pro_cost_min || 0}-{currencySymbol}{issue.pro_cost_max || 0}
+                </span>
+              )}
+              
+              {showResolutionDate && issue.resolved_date && (
+                <span className={cn(
+                  "text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1",
+                  theme === "dark"
+                    ? "bg-green-500/20 text-green-400"
+                    : "bg-green-100 text-green-700"
+                )}>
+                  <Calendar className="w-3 h-3" />
+                  {format(new Date(issue.resolved_date), "MMM d")}
+                </span>
+              )}
             </div>
           </div>
         </div>
