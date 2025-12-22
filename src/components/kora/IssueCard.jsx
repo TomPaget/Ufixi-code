@@ -28,7 +28,7 @@ const getStatusStyle = (status, theme) => {
   return styles[status] || styles.active;
 };
 
-export default function IssueCard({ issue }) {
+export default function IssueCard({ issue, showCost = false, showResolutionDate = false }) {
   const { theme } = useTheme();
   const MediaIcon = mediaIcons[issue.media_type] || Image;
 
