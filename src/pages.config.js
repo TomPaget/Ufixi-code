@@ -11,14 +11,15 @@ import Messages from './pages/Messages';
 import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
 import Support from './pages/Support';
+import TradesBoost from './pages/TradesBoost';
+import TradesDashboard from './pages/TradesDashboard';
+import TradesPayment from './pages/TradesPayment';
 import TradesPending from './pages/TradesPending';
 import TradesProfile from './pages/TradesProfile';
 import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
-import TradesPayment from './pages/TradesPayment';
-import TradesBoost from './pages/TradesBoost';
-import TradesDashboard from './pages/TradesDashboard';
+import Notifications from './pages/Notifications';
 import __Layout from './Layout.jsx';
 
 
@@ -36,14 +37,15 @@ export const PAGES = {
     "Reminders": Reminders,
     "Settings": Settings,
     "Support": Support,
+    "TradesBoost": TradesBoost,
+    "TradesDashboard": TradesDashboard,
+    "TradesPayment": TradesPayment,
     "TradesPending": TradesPending,
     "TradesProfile": TradesProfile,
     "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
-    "TradesPayment": TradesPayment,
-    "TradesBoost": TradesBoost,
-    "TradesDashboard": TradesDashboard,
+    "Notifications": Notifications,
 }
 
 export const pagesConfig = {

@@ -504,11 +504,93 @@ export default function Settings() {
           </Button>
         </motion.div>
 
-        {/* Language & Currency */}
+        {/* Notification Preferences */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
+          className={cn(
+            "rounded-2xl p-5 border",
+            theme === "dark"
+              ? "bg-slate-800 border-slate-700/50"
+              : "bg-white border-slate-200"
+          )}
+        >
+          <h3 className={cn(
+            "font-semibold mb-4",
+            theme === "dark" ? "text-slate-200" : "text-slate-900"
+          )}>Notification Preferences</h3>
+          
+          <div className="space-y-3">
+            {[
+              { key: "email_enabled", label: "Email Notifications", description: "Receive updates via email" },
+              { key: "push_enabled", label: "Push Notifications", description: "Receive mobile push alerts" },
+              { key: "issueupdate_enabled", label: "Issue Updates", description: "Notifications when issues change status" },
+              { key: "workrequest_enabled", label: "Work Requests", description: "New job requests from tradespeople" },
+              { key: "appointment_enabled", label: "Appointments", description: "Upcoming maintenance reminders" },
+              { key: "payment_enabled", label: "Payment Alerts", description: "Payment due and completed notifications" },
+              { key: "message_enabled", label: "Messages", description: "New messages from tradespeople" },
+              { key: "reminders_enabled", label: "Maintenance Reminders", description: "Automated reminder notifications" }
+            ].map((pref) => {
+              const prefs = user?.notification_preferences || {};
+              const isEnabled = prefs[pref.key] !== false;
+              
+              return (
+                <button
+                  key={pref.key}
+                  onClick={() => {
+                    updateUserMutation.mutate({
+                      notification_preferences: {
+                        ...prefs,
+                        [pref.key]: !isEnabled
+                      }
+                    });
+                  }}
+                  className={cn(
+                    "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left",
+                    isEnabled
+                      ? theme === "dark"
+                        ? "border-[#57CFA4] bg-[#57CFA4]/10"
+                        : "border-[#57CFA4] bg-[#57CFA4]/10"
+                      : theme === "dark"
+                        ? "border-slate-700 bg-slate-800/50"
+                        : "border-slate-200 bg-slate-50"
+                  )}
+                >
+                  <div className="flex-1">
+                    <p className={cn(
+                      "font-medium text-sm",
+                      theme === "dark" ? "text-slate-200" : "text-slate-900"
+                    )}>
+                      {pref.label}
+                    </p>
+                    <p className={cn(
+                      "text-xs mt-0.5",
+                      theme === "dark" ? "text-slate-400" : "text-slate-600"
+                    )}>
+                      {pref.description}
+                    </p>
+                  </div>
+                  <div className={cn(
+                    "w-12 h-6 rounded-full transition-all",
+                    isEnabled ? "bg-[#57CFA4]" : theme === "dark" ? "bg-slate-700" : "bg-slate-300"
+                  )}>
+                    <div className={cn(
+                      "w-5 h-5 rounded-full bg-white shadow-lg transition-all mt-0.5",
+                      isEnabled ? "ml-6" : "ml-0.5"
+                    )} />
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </motion.section>
+
+        {/* Language & Currency */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
           className={cn(
             "rounded-2xl p-5 border",
             theme === "dark"

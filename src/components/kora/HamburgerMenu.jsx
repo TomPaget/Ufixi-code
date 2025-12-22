@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { X, Home, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard } from "lucide-react";
+import { X, Home, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -10,6 +10,7 @@ import { base44 } from "@/api/base44Client";
 
 const customerMenuItems = [
   { icon: Home, label: "Home", page: "Home" },
+  { icon: Bell, label: "Notifications", page: "Notifications" },
   { icon: History, label: "History", page: "History" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
@@ -24,6 +25,7 @@ const customerMenuItems = [
 const tradesMenuItems = [
   { icon: Home, label: "Home", page: "Home" },
   { icon: LayoutDashboard, label: "My Dashboard", page: "TradesDashboard" },
+  { icon: Bell, label: "Notifications", page: "Notifications" },
   { icon: Briefcase, label: "My Profile", page: "TradesProfile" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
