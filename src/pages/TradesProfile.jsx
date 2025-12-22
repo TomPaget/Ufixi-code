@@ -16,7 +16,8 @@ import {
   Award,
   Image as ImageIcon,
   AlertTriangle,
-  CheckCircle2
+  CheckCircle2,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,6 +48,7 @@ export default function TradesProfile() {
   const [testimonials, setTestimonials] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [activeTab, setActiveTab] = useState("info");
+  const [generatingAI, setGeneratingAI] = useState(null);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -79,9 +81,31 @@ export default function TradesProfile() {
     setUploading(true);
     try {
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      
+      // Generate AI caption
+      const captionResult = await base44.integrations.Core.InvokeLLM({
+        prompt: `Analyze this image of tradesperson work and generate a short, professional caption (5-10 words) that describes what's shown.
+        
+Examples:
+- "Kitchen sink installation completed"
+- "New electrical panel upgrade"
+- "Bathroom renovation project"
+- "Custom carpentry shelving unit"
+
+Be specific about the type of work shown.`,
+        file_urls: [file_url],
+        response_json_schema: {
+          type: "object",
+          properties: {
+            caption: { type: "string" }
+          },
+          required: ["caption"]
+        }
+      });
+      
       setGallery([...gallery, { 
         url: file_url, 
-        caption: "", 
+        caption: captionResult.caption, 
         date: new Date().toISOString().split("T")[0]
       }]);
     } catch (error) {
@@ -124,6 +148,137 @@ export default function TradesProfile() {
       setSpecialties(specialties.filter(s => s !== specialty));
     } else {
       setSpecialties([...specialties, specialty]);
+    }
+  };
+
+  const generateBusinessName = async () => {
+    setGeneratingAI("business_name");
+    try {
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Generate a professional, catchy business name for a tradesperson with the following details:
+        
+Location: ${serviceArea || user?.trades_location || "UK"}
+Specialties: ${specialties.join(", ") || "general trades"}
+Years of experience: ${yearsOperated || "new business"}
+
+Generate 1 business name that is:
+- Professional and trustworthy
+- Easy to remember
+- Related to the services offered
+- Includes location reference if appropriate
+
+Examples: "Manchester Plumbing Pros", "Elite Electrical Solutions", "LocalFix Handyman Services"`,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            business_name: { type: "string" }
+          },
+          required: ["business_name"]
+        }
+      });
+      setBusinessName(result.business_name);
+    } finally {
+      setGeneratingAI(null);
+    }
+  };
+
+  const generateBio = async () => {
+    setGeneratingAI("bio");
+    try {
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Write a compelling, professional bio (2-3 sentences) for a tradesperson with these details:
+        
+Business name: ${businessName || "their business"}
+Specialties: ${specialties.join(", ") || "general trades"}
+Location: ${serviceArea || user?.trades_location || "local area"}
+Years in business: ${yearsOperated || "new"}
+
+The bio should:
+- Sound professional and trustworthy
+- Highlight experience and expertise
+- Mention service area
+- Be written in third person
+- Be concise (50-80 words)`,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            bio: { type: "string" }
+          },
+          required: ["bio"]
+        }
+      });
+      setBio(result.bio);
+    } finally {
+      setGeneratingAI(null);
+    }
+  };
+
+  const generateWorkingHours = async () => {
+    setGeneratingAI("hours");
+    try {
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Suggest optimal working hours for a ${specialties.join(", ") || "general"} tradesperson in the UK.
+        
+Consider:
+- Standard UK business hours
+- Common customer availability
+- Industry norms for this trade
+- Weekend availability (Saturday half-day, Sunday closed is common)
+
+Format: "9:00 AM - 5:00 PM" or "Closed"`,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            monday: { type: "string" },
+            tuesday: { type: "string" },
+            wednesday: { type: "string" },
+            thursday: { type: "string" },
+            friday: { type: "string" },
+            saturday: { type: "string" },
+            sunday: { type: "string" }
+          },
+          required: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        }
+      });
+      setWorkingHours(result);
+    } finally {
+      setGeneratingAI(null);
+    }
+  };
+
+  const suggestSpecialties = async () => {
+    setGeneratingAI("specialties");
+    try {
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `Based on these current specialties: ${specialties.join(", ") || "none yet"}
+        
+Suggest 2-4 related specialties that commonly go together in the trades industry.
+
+For example:
+- If they do plumbing, suggest heating/boilers
+- If they do electrical, suggest lighting/appliances
+- If they do carpentry, suggest flooring/doors
+
+Choose from: plumbing, electrical, hvac, carpentry, roofing, painting, general, appliances
+
+Return as array of specialty strings.`,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            suggested_specialties: {
+              type: "array",
+              items: { type: "string" }
+            }
+          },
+          required: ["suggested_specialties"]
+        }
+      });
+      
+      // Add suggested specialties that aren't already selected
+      const newSpecialties = result.suggested_specialties.filter(s => !specialties.includes(s));
+      setSpecialties([...specialties, ...newSpecialties]);
+    } finally {
+      setGeneratingAI(null);
     }
   };
 
@@ -231,13 +386,32 @@ export default function TradesProfile() {
         {activeTab === "info" && (
           <>
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-2 block flex items-center gap-2",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
-                <Briefcase className="w-4 h-4" />
-                Business Name
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className={cn(
+                  "text-sm font-medium flex items-center gap-2",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                )}>
+                  <Briefcase className="w-4 h-4" />
+                  Business Name
+                </label>
+                <button
+                  onClick={generateBusinessName}
+                  disabled={generatingAI === "business_name"}
+                  className={cn(
+                    "flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors",
+                    theme === "dark"
+                      ? "bg-[#F7B600]/20 text-[#F7B600] hover:bg-[#F7B600]/30"
+                      : "bg-[#F7B600]/10 text-[#F7B600] hover:bg-[#F7B600]/20"
+                  )}
+                >
+                  {generatingAI === "business_name" ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <Sparkles className="w-3 h-3" />
+                  )}
+                  AI Suggest
+                </button>
+              </div>
               <Input
                 placeholder="Your business name"
                 value={businessName}
@@ -252,12 +426,31 @@ export default function TradesProfile() {
             </div>
 
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-2 block",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
-                About Your Business
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className={cn(
+                  "text-sm font-medium",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                )}>
+                  About Your Business
+                </label>
+                <button
+                  onClick={generateBio}
+                  disabled={generatingAI === "bio"}
+                  className={cn(
+                    "flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors",
+                    theme === "dark"
+                      ? "bg-[#F7B600]/20 text-[#F7B600] hover:bg-[#F7B600]/30"
+                      : "bg-[#F7B600]/10 text-[#F7B600] hover:bg-[#F7B600]/20"
+                  )}
+                >
+                  {generatingAI === "bio" ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <Sparkles className="w-3 h-3" />
+                  )}
+                  AI Generate
+                </button>
+              </div>
               <Textarea
                 placeholder="Tell customers about your business, experience, and what makes you stand out..."
                 value={bio}
@@ -315,13 +508,32 @@ export default function TradesProfile() {
             </div>
 
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-2 block flex items-center gap-2",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
-                <Award className="w-4 h-4" />
-                Specialties
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className={cn(
+                  "text-sm font-medium flex items-center gap-2",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                )}>
+                  <Award className="w-4 h-4" />
+                  Specialties
+                </label>
+                <button
+                  onClick={suggestSpecialties}
+                  disabled={generatingAI === "specialties"}
+                  className={cn(
+                    "flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors",
+                    theme === "dark"
+                      ? "bg-[#F7B600]/20 text-[#F7B600] hover:bg-[#F7B600]/30"
+                      : "bg-[#F7B600]/10 text-[#F7B600] hover:bg-[#F7B600]/20"
+                  )}
+                >
+                  {generatingAI === "specialties" ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <Sparkles className="w-3 h-3" />
+                  )}
+                  AI Suggest
+                </button>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {allSpecialties.map(specialty => (
                   <button
@@ -346,28 +558,56 @@ export default function TradesProfile() {
 
         {/* Working Hours Tab */}
         {activeTab === "hours" && (
-          <div className="space-y-3">
-            {Object.entries(workingHours).map(([day, hours]) => (
-              <div key={day}>
-                <label className={cn(
-                  "text-sm font-medium mb-1 block capitalize",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
-                  {day}
-                </label>
-                <Input
-                  placeholder="e.g., 9:00 AM - 5:00 PM or Closed"
-                  value={hours}
-                  onChange={(e) => setWorkingHours({ ...workingHours, [day]: e.target.value })}
-                  className={cn(
-                    "border-2",
-                    theme === "dark"
-                      ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                      : "bg-white border-[#1E3A57]/20"
-                  )}
-                />
-              </div>
-            ))}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <p className={cn(
+                "text-sm",
+                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+              )}>
+                Set your weekly schedule
+              </p>
+              <button
+                onClick={generateWorkingHours}
+                disabled={generatingAI === "hours"}
+                className={cn(
+                  "flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg transition-colors",
+                  theme === "dark"
+                    ? "bg-[#F7B600]/20 text-[#F7B600] hover:bg-[#F7B600]/30"
+                    : "bg-[#F7B600]/10 text-[#F7B600] hover:bg-[#F7B600]/20"
+                )}
+              >
+                {generatingAI === "hours" ? (
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                ) : (
+                  <Sparkles className="w-3 h-3" />
+                )}
+                AI Suggest Hours
+              </button>
+            </div>
+            
+            <div className="space-y-3">
+              {Object.entries(workingHours).map(([day, hours]) => (
+                <div key={day}>
+                  <label className={cn(
+                    "text-sm font-medium mb-1 block capitalize",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                  )}>
+                    {day}
+                  </label>
+                  <Input
+                    placeholder="e.g., 9:00 AM - 5:00 PM or Closed"
+                    value={hours}
+                    onChange={(e) => setWorkingHours({ ...workingHours, [day]: e.target.value })}
+                    className={cn(
+                      "border-2",
+                      theme === "dark"
+                        ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
+                        : "bg-white border-[#1E3A57]/20"
+                    )}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
