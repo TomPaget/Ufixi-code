@@ -13,17 +13,15 @@ import {
   Upload,
   Loader2,
   MapPin,
-  User,
-  Phone,
-  Mail
+  User
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import PaymentRequestDialog from "@/components/kora/PaymentRequestDialog";
 
 export default function JobDetail() {
   const navigate = useNavigate();
@@ -33,9 +31,9 @@ export default function JobDetail() {
   const jobId = urlParams.get("id");
 
   const [notes, setNotes] = useState("");
-  const [actualCost, setActualCost] = useState("");
   const [uploading, setUploading] = useState(false);
   const [photos, setPhotos] = useState([]);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -84,31 +82,14 @@ export default function JobDetail() {
   };
 
   const handleCompleteJob = async () => {
-    await updateJobMutation.mutateAsync({
-      status: "completed",
-      completion_date: new Date().toISOString(),
-      actual_cost: parseFloat(actualCost) || job?.estimated_cost,
-      notes: notes || job?.notes
-    });
+    // Open payment dialog instead of directly completing
+    setShowPaymentDialog(true);
   };
 
-  const handleRequestPayment = async () => {
-    await updateJobMutation.mutateAsync({
-      payment_status: "requested",
-      payment_requested_date: new Date().toISOString()
-    });
-
-    // Create notification for customer
-    await base44.entities.Notification.create({
-      user_id: job.customer_id,
-      title: "Payment Requested",
-      message: `${user?.trades_business_name || user?.full_name} has requested payment of ${job.actual_cost ? `£${job.actual_cost}` : `£${job.estimated_cost}`} for ${job.title}`,
-      type: "payment",
-      priority: "high",
-      related_entity_type: "Job",
-      related_entity_id: jobId,
-      action_url: createPageUrl(`JobDetail?id=${jobId}`)
-    });
+  const handlePaymentRequestComplete = async (invoice) => {
+    setShowPaymentDialog(false);
+    queryClient.invalidateQueries(["job", jobId]);
+    queryClient.invalidateQueries(["jobs"]);
   };
 
   const handleOpenChat = async () => {
@@ -320,60 +301,25 @@ export default function JobDetail() {
             </div>
           )}
 
-          {job.status === "completed" && (
-            <div className="space-y-3">
-              {!job.actual_cost ? (
-                <>
-                  <label className={cn(
-                    "text-sm font-medium",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-                  )}>
-                    Final Cost
-                  </label>
-                  <Input
-                    type="number"
-                    placeholder="Enter final cost"
-                    value={actualCost}
-                    onChange={(e) => setActualCost(e.target.value)}
-                    className={cn(
-                      theme === "dark"
-                        ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                        : "bg-white border-slate-200"
-                    )}
-                  />
-                </>
-              ) : (
-                <div>
-                  <p className={cn("text-sm", theme === "dark" ? "text-[#57CFA4]" : "text-slate-500")}>
-                    Final Cost
-                  </p>
-                  <p className={cn(
-                    "text-2xl font-bold text-[#57CFA4]",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-[#57CFA4]"
-                  )}>
-                    £{job.actual_cost}
-                  </p>
-                </div>
-              )}
-
-              {job.payment_status === "pending" && job.actual_cost && (
-                <Button
-                  onClick={handleRequestPayment}
-                  className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
-                  disabled={updateJobMutation.isPending}
-                >
-                  Request Payment
-                </Button>
-              )}
+          {job.status === "completed" && job.actual_cost && (
+            <div>
+              <p className={cn("text-sm", theme === "dark" ? "text-[#57CFA4]" : "text-slate-500")}>
+                Final Cost
+              </p>
+              <p className={cn(
+                "text-2xl font-bold text-[#57CFA4]"
+              )}>
+                £{job.actual_cost}
+              </p>
 
               {job.payment_status === "requested" && (
-                <Badge className="bg-yellow-500 w-full justify-center py-2">
+                <Badge className="bg-yellow-500 w-full justify-center py-2 mt-3">
                   Payment Requested - Awaiting Customer
                 </Badge>
               )}
 
               {job.payment_status === "paid" && (
-                <Badge className="bg-green-500 w-full justify-center py-2">
+                <Badge className="bg-green-500 w-full justify-center py-2 mt-3">
                   Payment Received ✓
                 </Badge>
               )}
@@ -523,10 +469,18 @@ export default function JobDetail() {
             disabled={updateJobMutation.isPending}
           >
             <CheckCircle2 className="w-5 h-5 mr-2" />
-            Mark as Completed
+            Complete & Request Payment
           </Button>
         )}
       </main>
+
+      {/* Payment Request Dialog */}
+      <PaymentRequestDialog
+        job={job}
+        isOpen={showPaymentDialog}
+        onClose={() => setShowPaymentDialog(false)}
+        onComplete={handlePaymentRequestComplete}
+      />
     </div>
   );
 }
