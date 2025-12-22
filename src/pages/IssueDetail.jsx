@@ -69,10 +69,23 @@ export default function IssueDetail() {
 
   const updateIssueMutation = useMutation({
     mutationFn: (data) => base44.entities.Issue.update(issueId, data),
-    onSuccess: () => {
+    onSuccess: async (updatedIssue, variables) => {
       queryClient.invalidateQueries(["issue", issueId]);
       queryClient.invalidateQueries(["issues"]);
       setShowResolveDialog(false);
+      
+      // Send notification if status changed
+      if (variables.status && variables.status !== issue.status) {
+        try {
+          await base44.functions.invoke('createIssueNotification', {
+            issueId: issueId,
+            userId: user.id,
+            notificationType: 'status_changed'
+          });
+        } catch (error) {
+          console.error('Failed to send notification:', error);
+        }
+      }
     }
   });
 

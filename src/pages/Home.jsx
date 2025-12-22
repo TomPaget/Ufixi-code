@@ -12,6 +12,7 @@ import SubscriptionBanner from "@/components/kora/SubscriptionBanner";
 import Disclaimer from "@/components/kora/Disclaimer";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import MaintenanceAlerts from "@/components/kora/MaintenanceAlerts";
+import NotificationBell from "@/components/kora/NotificationBell";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 
@@ -278,7 +279,7 @@ export default function Home() {
               });
 
       // Create the issue
-      await createIssueMutation.mutateAsync({
+      const newIssue = await createIssueMutation.mutateAsync({
         ...analysis,
         media_url: fileUrl,
         media_type: mediaType,
@@ -290,6 +291,30 @@ export default function Home() {
         await base44.auth.updateMe({
           total_scans_used: totalScansUsed + 1
         });
+      }
+
+      // Trigger notification for critical issues or fix_now urgency
+      if (analysis.severity_score >= 8 || analysis.urgency === 'fix_now') {
+        try {
+          await base44.functions.invoke('createIssueNotification', {
+            issueId: newIssue.id,
+            userId: user.id,
+            notificationType: analysis.urgency === 'fix_now' ? 'fix_now_urgency' : 'critical_issue'
+          });
+        } catch (error) {
+          console.error('Failed to send notification:', error);
+        }
+      } else {
+        // Send regular issue created notification
+        try {
+          await base44.functions.invoke('createIssueNotification', {
+            issueId: newIssue.id,
+            userId: user.id,
+            notificationType: 'issue_created'
+          });
+        } catch (error) {
+          console.error('Failed to send notification:', error);
+        }
       }
 
     } catch (error) {
@@ -335,8 +360,8 @@ export default function Home() {
           )}>
             Q
           </div>
-          
-          <div className="w-10" />
+
+          <NotificationBell />
         </div>
       </header>
 
