@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import JobAssistant from "@/components/kora/JobAssistant";
+import RecommendedTradespeople from "@/components/kora/RecommendedTradespeople";
 
 export default function PostJob() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function PostJob() {
   const queryClient = useQueryClient();
 
   const [useAssistant, setUseAssistant] = useState(true);
+  const [jobDetails, setJobDetails] = useState(null);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -23,20 +25,22 @@ export default function PostJob() {
 
   const createJobMutation = useMutation({
     mutationFn: (jobData) => base44.entities.JobPosting.create(jobData),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(["jobPostings"]);
-      navigate(createPageUrl("MyJobs"));
+      setJobDetails(data);
     }
   });
 
   const handleJobComplete = (jobData) => {
-    createJobMutation.mutate({
+    const completeJobData = {
       customer_id: user?.id,
       customer_name: user?.display_name || user?.full_name,
       ...jobData,
       location: user?.approximate_location || "Not specified",
       status: "open"
-    });
+    };
+    createJobMutation.mutate(completeJobData);
+    setJobDetails(completeJobData);
   };
 
   return (
@@ -117,6 +121,11 @@ export default function PostJob() {
           )}>
             Manual form coming soon - use AI Assistant for now
           </p>
+        )}
+
+        {/* Recommended Tradespeople */}
+        {jobDetails && (
+          <RecommendedTradespeople jobDetails={jobDetails} />
         )}
       </main>
     </div>
