@@ -15,7 +15,10 @@ import {
   Lightbulb,
   Wrench,
   ArrowRight,
-  ChevronLeft
+  ChevronLeft,
+  Image,
+  Film,
+  Mic2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
@@ -234,71 +237,163 @@ Be practical, safety-conscious, and helpful.`,
         </p>
 
         {!mediaFile ? (
-          <div className="grid grid-cols-3 gap-3">
-            <label className={cn(
-              "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
-              theme === "dark"
-                ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-                : "border-slate-200 hover:bg-slate-50"
-            )}>
-              <input
-                type="file"
-                accept="image/*"
-                capture="environment"
-                className="hidden"
-                onChange={(e) => handleFileSelect("photo", e.target.files[0])}
-              />
-              <Camera className="w-6 h-6 mb-2 text-[#F7B600]" />
-              <span className={cn(
-                "text-xs text-center",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+          <div className="space-y-4">
+            <div>
+              <h4 className={cn(
+                "text-sm font-medium mb-2",
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
               )}>
-                Photo
-              </span>
-            </label>
+                Capture Media
+              </h4>
+              <div className="grid grid-cols-3 gap-3">
+                <label className={cn(
+                  "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
+                  theme === "dark"
+                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                    : "border-slate-200 hover:bg-slate-50"
+                )}>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={(e) => handleFileSelect("photo", e.target.files[0])}
+                  />
+                  <Camera className="w-6 h-6 mb-2 text-[#F7B600]" />
+                  <span className={cn(
+                    "text-xs text-center",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
+                    Take Photo
+                  </span>
+                </label>
 
-            <label className={cn(
-              "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
-              theme === "dark"
-                ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-                : "border-slate-200 hover:bg-slate-50"
-            )}>
-              <input
-                type="file"
-                accept="video/*"
-                capture="environment"
-                className="hidden"
-                onChange={(e) => handleFileSelect("video", e.target.files[0])}
-              />
-              <Video className="w-6 h-6 mb-2 text-[#57CFA4]" />
-              <span className={cn(
-                "text-xs text-center",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
-                Video
-              </span>
-            </label>
+                <label className={cn(
+                  "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
+                  theme === "dark"
+                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                    : "border-slate-200 hover:bg-slate-50"
+                )}>
+                  <input
+                    type="file"
+                    accept="video/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={(e) => handleFileSelect("video", e.target.files[0])}
+                  />
+                  <Video className="w-6 h-6 mb-2 text-[#57CFA4]" />
+                  <span className={cn(
+                    "text-xs text-center",
+                    theme ===="dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
+                    Record Video
+                  </span>
+                </label>
 
-            <label className={cn(
-              "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
-              theme === "dark"
-                ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-                : "border-slate-200 hover:bg-slate-50"
+                <label className={cn(
+                  "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
+                  theme === "dark"
+                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                    : "border-slate-200 hover:bg-slate-50"
+                )}>
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    className="hidden"
+                    onChange={(e) => handleFileSelect("audio", e.target.files[0])}
+                  />
+                  <Mic className="w-6 h-6 mb-2 text-blue-500" />
+                  <span className={cn(
+                    "text-xs text-center",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
+                    Record Audio
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div className={cn(
+              "relative",
+              theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
             )}>
-              <input
-                type="file"
-                accept="audio/*"
-                className="hidden"
-                onChange={(e) => handleFileSelect("audio", e.target.files[0])}
-              />
-              <Mic className="w-6 h-6 mb-2 text-blue-500" />
-              <span className={cn(
-                "text-xs text-center",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className={cn(
+                  "px-2",
+                  theme === "dark" ? "bg-[#1A2F42]" : "bg-white"
+                )}>
+                  Or Upload File
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <label className={cn(
+                "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
+                theme === "dark"
+                  ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                  : "border-slate-200 hover:bg-slate-50"
               )}>
-                Audio
-              </span>
-            </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handleFileSelect("photo", e.target.files[0])}
+                />
+                <Image className="w-6 h-6 mb-2 text-[#F7B600]" />
+                <span className={cn(
+                  "text-xs text-center",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
+                  Upload Photo
+                </span>
+              </label>
+
+              <label className={cn(
+                "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
+                theme === "dark"
+                  ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                  : "border-slate-200 hover:bg-slate-50"
+              )}>
+                <input
+                  type="file"
+                  accept="video/*"
+                  className="hidden"
+                  onChange={(e) => handleFileSelect("video", e.target.files[0])}
+                />
+                <Film className="w-6 h-6 mb-2 text-[#57CFA4]" />
+                <span className={cn(
+                  "text-xs text-center",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
+                  Upload Video
+                </span>
+              </label>
+
+              <label className={cn(
+                "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
+                theme === "dark"
+                  ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                  : "border-slate-200 hover:bg-slate-50"
+              )}>
+                <input
+                  type="file"
+                  accept="audio/*"
+                  className="hidden"
+                  onChange={(e) => handleFileSelect("audio", e.target.files[0])}
+                />
+                <Mic2 className="w-6 h-6 mb-2 text-blue-500" />
+                <span className={cn(
+                  "text-xs text-center",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
+                  Upload Audio
+                </span>
+              </label>
+            </div>
           </div>
         ) : (
           <div className="space-y-4">
