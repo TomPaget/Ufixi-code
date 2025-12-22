@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, MapPin, Star, Navigation, Phone, Mail, Filter, DollarSign, RefreshCw, Map } from "lucide-react";
+import { ArrowLeft, MapPin, Star, Navigation, Phone, Mail, Filter, DollarSign, RefreshCw, Map, Bookmark, Plus, X, Check, ChevronDown, Award, Clock, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 export default function FindTradesmen() {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const queryClient = useQueryClient();
   const urlParams = new URLSearchParams(window.location.search);
   const prefilledTrade = urlParams.get("trade");
   
@@ -33,10 +34,22 @@ export default function FindTradesmen() {
   const [tradesmen, setTradesmen] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showMap, setShowMap] = useState(false);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [services, setServices] = useState([]);
+  const [minExperience, setMinExperience] = useState("any");
+  const [availability, setAvailability] = useState("any");
+  const [certifications, setCertifications] = useState([]);
+  const [showSavedSearches, setShowSavedSearches] = useState(false);
+  const [searchName, setSearchName] = useState("");
 
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => base44.auth.me()
+  });
+
+  const { data: savedSearches = [] } = useQuery({
+    queryKey: ["savedSearches"],
+    queryFn: () => base44.entities.SavedSearch.list("-created_date")
   });
 
   useEffect(() => {
@@ -67,8 +80,13 @@ export default function FindTradesmen() {
     setLoading(true);
     try {
       const tradeFilter = tradeType && tradeType !== "all" ? ` specializing in ${tradeType}` : "";
+      const servicesFilter = services.length > 0 ? ` offering services: ${services.join(", ")}` : "";
+      const experienceFilter = minExperience !== "any" ? ` with at least ${minExperience} years of experience` : "";
+      const availabilityFilter = availability !== "any" ? ` with ${availability.replace(/_/g, " ")} availability` : "";
+      const certsFilter = certifications.length > 0 ? ` with certifications: ${certifications.join(", ")}` : "";
+      
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Find ALL local tradespeople${tradeFilter} (plumbers, electricians, carpenters, general handymen, HVAC, etc.) near coordinates ${loc.lat}, ${loc.lng}.
+        prompt: `Find ALL local tradespeople${tradeFilter}${servicesFilter}${experienceFilter}${availabilityFilter}${certsFilter} near ${user?.postcode || ""}, ${user?.country || "UK"} (coordinates ${loc.lat}, ${loc.lng}).
 
 SEARCH COMPREHENSIVELY ACROSS MULTIPLE SOURCES:
 1. Google Search & Google Maps - for business listings
@@ -86,9 +104,13 @@ For EACH tradesperson found, gather:
 - Average rating (1-5 stars) from any available source
 - Number of reviews/recommendations
 - Approximate distance in miles from ${loc.lat}, ${loc.lng}
-- Hourly rate estimate (in GBP) if available
+- Hourly rate estimate (in currency) if available
 - Email if available
 - Business address or service area
+- Years of experience or time in business
+- Specific services offered (e.g., emergency repairs, installations, maintenance, inspections)
+- Availability (emergency 24/7, same-day, standard)
+- Certifications, licenses, or accreditations (Gas Safe, NICEIC, etc.)
 - Social media presence (if found on Facebook or other platforms)
 - Any verified badges or certifications mentioned
 - IMPORTANT: The direct URL/link where this tradesperson was found (Google Maps listing, Facebook page, website, business directory, etc.)
@@ -121,7 +143,11 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
                   address: { type: "string" },
                   verified: { type: "boolean" },
                   source: { type: "string" },
-                  sourceUrl: { type: "string" }
+                  sourceUrl: { type: "string" },
+                  yearsExperience: { type: "number" },
+                  services: { type: "array", items: { type: "string" } },
+                  availability: { type: "string" },
+                  certifications: { type: "array", items: { type: "string" } }
                 },
                 required: ["name", "trade", "phone"]
               }
@@ -169,10 +195,18 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
     .filter(t => tradeType === "all" || t.trade === tradeType)
     .filter(t => t.distance <= searchRadius)
     .filter(t => maxCost === "any" || t.hourlyRate <= parseInt(maxCost))
+    .filter(t => {
+      if (minExperience !== "any" && t.yearsExperience < parseInt(minExperience)) return false;
+      if (availability !== "any" && t.availability !== availability) return false;
+      if (services.length > 0 && !services.some(s => t.services?.includes(s))) return false;
+      if (certifications.length > 0 && !certifications.some(c => t.certifications?.includes(c))) return false;
+      return true;
+    })
     .sort((a, b) => {
-      if (sortBy === "rating") return b.rating - a.rating;
-      if (sortBy === "distance") return a.distance - b.distance;
-      if (sortBy === "price") return a.hourlyRate - b.hourlyRate;
+      if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0);
+      if (sortBy === "distance") return (a.distance || 999) - (b.distance || 999);
+      if (sortBy === "price") return (a.hourlyRate || 999) - (b.hourlyRate || 999);
+      if (sortBy === "experience") return (b.yearsExperience || 0) - (a.yearsExperience || 0);
       return 0;
     });
 
@@ -317,6 +351,74 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
           </div>
         )}
 
+        {/* Saved Searches */}
+        {savedSearches.length > 0 && (
+          <div className={cn(
+            "rounded-2xl p-4 border-2",
+            theme === "dark"
+              ? "bg-[#1A2F42] border-[#57CFA4]/30"
+              : "bg-white border-[#1E3A57]/20"
+          )}>
+            <button
+              onClick={() => setShowSavedSearches(!showSavedSearches)}
+              className="w-full flex items-center justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <Bookmark className="w-5 h-5 text-[#F7B600]" />
+                <h3 className={cn(
+                  "font-bold",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>Saved Searches ({savedSearches.length})</h3>
+              </div>
+              <ChevronDown className={cn(
+                "w-5 h-5 transition-transform",
+                showSavedSearches && "rotate-180",
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+              )} />
+            </button>
+            {showSavedSearches && (
+              <div className="mt-3 space-y-2">
+                {savedSearches.map((search) => (
+                  <button
+                    key={search.id}
+                    onClick={() => {
+                      setTradeType(search.trade_type || "all");
+                      setServices(search.services || []);
+                      setMinExperience(search.min_experience?.toString() || "any");
+                      setAvailability(search.availability || "any");
+                      setCertifications(search.certifications || []);
+                      setMaxCost(search.max_cost || "any");
+                      setSearchRadius(search.search_radius || 5);
+                      if (location) searchLocalTradesmen();
+                    }}
+                    className={cn(
+                      "w-full text-left p-3 rounded-xl border flex items-center justify-between hover:scale-[1.02] transition-transform",
+                      theme === "dark"
+                        ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:border-[#57CFA4]"
+                        : "bg-slate-50 border-slate-200 hover:border-[#57CFA4]"
+                    )}
+                  >
+                    <span className={cn(
+                      "font-medium text-sm",
+                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                    )}>{search.name}</span>
+                    <button
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        await base44.entities.SavedSearch.delete(search.id);
+                        queryClient.invalidateQueries(["savedSearches"]);
+                      }}
+                      className="p-1 hover:bg-red-500/20 rounded"
+                    >
+                      <X className="w-4 h-4 text-red-500" />
+                    </button>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Filters */}
         <div className={cn(
           "rounded-2xl p-5 space-y-4 border-2",
@@ -324,12 +426,55 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
             ? "bg-[#1A2F42] border-[#57CFA4]/30"
             : "bg-white border-[#1E3A57]/20"
         )}>
-          <div className="flex items-center gap-2 mb-3">
-            <Filter className="w-5 h-5 text-[#F7B600]" />
-            <h2 className={cn(
-              "font-bold",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>Filters</h2>
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Filter className="w-5 h-5 text-[#F7B600]" />
+              <h2 className={cn(
+                "font-bold",
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
+              )}>Filters</h2>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+                className={cn(
+                  "text-xs",
+                  theme === "dark" ? "text-[#57CFA4] hover:bg-[#57CFA4]/10" : "text-blue-600 hover:bg-blue-50"
+                )}
+              >
+                {showAdvancedFilters ? "Basic" : "Advanced"}
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => {
+                  const name = prompt("Name this search:");
+                  if (name) {
+                    base44.entities.SavedSearch.create({
+                      name,
+                      trade_type: tradeType !== "all" ? tradeType : undefined,
+                      services,
+                      min_experience: minExperience !== "any" ? parseInt(minExperience) : undefined,
+                      certifications,
+                      availability: availability !== "any" ? availability : undefined,
+                      max_cost: maxCost !== "any" ? maxCost : undefined,
+                      search_radius: searchRadius,
+                      location: user?.postcode
+                    });
+                    queryClient.invalidateQueries(["savedSearches"]);
+                  }
+                }}
+                className={cn(
+                  "text-xs",
+                  theme === "dark" ? "text-[#57CFA4] hover:bg-[#57CFA4]/10" : "text-blue-600 hover:bg-blue-50"
+                )}
+              >
+                <Bookmark className="w-3 h-3 mr-1" />
+                Save
+              </Button>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
@@ -383,6 +528,7 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
                   <SelectItem value="rating">Highest Rated</SelectItem>
                   <SelectItem value="distance">Nearest</SelectItem>
                   <SelectItem value="price">Lowest Price</SelectItem>
+                  <SelectItem value="experience">Most Experienced</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -437,6 +583,130 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
               </Select>
             </div>
           </div>
+
+          {/* Advanced Filters */}
+          {showAdvancedFilters && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="space-y-4 pt-4 border-t"
+            >
+              <div>
+                <label className={cn(
+                  "text-sm font-medium mb-2 block",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                )}>
+                  Services Offered
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {["Emergency Repairs", "Installations", "Maintenance", "Inspections", "Consultations"].map((service) => (
+                    <button
+                      key={service}
+                      onClick={() => {
+                        setServices(prev =>
+                          prev.includes(service) ? prev.filter(s => s !== service) : [...prev, service]
+                        );
+                      }}
+                      className={cn(
+                        "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
+                        services.includes(service)
+                          ? "bg-[#57CFA4] text-white"
+                          : theme === "dark"
+                            ? "bg-[#1E3A57] border border-[#57CFA4]/30 text-[#57CFA4]"
+                            : "bg-white border border-slate-300 text-slate-700"
+                      )}
+                    >
+                      {services.includes(service) && <Check className="w-3 h-3 inline mr-1" />}
+                      {service}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className={cn(
+                  "text-sm font-medium mb-2 block",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                )}>
+                  Minimum Experience
+                </label>
+                <Select value={minExperience} onValueChange={setMinExperience}>
+                  <SelectTrigger className={cn(
+                    "border-2",
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      : "bg-white border-[#1E3A57]/20"
+                  )}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="any">Any Experience</SelectItem>
+                    <SelectItem value="1">1+ years</SelectItem>
+                    <SelectItem value="3">3+ years</SelectItem>
+                    <SelectItem value="5">5+ years</SelectItem>
+                    <SelectItem value="10">10+ years</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className={cn(
+                  "text-sm font-medium mb-2 block",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                )}>
+                  Availability
+                </label>
+                <Select value={availability} onValueChange={setAvailability}>
+                  <SelectTrigger className={cn(
+                    "border-2",
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      : "bg-white border-[#1E3A57]/20"
+                  )}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="any">Any Availability</SelectItem>
+                    <SelectItem value="emergency_24_7">Emergency 24/7</SelectItem>
+                    <SelectItem value="today">Available Today</SelectItem>
+                    <SelectItem value="this_week">This Week</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className={cn(
+                  "text-sm font-medium mb-2 block",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                )}>
+                  Certifications Required
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {["Gas Safe", "NICEIC", "CSCS", "City & Guilds", "NVQ"].map((cert) => (
+                    <button
+                      key={cert}
+                      onClick={() => {
+                        setCertifications(prev =>
+                          prev.includes(cert) ? prev.filter(c => c !== cert) : [...prev, cert]
+                        );
+                      }}
+                      className={cn(
+                        "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
+                        certifications.includes(cert)
+                          ? "bg-[#F7B600] text-[#0F1E2E]"
+                          : theme === "dark"
+                            ? "bg-[#1E3A57] border border-[#57CFA4]/30 text-[#57CFA4]"
+                            : "bg-white border border-slate-300 text-slate-700"
+                      )}
+                    >
+                      {certifications.includes(cert) && <Award className="w-3 h-3 inline mr-1" />}
+                      {cert}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
         </div>
 
         {/* Results */}
@@ -532,33 +802,83 @@ Return as many results as possible (aim for 15-25+ if available). Include both e
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 mb-3 text-sm flex-wrap">
-                <div className="flex items-center gap-1">
-                  <Navigation className="w-4 h-4 text-[#F7B600]" />
-                  <span className={cn(
-                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                  )}>
-                    {tradesman.distance} mi
-                  </span>
-                </div>
-                {tradesman.hourlyRate && (
+              <div className="space-y-2 mb-3">
+                <div className="flex items-center gap-4 text-sm flex-wrap">
                   <div className="flex items-center gap-1">
-                    <DollarSign className="w-4 h-4 text-[#F7B600]" />
+                    <Navigation className="w-4 h-4 text-[#F7B600]" />
                     <span className={cn(
                       theme === "dark" ? "text-white" : "text-[#1E3A57]"
                     )}>
-                      {currencySymbol}{tradesman.hourlyRate}/hr
+                      {tradesman.distance} mi
                     </span>
                   </div>
+                  {tradesman.hourlyRate && (
+                    <div className="flex items-center gap-1">
+                      <DollarSign className="w-4 h-4 text-[#F7B600]" />
+                      <span className={cn(
+                        theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                      )}>
+                        {currencySymbol}{tradesman.hourlyRate}/hr
+                      </span>
+                    </div>
+                  )}
+                  {tradesman.yearsExperience && (
+                    <div className="flex items-center gap-1">
+                      <Award className="w-4 h-4 text-[#57CFA4]" />
+                      <span className={cn(
+                        theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                      )}>
+                        {tradesman.yearsExperience}+ yrs
+                      </span>
+                    </div>
+                  )}
+                  {tradesman.availability && (
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-4 h-4 text-blue-500" />
+                      <span className={cn(
+                        "text-xs",
+                        theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
+                      )}>
+                        {tradesman.availability.replace(/_/g, " ")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {tradesman.services?.length > 0 && (
+                  <div className="flex flex-wrap gap-1">
+                    {tradesman.services.slice(0, 3).map((service, idx) => (
+                      <span
+                        key={idx}
+                        className={cn(
+                          "text-xs px-2 py-0.5 rounded-full",
+                          theme === "dark"
+                            ? "bg-[#57CFA4]/20 text-[#57CFA4]"
+                            : "bg-blue-100 text-blue-700"
+                        )}
+                      >
+                        {service}
+                      </span>
+                    ))}
+                  </div>
                 )}
-                {tradesman.source && (
-                  <div className={cn(
-                    "text-xs px-2 py-1 rounded-full",
-                    theme === "dark"
-                      ? "bg-[#57CFA4]/20 text-[#57CFA4]"
-                      : "bg-slate-100 text-slate-600"
-                  )}>
-                    {tradesman.source}
+
+                {tradesman.certifications?.length > 0 && (
+                  <div className="flex flex-wrap gap-1">
+                    {tradesman.certifications.map((cert, idx) => (
+                      <span
+                        key={idx}
+                        className={cn(
+                          "text-xs px-2 py-0.5 rounded-full flex items-center gap-1",
+                          theme === "dark"
+                            ? "bg-[#F7B600]/20 text-[#F7B600]"
+                            : "bg-yellow-100 text-yellow-700"
+                        )}
+                      >
+                        <Award className="w-3 h-3" />
+                        {cert}
+                      </span>
+                    ))}
                   </div>
                 )}
               </div>
