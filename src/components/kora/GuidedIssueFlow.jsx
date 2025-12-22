@@ -284,7 +284,7 @@ Be practical, safety-conscious, and helpful.`,
                   <Video className="w-6 h-6 mb-2 text-[#57CFA4]" />
                   <span className={cn(
                     "text-xs text-center",
-                    theme ===="dark" ? "text-[#57CFA4]" : "text-slate-600"
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
                   )}>
                     Record Video
                   </span>
