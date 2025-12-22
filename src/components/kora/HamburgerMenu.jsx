@@ -11,13 +11,10 @@ import { base44 } from "@/api/base44Client";
 const customerMenuItems = [
   { icon: Home, label: "Home", page: "Home" },
   { icon: Bell, label: "Notifications", page: "Notifications" },
-  { icon: FileText, label: "My Jobs", page: "MyJobs" },
-  { icon: History, label: "History", page: "History" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
   { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
-  { icon: Users, label: "My Contractors", page: "Contractors" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
   { icon: Home, label: "Home Profile", page: "HomeProfile" },
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
