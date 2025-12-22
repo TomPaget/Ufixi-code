@@ -194,17 +194,20 @@ export default function Home() {
       Research CURRENT ${user?.country || "UK"} pricing for ${new Date().getFullYear()}:
 
       DIY Costs (materials only):
-      - Minimum: Include basic replacement parts
+      - Minimum: Include basic replacement parts (be specific with actual part names and average prices)
       - Maximum: Include all tools if not owned + premium parts
-      - Specify: Parts breakdown (valves, fittings, sealants, etc.)
+      - Specify: Detailed parts breakdown with individual costs (e.g., "22mm compression valve £8-£12, PTFE tape £2, adjustable wrench £15 if needed")
+      - Timeline: Typical completion time for DIY (e.g., "45 minutes to 2 hours for experienced DIYer")
 
       Professional Costs (labor + materials):
-      - Minimum: Quick fix, standard parts, single visit
-      - Maximum: Complex repair, emergency callout, premium parts, multiple visits
-      - Typical hourly rates: ${user?.country === "UK" ? "£45-£85/hr" : "$60-$120/hr"} depending on trade
+      - Minimum: Quick fix, standard parts, single visit, normal hours
+      - Maximum: Complex repair, emergency callout, premium parts, multiple visits, weekend/evening rates
+      - Typical hourly rates: ${user?.country === "UK" ? "£45-£85/hr" : "$60-$120/hr"} depending on trade and urgency
       - Callout fees: ${user?.country === "UK" ? "£50-£100" : "$75-$150"}
+      - Timeline: Expected service booking wait time and completion duration (e.g., "2-5 days booking wait, 1-2 hour job")
+      - Emergency service: If urgent, note 24/7 emergency rates (typically 150-200% premium)
 
-      Include: VAT/tax considerations, emergency surcharges, weekend rates
+      Include: VAT/tax considerations, emergency surcharges, weekend rates, parts markup by professionals (typically 15-30%)
 
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       7. SAFETY WARNINGS & PRECAUTIONS
@@ -235,16 +238,17 @@ export default function Home() {
       9. STEP-BY-STEP DIY RESOLUTION GUIDE
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       Provide 6-10 ACTIONABLE, PROFESSIONAL-GRADE steps ONLY if DIY is safe:
-      - Each step: Specific action with measurements, torque specs, techniques
+      - Each step: Specific action with measurements, torque specs, techniques, and TIME estimate per step
       - Safety checkpoints: Verify safe conditions before proceeding
       - Pro tips: Techniques to avoid common mistakes
       - Visual checks: "You should see/hear/feel X"
       - Quality verification: How to test the repair worked
-      - Time estimates: Per step and total duration
-      - Skill level: Beginner/Intermediate/Advanced
+      - Time estimates: Per step (e.g., "5-10 mins") and total duration (e.g., "Total: 45-60 minutes")
+      - Skill level: Beginner/Intermediate/Advanced with explanation
+      - Difficulty rating: 1-10 scale where 1=anyone can do it, 10=requires expert skills
       - STOP points: "If you encounter X, stop immediately and call professional"
 
-      Example: "Step 3: ⚠️ SAFETY: Ensure water is OFF and area is dry. Using a 22mm adjustable wrench, turn the compression nut counter-clockwise exactly 1.5 turns. Apply steady pressure to avoid stripping brass threads. You should feel slight resistance. 🔴 STOP if: Nut spins freely (damaged seal) or you see corrosion - call plumber."
+      Example: "Step 3 (5-10 mins): ⚠️ SAFETY: Ensure water is OFF and area is dry. Using a 22mm adjustable wrench, turn the compression nut counter-clockwise exactly 1.5 turns. Apply steady pressure to avoid stripping brass threads. You should feel slight resistance then smooth turning. 🔴 STOP if: Nut spins freely (damaged seal) or you see green corrosion - call plumber."
 
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       10. MATERIALS & TOOLS SPECIFICATION

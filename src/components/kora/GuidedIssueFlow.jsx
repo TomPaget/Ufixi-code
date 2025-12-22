@@ -46,12 +46,6 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const handleFileSelect = async (type, file) => {
     if (!file) return;
     
-    // Validate video format - only MP4 is reliably supported by AI analysis
-    if (type === "video" && !file.type.includes("mp4")) {
-      alert("Only MP4 video format is supported for AI analysis. Please convert your video to MP4 or use a photo instead.");
-      return;
-    }
-    
     setMediaType(type);
     setMediaFile(file);
     setMediaUrl(URL.createObjectURL(file));
@@ -284,7 +278,7 @@ Be practical, safety-conscious, and helpful.`,
                 )}>
                   <input
                     type="file"
-                    accept="video/mp4"
+                    accept="video/*"
                     capture="environment"
                     className="hidden"
                     onChange={(e) => handleFileSelect("video", e.target.files[0])}
@@ -368,16 +362,23 @@ Be practical, safety-conscious, and helpful.`,
               )}>
                 <input
                   type="file"
-                  accept="video/mp4"
+                  accept="video/*,image/*,audio/*"
                   className="hidden"
-                  onChange={(e) => handleFileSelect("video", e.target.files[0])}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    let type = "photo";
+                    if (file.type.includes("video")) type = "video";
+                    else if (file.type.includes("audio")) type = "audio";
+                    handleFileSelect(type, file);
+                  }}
                 />
                 <Film className="w-6 h-6 mb-2 text-[#57CFA4]" />
                 <span className={cn(
                   "text-xs text-center",
                   theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
                 )}>
-                  Upload Video (MP4)
+                  Upload Any File
                 </span>
               </label>
 
