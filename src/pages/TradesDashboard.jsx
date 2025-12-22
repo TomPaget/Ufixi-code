@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/components/kora/ThemeProvider";
+import MaintenanceAlerts from "@/components/kora/MaintenanceAlerts";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
@@ -121,6 +122,9 @@ export default function TradesDashboard() {
       </header>
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
+        {/* Maintenance Opportunities */}
+        <MaintenanceAlerts userId={user?.id} />
+
         {/* Stats Overview */}
         <div className="grid grid-cols-2 gap-3">
           <div className={cn(
