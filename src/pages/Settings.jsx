@@ -624,6 +624,53 @@ export default function Settings() {
           </RadioGroup>
         </motion.section>
 
+        {/* Account Type Switch */}
+        {user?.is_trades && (
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className={cn(
+              "rounded-2xl p-5 border",
+              theme === "dark"
+                ? "bg-slate-800 border-slate-700/50"
+                : "bg-white border-slate-200"
+            )}
+          >
+            <h3 className={cn(
+              "font-semibold mb-2",
+              theme === "dark" ? "text-slate-200" : "text-slate-900"
+            )}>Account Type</h3>
+            <p className={cn(
+              "text-sm mb-4",
+              theme === "dark" ? "text-slate-400" : "text-slate-600"
+            )}>
+              You currently have a professional trades account. Switch to a standard account if you no longer want to receive job requests.
+            </p>
+            
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (confirm("Are you sure you want to switch to a standard account? You'll no longer receive job requests from customers.")) {
+                  updateUserMutation.mutate({
+                    is_trades: false,
+                    trades_status: null
+                  });
+                }
+              }}
+              disabled={updateUserMutation.isPending}
+              className={cn(
+                "w-full rounded-xl",
+                theme === "dark"
+                  ? "border-slate-600 hover:bg-slate-700"
+                  : "border-slate-300 hover:bg-slate-50"
+              )}
+            >
+              Switch to Standard Account
+            </Button>
+          </motion.section>
+        )}
+
         {/* About & Legal */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
