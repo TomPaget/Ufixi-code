@@ -15,7 +15,9 @@ import {
   ChevronUp,
   ShoppingCart,
   ExternalLink,
-  AlertCircle
+  AlertCircle,
+  Shield,
+  Phone
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -197,6 +199,51 @@ export default function IssueDetail() {
           <p className="text-slate-300 leading-relaxed">{issue.explanation}</p>
         </div>
 
+        {/* Safety Warnings */}
+        {issue.safety_warnings?.length > 0 && (
+          <div className="bg-red-900/30 rounded-2xl border-2 border-red-500 p-5">
+            <h3 className="font-bold text-red-400 mb-3 flex items-center gap-2 text-lg">
+              <Shield className="w-6 h-6" />
+              ⚠️ SAFETY WARNINGS
+            </h3>
+            <ul className="space-y-3">
+              {issue.safety_warnings.map((warning, i) => (
+                <li key={i} className="flex items-start gap-3 bg-red-950/50 p-3 rounded-xl border border-red-800/50">
+                  <span className="text-red-400 font-bold text-lg flex-shrink-0">⚠️</span>
+                  <span className="text-red-200 font-medium leading-relaxed">{warning}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* When to Call Professional */}
+        {issue.call_professional_if?.length > 0 && (
+          <div className="bg-orange-900/30 rounded-2xl border-2 border-orange-500 p-5">
+            <h3 className="font-bold text-orange-400 mb-3 flex items-center gap-2">
+              <Phone className="w-5 h-5" />
+              🔴 Call a Professional If:
+            </h3>
+            <ul className="space-y-2">
+              {issue.call_professional_if.map((condition, i) => (
+                <li key={i} className="flex items-start gap-3 text-orange-200">
+                  <span className="text-orange-400 mt-0.5 flex-shrink-0">►</span>
+                  <span className="font-medium">{condition}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* DIY Safety Notice */}
+        {issue.diy_safe === false && (
+          <div className="bg-red-900/50 rounded-2xl border-2 border-red-500 p-5">
+            <p className="font-bold text-center text-red-300 text-lg">
+              ⛔ DIY NOT RECOMMENDED - Professional repair required for safety
+            </p>
+          </div>
+        )}
+
         {/* Risks */}
         {issue.risks?.length > 0 && (
           <div className="bg-slate-800 rounded-2xl border border-slate-700/50 overflow-hidden">
@@ -376,23 +423,35 @@ export default function IssueDetail() {
             </div>
           )}
 
-          <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Step-by-Step Instructions</h3>
-            {issue.diy_steps?.map((step, i) => (
-              <div key={i} className="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
-                  {i + 1}
-                </div>
-                <p className="text-slate-700 pt-2 leading-relaxed">{step}</p>
+          {issue.diy_safe === false ? (
+            <div className="bg-red-50 border-2 border-red-500 p-6 rounded-xl text-center">
+              <Shield className="w-12 h-12 text-red-600 mx-auto mb-3" />
+              <h3 className="font-bold text-red-900 text-lg mb-2">⛔ DIY Not Recommended</h3>
+              <p className="text-red-800">
+                This repair requires professional expertise for safety reasons. Please contact a qualified tradesperson.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg">Step-by-Step Resolution Guide</h3>
+                {issue.diy_steps?.map((step, i) => (
+                  <div key={i} className="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                      {i + 1}
+                    </div>
+                    <p className="text-slate-700 pt-2 leading-relaxed">{step}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          <div className="mt-6 bg-blue-50 border border-blue-200 p-4 rounded-xl">
-            <p className="text-sm text-blue-800">
-              <strong>Safety First:</strong> If at any point you feel uncomfortable or unsure, stop and contact a professional. It's better to pay for expert help than risk injury or property damage.
-            </p>
-          </div>
+              <div className="mt-6 bg-red-50 border-2 border-red-500 p-4 rounded-xl">
+                <p className="text-sm text-red-800">
+                  <strong>⚠️ Safety First:</strong> If at any point you feel uncomfortable, encounter unexpected complications, or see signs mentioned in "Call a Professional If" section, STOP immediately and contact a qualified professional. Your safety is more important than saving money.
+                </p>
+              </div>
+            </>
+          )}
         </DialogContent>
       </Dialog>
 
