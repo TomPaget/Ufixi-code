@@ -91,11 +91,25 @@ export default function Chat() {
 
   const sendMessageMutation = useMutation({
     mutationFn: async ({ content, media_urls }) => {
-      // AI Moderation
+      // Sentiment analysis on message
+      let sentimentData = null;
+      try {
+        const { data: sentiment } = await base44.functions.invoke('analyzeSentiment', {
+          text: content,
+          context: 'Chat message between users'
+        });
+        sentimentData = sentiment.analysis;
+      } catch (error) {
+        console.error('Sentiment analysis failed:', error);
+      }
+
+      // AI Moderation with sentiment context
       const moderation = await base44.integrations.Core.InvokeLLM({
         prompt: `Moderate this message for profanity, swearing, explicit content, or inappropriate language.
         
 Message: "${content}"
+
+${sentimentData ? `Emotional context: ${sentimentData.emotional_state} (sentiment: ${sentimentData.sentiment_score})` : ''}
 
 Check if the message contains:
 1. Profanity or swear words
