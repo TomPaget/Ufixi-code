@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import TradespersonCard from "@/components/kora/TradespersonCard";
 import { createPageUrl } from "@/utils";
 import { ArrowLeft, MapPin, Star, Navigation, Phone, Mail, Filter, DollarSign, RefreshCw, Map, Bookmark, Plus, X, Check, ChevronDown, Award, Clock, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -772,6 +773,30 @@ Return the exact lat/lng coordinates.`,
               </p>
 
               {filteredTradesmen.map((tradesman, i) => (
+                <TradespersonCard key={i} tradesperson={{
+                  id: i,
+                  full_name: tradesman.name,
+                  business_name: tradesman.name,
+                  primary_specialty: tradesman.trade,
+                  service_area: tradesman.address,
+                  average_rating: tradesman.rating,
+                  total_reviews: tradesman.reviews,
+                  hourly_rate: tradesman.hourlyRate,
+                  years_in_business: tradesman.yearsExperience,
+                  verified: tradesman.verified,
+                  availability_status: tradesman.availability === "today" ? "available" : "busy"
+                }} />
+              ))}
+            </>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}
+
+{/* Old card code preserved below as backup */}
+{false && (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -953,11 +978,4 @@ Return the exact lat/lng coordinates.`,
                 </button>
               </div>
             </motion.div>
-              ))}
-            </>
-          )}
-        </div>
-      </main>
-    </div>
-  );
-}
+)}
