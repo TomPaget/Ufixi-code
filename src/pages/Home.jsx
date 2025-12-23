@@ -110,8 +110,16 @@ export default function Home() {
         console.error('Historical analysis failed:', error);
       }
 
+      const userSkillLevel = user?.diy_skill_level || "beginner";
+
       const analysis = await base44.integrations.Core.InvokeLLM({
         prompt: `You are a certified home maintenance professional with 20+ years of experience conducting detailed property inspections and repairs across all trades.
+
+USER SKILL LEVEL: ${userSkillLevel.toUpperCase()}
+CRITICAL: Adapt ALL DIY instructions, terminology, and complexity to match this skill level:
+- BEGINNER: Use simple language, explain every term, include prep work, assume no tools owned, detailed safety warnings, step-by-step with images described
+- INTERMEDIATE: Moderate detail, assume basic tools, some technical terms OK, focus on technique refinement
+- ADVANCED: Concise, technical terminology, assume full toolkit, focus on efficiency and professional standards
 
       IMPORTANT: Perform an EXHAUSTIVE, PROFESSIONAL-GRADE analysis using visual inspection, technical knowledge, and industry standards.
 
@@ -247,7 +255,12 @@ export default function Home() {
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       9. STEP-BY-STEP DIY RESOLUTION GUIDE
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      Provide 6-10 ACTIONABLE, PROFESSIONAL-GRADE steps ONLY if DIY is safe:
+      Provide 6-10 ACTIONABLE, SKILL-APPROPRIATE steps ONLY if DIY is safe.
+
+      ADAPT TO ${userSkillLevel.toUpperCase()} SKILL LEVEL:
+      - BEGINNER: Very detailed, explain every action, include tool names and how to use them, safety reminders each step
+      - INTERMEDIATE: Standard detail, assume basic knowledge, focus on technique
+      - ADVANCED: Concise, professional language, efficiency-focused
       - Each step: Specific action with measurements, torque specs, techniques, and TIME estimate per step
       - Safety checkpoints: Verify safe conditions before proceeding
       - Pro tips: Techniques to avoid common mistakes

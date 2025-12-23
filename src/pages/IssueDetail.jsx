@@ -36,6 +36,7 @@ import Disclaimer from "@/components/kora/Disclaimer";
 import TradespersonMatcher from "@/components/kora/TradespersonMatcher";
 import AmazonProducts from "@/components/kora/AmazonProducts";
 import RegionalCostBenchmark from "@/components/kora/RegionalCostBenchmark";
+import DIYProgressTracker from "@/components/kora/DIYProgressTracker";
 
 const mediaIcons = {
   photo: Image,
@@ -396,11 +397,11 @@ export default function IssueDetail() {
 
       {/* DIY Dialog */}
       <Dialog open={showDIY} onOpenChange={setShowDIY}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl">
           <DialogHeader>
             <DialogTitle className="text-xl">DIY Repair Guide</DialogTitle>
           </DialogHeader>
-          
+
           <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg mb-4">
             <div className="flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
@@ -442,10 +443,15 @@ export default function IssueDetail() {
                   <strong>⚠️ Safety First:</strong> If at any point you feel uncomfortable, encounter unexpected complications, or see signs mentioned in "Call a Professional If" section, STOP immediately and contact a qualified professional. Your safety is more important than saving money.
                 </p>
               </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+
+              {/* Progress Tracker */}
+              <div className="mt-6 border-t pt-6">
+                <DIYProgressTracker issueId={issueId} />
+              </div>
+              </>
+              )}
+              </DialogContent>
+              </Dialog>
 
       {/* Landlord Dialog */}
       <Dialog open={showLandlord} onOpenChange={setShowLandlord}>
