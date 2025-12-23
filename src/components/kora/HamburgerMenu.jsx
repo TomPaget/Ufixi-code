@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { X, Home, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText } from "lucide-react";
+import { X, Home as HomeIcon, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Smartphone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -9,19 +9,20 @@ import { useQuery } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 
 const customerMenuItems = [
-  { icon: Home, label: "Home", page: "Home" },
+  { icon: HomeIcon, label: "Home", page: "Home" },
+  { icon: Smartphone, label: "Smart Home", page: "SmartHome" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
   { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
-  { icon: Home, label: "Home Profile", page: "HomeProfile" },
+  { icon: HomeIcon, label: "Home Profile", page: "HomeProfile" },
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
   { icon: Settings, label: "My Account", page: "Settings" }
 ];
 
 const tradesMenuItems = [
-  { icon: Home, label: "Home", page: "Home" },
+  { icon: HomeIcon, label: "Home", page: "Home" },
   { icon: LayoutDashboard, label: "My Dashboard", page: "TradesDashboard" },
   { icon: Settings, label: "Manage Business", page: "ContractorManagement" },
   { icon: Briefcase, label: "My Profile", page: "TradesProfile" },
