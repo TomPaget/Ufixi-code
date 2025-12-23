@@ -9,7 +9,8 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { consultationId, chatMessages, audioTranscript, duration } = await req.json();
+    const body = await req.json();
+    const { consultationId, chatMessages = [], audioTranscript = [], duration = 0 } = body;
 
     // Compile all consultation data for AI analysis
     const chatLog = chatMessages.map(msg => 
