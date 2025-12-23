@@ -35,6 +35,7 @@ import ActionButtons from "@/components/kora/ActionButtons";
 import Disclaimer from "@/components/kora/Disclaimer";
 import TradespersonMatcher from "@/components/kora/TradespersonMatcher";
 import AmazonProducts from "@/components/kora/AmazonProducts";
+import RegionalCostBenchmark from "@/components/kora/RegionalCostBenchmark";
 
 const mediaIcons = {
   photo: Image,
@@ -54,6 +55,8 @@ export default function IssueDetail() {
   const [showRisks, setShowRisks] = useState(false);
   const [showResolveDialog, setShowResolveDialog] = useState(false);
   const [resolutionNotes, setResolutionNotes] = useState("");
+  const [repairMethod, setRepairMethod] = useState("diy");
+  const [actualCost, setActualCost] = useState("");
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -95,12 +98,25 @@ export default function IssueDetail() {
   const userType = user?.user_type || "renter";
   const MediaIcon = mediaIcons[issue?.media_type] || Image;
 
-  const handleResolve = () => {
-    updateIssueMutation.mutate({
+  const handleResolve = async () => {
+    const resolveData = {
       status: "resolved",
       resolved_date: new Date().toISOString().split("T")[0],
-      resolution_notes: resolutionNotes
-    });
+      resolution_notes: resolutionNotes,
+      repair_method: repairMethod,
+      user_location: user?.postcode || user?.country
+    };
+
+    // Add actual cost based on repair method
+    if (actualCost && !isNaN(parseFloat(actualCost))) {
+      if (repairMethod === "diy") {
+        resolveData.actual_diy_cost = parseFloat(actualCost);
+      } else if (repairMethod === "professional") {
+        resolveData.actual_professional_cost = parseFloat(actualCost);
+      }
+    }
+
+    updateIssueMutation.mutate(resolveData);
   };
 
   const handleMarkInProgress = () => {
@@ -345,6 +361,13 @@ export default function IssueDetail() {
           )}
         </div>
 
+        {/* Regional Cost Benchmark */}
+        <RegionalCostBenchmark 
+          category={issue.urgency}
+          tradeType={issue.trade_type}
+          userLocation={user?.postcode || user?.country}
+        />
+
         {/* Products Needed */}
         <AmazonProducts products={issue?.products_needed} />
 
@@ -486,26 +509,67 @@ export default function IssueDetail() {
 
       {/* Resolve Dialog */}
       <Dialog open={showResolveDialog} onOpenChange={setShowResolveDialog}>
-        <DialogContent className="max-w-lg mx-4 rounded-3xl">
+        <DialogContent className="max-w-lg mx-4 rounded-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Mark as Resolved</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
-            <p className="text-slate-600">
-              How did you resolve this issue?
-            </p>
-            <Textarea
-              placeholder="e.g., Fixed it myself, landlord sent a plumber, etc."
-              value={resolutionNotes}
-              onChange={(e) => setResolutionNotes(e.target.value)}
-              className="min-h-24 rounded-xl"
-            />
+            <div>
+              <label className="text-sm font-medium text-slate-700 mb-2 block">
+                How did you resolve this?
+              </label>
+              <select
+                value={repairMethod}
+                onChange={(e) => setRepairMethod(e.target.value)}
+                className="w-full p-2 border border-slate-300 rounded-xl"
+              >
+                <option value="diy">DIY - Fixed it myself</option>
+                <option value="professional">Hired a professional</option>
+                <option value="landlord">Landlord arranged repair</option>
+                <option value="warranty">Warranty/Insurance covered</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="text-sm font-medium text-slate-700 mb-2 block">
+                Actual Cost (Optional)
+              </label>
+              <div className="flex items-center gap-2">
+                <span className="text-slate-600">£</span>
+                <input
+                  type="number"
+                  placeholder="e.g., 45.50"
+                  value={actualCost}
+                  onChange={(e) => setActualCost(e.target.value)}
+                  className="flex-1 p-2 border border-slate-300 rounded-xl"
+                  step="0.01"
+                />
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
+                💡 Help others by sharing the actual cost - this data improves our estimates
+              </p>
+            </div>
+
+            <div>
+              <label className="text-sm font-medium text-slate-700 mb-2 block">
+                Additional Notes
+              </label>
+              <Textarea
+                placeholder="Any additional details about the resolution..."
+                value={resolutionNotes}
+                onChange={(e) => setResolutionNotes(e.target.value)}
+                className="min-h-24 rounded-xl"
+              />
+            </div>
+
             <Button
               onClick={handleResolve}
+              disabled={updateIssueMutation.isPending}
               className="w-full bg-emerald-600 hover:bg-emerald-700 rounded-xl"
             >
               <CheckCircle2 className="w-4 h-4 mr-2" />
-              Mark Resolved
+              {updateIssueMutation.isPending ? "Saving..." : "Mark Resolved"}
             </Button>
           </div>
         </DialogContent>
