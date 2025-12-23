@@ -277,7 +277,7 @@ Be practical, safety-conscious, and helpful.`,
                 )}>
                   <input
                     type="file"
-                    accept="image/*,.heic,.heif"
+                    accept="image/*"
                     capture="environment"
                     className="hidden"
                     onChange={(e) => handleFileSelect("photo", e.target.files[0])}
@@ -299,7 +299,7 @@ Be practical, safety-conscious, and helpful.`,
                 )}>
                   <input
                     type="file"
-                    accept="video/*,.mov,.avi,.mkv,.flv,.wmv"
+                    accept="video/*"
                     capture="environment"
                     className="hidden"
                     onChange={(e) => handleFileSelect("video", e.target.files[0])}
@@ -321,7 +321,7 @@ Be practical, safety-conscious, and helpful.`,
                 )}>
                   <input
                     type="file"
-                    accept="audio/*,.mp3,.wav,.m4a,.aac"
+                    accept="audio/*"
                     className="hidden"
                     onChange={(e) => handleFileSelect("audio", e.target.files[0])}
                   />
@@ -362,7 +362,7 @@ Be practical, safety-conscious, and helpful.`,
               )}>
                 <input
                   type="file"
-                  accept="image/*,.heic,.heif,.jpg,.jpeg,.png,.gif,.bmp,.webp"
+                  accept="image/*"
                   className="hidden"
                   onChange={(e) => handleFileSelect("photo", e.target.files[0])}
                 />
@@ -383,13 +383,13 @@ Be practical, safety-conscious, and helpful.`,
               )}>
                 <input
                   type="file"
-                  accept="*/*"
+                  accept="video/*,image/*,audio/*"
                   className="hidden"
                   onChange={(e) => {
                     const file = e.target.files[0];
                     if (!file) return;
                     let type = "photo";
-                    if (file.type.includes("video") || file.name.toLowerCase().endsWith('.mov')) type = "video";
+                    if (file.type.includes("video")) type = "video";
                     else if (file.type.includes("audio")) type = "audio";
                     handleFileSelect(type, file);
                   }}
@@ -411,7 +411,7 @@ Be practical, safety-conscious, and helpful.`,
               )}>
                 <input
                   type="file"
-                  accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.flac"
+                  accept="audio/*"
                   className="hidden"
                   onChange={(e) => handleFileSelect("audio", e.target.files[0])}
                 />
