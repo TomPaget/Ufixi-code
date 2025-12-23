@@ -70,11 +70,26 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
       // Quick AI triage to identify issue type
       setAnalyzing(true);
       const triage = await base44.integrations.Core.InvokeLLM({
-        prompt: `Analyze this ${mediaType} and identify:
-1. The category of problem (plumbing, electrical, structural, appliance, hvac, other)
-2. A brief one-sentence description of what you see
+        prompt: `You are a professional home inspector analyzing this ${mediaType} to diagnose a maintenance issue.
 
-Be concise and specific.`,
+CRITICAL: Perform PRECISE visual inspection and identification.
+
+Analyze the ${mediaType} with forensic attention to:
+- Specific component or system affected (be exact - e.g., "compression valve" not "tap")
+- Visible damage indicators (corrosion, wear, leaks, discoloration, cracks)
+- Material types and their condition
+- Surrounding context (age, installation quality, environment)
+
+Your analysis MUST:
+1. Identify the EXACT problem category from: plumbing, electrical, structural, appliance, hvac, roofing, carpentry, painting, flooring, walls, doors_windows, heating, cooling, other
+
+2. Provide a SPECIFIC one-sentence technical description using proper terminology
+   - BAD: "Leaking tap"
+   - GOOD: "Failed ceramic disc cartridge in kitchen mixer tap causing constant drip"
+   - BAD: "Broken wall"
+   - GOOD: "Vertical hairline crack in drywall above door frame indicating settling"
+
+Be forensically precise. Use technical terminology. Differentiate between similar issues (e.g., compression valve vs ceramic disc vs ball valve failures).`,
         file_urls: [file_url],
         response_json_schema: {
           type: "object",
