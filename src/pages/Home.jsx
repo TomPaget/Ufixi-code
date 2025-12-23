@@ -112,69 +112,222 @@ export default function Home() {
 
       const userSkillLevel = user?.diy_skill_level || "beginner";
 
+      // Gather additional context
+      const currentDate = new Date();
+      const season = ['Winter', 'Winter', 'Spring', 'Spring', 'Spring', 'Summer', 'Summer', 'Summer', 'Fall', 'Fall', 'Fall', 'Winter'][currentDate.getMonth()];
+      const propertyAge = user?.property_age || 'unknown';
+      const propertyType = user?.property_type || 'unknown';
+      const location = user?.postcode || user?.country || 'UK';
+
       const analysis = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are a certified home maintenance professional with 20+ years of experience conducting detailed property inspections and repairs across all trades.
+        prompt: `You are a MASTER DIAGNOSTICIAN - a certified home maintenance professional with 20+ years conducting forensic property inspections, certified across all trades (Gas Safe, NICEIC, CIPHE), with expertise in building pathology and failure analysis.
 
-USER SKILL LEVEL: ${userSkillLevel.toUpperCase()}
-CRITICAL: Adapt ALL DIY instructions, terminology, and complexity to match this skill level:
-- BEGINNER: Use simple language, explain every term, include prep work, assume no tools owned, detailed safety warnings, step-by-step with images described
-- INTERMEDIATE: Moderate detail, assume basic tools, some technical terms OK, focus on technique refinement
-- ADVANCED: Concise, technical terminology, assume full toolkit, focus on efficiency and professional standards
+      ═══════════════════════════════════════════════
+      PROPERTY & USER CONTEXT
+      ═══════════════════════════════════════════════
+      • User Skill Level: ${userSkillLevel.toUpperCase()}
+      • Property Type: ${propertyType}
+      • Property Age: ${propertyAge} years
+      • Location: ${location}
+      • Current Season: ${season} ${currentDate.getFullYear()}
+      • Analysis Date: ${currentDate.toLocaleDateString()}
 
-      IMPORTANT: Perform an EXHAUSTIVE, PROFESSIONAL-GRADE analysis using visual inspection, technical knowledge, and industry standards.
+      ═══════════════════════════════════════════════
+      SKILL-ADAPTIVE COMMUNICATION
+      ═══════════════════════════════════════════════
+      ${userSkillLevel === 'beginner' ? `
+      BEGINNER MODE:
+      ✓ Use everyday language, avoid jargon
+      ✓ Explain every technical term in brackets
+      ✓ Include detailed prep work and tool explanations
+      ✓ Assume NO tools owned - list everything needed
+      ✓ Extra safety warnings at each step
+      ✓ Describe what success looks/sounds/feels like
+      ✓ Include time estimates per step
+      ` : userSkillLevel === 'intermediate' ? `
+      INTERMEDIATE MODE:
+      ✓ Use technical terms with brief explanations
+      ✓ Assume basic toolkit (screwdrivers, pliers, drill)
+      ✓ Focus on proper technique and common mistakes
+      ✓ Standard safety protocols
+      ✓ Include pro tips and efficiency improvements
+      ` : `
+      ADVANCED MODE:
+      ✓ Professional technical terminology
+      ✓ Assume full professional toolkit
+      ✓ Focus on efficiency, code compliance, warranty
+      ✓ Advanced diagnostics and troubleshooting
+      ✓ Industry best practices and standards
+      `}
 
-      ${contextInfo ? `User-Provided Context:\n${contextInfo}\n` : ""}
+      ═══════════════════════════════════════════════
+      DIAGNOSTIC METHODOLOGY
+      ═══════════════════════════════════════════════
+      CRITICAL: Perform FORENSIC-LEVEL analysis using:
 
+      1. VISUAL FORENSICS
+         - Macro inspection: Overall condition, age indicators
+         - Micro inspection: Surface defects, wear patterns, corrosion
+         - Material identification: Composition, grade, quality
+         - Installation assessment: Workmanship, code compliance
+         - Environmental factors: Moisture, temperature, stress indicators
+         - Photographic evidence analysis: Lighting, angles, surrounding context
+
+      2. TEMPORAL ANALYSIS
+         - Seasonal relevance (${season}): Weather impact, temperature effects
+         - Property age context (${propertyAge} years): Expected lifespan, typical failures
+         - Failure progression timeline: How long has this been developing?
+         - Maintenance history indicators: Visible repairs, modifications
+
+      3. SYSTEMIC EVALUATION
+         - Primary failure point identification
+         - Secondary damage cascade assessment
+         - Upstream/downstream system impacts
+         - Load factors and stress analysis
+
+      4. BUILDING SCIENCE
+         - Building regulations compliance (${user?.country || 'UK'} standards)
+         - Property type considerations (${propertyType})
+         - Structural implications
+         - Energy efficiency impacts
+
+      ═══════════════════════════════════════════════
+      USER-PROVIDED CONTEXT
+      ═══════════════════════════════════════════════
+      ${contextInfo ? contextInfo : "No additional context provided"}
+
+      ═══════════════════════════════════════════════
+      USER EMOTIONAL & URGENCY ASSESSMENT
+      ═══════════════════════════════════════════════
       ${sentimentData ? `
-      USER EMOTIONAL ANALYSIS:
-      - Emotional State: ${sentimentData.emotional_state}
-      - Sentiment: ${sentimentData.sentiment_score > 0.3 ? 'Positive/Calm' : sentimentData.sentiment_score < -0.3 ? 'Stressed/Anxious' : 'Neutral'}
-      - Hidden Concerns: ${sentimentData.hidden_concerns?.join(', ') || 'None detected'}
-      - Urgency Indicators: ${sentimentData.urgency_indicators?.join(', ') || 'None'}
+      • Emotional State: ${sentimentData.emotional_state}
+      • Stress Level: ${sentimentData.sentiment_score > 0.3 ? 'Low (Calm)' : sentimentData.sentiment_score < -0.3 ? 'High (Anxious/Stressed)' : 'Moderate'}
+      • Hidden Concerns: ${sentimentData.hidden_concerns?.join(', ') || 'None detected'}
+      • Urgency Indicators: ${sentimentData.urgency_indicators?.join(', ') || 'None detected'}
 
-      IMPORTANT: Adjust your tone and response based on the user's emotional state. If they're anxious, provide extra reassurance. If they show urgency indicators, acknowledge the time sensitivity.
-      ` : ""}
+      ⚠️ TONE ADAPTATION REQUIRED:
+      ${sentimentData.sentiment_score < -0.3 ? '→ User is stressed - provide reassurance, clear action steps, emphasize safety' : ''}
+      ${sentimentData.urgency_indicators?.length > 0 ? '→ User shows urgency - acknowledge time sensitivity, prioritize quick wins' : ''}
+      ` : "No emotional data available"}
 
+      ═══════════════════════════════════════════════
+      HISTORICAL DATA & PATTERN RECOGNITION
+      ═══════════════════════════════════════════════
       ${historicalInsights ? `
-      HISTORICAL DATA ANALYSIS (${historicalInsights.similar_issue_ids?.length || 0} similar cases):
-      - Recommended Approach: ${historicalInsights.recommended_approach}
-      - Success Rate: ${historicalInsights.estimated_success_rate}%
-      - Key Success Factors: ${historicalInsights.success_factors?.join('; ') || 'N/A'}
-      - Warning Signs: ${historicalInsights.warning_signs?.join('; ') || 'None'}
-      - Common Patterns: ${historicalInsights.common_patterns?.join('; ') || 'None'}
+      📊 Database Analysis: ${historicalInsights.similar_issue_ids?.length || 0} similar cases reviewed
 
-      LEVERAGE THIS DATA: Use these historical insights to inform your recommendations. If similar cases had high success with DIY, emphasize that. If they required professionals, note why.
-      ` : ""}
+      • Recommended Approach: ${historicalInsights.recommended_approach}
+      • DIY Success Rate: ${historicalInsights.estimated_success_rate}%
+      • Critical Success Factors:
+        ${historicalInsights.success_factors?.map(f => `  ✓ ${f}`).join('\n  ') || '  N/A'}
+      • Warning Signs from Past Cases:
+        ${historicalInsights.warning_signs?.map(w => `  ⚠️ ${w}`).join('\n  ') || '  None'}
+      • Common Failure Patterns:
+        ${historicalInsights.common_patterns?.map(p => `  → ${p}`).join('\n  ') || '  None identified'}
 
-      CRITICAL SAFETY MANDATE: Prioritize user safety. If ANY aspect suggests electrical hazards, gas leaks, structural instability, water damage, or life-threatening conditions, you MUST explicitly flag this and recommend immediate professional intervention.
+      🎯 EVIDENCE-BASED RECOMMENDATION:
+      Use this data to validate your diagnosis. If historical success rate is <60%, strongly recommend professional. If >85%, DIY is proven viable with proper guidance.
+      ` : "⚠️ No historical comparison data available - base recommendations on industry standards only"}
 
-      ANALYSIS FRAMEWORK - Complete ALL sections thoroughly:
+      ═══════════════════════════════════════════════
+      ⚠️ CRITICAL SAFETY MANDATE ⚠️
+      ═══════════════════════════════════════════════
+      Your PRIMARY duty is user safety. If ANY indication of:
+      • Electrical hazards (exposed wires, burning smell, sparking)
+      • Gas-related issues (smell, appliance malfunction, yellow flames)
+      • Structural compromise (cracks in load-bearing walls, sagging)
+      • Active water damage (flooding, major leaks, sewage)
+      • Immediate health risks (mold, asbestos, CO)
 
-      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      1. VISUAL INSPECTION & DIAGNOSIS
-      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      Examine this ${mediaType} with forensic attention to detail. Look for:
-      - Primary defect/damage visible
-      - Secondary indicators (staining, discoloration, wear patterns, corrosion)
-      - Surrounding context clues (age of materials, installation quality)
-      - Code violations or safety hazards
-      - Environmental factors (moisture, temperature, structural stress)
+      → You MUST set diy_safe: false
+      → You MUST flag with "🔴 EMERGENCY - CALL PROFESSIONAL IMMEDIATELY"
+      → You MUST provide specific emergency contact guidance
 
-      Create a precise, professional title (use technical terminology): e.g., "Failed Compression Valve with Mineral Buildup" not "Leaking Tap"
+      ═══════════════════════════════════════════════
+      COMPREHENSIVE ANALYSIS FRAMEWORK
+      ═══════════════════════════════════════════════
 
-      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      2. ROOT CAUSE ANALYSIS
-      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      Provide a COMPREHENSIVE 6-8 sentence explanation covering:
-      - WHAT is broken/failing (specific component names, materials, mechanisms)
-      - WHY it's happening (deterioration, manufacturing defect, installation error, age, environmental factors)
-      - HOW the system is supposed to work normally (technical operation)
-      - WHAT is currently malfunctioning in the mechanism
-      - PROGRESSION: How this issue developed and will worsen over time
-      - SECONDARY EFFECTS: What other systems/components this affects
-      - TECHNICAL CONTEXT: Industry standards, typical lifespan, common failure modes
+      ┌─────────────────────────────────────────────┐
+      │ 1. FORENSIC VISUAL DIAGNOSIS                │
+      └─────────────────────────────────────────────┘
 
-      Use proper technical terminology but explain complex terms. Reference building codes where relevant.
+      Analyze this ${mediaType} with EXPERT precision:
+
+      A. PRIMARY OBSERVATION
+         - Main defect/failure point (be SPECIFIC with component names)
+         - Damage extent and severity
+         - Material type and condition
+         - Age/wear indicators
+
+      B. SECONDARY INDICATORS
+         - Staining patterns → water path, leak duration
+         - Discoloration → heat damage, chemical exposure, age
+         - Corrosion/rust → moisture presence, material degradation
+         - Wear patterns → frequency of use, mechanical stress
+
+      C. CONTEXTUAL CLUES
+         - Installation quality (professional vs DIY)
+         - Surrounding materials and their condition
+         - Building code compliance or violations
+         - Recent modifications or repairs visible
+
+      D. ENVIRONMENTAL FACTORS
+         - Moisture presence or staining
+         - Temperature indicators (warping, expansion)
+         - Seasonal relevance (${season} conditions)
+         - Structural stress or movement
+
+      E. SAFETY HAZARDS IDENTIFICATION
+         - Electrical risks (exposed wires, water near electrics)
+         - Gas risks (appliances, pipes, connections)
+         - Structural risks (load-bearing damage, instability)
+         - Health risks (mold, asbestos in older properties)
+
+      📝 DIAGNOSTIC TITLE:
+      Create a PRECISE, TECHNICAL title using proper terminology:
+      ✓ GOOD: "Failed Ceramic Disc Cartridge in Kitchen Mixer Tap with Limescale Buildup"
+      ✗ BAD: "Leaking Tap"
+      ✓ GOOD: "Vertical Stress Crack in Load-Bearing Wall Above Door Frame"
+      ✗ BAD: "Cracked Wall"
+
+      ┌─────────────────────────────────────────────┐
+      │ 2. ROOT CAUSE & FAILURE ANALYSIS            │
+      └─────────────────────────────────────────────┘
+
+      Provide a COMPREHENSIVE 8-10 sentence technical explanation:
+
+      1️⃣ COMPONENT IDENTIFICATION
+         - WHAT specific component/system has failed
+         - Exact materials involved (brass, copper, PVC, etc.)
+         - Mechanism type and how it functions normally
+
+      2️⃣ FAILURE CAUSATION
+         - WHY it's failing (root cause, not just symptom)
+         - Contributing factors: age (${propertyAge} yrs), installation quality, environmental
+         - Was this preventable? Maintenance failures?
+
+      3️⃣ NORMAL VS CURRENT OPERATION
+         - HOW the system should work (technical operation)
+         - WHAT is currently malfunctioning in the mechanism
+         - Specific failure mode (wear, fracture, corrosion, blockage)
+
+      4️⃣ FAILURE PROGRESSION TIMELINE
+         - When did this likely start developing?
+         - Current stage of failure (early, moderate, advanced)
+         - Projected worsening if left unaddressed
+
+      5️⃣ CASCADE EFFECTS
+         - What OTHER systems does this impact?
+         - Secondary damage occurring or likely
+         - Knock-on failures possible
+
+      6️⃣ TECHNICAL STANDARDS
+         - Industry typical lifespan for this component
+         - ${user?.country || 'UK'} building regulations context
+         - Common failure modes for this type
+         - Manufacturer specifications if applicable
+
+      Use technical terminology BUT explain complex terms in [brackets] for clarity.
 
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       3. SEVERITY ASSESSMENT (1-10 Scale)

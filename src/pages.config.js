@@ -9,6 +9,7 @@ import ForumPost from './pages/ForumPost';
 import History from './pages/History';
 import Home from './pages/Home';
 import HomeProfile from './pages/HomeProfile';
+import Invoices from './pages/Invoices';
 import IssueDetail from './pages/IssueDetail';
 import JobDetail from './pages/JobDetail';
 import Messages from './pages/Messages';
@@ -28,7 +29,6 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
-import Invoices from './pages/Invoices';
 import __Layout from './Layout.jsx';
 
 
@@ -44,6 +44,7 @@ export const PAGES = {
     "History": History,
     "Home": Home,
     "HomeProfile": HomeProfile,
+    "Invoices": Invoices,
     "IssueDetail": IssueDetail,
     "JobDetail": JobDetail,
     "Messages": Messages,
@@ -63,7 +64,6 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
-    "Invoices": Invoices,
 }
 
 export const pagesConfig = {
