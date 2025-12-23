@@ -26,6 +26,8 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import SmartHome from './pages/SmartHome';
+import VideoCall from './pages/VideoCall';
+import ConsultationSummary from './pages/ConsultationSummary';
 import __Layout from './Layout.jsx';
 
 
@@ -58,6 +60,8 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "SmartHome": SmartHome,
+    "VideoCall": VideoCall,
+    "ConsultationSummary": ConsultationSummary,
 }
 
 export const pagesConfig = {
