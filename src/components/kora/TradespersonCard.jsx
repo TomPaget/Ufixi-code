@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Star, MapPin, Calendar, MessageCircle, CheckCircle2, Award, Clock } from "lucide-react";
+import { Star, MapPin, Calendar, MessageCircle, CheckCircle2, Award, Clock, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import BookingDialog from "./BookingDialog";
 import TrustScoreBadge from "./TrustScoreBadge";
+import VideoConsultationScheduler from "./VideoConsultationScheduler";
 
 const specialtyColors = {
   plumbing: "bg-blue-500",
@@ -20,6 +21,7 @@ const specialtyColors = {
 export default function TradespersonCard({ tradesperson, issueId }) {
   const { theme } = useTheme();
   const [showBooking, setShowBooking] = useState(false);
+  const [showVideoScheduler, setShowVideoScheduler] = useState(false);
 
   const rating = tradesperson.average_rating || 4.5;
   const reviewCount = tradesperson.total_reviews || 12;
@@ -158,6 +160,13 @@ export default function TradespersonCard({ tradesperson, issueId }) {
                 Book Now
               </Button>
               <Button
+                onClick={() => setShowVideoScheduler(true)}
+                variant="outline"
+                className="h-9 px-3 border-blue-500 text-blue-600 hover:bg-blue-50"
+              >
+                <Video className="w-4 h-4" />
+              </Button>
+              <Button
                 variant="outline"
                 className="h-9 px-3"
               >
@@ -172,6 +181,14 @@ export default function TradespersonCard({ tradesperson, issueId }) {
         isOpen={showBooking}
         onClose={() => setShowBooking(false)}
         tradesperson={tradesperson}
+        issueId={issueId}
+      />
+      
+      <VideoConsultationScheduler
+        isOpen={showVideoScheduler}
+        onClose={() => setShowVideoScheduler(false)}
+        tradespersonId={tradesperson.id}
+        tradespersonName={tradesperson.business_name || tradesperson.full_name}
         issueId={issueId}
       />
     </>
