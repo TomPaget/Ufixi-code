@@ -92,8 +92,21 @@ Be fair and professional.`,
       actual_cost: parseFloat(finalCost),
       payment_status: "requested",
       payment_requested_date: new Date().toISOString(),
-      notes: breakdown ? `${job.notes || ""}\n\nCost Breakdown:\n${breakdown}` : job.notes
+      notes: breakdown ? `${job.notes || ""}\n\nCost Breakdown:\n${breakdown}` : job.notes,
+      status: "completed",
+      completion_date: new Date().toISOString()
     });
+
+    // Auto-generate invoice using AI
+    try {
+      await base44.functions.invoke('generateInvoice', {
+        jobId: job.id,
+        templateStyle: 'professional',
+        additionalNotes: breakdown || ""
+      });
+    } catch (error) {
+      console.error('Invoice generation failed:', error);
+    }
 
     // Send notification to customer
     await base44.entities.Notification.create({
