@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import BookingDialog from "./BookingDialog";
+import TrustScoreBadge from "./TrustScoreBadge";
 
 const specialtyColors = {
   plumbing: "bg-blue-500",
@@ -61,17 +62,24 @@ export default function TradespersonCard({ tradesperson, issueId }) {
                 )}
               </div>
 
-              {/* Availability Badge */}
+              {/* Trust Score */}
+              {tradesperson.trust_score && (
+                <TrustScoreBadge score={tradesperson.trust_score} size="sm" showLabel={false} />
+              )}
+            </div>
+
+            {/* Availability */}
+            {availability && (
               <Badge
                 variant={availability === "available" ? "default" : "secondary"}
                 className={cn(
-                  "text-xs",
+                  "text-xs mb-2",
                   availability === "available" ? "bg-green-500" : "bg-slate-400"
                 )}
               >
                 {availability === "available" ? "Available" : "Busy"}
               </Badge>
-            </div>
+            )}
 
             {/* Specialty & Location */}
             <div className="space-y-1 mb-3">
