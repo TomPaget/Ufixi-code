@@ -277,7 +277,7 @@ Be practical, safety-conscious, and helpful.`,
                 )}>
                   <input
                     type="file"
-                    accept="image/*"
+                    accept="*/*"
                     capture="environment"
                     className="hidden"
                     onChange={(e) => handleFileSelect("photo", e.target.files[0])}
@@ -299,7 +299,7 @@ Be practical, safety-conscious, and helpful.`,
                 )}>
                   <input
                     type="file"
-                    accept="video/*"
+                    accept="*/*"
                     capture="environment"
                     className="hidden"
                     onChange={(e) => handleFileSelect("video", e.target.files[0])}
@@ -321,7 +321,7 @@ Be practical, safety-conscious, and helpful.`,
                 )}>
                   <input
                     type="file"
-                    accept="audio/*"
+                    accept="*/*"
                     className="hidden"
                     onChange={(e) => handleFileSelect("audio", e.target.files[0])}
                   />
@@ -362,7 +362,7 @@ Be practical, safety-conscious, and helpful.`,
               )}>
                 <input
                   type="file"
-                  accept="image/*"
+                  accept="*/*"
                   className="hidden"
                   onChange={(e) => handleFileSelect("photo", e.target.files[0])}
                 />
@@ -383,7 +383,7 @@ Be practical, safety-conscious, and helpful.`,
               )}>
                 <input
                   type="file"
-                  accept="video/*,image/*,audio/*"
+                  accept="*/*"
                   className="hidden"
                   onChange={(e) => {
                     const file = e.target.files[0];
@@ -411,7 +411,7 @@ Be practical, safety-conscious, and helpful.`,
               )}>
                 <input
                   type="file"
-                  accept="audio/*"
+                  accept="*/*"
                   className="hidden"
                   onChange={(e) => handleFileSelect("audio", e.target.files[0])}
                 />
