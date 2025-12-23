@@ -6,7 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { Loader2, Save, Clock } from "lucide-react";
+import { Loader2, Save, Clock, Calendar } from "lucide-react";
+import TimelineCalendar from "./TimelineCalendar";
 
 const daysOfWeek = [
   { id: "monday", label: "Monday" },
@@ -55,22 +56,35 @@ export default function AvailabilityManager({ user }) {
     updateMutation.mutate(availability);
   };
 
+  const [showTimeline, setShowTimeline] = useState(false);
+
   return (
-    <div className={cn(
-      "rounded-2xl p-6 border",
-      theme === "dark"
-        ? "bg-[#1A2F42] border-[#57CFA4]/20"
-        : "bg-white border-slate-200"
-    )}>
-      <div className="flex items-center gap-2 mb-6">
-        <Clock className="w-5 h-5 text-[#F7B600]" />
-        <h2 className={cn(
-          "text-xl font-bold",
-          theme === "dark" ? "text-white" : "text-[#1E3A57]"
-        )}>
-          Availability Settings
-        </h2>
-      </div>
+    <div className="space-y-6">
+      <div className={cn(
+        "rounded-2xl p-6 border",
+        theme === "dark"
+          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+          : "bg-white border-slate-200"
+      )}>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <Clock className="w-5 h-5 text-[#F7B600]" />
+            <h2 className={cn(
+              "text-xl font-bold",
+              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+            )}>
+              Availability Settings
+            </h2>
+          </div>
+          <Button
+            variant="outline"
+            onClick={() => setShowTimeline(!showTimeline)}
+            className="rounded-xl"
+          >
+            <Calendar className="w-4 h-4 mr-2" />
+            {showTimeline ? "Hide" : "Show"} Timeline
+          </Button>
+        </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Accepting Jobs Toggle */}
@@ -202,5 +216,8 @@ export default function AvailabilityManager({ user }) {
         </Button>
       </form>
     </div>
+
+    {showTimeline && <TimelineCalendar userId={user.id} />}
+  </div>
   );
 }
