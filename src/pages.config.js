@@ -1,4 +1,5 @@
 import Chat from './pages/Chat';
+import ConsultationSummary from './pages/ConsultationSummary';
 import ContractorManagement from './pages/ContractorManagement';
 import Contractors from './pages/Contractors';
 import CreatePost from './pages/CreatePost';
@@ -16,6 +17,7 @@ import Notifications from './pages/Notifications';
 import PostJob from './pages/PostJob';
 import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
+import SmartHome from './pages/SmartHome';
 import Support from './pages/Support';
 import TradesBoost from './pages/TradesBoost';
 import TradesDashboard from './pages/TradesDashboard';
@@ -25,14 +27,14 @@ import TradesProfile from './pages/TradesProfile';
 import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
-import SmartHome from './pages/SmartHome';
 import VideoCall from './pages/VideoCall';
-import ConsultationSummary from './pages/ConsultationSummary';
+import Invoices from './pages/Invoices';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Chat": Chat,
+    "ConsultationSummary": ConsultationSummary,
     "ContractorManagement": ContractorManagement,
     "Contractors": Contractors,
     "CreatePost": CreatePost,
@@ -50,6 +52,7 @@ export const PAGES = {
     "PostJob": PostJob,
     "Reminders": Reminders,
     "Settings": Settings,
+    "SmartHome": SmartHome,
     "Support": Support,
     "TradesBoost": TradesBoost,
     "TradesDashboard": TradesDashboard,
@@ -59,9 +62,8 @@ export const PAGES = {
     "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
-    "SmartHome": SmartHome,
     "VideoCall": VideoCall,
-    "ConsultationSummary": ConsultationSummary,
+    "Invoices": Invoices,
 }
 
 export const pagesConfig = {
