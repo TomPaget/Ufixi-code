@@ -25,6 +25,7 @@ import TradesProfile from './pages/TradesProfile';
 import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
+import SmartHome from './pages/SmartHome';
 import __Layout from './Layout.jsx';
 
 
@@ -56,6 +57,7 @@ export const PAGES = {
     "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
+    "SmartHome": SmartHome,
 }
 
 export const pagesConfig = {
