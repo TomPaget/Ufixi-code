@@ -369,7 +369,7 @@ Be practical, safety-conscious, and helpful.`,
                 <Image className="w-6 h-6 mb-2 text-[#F7B600]" />
                 <span className={cn(
                   "text-xs text-center",
-                  theme ===="dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
                 )}>
                   Upload Photo
                 </span>
