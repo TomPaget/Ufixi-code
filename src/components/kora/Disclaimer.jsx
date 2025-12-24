@@ -6,7 +6,7 @@ export default function Disclaimer() {
       <div className="flex gap-3">
         <Info className="w-5 h-5 text-slate-500 flex-shrink-0 mt-0.5" />
         <p className="text-xs text-slate-400 leading-relaxed">
-          <span className="font-medium text-slate-300">Disclaimer:</span> QuoFix provides informational guidance only, not professional advice. Always consult qualified professionals for repairs involving electrical, plumbing, structural, or safety-critical systems.
+          <span className="font-medium text-slate-300">Disclaimer:</span> FixQuo provides informational guidance only, not professional advice. Always consult qualified professionals for repairs involving electrical, plumbing, structural, or safety-critical systems.
         </p>
       </div>
     </div>
