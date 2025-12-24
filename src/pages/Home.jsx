@@ -599,7 +599,7 @@ export default function Home() {
               ? "bg-[#F7B600] text-[#0F1E2E]"
               : "bg-[#1E3A57] text-white"
           )}>
-            Q
+            F
           </div>
 
           <NotificationBell />
