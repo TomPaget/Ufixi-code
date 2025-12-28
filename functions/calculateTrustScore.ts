@@ -3,10 +3,21 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+
+    if (!user) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { tradespersonId } = await req.json();
 
     if (!tradespersonId) {
       return Response.json({ error: 'tradespersonId required' }, { status: 400 });
+    }
+
+    // Authorization: Only the tradesperson themselves or admins can recalculate
+    if (user.id !== tradespersonId && user.role !== 'admin') {
+      return Response.json({ error: 'Forbidden: Can only calculate your own trust score' }, { status: 403 });
     }
 
     // Get tradesperson info

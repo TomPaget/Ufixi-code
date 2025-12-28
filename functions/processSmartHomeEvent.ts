@@ -3,7 +3,32 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { deviceId, eventType, eventData, userId } = await req.json();
+    
+    // Webhook signature verification
+    const webhookSecret = Deno.env.get('SMART_HOME_WEBHOOK_SECRET');
+    const signature = req.headers.get('X-Webhook-Signature');
+    
+    if (webhookSecret) {
+      if (!signature) {
+        return Response.json({ error: 'Missing webhook signature' }, { status: 401 });
+      }
+      
+      // Verify signature (basic implementation - enhance based on your smart home platform)
+      const rawBody = await req.text();
+      const expectedSignature = await crypto.subtle.digest(
+        'SHA-256',
+        new TextEncoder().encode(webhookSecret + rawBody)
+      );
+      const expectedHex = Array.from(new Uint8Array(expectedSignature))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+      
+      if (signature !== expectedHex) {
+        return Response.json({ error: 'Invalid webhook signature' }, { status: 403 });
+      }
+    }
+    
+    const { deviceId, eventType, eventData, userId } = JSON.parse(rawBody || await req.text());
 
     if (!deviceId || !eventType || !userId) {
       return Response.json({ error: 'Missing required fields' }, { status: 400 });

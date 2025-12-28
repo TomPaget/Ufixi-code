@@ -4,6 +4,23 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
 
+    // Verify this is an authenticated system call (cron job or admin)
+    const cronSecret = Deno.env.get('CRON_SECRET');
+    const authHeader = req.headers.get('Authorization');
+    
+    // Check for cron secret
+    if (cronSecret && authHeader === `Bearer ${cronSecret}`) {
+      // Valid cron job call
+    } else {
+      // Otherwise require admin authentication
+      const user = await base44.auth.me();
+      if (!user || user.role !== 'admin') {
+        return Response.json({ 
+          error: 'Unauthorized: This endpoint is restricted to system cron jobs or admins' 
+        }, { status: 403 });
+      }
+    }
+
     // This function would be called by a cron job (every hour or daily)
     // Check for upcoming reminders and send notifications
 

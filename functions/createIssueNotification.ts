@@ -3,6 +3,11 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+    const caller = await base44.auth.me();
+
+    if (!caller) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     
     const { issueId, userId, notificationType } = await req.json();
 
@@ -10,11 +15,21 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Get the issue details
+    // Authorization: Only issue owner or admin can trigger notifications
     const issues = await base44.asServiceRole.entities.Issue.filter({ id: issueId });
     if (issues.length === 0) {
       return Response.json({ error: 'Issue not found' }, { status: 404 });
     }
+    
+    if (issues[0].created_by !== caller.email && caller.role !== 'admin') {
+      return Response.json({ error: 'Forbidden: Can only notify for your own issues' }, { status: 403 });
+    }
+
+    // Ensure userId matches issue owner unless admin
+    if (caller.role !== 'admin' && userId !== caller.id) {
+      return Response.json({ error: 'Forbidden: Can only send notifications to yourself' }, { status: 403 });
+    }
+
     const issue = issues[0];
 
     // Get user details
