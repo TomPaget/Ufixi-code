@@ -299,12 +299,6 @@ export default function TeamManagement() {
                           "text-sm font-medium",
                           theme === "dark" ? "text-white" : "text-[#1E3A57]"
                         )}>
-                          {member.assigned_issues_count} assigned
-                        </p>
-                        <p className={cn(
-                          "text-xs",
-                          theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                        )}>
                           {member.completed_issues_count} completed
                         </p>
                       </div>
