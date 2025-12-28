@@ -502,36 +502,7 @@ export default function Settings() {
             </p>
           )}
 
-          <div className={cn(
-            "flex items-center justify-between p-3 rounded-xl border",
-            theme === "dark"
-              ? "bg-slate-700/50 border-slate-600/50"
-              : "bg-slate-50 border-slate-200"
-          )}>
-            <div className="flex items-center gap-3">
-              <Crown className={cn(
-                "w-5 h-5",
-                isPremium
-                  ? "text-amber-500"
-                  : theme === "dark" ? "text-slate-500" : "text-slate-400"
-              )} />
-              <span className={cn(
-                "font-medium",
-                theme === "dark" ? "text-slate-200" : "text-slate-700"
-              )}>
-                {isPremium ? "Premium Member" : "Free Plan"}
-              </span>
-            </div>
-            {!isPremium && (
-              <Button 
-                size="sm" 
-                className="rounded-xl bg-blue-600 hover:bg-blue-700"
-                onClick={() => navigate(createPageUrl("Upgrade"))}
-              >
-                Upgrade
-              </Button>
-            )}
-          </div>
+
         </motion.section>
 
         {/* Theme Toggle */}
