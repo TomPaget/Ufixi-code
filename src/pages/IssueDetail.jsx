@@ -41,6 +41,7 @@ import RegionalCostBenchmark from "@/components/kora/RegionalCostBenchmark";
 import DIYProgressTracker from "@/components/kora/DIYProgressTracker";
 import IssueComments from "@/components/kora/IssueComments";
 import AIResolutionAssistant from "@/components/kora/AIResolutionAssistant";
+import DynamicChecklist from "@/components/kora/DynamicChecklist";
 
 const mediaIcons = {
   photo: Image,
@@ -412,6 +413,14 @@ export default function IssueDetail() {
         {/* AI Tradesperson Matching */}
         {issue.trade_type && (
           <TradespersonMatcher issueId={issueId} />
+        )}
+
+        {/* Dynamic Checklist */}
+        {issue.status !== "resolved" && (
+          <div>
+            <h2 className="font-semibold text-slate-200 mb-3">Step-by-Step Guidance</h2>
+            <DynamicChecklist issueId={issueId} repairType="diy" />
+          </div>
         )}
 
         {/* Action Buttons */}
