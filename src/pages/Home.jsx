@@ -534,6 +534,15 @@ export default function Home() {
         });
       }
 
+      // Calculate AI-powered priority
+      try {
+        await base44.functions.invoke('calculateIssuePriority', {
+          issueId: newIssue.id
+        });
+      } catch (error) {
+        console.error('Failed to calculate priority:', error);
+      }
+
       // Trigger notification for critical issues or fix_now urgency
       if (analysis.severity_score >= 8 || analysis.urgency === 'fix_now') {
         try {

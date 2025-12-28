@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import UrgencyBadge from "@/components/kora/UrgencyBadge";
+import PriorityBadge from "@/components/kora/PriorityBadge";
 import CostEstimate from "@/components/kora/CostEstimate";
 import ResponsibilityTag from "@/components/kora/ResponsibilityTag";
 import ActionButtons from "@/components/kora/ActionButtons";
@@ -199,9 +200,28 @@ export default function IssueDetail() {
           </motion.div>
         )}
 
-        {/* Urgency & Status */}
-        <div className="flex items-center justify-between">
-          <UrgencyBadge urgency={issue.urgency} showDescription />
+        {/* Priority, Urgency & Status */}
+        <div className="space-y-3">
+          {issue.priority && (
+            <div className="flex items-center justify-between">
+              <PriorityBadge priority={issue.priority} />
+              {issue.recommended_timeframe && (
+                <span className="text-sm text-slate-400">
+                  {issue.recommended_timeframe}
+                </span>
+              )}
+            </div>
+          )}
+
+          {issue.priority_reasoning && (
+            <div className="bg-slate-800 rounded-xl p-3 border border-slate-700/50">
+              <p className="text-xs text-slate-400 mb-1">Priority Reasoning:</p>
+              <p className="text-sm text-slate-300">{issue.priority_reasoning}</p>
+            </div>
+          )}
+
+          <div className="flex items-center justify-between">
+            <UrgencyBadge urgency={issue.urgency} showDescription />
 
           {issue.status !== "resolved" && (
             <div className="flex gap-2">
@@ -224,8 +244,9 @@ export default function IssueDetail() {
                 Resolve
               </Button>
             </div>
-          )}
-        </div>
+            )}
+            </div>
+            </div>
 
         {/* Explanation */}
         <div className="bg-slate-800 rounded-2xl p-5 border border-slate-700/50">
