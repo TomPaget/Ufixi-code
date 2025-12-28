@@ -60,16 +60,52 @@ export default function FindTradesmen() {
       handlePostcodeSearch(user.postcode);
     } else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const loc = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
           setLocation(loc);
+          
+          // Reverse geocode to get postcode from coordinates
+          try {
+            const result = await base44.integrations.Core.InvokeLLM({
+              prompt: `Use Google Maps reverse geocoding to get the postcode/zip code for these exact coordinates:
+Latitude: ${loc.lat}
+Longitude: ${loc.lng}
+
+Return ONLY the postcode/zip code for this location.`,
+              add_context_from_internet: true,
+              response_json_schema: {
+                type: "object",
+                properties: {
+                  postcode: { type: "string" },
+                  formatted_address: { type: "string" }
+                },
+                required: ["postcode"]
+              }
+            });
+            
+            if (result.postcode) {
+              setPostcode(result.postcode);
+              // Update user's postcode if not set
+              if (!user?.postcode) {
+                await base44.auth.updateMe({ postcode: result.postcode });
+              }
+            }
+          } catch (error) {
+            console.error("Reverse geocoding failed:", error);
+          }
+          
           searchLocalTradesmen(loc);
         },
         (error) => {
           setLocationError(error.message);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
         }
       );
     }
@@ -80,6 +116,7 @@ export default function FindTradesmen() {
     
     setLoading(true);
     try {
+      const currentPostcode = postcode || user?.postcode || "";
       const tradeFilter = tradeType && tradeType !== "all" ? ` specializing in ${tradeType}` : "";
       const servicesFilter = services.length > 0 ? ` offering services: ${services.join(", ")}` : "";
       const experienceFilter = minExperience !== "any" ? ` with at least ${minExperience} years of experience` : "";
@@ -87,33 +124,35 @@ export default function FindTradesmen() {
       const certsFilter = certifications.length > 0 ? ` with certifications: ${certifications.join(", ")}` : "";
       
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are a LOCAL tradesperson finder. Your mission is to find REAL tradespeople who ACTUALLY service the postcode ${user?.postcode || ""} in ${user?.country || "UK"}.
+        prompt: `You are a LOCAL tradesperson finder. Your mission is to find REAL tradespeople who ACTUALLY service this exact location.
 
-**LOCATION ACCURACY IS CRITICAL:**
-- Coordinates: ${loc.lat}, ${loc.lng}
-- Postcode/Zip: ${user?.postcode || ""}
+**PRECISE LOCATION DATA:**
+- Exact Coordinates: ${loc.lat}, ${loc.lng}
+- Postcode/Zip: ${currentPostcode}
 - Country: ${user?.country || "UK"}
+- Search Radius: ${searchRadius} miles
 
 **MANDATORY SEARCH SOURCES (use ALL of these):**
-1. **Google Maps Business Listings** - Search "${tradeType || "tradesmen"} near ${user?.postcode || ""}"
-2. **Checkatrade** - Verified local tradespeople in this exact postcode area
-3. **RatedPeople** - Search by postcode for local professionals
-4. **TrustATrader** - Check local listings
-5. **MyBuilder** - Local tradesperson profiles
-6. **Google Business** - Local business listings with reviews
-7. **Bing Maps** - Additional local business data
-8. **Local directories** - Yell, Thomson Local for this postcode
-9. **Facebook Business Pages** - Local tradespeople serving this area
-10. **Google Search** - "${tradeType || "tradesman"} ${user?.postcode || ""}"
+1. **Google Maps Business Listings** - Search "${tradeType || "tradesmen"} near ${currentPostcode || loc.lat + "," + loc.lng}"
+2. **Checkatrade** - Verified local tradespeople in postcode area ${currentPostcode}
+3. **RatedPeople** - Search by postcode ${currentPostcode} for local professionals
+4. **TrustATrader** - Check local listings for ${currentPostcode}
+5. **MyBuilder** - Local tradesperson profiles serving ${currentPostcode}
+6. **Google Business** - Local business listings within ${searchRadius} miles of ${loc.lat}, ${loc.lng}
+7. **Bing Maps** - Additional local business data for ${currentPostcode}
+8. **Local directories** - Yell, Thomson Local for postcode ${currentPostcode}
+9. **Facebook Business Pages** - Local tradespeople serving ${currentPostcode}
+10. **Google Search** - "${tradeType || "tradesman"} ${currentPostcode}"
 
 **SEARCH REQUIREMENTS:**
 Trade Type: ${tradeType || "any"}${servicesFilter}${experienceFilter}${availabilityFilter}${certsFilter}
 
 **STRICT VALIDATION:**
-- Each tradesperson MUST actually service ${user?.postcode || ""}
-- Verify they operate within ${searchRadius} miles of this location
-- Include ONLY tradespeople with verifiable contact details
-- Must have actual business presence (not generic results)
+- Each tradesperson MUST actually service postcode ${currentPostcode}
+- Calculate EXACT distance from coordinates ${loc.lat}, ${loc.lng}
+- Verify they operate within ${searchRadius} miles radius
+- Include ONLY tradespeople with verifiable phone numbers and addresses
+- Must have actual business presence with real reviews (not generic results)
 
 **For EACH tradesperson, provide:**
 - Business name (from actual listing)
@@ -176,38 +215,53 @@ Return 8-15 REAL local tradespeople. Better to have fewer accurate results than 
   };
 
   const handlePostcodeSearch = async (code = postcode) => {
+    if (!code || code.trim() === "") return;
+    
     setLoading(true);
+    setLocationError(null);
     try {
       const country = user?.country || "UK";
       const result = await base44.integrations.Core.InvokeLLM({
-        prompt: `Use Google Maps API or Google geocoding to convert this postcode/zip code to exact coordinates:
+        prompt: `Use Google Maps Geocoding API to convert this postcode/zip code to exact coordinates:
         
-Postcode: ${code}
+Postcode: ${code.trim().toUpperCase()}
 Country: ${country}
 
-IMPORTANT: 
-- Verify this is a valid postcode for ${country}
-- Return the precise latitude and longitude
-- Use Google Maps data to ensure accuracy
+CRITICAL REQUIREMENTS:
+- Verify this is a valid ${country} postcode format
+- Use Google Maps Geocoding API for 100% accuracy
+- Return the precise latitude and longitude from Google Maps
+- Include the formatted address from Google
 
-Return the exact lat/lng coordinates.`,
+Return the exact coordinates and verify the postcode is valid.`,
         add_context_from_internet: true,
         response_json_schema: {
           type: "object",
           properties: {
             lat: { type: "number" },
             lng: { type: "number" },
-            formatted_address: { type: "string" }
+            formatted_address: { type: "string" },
+            verified_postcode: { type: "string" }
           },
           required: ["lat", "lng"]
         }
       });
       
+      if (!result.lat || !result.lng) {
+        throw new Error("Invalid postcode");
+      }
+      
       setLocation(result);
+      if (result.verified_postcode) {
+        setPostcode(result.verified_postcode);
+        // Update user's postcode
+        await base44.auth.updateMe({ postcode: result.verified_postcode });
+      }
       await searchLocalTradesmen(result);
     } catch (error) {
       console.error("Geocoding failed:", error);
       setLocationError("Invalid postcode. Please check and try again.");
+      setLocation(null);
     } finally {
       setLoading(false);
     }
@@ -292,7 +346,7 @@ Return the exact lat/lng coordinates.`,
                     "text-sm",
                     theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
                   )}>
-                    {tradesmen.length} tradesmen found
+                    {postcode ? `${postcode} • ` : ""}{tradesmen.length} tradesmen found
                   </p>
                 </div>
               </div>
@@ -361,13 +415,32 @@ Return the exact lat/lng coordinates.`,
               ? "bg-[#1A2F42] border-[#57CFA4]/30"
               : "bg-white border-[#1E3A57]/20"
           )}>
-            <div className="h-64 relative bg-slate-200">
+            <div className="p-3 border-b">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#F7B600]" />
+                <p className={cn(
+                  "text-sm font-medium",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
+                  Your Location: {postcode || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
+                </p>
+              </div>
+              <p className={cn(
+                "text-xs mt-1",
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+              )}>
+                Red marker shows your exact location
+              </p>
+            </div>
+            <div className="h-80 relative bg-slate-200">
               <iframe
                 width="100%"
                 height="100%"
                 frameBorder="0"
-                src={`https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=tradesmen+near+${location.lat},${location.lng}&zoom=13`}
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${location.lat},${location.lng}&zoom=14&maptype=roadmap`}
                 allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
           </div>
