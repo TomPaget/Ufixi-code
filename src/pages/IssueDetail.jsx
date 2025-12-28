@@ -38,6 +38,7 @@ import AmazonProducts from "@/components/kora/AmazonProducts";
 import RegionalCostBenchmark from "@/components/kora/RegionalCostBenchmark";
 import DIYProgressTracker from "@/components/kora/DIYProgressTracker";
 import IssueComments from "@/components/kora/IssueComments";
+import AIResolutionAssistant from "@/components/kora/AIResolutionAssistant";
 
 const mediaIcons = {
   photo: Image,
@@ -372,6 +373,15 @@ export default function IssueDetail() {
 
         {/* Products Needed */}
         <AmazonProducts products={issue?.products_needed} />
+
+        {/* AI Resolution Assistant */}
+        <AIResolutionAssistant 
+          issue={issue}
+          onSuggestionsGenerated={(suggestions) => {
+            // Optionally auto-update issue with AI suggestions
+            console.log('AI Suggestions:', suggestions);
+          }}
+        />
 
         {/* AI Tradesperson Matching */}
         {issue.trade_type && (
