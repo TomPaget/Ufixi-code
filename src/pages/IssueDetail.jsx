@@ -37,6 +37,8 @@ import TradespersonMatcher from "@/components/kora/TradespersonMatcher";
 import AmazonProducts from "@/components/kora/AmazonProducts";
 import RegionalCostBenchmark from "@/components/kora/RegionalCostBenchmark";
 import DIYProgressTracker from "@/components/kora/DIYProgressTracker";
+import IssueComments from "@/components/kora/IssueComments";
+import AssignIssueDialog from "@/components/kora/AssignIssueDialog";
 
 const mediaIcons = {
   photo: Image,
@@ -55,6 +57,7 @@ export default function IssueDetail() {
   const [showProfessional, setShowProfessional] = useState(false);
   const [showRisks, setShowRisks] = useState(false);
   const [showResolveDialog, setShowResolveDialog] = useState(false);
+  const [showAssignDialog, setShowAssignDialog] = useState(false);
   const [resolutionNotes, setResolutionNotes] = useState("");
   const [repairMethod, setRepairMethod] = useState("diy");
   const [actualCost, setActualCost] = useState("");
@@ -198,11 +201,21 @@ export default function IssueDetail() {
         )}
 
         {/* Urgency & Status */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-3">
           <UrgencyBadge urgency={issue.urgency} showDescription />
-          
+
           {issue.status !== "resolved" && (
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
+              {user?.account_type === "business" && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-xl"
+                  onClick={() => setShowAssignDialog(true)}
+                >
+                  👤 {issue.assigned_to_name ? `Assigned to ${issue.assigned_to_name.split(' ')[0]}` : 'Assign'}
+                </Button>
+              )}
               {issue.status === "active" && (
                 <Button
                   variant="outline"
@@ -391,9 +404,23 @@ export default function IssueDetail() {
           />
         </div>
 
+        {/* Team Comments */}
+        {user?.account_type === "business" && (
+          <IssueComments issueId={issueId} />
+        )}
+
         {/* Disclaimer */}
         <Disclaimer />
-      </main>
+        </main>
+
+        {/* Assign Dialog */}
+        {issue && (
+        <AssignIssueDialog
+          issue={issue}
+          open={showAssignDialog}
+          onOpenChange={setShowAssignDialog}
+        />
+        )}
 
       {/* DIY Dialog */}
       <Dialog open={showDIY} onOpenChange={setShowDIY}>

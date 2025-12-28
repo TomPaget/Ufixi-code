@@ -33,6 +33,7 @@ import BusinessPricing from './pages/BusinessPricing';
 import PropertyIssues from './pages/PropertyIssues';
 import PropertyDetail from './pages/PropertyDetail';
 import Integrations from './pages/Integrations';
+import TeamManagement from './pages/TeamManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -72,6 +73,7 @@ export const PAGES = {
     "PropertyIssues": PropertyIssues,
     "PropertyDetail": PropertyDetail,
     "Integrations": Integrations,
+    "TeamManagement": TeamManagement,
 }
 
 export const pagesConfig = {
