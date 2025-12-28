@@ -41,16 +41,22 @@ export default function TeamManagement() {
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteName, setInviteName] = useState("");
   const [inviteRole, setInviteRole] = useState("member");
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
 
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => base44.auth.me()
   });
 
-  const { data: teamMembers = [], isLoading } = useQuery({
+  const { data: allMembers = [], isLoading } = useQuery({
     queryKey: ["team-members"],
-    queryFn: () => base44.entities.TeamMember.list("-created_date")
+    queryFn: () => base44.entities.TeamMember.list("-created_date", 200)
   });
+
+  const teamMembers = allMembers;
+  const totalPages = Math.ceil(teamMembers.length / itemsPerPage);
+  const paginatedMembers = teamMembers.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   const inviteMutation = useMutation({
     mutationFn: async (data) => {
@@ -264,7 +270,8 @@ export default function TeamManagement() {
                 </p>
               </div>
             ) : teamMembers.length > 0 ? (
-              teamMembers.map((member) => {
+              <>
+              {paginatedMembers.map((member) => {
                 const RoleIcon = roleIcons[member.team_role];
                 return (
                   <div key={member.id} className="p-6 flex items-center justify-between hover:bg-black/5 transition-colors">
@@ -343,7 +350,42 @@ export default function TeamManagement() {
                     </div>
                   </div>
                 );
-              })
+              })}
+              {totalPages > 1 && (
+                <div className="p-6 border-t border-inherit flex items-center justify-between">
+                  <p className={cn(
+                    "text-sm",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
+                    Showing {((page - 1) * itemsPerPage) + 1}-{Math.min(page * itemsPerPage, teamMembers.length)} of {teamMembers.length}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPage(p => Math.max(1, p - 1))}
+                      disabled={page === 1}
+                    >
+                      Previous
+                    </Button>
+                    <span className={cn(
+                      "text-sm px-3",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                    )}>
+                      {page} / {totalPages}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                      disabled={page === totalPages}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              )}
+              </>
             ) : (
               <div className="p-12 text-center">
                 <Users className="w-12 h-12 mx-auto mb-4 text-slate-400" />

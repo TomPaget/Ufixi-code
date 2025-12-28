@@ -45,10 +45,15 @@ export default function History() {
     queryFn: () => base44.auth.me()
   });
 
-  const { data: issues = [], isLoading } = useQuery({
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 20;
+
+  const { data: allIssues = [], isLoading } = useQuery({
     queryKey: ["issues", "all"],
-    queryFn: () => base44.entities.Issue.list("-created_date")
+    queryFn: () => base44.entities.Issue.list("-created_date", 1000)
   });
+
+  const issues = allIssues;
 
   const currency = user?.currency || "GBP";
   const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[currency];
@@ -91,8 +96,12 @@ export default function History() {
     }
   });
 
+  // Paginate
+  const totalPages = Math.ceil(sortedIssues.length / itemsPerPage);
+  const paginatedIssues = sortedIssues.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+
   // Group by month
-  const groupedIssues = sortedIssues.reduce((acc, issue) => {
+  const groupedIssues = paginatedIssues.reduce((acc, issue) => {
     const monthKey = format(new Date(issue.created_date), "MMMM yyyy");
     if (!acc[monthKey]) acc[monthKey] = [];
     acc[monthKey].push(issue);
@@ -356,8 +365,46 @@ export default function History() {
             "text-sm",
             theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
           )}>
-            Showing {sortedIssues.length} of {issues.length} issues
+            Showing {((page - 1) * itemsPerPage) + 1}-{Math.min(page * itemsPerPage, sortedIssues.length)} of {sortedIssues.length} issues
           </p>
+          {totalPages > 1 && (
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage(p => Math.max(1, p - 1))}
+                disabled={page === 1}
+                className={cn(
+                  "rounded-xl",
+                  theme === "dark"
+                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                    : ""
+                )}
+              >
+                Previous
+              </Button>
+              <span className={cn(
+                "text-sm px-3",
+                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+              )}>
+                {page} / {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+                className={cn(
+                  "rounded-xl",
+                  theme === "dark"
+                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                    : ""
+                )}
+              >
+                Next
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Results */}

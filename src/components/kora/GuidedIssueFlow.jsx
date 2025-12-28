@@ -24,6 +24,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
+import { validateFile } from "@/utils/fileValidation";
+import { aiAnalysisLimiter, fileUploadLimiter, checkRateLimit } from "@/utils/rateLimiter";
 
 export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const { theme } = useTheme();
@@ -61,6 +63,14 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const handleFileSelect = async (type, file) => {
     if (!file) return;
     
+    // Validate file
+    const validation = validateFile(file, type);
+    if (!validation.valid) {
+      setError(validation.errors.join('. '));
+      return;
+    }
+    
+    setError(null);
     setMediaType(type);
     setMediaFile(file);
     setMediaUrl(URL.createObjectURL(file));
@@ -78,8 +88,14 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
     setUploading(true);
     setError(null);
     try {
+      // Rate limit check
+      checkRateLimit(fileUploadLimiter, user?.id || 'anonymous');
+      
       const { file_url } = await base44.integrations.Core.UploadFile({ file: mediaFile });
       setMediaUrl(file_url);
+      
+      // Rate limit check for AI
+      checkRateLimit(aiAnalysisLimiter, user?.id || 'anonymous');
       
       // Quick AI triage to identify issue type
       setAnalyzing(true);
@@ -275,6 +291,12 @@ Be practical, safety-conscious, and helpful.`,
         )}>
           Take a photo, video, or audio recording of the problem
         </p>
+
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
+            <p className="text-sm text-red-800">{error}</p>
+          </div>
+        )}
 
         {!mediaFile ? (
           <div className="space-y-4">

@@ -24,6 +24,8 @@ export default function PropertyIssues() {
   const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 12;
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -61,6 +63,10 @@ export default function PropertyIssues() {
     const matchesCategory = selectedCategory === "all" || property.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  // Paginate properties
+  const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
+  const paginatedProperties = filteredProperties.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   const categoryColors = {
     residential: "from-blue-500 to-blue-600",
@@ -169,6 +175,44 @@ export default function PropertyIssues() {
           </div>
         </div>
 
+        {/* Pagination Info */}
+        {filteredProperties.length > 0 && (
+          <div className="flex items-center justify-between">
+            <p className={cn(
+              "text-sm",
+              theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+            )}>
+              Showing {((page - 1) * itemsPerPage) + 1}-{Math.min(page * itemsPerPage, filteredProperties.length)} of {filteredProperties.length}
+            </p>
+            {totalPages > 1 && (
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                >
+                  Previous
+                </Button>
+                <span className={cn(
+                  "text-sm px-3",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
+                  {page} / {totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                >
+                  Next
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Properties Grid */}
         {isLoading ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -182,9 +226,9 @@ export default function PropertyIssues() {
               />
             ))}
           </div>
-        ) : filteredProperties.length > 0 ? (
+        ) : paginatedProperties.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProperties.map((property) => {
+            {paginatedProperties.map((property) => {
               const activeIssues = property.issues.filter(i => i.status === "active").length;
               const resolvedIssues = property.issues.filter(i => i.status === "resolved").length;
               const inProgressIssues = property.issues.filter(i => i.status === "in_progress").length;
