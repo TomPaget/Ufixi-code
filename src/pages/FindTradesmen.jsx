@@ -269,7 +269,12 @@ Return the exact coordinates and verify the postcode is valid.`,
   };
 
   const filteredTradesmen = tradesmen
-    .filter(t => tradeType === "all" || t.trade === tradeType)
+    .filter(t => {
+      if (tradeType === "all") return true;
+      const tradeLower = (t.trade || "").toLowerCase();
+      const filterLower = tradeType.toLowerCase();
+      return tradeLower.includes(filterLower) || filterLower.includes(tradeLower);
+    })
     .filter(t => t.distance <= searchRadius)
     .filter(t => maxCost === "any" || t.hourlyRate <= parseInt(maxCost))
     .filter(t => {
@@ -581,7 +586,12 @@ Return the exact coordinates and verify the postcode is valid.`,
               )}>
                 Trade Type
               </label>
-              <Select value={tradeType} onValueChange={setTradeType}>
+              <Select value={tradeType} onValueChange={(value) => {
+                setTradeType(value);
+                if (location) {
+                  setTimeout(() => searchLocalTradesmen(), 100);
+                }
+              }}>
                 <SelectTrigger className={cn(
                   "border-2",
                   theme === "dark"
