@@ -15,10 +15,12 @@ import {
   FileCheck,
   CreditCard,
   Building2,
-  Sparkles
+  Sparkles,
+  AlertCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
+import AIProfilePreview from "./AIProfilePreview";
 
 const STEPS = [
   { id: 1, title: "Business Details", icon: Briefcase },
@@ -32,6 +34,9 @@ export default function TradesOnboardingWizard({ onComplete }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [uploading, setUploading] = useState(false);
   const [verifying, setVerifying] = useState(false);
+  const [generatingProfile, setGeneratingProfile] = useState(false);
+  const [aiProfile, setAiProfile] = useState(null);
+  const [verificationResult, setVerificationResult] = useState(null);
 
   // Step 1: Business Details
   const [businessName, setBusinessName] = useState("");
@@ -88,8 +93,36 @@ export default function TradesOnboardingWizard({ onComplete }) {
   const isStep3Valid = accountName && sortCode && accountNumber;
   const isStep4Valid = hasCompany === "no" || (companyNumber && insuranceProvider);
 
+  const handleGenerateProfile = async () => {
+    setGeneratingProfile(true);
+    try {
+      const { data } = await base44.functions.invoke('generateTradesProfile', {
+        businessName,
+        specialties,
+        yearsOperated,
+        location,
+        serviceArea,
+        existingBio: bio,
+        certifications: [] // Can be populated from verification step
+      });
+      setAiProfile(data);
+      if (data.professional_bio) {
+        setBio(data.professional_bio);
+      }
+    } catch (error) {
+      console.error('Profile generation failed:', error);
+    } finally {
+      setGeneratingProfile(false);
+    }
+  };
+
   const handleNext = async () => {
     if (currentStep < 4) {
+      // Generate AI profile after step 1
+      if (currentStep === 1 && !aiProfile) {
+        await handleGenerateProfile();
+      }
+      
       setCurrentStep(currentStep + 1);
       
       // Save progress after each step
@@ -140,13 +173,23 @@ export default function TradesOnboardingWizard({ onComplete }) {
       const documentUrls = [insuranceUrl, licenseUrl];
       if (certificationUrl) documentUrls.push(certificationUrl);
 
-      const verificationResult = await base44.functions.invoke('verifyTradesDocuments', {
+      const { data } = await base44.functions.invoke('verifyTradesDocuments', {
         documentUrls,
         businessName,
         businessNumber: companyNumber
       });
 
-      console.log('Verification result:', verificationResult);
+      setVerificationResult(data);
+
+      // If auto-approved, save additional AI profile data
+      if (data.auto_approved && aiProfile) {
+        await base44.auth.updateMe({
+          trades_hourly_rate: aiProfile.suggested_hourly_rate_min || 50,
+          trades_service_highlights: aiProfile.service_highlights,
+          trades_seo_keywords: aiProfile.seo_keywords,
+          professional_summary: aiProfile.professional_summary
+        });
+      }
 
       onComplete();
     } catch (error) {
@@ -313,20 +356,54 @@ export default function TradesOnboardingWizard({ onComplete }) {
             </div>
 
             <div>
-              <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
-                Bio (optional)
-              </Label>
+              <div className="flex items-center justify-between mb-2">
+                <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
+                  Professional Bio
+                </Label>
+                {!aiProfile && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={handleGenerateProfile}
+                    disabled={generatingProfile || !businessName || specialties.length === 0}
+                    className="text-xs"
+                  >
+                    {generatingProfile ? (
+                      <>
+                        <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3 h-3 mr-1" />
+                        AI Generate
+                      </>
+                    )}
+                  </Button>
+                )}
+              </div>
               <Textarea
                 placeholder="Tell customers about your experience and services..."
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 className={cn(
-                  "mt-1 min-h-24",
+                  "mt-1 min-h-32",
                   theme === "dark"
                     ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
                     : "bg-white border-slate-200"
                 )}
               />
+              {aiProfile && (
+                <div className={cn(
+                  "mt-2 p-3 rounded-lg border text-xs",
+                  theme === "dark"
+                    ? "bg-green-900/20 border-green-500/30 text-green-300"
+                    : "bg-green-50 border-green-200 text-green-700"
+                )}>
+                  <strong>✓ AI Profile Generated:</strong> Bio, service highlights, and pricing recommendations created. Review and edit as needed.
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -334,12 +411,23 @@ export default function TradesOnboardingWizard({ onComplete }) {
         {/* Step 2: Verification */}
         {currentStep === 2 && (
           <div className="space-y-4">
-            <h3 className={cn(
-              "text-xl font-semibold mb-4",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
-              Upload verification documents
-            </h3>
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h3 className={cn(
+                  "text-xl font-semibold",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
+                  Upload verification documents
+                </h3>
+                <p className={cn(
+                  "text-sm mt-1",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
+                  AI will analyze and verify your credentials automatically
+                </p>
+              </div>
+              <Sparkles className="w-6 h-6 text-[#F7B600]" />
+            </div>
 
             <div>
               <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
@@ -604,8 +692,48 @@ export default function TradesOnboardingWizard({ onComplete }) {
               "text-xl font-semibold mb-4",
               theme === "dark" ? "text-white" : "text-[#1E3A57]"
             )}>
-              Company profile (optional)
+              Final details
             </h3>
+
+            {verificationResult && (
+              <div className={cn(
+                "rounded-xl border p-4",
+                verificationResult.auto_approved
+                  ? theme === "dark"
+                    ? "bg-green-900/20 border-green-500/30"
+                    : "bg-green-50 border-green-200"
+                  : theme === "dark"
+                    ? "bg-yellow-900/20 border-yellow-500/30"
+                    : "bg-yellow-50 border-yellow-200"
+              )}>
+                <div className="flex items-start gap-3">
+                  {verificationResult.auto_approved ? (
+                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                  )}
+                  <div>
+                    <p className={cn(
+                      "font-semibold mb-1",
+                      verificationResult.auto_approved
+                        ? "text-green-600"
+                        : "text-yellow-600"
+                    )}>
+                      {verificationResult.auto_approved 
+                        ? '✓ Documents Verified!' 
+                        : 'Documents Under Review'
+                      }
+                    </p>
+                    <p className="text-sm text-slate-600">
+                      {verificationResult.reasoning}
+                    </p>
+                    <p className="text-xs text-slate-500 mt-2">
+                      Confidence: {verificationResult.confidence_score}%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div>
               <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
@@ -719,7 +847,12 @@ export default function TradesOnboardingWizard({ onComplete }) {
           ) : currentStep === 4 ? (
             <>
               <Sparkles className="w-4 h-4 mr-2" />
-              Submit & Verify
+              {verificationResult ? 'Finish' : 'Submit & AI Verify'}
+            </>
+          ) : currentStep === 1 && generatingProfile ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Generating Profile...
             </>
           ) : (
             <>
