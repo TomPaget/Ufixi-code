@@ -19,6 +19,7 @@ import {
   UserCheck,
   Activity
 } from "lucide-react";
+import { isValidEmail, sanitizeText } from "@/components/utils/sanitize";
 import {
   Dialog,
   DialogContent,
@@ -424,9 +425,22 @@ export default function TeamManagement() {
 
           <form onSubmit={(e) => {
             e.preventDefault();
+            
+            // Validate email
+            if (!isValidEmail(inviteEmail)) {
+              alert('Please enter a valid email address');
+              return;
+            }
+            
+            // Validate name length
+            if (inviteName.trim().length < 2 || inviteName.trim().length > 100) {
+              alert('Name must be between 2 and 100 characters');
+              return;
+            }
+            
             inviteMutation.mutate({
-              user_email: inviteEmail,
-              full_name: inviteName,
+              user_email: inviteEmail.toLowerCase().trim(),
+              full_name: sanitizeText(inviteName.trim()),
               team_role: inviteRole,
               status: "invited"
             });

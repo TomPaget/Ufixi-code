@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { validateFile } from "@/components/utils/fileValidation";
 import { aiAnalysisLimiter, fileUploadLimiter, checkRateLimit } from "@/components/utils/rateLimiter";
+import { sanitizeText } from "@/components/utils/sanitize";
 
 export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const { theme } = useTheme();
@@ -255,13 +256,13 @@ Be practical, safety-conscious, and helpful.`,
       ).join("\n");
 
       await onComplete(mediaUrl, mediaType, {
-        description: description || issueType.brief_description,
-        category: category || issueType.category,
-        location,
-        duration,
+        description: sanitizeText(description || issueType.brief_description),
+        category: sanitizeText(category || issueType.category),
+        location: sanitizeText(location),
+        duration: sanitizeText(duration),
         questionsAndAnswers: answersText,
-        propertyName: isBusinessUser ? propertyName : undefined,
-        propertyAddress: isBusinessUser ? propertyAddress : undefined,
+        propertyName: isBusinessUser ? sanitizeText(propertyName) : undefined,
+        propertyAddress: isBusinessUser ? sanitizeText(propertyAddress) : undefined,
         propertyCategory: isBusinessUser ? propertyCategory : undefined
       });
     } catch (error) {
