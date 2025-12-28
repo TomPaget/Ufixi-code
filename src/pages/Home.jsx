@@ -442,11 +442,27 @@ export default function Home() {
       10. MATERIALS & TOOLS SPECIFICATION
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       List 4-8 specific items for ${user?.country || "UK"} market:
-      - Exact product specification (sizes, ratings, standards)
-      - Purpose and critical importance
-      - Amazon search URL (properly formatted for ${user?.country === "US" ? "amazon.com" : user?.country === "CA" ? "amazon.ca" : user?.country === "AU" ? "amazon.com.au" : "amazon.co.uk"})
-      - Current price range in ${currency}
-      - Alternatives if not available
+
+      **CRITICAL INSTRUCTIONS FOR PRODUCT RECOMMENDATIONS:**
+      - Research ACTUAL popular products currently available on Amazon
+      - Include SPECIFIC brand names and model numbers (e.g., "Bosch PSB 1800 LI-2", "Wickes Trade Series Adjustable Wrench")
+      - Recommend BEST-SELLING, highly-rated products (4+ stars, hundreds of reviews)
+      - Provide accurate estimated prices based on current market rates
+      - Create proper Amazon search URLs using exact product names
+      - Format: https://${user?.country === "US" ? "amazon.com" : user?.country === "CA" ? "amazon.ca" : user?.country === "AU" ? "amazon.com.au" : "amazon.co.uk"}/s?k=[URL-encoded exact product name]
+
+      For each product:
+      - Name: Include brand + model/product line (e.g., "Stanley FatMax Tape Measure 8m")
+      - Description: Why this specific product is ideal for this repair
+      - Estimated Cost: Realistic current price range
+      - Amazon URL: Direct search for the specific product
+
+      PRIORITY: Choose products that:
+      1. Are consistently available and well-stocked
+      2. Have excellent reviews (4+ stars)
+      3. Are from reputable brands (Stanley, Bosch, DeWalt, Screwfix own-brand, etc.)
+      4. Represent best value for quality
+      5. Are appropriate for ${userSkillLevel} skill level
 
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       11. LIABILITY & RESPONSIBILITY (${userType})
