@@ -1,4 +1,4 @@
-import { Wrench, MessageSquare, Phone, Lock } from "lucide-react";
+import { Wrench, MessageSquare, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ export default function ActionButtons({
   onLandlord, 
   onProfessional, 
   userType,
-  isPremium,
   responsibility,
   tradeType
 }) {
@@ -21,29 +20,14 @@ export default function ActionButtons({
       <Button
         onClick={onDIY}
         variant="outline"
-        className={cn(
-          "w-full h-14 rounded-2xl justify-start gap-4 border-2",
-          isPremium 
-            ? "border-emerald-500 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20" 
-            : "border-slate-700 bg-slate-800 text-slate-500"
-        )}
-        disabled={!isPremium}
+        className="w-full h-14 rounded-2xl justify-start gap-4 border-2 border-emerald-500 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
       >
-        <div className={cn(
-          "w-10 h-10 rounded-xl flex items-center justify-center",
-          isPremium ? "bg-emerald-500/20 border border-emerald-500/30" : "bg-slate-700"
-        )}>
-          {isPremium ? (
-            <Wrench className="w-5 h-5 text-emerald-400" />
-          ) : (
-            <Lock className="w-4 h-4" />
-          )}
+        <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+          <Wrench className="w-5 h-5 text-emerald-400" />
         </div>
         <div className="text-left">
           <p className="font-medium">DIY Guide</p>
-          <p className="text-xs opacity-70">
-            {isPremium ? "Step-by-step instructions" : "Premium feature"}
-          </p>
+          <p className="text-xs opacity-70">Step-by-step instructions</p>
         </div>
       </Button>
 

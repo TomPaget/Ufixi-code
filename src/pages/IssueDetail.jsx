@@ -418,7 +418,6 @@ export default function IssueDetail() {
             onLandlord={() => setShowLandlord(true)}
             onProfessional={() => setShowProfessional(true)}
             userType={userType}
-            isPremium={isPremium}
             responsibility={issue.responsibility}
             tradeType={issue.trade_type}
           />
