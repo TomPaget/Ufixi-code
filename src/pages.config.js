@@ -32,6 +32,7 @@ import VideoCall from './pages/VideoCall';
 import BusinessPricing from './pages/BusinessPricing';
 import PropertyIssues from './pages/PropertyIssues';
 import PropertyDetail from './pages/PropertyDetail';
+import Integrations from './pages/Integrations';
 import __Layout from './Layout.jsx';
 
 
@@ -70,6 +71,7 @@ export const PAGES = {
     "BusinessPricing": BusinessPricing,
     "PropertyIssues": PropertyIssues,
     "PropertyDetail": PropertyDetail,
+    "Integrations": Integrations,
 }
 
 export const pagesConfig = {

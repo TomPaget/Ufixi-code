@@ -37,6 +37,7 @@ const tradesMenuItems = [
 const businessMenuItems = [
   { icon: HomeIcon, label: "Home", page: "Home" },
   { icon: LayoutDashboard, label: "Property Issues", page: "PropertyIssues" },
+  { icon: Settings, label: "Integrations", page: "Integrations" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: Settings, label: "My Account", page: "Settings" }
 ];
