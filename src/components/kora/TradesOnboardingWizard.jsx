@@ -602,6 +602,32 @@ export default function TradesOnboardingWizard({ onComplete }) {
                 </label>
               )}
             </div>
+
+            {/* AI Verification Preview */}
+            {(insuranceUrl || licenseUrl) && (
+              <div className={cn(
+                "rounded-xl border p-4 text-sm",
+                theme === "dark"
+                  ? "bg-blue-900/20 border-blue-500/30"
+                  : "bg-blue-50 border-blue-200"
+              )}>
+                <div className="flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className={cn(
+                      "font-semibold mb-1",
+                      theme === "dark" ? "text-blue-300" : "text-blue-700"
+                    )}>
+                      AI Document Analysis
+                    </p>
+                    <p className="text-xs text-slate-600">
+                      Your documents will be automatically analyzed for authenticity, validity, and completeness. 
+                      High-confidence documents may be auto-approved instantly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
