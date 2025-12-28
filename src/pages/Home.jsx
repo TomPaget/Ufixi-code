@@ -520,7 +520,11 @@ export default function Home() {
           recommended_approach: historicalInsights.recommended_approach,
           success_factors: historicalInsights.success_factors,
           estimated_success_rate: historicalInsights.estimated_success_rate
-        } : null
+        } : null,
+        property_name: additionalInfo.propertyName,
+        property_address: additionalInfo.propertyAddress,
+        property_category: additionalInfo.propertyCategory,
+        scanned_by_name: user?.full_name
       });
 
       // Update scan count for free users

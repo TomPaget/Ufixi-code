@@ -34,6 +34,13 @@ const tradesMenuItems = [
   { icon: Settings, label: "My Account", page: "Settings" }
 ];
 
+const businessMenuItems = [
+  { icon: HomeIcon, label: "Home", page: "Home" },
+  { icon: LayoutDashboard, label: "Property Issues", page: "PropertyIssues" },
+  { icon: Mail, label: "Messages", page: "Messages" },
+  { icon: Settings, label: "My Account", page: "Settings" }
+];
+
 export default function HamburgerMenu({ isOpen, onClose }) {
   const { theme } = useTheme();
   
@@ -42,7 +49,11 @@ export default function HamburgerMenu({ isOpen, onClose }) {
     queryFn: () => base44.auth.me()
   });
 
-  const menuItems = user?.account_type === "trades" ? tradesMenuItems : customerMenuItems;
+  const menuItems = user?.account_type === "trades" 
+    ? tradesMenuItems 
+    : user?.account_type === "business"
+      ? businessMenuItems
+      : customerMenuItems;
 
   return (
     <AnimatePresence>

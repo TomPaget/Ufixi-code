@@ -30,6 +30,8 @@ import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
 import BusinessPricing from './pages/BusinessPricing';
+import PropertyIssues from './pages/PropertyIssues';
+import PropertyDetail from './pages/PropertyDetail';
 import __Layout from './Layout.jsx';
 
 
@@ -66,6 +68,8 @@ export const PAGES = {
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
     "BusinessPricing": BusinessPricing,
+    "PropertyIssues": PropertyIssues,
+    "PropertyDetail": PropertyDetail,
 }
 
 export const pagesConfig = {

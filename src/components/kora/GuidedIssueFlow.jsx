@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,7 +19,8 @@ import {
   ChevronLeft,
   Image,
   Film,
-  Mic2
+  Mic2,
+  Building2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
@@ -42,6 +44,18 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const [location, setLocation] = useState("");
   const [duration, setDuration] = useState("");
   const [category, setCategory] = useState("");
+  
+  // Business user property details
+  const [propertyName, setPropertyName] = useState("");
+  const [propertyAddress, setPropertyAddress] = useState("");
+  const [propertyCategory, setPropertyCategory] = useState("residential");
+  
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => base44.auth.me()
+  });
+  
+  const isBusinessUser = user?.account_type === "business";
 
   // Step 1: Upload media
   const handleFileSelect = async (type, file) => {
@@ -229,7 +243,10 @@ Be practical, safety-conscious, and helpful.`,
         category: category || issueType.category,
         location,
         duration,
-        questionsAndAnswers: answersText
+        questionsAndAnswers: answersText,
+        propertyName: isBusinessUser ? propertyName : undefined,
+        propertyAddress: isBusinessUser ? propertyAddress : undefined,
+        propertyCategory: isBusinessUser ? propertyCategory : undefined
       });
     } catch (error) {
       console.error("Full analysis failed:", error);
@@ -583,6 +600,84 @@ Be practical, safety-conscious, and helpful.`,
               </div>
             </RadioGroup>
           </div>
+
+          {isBusinessUser && (
+            <>
+              <div className={cn(
+                "border-t pt-4 mt-4",
+                theme === "dark" ? "border-[#57CFA4]/20" : "border-slate-200"
+              )}>
+                <div className="flex items-center gap-2 mb-3">
+                  <Building2 className="w-4 h-4 text-[#F7B600]" />
+                  <Label className={cn(
+                    "font-semibold",
+                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                  )}>
+                    Property Details
+                  </Label>
+                </div>
+              </div>
+
+              <div>
+                <Label className={cn(
+                  "mb-2 block",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
+                  Property Name/Reference *
+                </Label>
+                <Input
+                  placeholder="e.g., 24 Oak Street, Viewing #123"
+                  value={propertyName}
+                  onChange={(e) => setPropertyName(e.target.value)}
+                  className={cn(
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      : "bg-white border-slate-200"
+                  )}
+                />
+              </div>
+
+              <div>
+                <Label className={cn(
+                  "mb-2 block",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
+                  Property Address
+                </Label>
+                <Input
+                  placeholder="Full property address"
+                  value={propertyAddress}
+                  onChange={(e) => setPropertyAddress(e.target.value)}
+                  className={cn(
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      : "bg-white border-slate-200"
+                  )}
+                />
+              </div>
+
+              <div>
+                <Label className={cn(
+                  "mb-2 block",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
+                  Property Type
+                </Label>
+                <RadioGroup value={propertyCategory} onValueChange={setPropertyCategory}>
+                  <div className="grid grid-cols-2 gap-2">
+                    {["residential", "commercial", "rental", "sale_listing", "inspection"].map((cat) => (
+                      <div key={cat} className="flex items-center space-x-2">
+                        <RadioGroupItem value={cat} id={`prop-${cat}`} />
+                        <Label htmlFor={`prop-${cat}`} className="cursor-pointer capitalize">
+                          {cat.replace("_", " ")}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </RadioGroup>
+              </div>
+            </>
+          )}
         </div>
 
         {error && (
@@ -593,7 +688,7 @@ Be practical, safety-conscious, and helpful.`,
 
         <Button
           onClick={handleUpload}
-          disabled={!description.trim() || uploading || analyzing}
+          disabled={!description.trim() || (isBusinessUser && !propertyName.trim()) || uploading || analyzing}
           className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
         >
           {uploading || analyzing ? (
