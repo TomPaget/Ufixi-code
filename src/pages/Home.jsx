@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Plus, History, Menu, Sparkles, Users, Calendar, TrendingUp } from "lucide-react";
+import { Plus, History, Menu, Sparkles, Users, Calendar, TrendingUp, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import GuidedIssueFlow from "@/components/kora/GuidedIssueFlow";
 import IssueCard from "@/components/kora/IssueCard";
-import SubscriptionBanner from "@/components/kora/SubscriptionBanner";
 import Disclaimer from "@/components/kora/Disclaimer";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import MaintenanceAlerts from "@/components/kora/MaintenanceAlerts";
 import NotificationBell from "@/components/kora/NotificationBell";
@@ -18,7 +18,7 @@ import FeatureTooltip from "@/components/kora/FeatureTooltip";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 
-const FREE_SCAN_LIMIT = 3;
+const FREE_SCAN_LIMIT = 2;
 
 export default function Home() {
   const navigate = useNavigate();
@@ -29,6 +29,8 @@ export default function Home() {
   const [uploadedMedia, setUploadedMedia] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+  const [processingPayment, setProcessingPayment] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -55,20 +57,30 @@ export default function Home() {
     }
   });
 
-  const isPremium = user?.subscription_tier === "premium";
   const totalScansUsed = user?.total_scans_used || 0;
   const scansLeft = Math.max(0, FREE_SCAN_LIMIT - totalScansUsed);
-  const canScan = isPremium || scansLeft > 0;
+  const needsPayment = scansLeft === 0;
   
   const currency = user?.currency || "GBP";
   const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[currency];
 
-  const handleIssueComplete = async (fileUrl, mediaType, additionalInfo = {}) => {
-    if (!canScan) {
-      navigate(createPageUrl("Upgrade"));
-      return;
+  const handlePayAndScan = async () => {
+    setProcessingPayment(true);
+    try {
+      // Simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Payment successful, allow scan
+      setShowPaymentDialog(false);
+      setProcessingPayment(false);
+      setShowScanner(true);
+    } catch (error) {
+      console.error('Payment failed:', error);
+      setProcessingPayment(false);
     }
+  };
 
+  const handleIssueComplete = async (fileUrl, mediaType, additionalInfo = {}) => {
     setAnalyzing(true);
 
     try {
@@ -527,12 +539,10 @@ export default function Home() {
         scanned_by_name: user?.full_name
       });
 
-      // Update scan count for free users
-      if (!isPremium) {
-        await base44.auth.updateMe({
-          total_scans_used: totalScansUsed + 1
-        });
-      }
+      // Update scan count (always increment)
+      await base44.auth.updateMe({
+        total_scans_used: totalScansUsed + 1
+      });
 
       // Calculate AI-powered priority
       try {
@@ -730,24 +740,22 @@ export default function Home() {
               exit={{ opacity: 0, scale: 0.95 }}
             >
               <Button
-                onClick={() => canScan ? setShowScanner(true) : navigate(createPageUrl("Upgrade"))}
+                onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                 className="w-full h-16 rounded-2xl font-semibold bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57]"
               >
                 <Plus className="w-5 h-5 mr-2" />
-                <span>Scan New Issue</span>
+                <span>{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
               </Button>
-              
-              {!isPremium && (
-                <p className={cn(
-                  "text-center text-sm mt-3",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
-                  {scansLeft > 0 
-                    ? `${scansLeft} of 3 free scans remaining`
-                    : "All free scans used - Upgrade to continue"
-                  }
-                </p>
-              )}
+
+              <p className={cn(
+                "text-center text-sm mt-3",
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+              )}>
+                {scansLeft > 0 
+                  ? `${scansLeft} of ${FREE_SCAN_LIMIT} free scans remaining`
+                  : "£0.99 per scan after free scans"
+                }
+              </p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -797,20 +805,7 @@ export default function Home() {
         {/* AI Maintenance Predictions */}
         <MaintenanceAlerts userId={user?.id} />
 
-        {/* Subscription Banner for Free Users */}
-        {!isPremium && scansLeft <= 1 && (
-          <div className={cn(
-            "rounded-3xl p-6 shadow-xl",
-            theme === "dark"
-              ? "bg-gradient-to-br from-blue-600 to-blue-700 border border-blue-500/30"
-              : "bg-gradient-to-br from-blue-500 to-blue-600 border border-blue-400/30"
-          )}>
-            <SubscriptionBanner 
-              scansLeft={scansLeft}
-              onUpgrade={() => navigate(createPageUrl("Upgrade"))}
-            />
-          </div>
-        )}
+
 
         {/* Recent Issues */}
         <section>
@@ -886,7 +881,85 @@ export default function Home() {
 
         {/* Disclaimer */}
         <Disclaimer />
-      </main>
-    </div>
-  );
-}
+        </main>
+
+        {/* Payment Dialog */}
+        <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
+        <DialogContent className="max-w-md mx-4 rounded-3xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl">Pay for Scan</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            <div className={cn(
+              "rounded-2xl p-6 text-center border-2",
+              theme === "dark"
+                ? "bg-[#1A2F42] border-[#F7B600]"
+                : "bg-yellow-50 border-yellow-300"
+            )}>
+              <p className={cn(
+                "text-4xl font-bold mb-2",
+                theme === "dark" ? "text-[#F7B600]" : "text-yellow-700"
+              )}>
+                £0.99
+              </p>
+              <p className={cn(
+                "text-sm",
+                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+              )}>
+                One-time payment for this scan
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <p className={cn(
+                "text-sm",
+                theme === "dark" ? "text-white" : "text-slate-700"
+              )}>
+                ✓ AI-powered issue analysis
+              </p>
+              <p className={cn(
+                "text-sm",
+                theme === "dark" ? "text-white" : "text-slate-700"
+              )}>
+                ✓ Cost estimates & repair guide
+              </p>
+              <p className={cn(
+                "text-sm",
+                theme === "dark" ? "text-white" : "text-slate-700"
+              )}>
+                ✓ Professional recommendations
+              </p>
+            </div>
+
+            <Button
+              onClick={handlePayAndScan}
+              disabled={processingPayment}
+              className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] h-12 rounded-xl"
+            >
+              {processingPayment ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                'Pay £0.99 & Scan'
+              )}
+            </Button>
+
+            <Button
+              variant="ghost"
+              onClick={() => setShowPaymentDialog(false)}
+              className="w-full"
+            >
+              Cancel
+            </Button>
+
+            <p className="text-xs text-center text-slate-500">
+              Secure payment • No subscription • Cancel anytime
+            </p>
+          </div>
+        </DialogContent>
+        </Dialog>
+        </div>
+        );
+        }
