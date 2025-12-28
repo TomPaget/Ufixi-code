@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { X, Home as HomeIcon, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Smartphone } from "lucide-react";
+import { X, Home as HomeIcon, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Smartphone, Building2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -13,7 +13,7 @@ const customerMenuItems = [
   { icon: Smartphone, label: "Smart Home", page: "SmartHome" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
-  { icon: Briefcase, label: "Business Membership", page: "BusinessPricing" },
+  { icon: Building2, label: "Business Membership", page: "BusinessPricing" },
   { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
