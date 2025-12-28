@@ -156,7 +156,18 @@ export default function TradespersonMatcher({ issueId }) {
                 ? "bg-blue-500/10 border-blue-500/30 text-blue-300"
                 : "bg-blue-50 border-blue-200 text-blue-700"
             )}>
-              💡 {matches.overall_recommendation}
+              💡 <strong>AI Recommendation:</strong> {matches.overall_recommendation}
+            </div>
+          )}
+
+          {matches.urgency_note && (
+            <div className={cn(
+              "p-3 rounded-xl border text-sm",
+              theme === "dark"
+                ? "bg-red-500/10 border-red-500/30 text-red-300"
+                : "bg-red-50 border-red-200 text-red-700"
+            )}>
+              ⚠️ {matches.urgency_note}
             </div>
           )}
 
@@ -177,7 +188,7 @@ export default function TradespersonMatcher({ issueId }) {
                 <div className="p-4">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <h4 className={cn(
                           "font-semibold",
                           theme === "dark" ? "text-white" : "text-[#1E3A57]"
@@ -186,7 +197,12 @@ export default function TradespersonMatcher({ issueId }) {
                         </h4>
                         {index === 0 && (
                           <span className="px-2 py-0.5 bg-[#F7B600] text-[#0F1E2E] text-xs font-bold rounded-full">
-                            Best Match
+                            🏆 Best Match
+                          </span>
+                        )}
+                        {match.tradesperson.trust_score >= 85 && (
+                          <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full">
+                            ✓ Verified
                           </span>
                         )}
                       </div>
@@ -194,7 +210,7 @@ export default function TradespersonMatcher({ issueId }) {
                         "text-sm capitalize",
                         theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
                       )}>
-                        {match.tradesperson.specialty}
+                        {match.tradesperson.specialty} • {match.tradesperson.years_operated}+ years
                       </p>
                     </div>
                     <div className="text-right">
@@ -203,14 +219,17 @@ export default function TradespersonMatcher({ issueId }) {
                         <span className="font-semibold">
                           {match.tradesperson.rating?.toFixed(1) || "N/A"}
                         </span>
+                        <span className="text-xs text-slate-500">
+                          ({match.tradesperson.total_reviews})
+                        </span>
                       </div>
                       <span className={cn(
-                        "text-xs px-2 py-1 rounded-full",
-                        match.match_score >= 80
+                        "text-xs px-2 py-1 rounded-full font-semibold",
+                        match.match_score >= 85
                           ? "bg-green-500/20 text-green-400"
-                          : match.match_score >= 60
+                          : match.match_score >= 70
                           ? "bg-blue-500/20 text-blue-400"
-                          : "bg-slate-500/20 text-slate-400"
+                          : "bg-yellow-500/20 text-yellow-400"
                       )}>
                         {match.match_score}% match
                       </span>
@@ -221,13 +240,16 @@ export default function TradespersonMatcher({ issueId }) {
                     <div className="flex items-center gap-1">
                       <MapPin className={cn(
                         "w-4 h-4",
-                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                        match.tradesperson.proximity_score >= 70 ? "text-green-500" : "text-slate-500"
                       )} />
                       <span className={cn(
                         theme === "dark" ? "text-white" : "text-slate-700"
                       )}>
                         {match.tradesperson.location}
                       </span>
+                      {match.tradesperson.proximity_score >= 90 && (
+                        <span className="text-xs text-green-500">• Nearby</span>
+                      )}
                     </div>
                     <div className="flex items-center gap-1">
                       <DollarSign className={cn(
@@ -240,23 +262,46 @@ export default function TradespersonMatcher({ issueId }) {
                         {currencySymbol}{match.tradesperson.hourly_rate}/hr
                       </span>
                     </div>
+                    {match.tradesperson.emergency_service && (
+                      <span className="px-2 py-0.5 bg-red-500/20 text-red-400 text-xs rounded-full">
+                        🚨 Emergency
+                      </span>
+                    )}
                   </div>
 
+                  {index === 0 && match.why_top_choice && (
+                    <div className={cn(
+                      "p-2 rounded-lg mb-2 text-xs",
+                      theme === "dark"
+                        ? "bg-[#F7B600]/10 border border-[#F7B600]/30 text-[#F7B600]"
+                        : "bg-yellow-50 border border-yellow-200 text-yellow-700"
+                    )}>
+                      <strong>Why Top Choice:</strong> {match.why_top_choice}
+                    </div>
+                  )}
+
                   <p className={cn(
-                    "text-sm mb-3",
+                    "text-sm mb-2",
                     theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
                   )}>
                     {match.suitability_reason}
                   </p>
 
-                  {match.estimated_job_cost && (
-                    <p className={cn(
-                      "text-sm font-semibold mb-3",
-                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                    )}>
-                      Estimated job cost: {currencySymbol}{match.estimated_job_cost}
-                    </p>
-                  )}
+                  <div className="flex items-center justify-between mb-3">
+                    {match.estimated_job_cost && (
+                      <p className={cn(
+                        "text-sm font-semibold",
+                        theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                      )}>
+                        Est: {currencySymbol}{match.estimated_job_cost}
+                      </p>
+                    )}
+                    {match.estimated_response_time && (
+                      <p className="text-xs text-slate-500">
+                        ⏱️ {match.estimated_response_time}
+                      </p>
+                    )}
+                  </div>
 
                   {/* Expandable details */}
                   <button
