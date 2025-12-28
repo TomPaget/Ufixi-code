@@ -13,6 +13,7 @@ const customerMenuItems = [
   { icon: Smartphone, label: "Smart Home", page: "SmartHome" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
+  { icon: Briefcase, label: "Business Membership", page: "BusinessPricing" },
   { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
