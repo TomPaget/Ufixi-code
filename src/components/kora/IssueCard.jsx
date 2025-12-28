@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import UrgencyBadge from "./UrgencyBadge";
 import SeverityBadge from "./SeverityBadge";
+import PriorityBadge from "./PriorityBadge";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -104,6 +105,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
             </div>
             
             <div className="flex items-center gap-2 mt-3 flex-wrap">
+              {issue.priority && <PriorityBadge priority={issue.priority} showLabel={false} />}
               {issue.severity_score && <SeverityBadge severity={issue.severity_score} />}
               <UrgencyBadge urgency={issue.urgency} size="small" />
               <span className={cn(

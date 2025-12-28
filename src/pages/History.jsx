@@ -36,9 +36,10 @@ export default function History() {
   const { theme } = useTheme();
   const [statusFilter, setStatusFilter] = useState("all");
   const [urgencyFilter, setUrgencyFilter] = useState("all");
+  const [priorityFilter, setPriorityFilter] = useState("all");
   const [tradeFilter, setTradeFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("newest");
+  const [sortBy, setSortBy] = useState("priority");
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -72,17 +73,21 @@ export default function History() {
   const filteredIssues = issues.filter((issue) => {
     const matchesStatus = statusFilter === "all" || issue.status === statusFilter;
     const matchesUrgency = urgencyFilter === "all" || issue.urgency === urgencyFilter;
+    const matchesPriority = priorityFilter === "all" || issue.priority === priorityFilter;
     const matchesTrade = tradeFilter === "all" || issue.trade_type === tradeFilter;
     const matchesSearch = !searchQuery || 
       issue.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       issue.explanation?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       issue.trade_type?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesStatus && matchesUrgency && matchesTrade && matchesSearch;
+    return matchesStatus && matchesUrgency && matchesPriority && matchesTrade && matchesSearch;
   });
 
   // Sort issues
   const sortedIssues = [...filteredIssues].sort((a, b) => {
     switch (sortBy) {
+      case "priority":
+        const priorityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
+        return (priorityOrder[b.priority] || 0) - (priorityOrder[a.priority] || 0);
       case "newest":
         return new Date(b.created_date) - new Date(a.created_date);
       case "oldest":
@@ -284,6 +289,24 @@ export default function History() {
         {/* Filters & Sort */}
         <div className="space-y-3">
           <div className="flex gap-3">
+            <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+              <SelectTrigger className={cn(
+                "flex-1 h-11 rounded-xl border-2",
+                theme === "dark"
+                  ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
+                  : "bg-white border-slate-200"
+              )}>
+                <SelectValue placeholder="Priority" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Priority</SelectItem>
+                <SelectItem value="critical">Critical</SelectItem>
+                <SelectItem value="high">High</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="low">Low</SelectItem>
+              </SelectContent>
+            </Select>
+
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className={cn(
                 "flex-1 h-11 rounded-xl border-2",
@@ -300,7 +323,9 @@ export default function History() {
                 <SelectItem value="resolved">Resolved</SelectItem>
               </SelectContent>
             </Select>
+          </div>
 
+          <div className="flex gap-3">
             <Select value={urgencyFilter} onValueChange={setUrgencyFilter}>
               <SelectTrigger className={cn(
                 "flex-1 h-11 rounded-xl border-2",
@@ -317,9 +342,7 @@ export default function History() {
                 <SelectItem value="ignore">Can Wait</SelectItem>
               </SelectContent>
             </Select>
-          </div>
 
-          <div className="flex gap-3">
             <Select value={tradeFilter} onValueChange={setTradeFilter}>
               <SelectTrigger className={cn(
                 "flex-1 h-11 rounded-xl border-2",
@@ -350,6 +373,7 @@ export default function History() {
                 <SelectValue placeholder="Sort By" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="priority">Priority</SelectItem>
                 <SelectItem value="newest">Newest First</SelectItem>
                 <SelectItem value="oldest">Oldest First</SelectItem>
                 <SelectItem value="severity">Highest Severity</SelectItem>
