@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Send, MessageSquare, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { sanitizeText } from "@/components/utils/sanitize";
 
 export default function IssueComments({ issueId }) {
   const queryClient = useQueryClient();
@@ -27,7 +28,11 @@ export default function IssueComments({ issueId }) {
 
   const addCommentMutation = useMutation({
     mutationFn: async (data) => {
-      const newComment = await base44.entities.IssueComment.create(data);
+      const sanitizedData = {
+        ...data,
+        content: sanitizeText(data.content)
+      };
+      const newComment = await base44.entities.IssueComment.create(sanitizedData);
       
       // Extract mentions from comment (@email)
       const mentions = comment.match(/@(\S+@\S+\.\S+)/g)?.map(m => m.substring(1)) || [];

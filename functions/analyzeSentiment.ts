@@ -14,14 +14,18 @@ Deno.serve(async (req) => {
     if (!text) {
       return Response.json({ error: 'Text is required' }, { status: 400 });
     }
+    
+    // Sanitize and limit input
+    const sanitizedText = text.substring(0, 1000);
+    const sanitizedContext = context ? context.substring(0, 200) : '';
 
     // Analyze sentiment and extract insights
-    const analysis = await base44.integrations.Core.InvokeLLM({
+    const analysis = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: `Analyze the emotional state and underlying concerns in this text from a homeowner describing a maintenance issue:
 
-"${text}"
+"${sanitizedText}"
 
-Context: ${context || 'User submitting a home repair issue'}
+Context: ${sanitizedContext || 'User submitting a home repair issue'}
 
 Provide:
 1. Sentiment score (-1 to 1, where -1 is very negative, 0 is neutral, 1 is very positive)

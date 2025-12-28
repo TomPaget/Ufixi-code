@@ -14,6 +14,9 @@ Deno.serve(async (req) => {
     if (!issueDescription) {
       return Response.json({ error: 'Issue description is required' }, { status: 400 });
     }
+    
+    // Sanitize and limit input length
+    const sanitizedDescription = issueDescription.substring(0, 500);
 
     // Get all resolved issues for analysis
     const allIssues = await base44.asServiceRole.entities.Issue.filter({ 
@@ -42,11 +45,11 @@ Deno.serve(async (req) => {
     }));
 
     // Use AI to find similar issues and extract insights
-    const analysis = await base44.integrations.Core.InvokeLLM({
+    const analysis = await base44.asServiceRole.integrations.Core.InvokeLLM({
       prompt: `You are analyzing a new home repair issue to find similar historical cases and predict effective solutions.
 
 NEW ISSUE:
-Description: "${issueDescription}"
+Description: "${sanitizedDescription}"
 Category: ${category || 'unknown'}
 Trade Type: ${tradeType || 'unknown'}
 
