@@ -31,17 +31,25 @@ export default function Reminders() {
   const queryClient = useQueryClient();
   const { theme } = useTheme();
   const [showDialog, setShowDialog] = useState(false);
+  const [generatingAI, setGeneratingAI] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     reminder_date: "",
     repeat_frequency: "none",
-    category: "other"
+    category: "other",
+    suggested_actions: [],
+    optimal_timing_reason: ""
   });
 
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => base44.auth.me()
+  });
+
+  const { data: historicalIssues = [] } = useQuery({
+    queryKey: ["historical-issues"],
+    queryFn: () => base44.entities.Issue.list("-created_date", 100)
   });
 
   const { data: reminders = [], isLoading } = useQuery({
@@ -82,6 +90,104 @@ export default function Reminders() {
         completed_date: !reminder.is_completed ? new Date().toISOString().split("T")[0] : null
       }
     });
+  };
+
+  const generateAIReminder = async () => {
+    setGeneratingAI(true);
+    try {
+      const currentDate = new Date();
+      const season = ['Winter', 'Winter', 'Spring', 'Spring', 'Spring', 'Summer', 'Summer', 'Summer', 'Fall', 'Fall', 'Fall', 'Winter'][currentDate.getMonth()];
+      const propertyAge = user?.property_age || 'unknown';
+      const propertyType = user?.property_type || 'unknown';
+      const location = user?.postcode || user?.country || 'UK';
+
+      // Compile historical issue patterns
+      const issuePatterns = historicalIssues.map(issue => ({
+        category: issue.trade_type,
+        severity: issue.severity_score,
+        season: new Date(issue.created_date).toLocaleDateString('en-US', { month: 'long' }),
+        resolved: issue.status === 'resolved'
+      }));
+
+      const result = await base44.integrations.Core.InvokeLLM({
+        prompt: `You are a preventative maintenance expert analyzing property data to suggest intelligent maintenance reminders.
+
+PROPERTY CONTEXT:
+• Property Type: ${propertyType}
+• Property Age: ${propertyAge} years
+• Location: ${location}
+• Current Season: ${season} ${currentDate.getFullYear()}
+• Current Date: ${currentDate.toLocaleDateString()}
+
+HISTORICAL ISSUE PATTERNS:
+${issuePatterns.length > 0 ? JSON.stringify(issuePatterns, null, 2) : "No historical data available"}
+
+TASK:
+Generate ONE maintenance reminder that is:
+1. TIMELY - Optimal for current season, property age, and location
+2. PREVENTATIVE - Helps avoid issues seen in historical data
+3. ACTIONABLE - Clear, specific task the user can schedule
+4. RELEVANT - Appropriate for ${propertyAge}-year-old ${propertyType} property
+
+Consider:
+- Seasonal maintenance (e.g., HVAC servicing before summer/winter)
+- Property age-related wear (older properties need more frequent checks)
+- Regional climate (${location} weather patterns)
+- Common failure patterns from historical issues
+- Standard maintenance intervals for key systems
+
+OUTPUT FORMAT:
+{
+  "title": "Clear, specific maintenance task (e.g., 'Service HVAC System Before Summer')",
+  "description": "2-3 sentence explanation of why this maintenance is important now, what it prevents, and what's involved",
+  "category": "hvac|plumbing|electrical|appliances|exterior|other",
+  "suggested_date": "YYYY-MM-DD (optimal date based on season/timing)",
+  "repeat_frequency": "none|monthly|quarterly|biannually|yearly",
+  "suggested_actions": [
+    "Specific DIY action 1 (if safe)",
+    "Specific DIY action 2",
+    "When to call professional"
+  ],
+  "optimal_timing_reason": "1-2 sentences explaining why THIS timing is optimal (e.g., 'Before summer heat arrives to ensure cooling efficiency and prevent breakdowns during peak season')"
+}
+
+EXAMPLES OF GOOD SUGGESTIONS:
+- Spring: "Inspect and Clean Gutters" - prevents water damage during spring rains
+- Before Winter: "Check Heating System" - ensures warmth and efficiency
+- Summer: "Service Air Conditioning" - prevents breakdown during hot weather
+- Fall: "Winterize Outdoor Plumbing" - prevents frozen pipes
+
+Be specific, practical, and use data-driven timing.`,
+        add_context_from_internet: true,
+        response_json_schema: {
+          type: "object",
+          properties: {
+            title: { type: "string" },
+            description: { type: "string" },
+            category: { type: "string", enum: ["hvac", "plumbing", "electrical", "appliances", "exterior", "other"] },
+            suggested_date: { type: "string" },
+            repeat_frequency: { type: "string", enum: ["none", "monthly", "quarterly", "biannually", "yearly"] },
+            suggested_actions: { type: "array", items: { type: "string" } },
+            optimal_timing_reason: { type: "string" }
+          },
+          required: ["title", "description", "category", "suggested_date", "repeat_frequency", "suggested_actions", "optimal_timing_reason"]
+        }
+      });
+
+      setFormData({
+        title: result.title,
+        description: result.description,
+        reminder_date: result.suggested_date,
+        repeat_frequency: result.repeat_frequency,
+        category: result.category,
+        suggested_actions: result.suggested_actions,
+        optimal_timing_reason: result.optimal_timing_reason
+      });
+    } catch (error) {
+      console.error("AI generation failed:", error);
+    } finally {
+      setGeneratingAI(false);
+    }
   };
 
   const upcomingReminders = reminders.filter(r => !r.is_completed);
@@ -209,10 +315,34 @@ export default function Reminders() {
                         theme === "dark" ? "text-slate-100" : "text-slate-900"
                       )}>{reminder.title}</h3>
                       {reminder.description && (
-                        <p className={cn(
-                          "text-sm mt-1",
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        )}>{reminder.description}</p>
+                       <p className={cn(
+                         "text-sm mt-1",
+                         theme === "dark" ? "text-slate-400" : "text-slate-600"
+                       )}>{reminder.description}</p>
+                      )}
+                      {reminder.optimal_timing_reason && (
+                       <div className={cn(
+                         "text-xs mt-2 p-2 rounded-lg border flex items-start gap-2",
+                         theme === "dark"
+                           ? "bg-blue-900/20 border-blue-500/30 text-blue-300"
+                           : "bg-blue-50 border-blue-200 text-blue-700"
+                       )}>
+                         <Sparkles className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                         <span>{reminder.optimal_timing_reason}</span>
+                       </div>
+                      )}
+                      {reminder.suggested_actions && reminder.suggested_actions.length > 0 && (
+                       <div className="mt-2 space-y-1">
+                         {reminder.suggested_actions.map((action, idx) => (
+                           <div key={idx} className={cn(
+                             "text-xs flex items-start gap-2",
+                             theme === "dark" ? "text-slate-400" : "text-slate-600"
+                           )}>
+                             <span className="text-[#F7B600]">•</span>
+                             <span>{action}</span>
+                           </div>
+                         ))}
+                       </div>
                       )}
                       <div className="flex items-center gap-2 mt-2 text-sm">
                         <Calendar className="w-3 h-3 text-amber-500" />
@@ -310,9 +440,39 @@ export default function Reminders() {
               theme === "dark" ? "text-slate-100" : "text-slate-900"
             )}>Add Reminder</DialogTitle>
           </DialogHeader>
+
+          {/* AI Generate Button */}
+          <Button
+            type="button"
+            variant="outline"
+            onClick={generateAIReminder}
+            disabled={generatingAI}
+            className={cn(
+              "w-full",
+              theme === "dark"
+                ? "border-[#F7B600]/30 hover:bg-[#F7B600]/10"
+                : "border-[#F7B600]/30 hover:bg-[#F7B600]/5"
+            )}
+          >
+            {generatingAI ? (
+              <>
+                <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
+                Generating AI Suggestion...
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4 mr-2 text-[#F7B600]" />
+                Generate AI Maintenance Suggestion
+              </>
+            )}
+          </Button>
+
           <form onSubmit={(e) => {
             e.preventDefault();
-            createMutation.mutate(formData);
+            createMutation.mutate({
+              ...formData,
+              ai_generated: formData.optimal_timing_reason ? true : false
+            });
           }} className="space-y-4 mt-4">
             <div>
               <Label className={cn(theme === "dark" ? "text-slate-300" : "text-slate-700")}>
@@ -340,13 +500,67 @@ export default function Reminders() {
                 value={formData.description}
                 onChange={(e) => setFormData({...formData, description: e.target.value})}
                 className={cn(
-                  "mt-1",
+                  "mt-1 min-h-24",
                   theme === "dark"
                     ? "bg-slate-700 border-slate-600 text-slate-100"
                     : "bg-white border-slate-200"
                 )}
               />
             </div>
+
+            {formData.optimal_timing_reason && (
+              <div className={cn(
+                "p-3 rounded-xl border",
+                theme === "dark"
+                  ? "bg-blue-900/20 border-blue-500/30"
+                  : "bg-blue-50 border-blue-200"
+              )}>
+                <div className="flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 text-[#F7B600] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className={cn(
+                      "text-xs font-semibold mb-1",
+                      theme === "dark" ? "text-blue-300" : "text-blue-700"
+                    )}>
+                      AI Optimal Timing
+                    </p>
+                    <p className={cn(
+                      "text-xs",
+                      theme === "dark" ? "text-blue-200" : "text-blue-600"
+                    )}>
+                      {formData.optimal_timing_reason}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {formData.suggested_actions && formData.suggested_actions.length > 0 && (
+              <div className={cn(
+                "p-3 rounded-xl border",
+                theme === "dark"
+                  ? "bg-slate-700 border-slate-600"
+                  : "bg-slate-50 border-slate-200"
+              )}>
+                <p className={cn(
+                  "text-xs font-semibold mb-2",
+                  theme === "dark" ? "text-slate-300" : "text-slate-700"
+                )}>
+                  Suggested Actions:
+                </p>
+                <div className="space-y-1">
+                  {formData.suggested_actions.map((action, idx) => (
+                    <div key={idx} className={cn(
+                      "text-xs flex items-start gap-2",
+                      theme === "dark" ? "text-slate-400" : "text-slate-600"
+                    )}>
+                      <span className="text-[#F7B600]">•</span>
+                      <span>{action}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -388,6 +602,30 @@ export default function Reminders() {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            <div>
+              <Label className={cn(theme === "dark" ? "text-slate-300" : "text-slate-700")}>
+                Category
+              </Label>
+              <Select value={formData.category} onValueChange={(val) => setFormData({...formData, category: val})}>
+                <SelectTrigger className={cn(
+                  "mt-1",
+                  theme === "dark"
+                    ? "bg-slate-700 border-slate-600 text-slate-100"
+                    : "bg-white border-slate-200"
+                )}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="hvac">HVAC</SelectItem>
+                  <SelectItem value="plumbing">Plumbing</SelectItem>
+                  <SelectItem value="electrical">Electrical</SelectItem>
+                  <SelectItem value="appliances">Appliances</SelectItem>
+                  <SelectItem value="exterior">Exterior</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
