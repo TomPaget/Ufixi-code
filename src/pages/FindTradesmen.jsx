@@ -215,7 +215,8 @@ Return 8-15 REAL local tradespeople. Better to have fewer accurate results than 
   };
 
   const handlePostcodeSearch = async (code = postcode) => {
-    if (!code || code.trim() === "") return;
+    const postcodeStr = String(code || "").trim();
+    if (!postcodeStr) return;
     
     setLoading(true);
     setLocationError(null);
@@ -224,7 +225,7 @@ Return 8-15 REAL local tradespeople. Better to have fewer accurate results than 
       const result = await base44.integrations.Core.InvokeLLM({
         prompt: `Use Google Maps Geocoding API to convert this postcode/zip code to exact coordinates:
         
-Postcode: ${code.trim().toUpperCase()}
+Postcode: ${postcodeStr.toUpperCase()}
 Country: ${country}
 
 CRITICAL REQUIREMENTS:
