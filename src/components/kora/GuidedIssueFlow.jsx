@@ -24,8 +24,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
-import { validateFile } from "@/utils/fileValidation";
-import { aiAnalysisLimiter, fileUploadLimiter, checkRateLimit } from "@/utils/rateLimiter";
+import { validateFile } from "@/components/utils/fileValidation";
+import { aiAnalysisLimiter, fileUploadLimiter, checkRateLimit } from "@/components/utils/rateLimiter";
 
 export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const { theme } = useTheme();
