@@ -31,6 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import UrgencyBadge from "@/components/kora/UrgencyBadge";
 import PriorityBadge from "@/components/kora/PriorityBadge";
 import CostEstimate from "@/components/kora/CostEstimate";
+import DetailedCostBreakdown from "@/components/kora/DetailedCostBreakdown";
 import ResponsibilityTag from "@/components/kora/ResponsibilityTag";
 import ActionButtons from "@/components/kora/ActionButtons";
 import Disclaimer from "@/components/kora/Disclaimer";
@@ -366,22 +367,26 @@ export default function IssueDetail() {
 
         {/* Cost Estimates */}
         <div>
-          <h2 className="font-semibold text-slate-200 mb-3">Estimated Costs</h2>
-          <CostEstimate
-            diyMin={issue.diy_cost_min}
-            diyMax={issue.diy_cost_max}
-            proMin={issue.pro_cost_min}
-            proMax={issue.pro_cost_max}
-            isPremium={isPremium}
-          />
-          {!isPremium && (
-            <Button
-              variant="link"
-              className="w-full mt-2 text-blue-400 hover:text-blue-300"
-              onClick={() => navigate(createPageUrl("Upgrade"))}
-            >
-              Upgrade to see detailed estimates - £0.99/week
-            </Button>
+          <h2 className="font-semibold text-slate-200 mb-3">Cost Analysis</h2>
+          {isPremium ? (
+            <DetailedCostBreakdown issueId={issueId} />
+          ) : (
+            <>
+              <CostEstimate
+                diyMin={issue.diy_cost_min}
+                diyMax={issue.diy_cost_max}
+                proMin={issue.pro_cost_min}
+                proMax={issue.pro_cost_max}
+                isPremium={isPremium}
+              />
+              <Button
+                variant="link"
+                className="w-full mt-2 text-blue-400 hover:text-blue-300"
+                onClick={() => navigate(createPageUrl("Upgrade"))}
+              >
+                Upgrade for AI-powered detailed cost breakdown - £0.99/week
+              </Button>
+            </>
           )}
         </div>
 

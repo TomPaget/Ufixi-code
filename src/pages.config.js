@@ -1,3 +1,4 @@
+import BusinessPricing from './pages/BusinessPricing';
 import Chat from './pages/Chat';
 import ConsultationSummary from './pages/ConsultationSummary';
 import ContractorManagement from './pages/ContractorManagement';
@@ -9,6 +10,7 @@ import ForumPost from './pages/ForumPost';
 import History from './pages/History';
 import Home from './pages/Home';
 import HomeProfile from './pages/HomeProfile';
+import Integrations from './pages/Integrations';
 import Invoices from './pages/Invoices';
 import IssueDetail from './pages/IssueDetail';
 import JobDetail from './pages/JobDetail';
@@ -16,10 +18,13 @@ import Messages from './pages/Messages';
 import MyJobs from './pages/MyJobs';
 import Notifications from './pages/Notifications';
 import PostJob from './pages/PostJob';
+import PropertyDetail from './pages/PropertyDetail';
+import PropertyIssues from './pages/PropertyIssues';
 import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
 import SmartHome from './pages/SmartHome';
 import Support from './pages/Support';
+import TeamManagement from './pages/TeamManagement';
 import TradesBoost from './pages/TradesBoost';
 import TradesDashboard from './pages/TradesDashboard';
 import TradesPayment from './pages/TradesPayment';
@@ -29,15 +34,11 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
-import BusinessPricing from './pages/BusinessPricing';
-import PropertyIssues from './pages/PropertyIssues';
-import PropertyDetail from './pages/PropertyDetail';
-import Integrations from './pages/Integrations';
-import TeamManagement from './pages/TeamManagement';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "BusinessPricing": BusinessPricing,
     "Chat": Chat,
     "ConsultationSummary": ConsultationSummary,
     "ContractorManagement": ContractorManagement,
@@ -49,6 +50,7 @@ export const PAGES = {
     "History": History,
     "Home": Home,
     "HomeProfile": HomeProfile,
+    "Integrations": Integrations,
     "Invoices": Invoices,
     "IssueDetail": IssueDetail,
     "JobDetail": JobDetail,
@@ -56,10 +58,13 @@ export const PAGES = {
     "MyJobs": MyJobs,
     "Notifications": Notifications,
     "PostJob": PostJob,
+    "PropertyDetail": PropertyDetail,
+    "PropertyIssues": PropertyIssues,
     "Reminders": Reminders,
     "Settings": Settings,
     "SmartHome": SmartHome,
     "Support": Support,
+    "TeamManagement": TeamManagement,
     "TradesBoost": TradesBoost,
     "TradesDashboard": TradesDashboard,
     "TradesPayment": TradesPayment,
@@ -69,11 +74,6 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
-    "BusinessPricing": BusinessPricing,
-    "PropertyIssues": PropertyIssues,
-    "PropertyDetail": PropertyDetail,
-    "Integrations": Integrations,
-    "TeamManagement": TeamManagement,
 }
 
 export const pagesConfig = {
