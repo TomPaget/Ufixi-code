@@ -6,6 +6,7 @@ import { createPageUrl } from "@/utils";
 import { ArrowLeft, Send, Paperclip, Loader2, X, Check, CheckCheck, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import BookingDialog from "@/components/kora/BookingDialog";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
