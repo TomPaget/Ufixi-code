@@ -37,8 +37,8 @@ export default function Support() {
       
       const accountType = user?.account_type === "trades" ? "tradesperson" : "customer";
       const greeting = accountType === "trades"
-        ? "👋 Hi! I'm your FixPlain support assistant for tradespeople.\n\n**I can help you with:**\n• Profile setup and verification\n• Job management\n• Payment processing\n• Customer communication\n• Document uploads\n\n**Need to:**\n• Upload screenshots? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team\n\nWhat can I help you with today?"
-        : "👋 Hi! I'm your FixPlain support assistant.\n\n**I can help you with:**\n• Getting started with the app\n• Scanning and understanding issues\n• Finding tradespeople\n• Managing subscriptions\n• Troubleshooting problems\n\n**Need to:**\n• Share a screenshot? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team\n\nWhat can I help you with today?";
+        ? "👋 Hi! I'm your Fixplain support assistant for tradespeople.\n\n**I can help you with:**\n• Profile setup and verification\n• Job management\n• Payment processing\n• Customer communication\n• Document uploads\n\n**Need to:**\n• Upload screenshots? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team\n\nWhat can I help you with today?"
+        : "👋 Hi! I'm your Fixplain support assistant.\n\n**I can help you with:**\n• Getting started with the app\n• Scanning and understanding issues\n• Finding tradespeople\n• Managing subscriptions\n• Troubleshooting problems\n\n**Need to:**\n• Share a screenshot? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team\n\nWhat can I help you with today?";
       
       setMessages([{
         role: "assistant",
@@ -150,7 +150,7 @@ export default function Support() {
               <h1 className={cn(
                 "font-bold text-sm",
                 theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>FixPlain Support</h1>
+              )}>Fixplain Support</h1>
               <p className={cn(
                 "text-xs",
                 theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
