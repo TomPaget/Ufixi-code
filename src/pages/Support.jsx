@@ -19,6 +19,10 @@ export default function Support() {
   const [sending, setSending] = useState(false);
   const [attachments, setAttachments] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [attemptCount, setAttemptCount] = useState(0);
+  const [escalated, setEscalated] = useState(false);
+  const [showRating, setShowRating] = useState(false);
+  const [hasRated, setHasRated] = useState(false);
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
 
@@ -29,16 +33,37 @@ export default function Support() {
 
   useEffect(() => {
     const initConversation = async () => {
+      // Fetch common issues for proactive suggestions
+      const [recentPosts, recentSearches] = await Promise.all([
+        base44.entities.ForumPost.filter({ moderation_status: "approved" }, "-created_date", 5).catch(() => []),
+        base44.entities.SavedSearch.list("-created_date", 3).catch(() => [])
+      ]);
+
+      const commonIssues = recentPosts.map(p => p.title).slice(0, 3);
+      const popularSearches = [...new Set(recentSearches.map(s => s.trade_type).filter(Boolean))].slice(0, 2);
+
+      let proactiveTips = "";
+      if (commonIssues.length > 0) {
+        proactiveTips += `\n\n**📊 Trending Issues in Community:**\n${commonIssues.map(i => `• ${i}`).join('\n')}`;
+      }
+      if (popularSearches.length > 0) {
+        proactiveTips += `\n\n**🔍 Popular Tradesperson Searches:**\n${popularSearches.map(s => `• ${s}`).join('\n')}`;
+      }
+
       const conv = await base44.agents.createConversation({
         agent_name: "support_bot",
-        metadata: { name: "Support Chat" }
+        metadata: { 
+          name: "Support Chat",
+          attempt_count: 0,
+          escalated: false
+        }
       });
       setConversationId(conv.id);
       
       const accountType = user?.account_type === "trades" ? "tradesperson" : "customer";
       const greeting = accountType === "trades"
         ? "👋 Hi! I'm your Fixplain support assistant for tradespeople.\n\n**I can help you with:**\n• Profile setup and verification\n• Job management\n• Payment processing\n• Customer communication\n• Document uploads\n\n**Need to:**\n• Upload screenshots? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team\n\nWhat can I help you with today?"
-        : "👋 Hi! I'm your Fixplain support assistant.\n\n**I can help you with:**\n• Getting started with the app\n• Scanning and understanding issues\n• Finding tradespeople\n• Managing subscriptions\n• Troubleshooting problems\n\n**Need to:**\n• Share a screenshot? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team\n\nWhat can I help you with today?";
+        : `👋 Hi! I'm your Fixplain support assistant.\n\n**I can help you with:**\n• Getting started with the app\n• Scanning and understanding issues\n• Finding tradespeople\n• Managing subscriptions\n• Troubleshooting problems\n\n**Need to:**\n• Upload screenshots? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team${proactiveTips}\n\nWhat can I help you with today?`;
       
       setMessages([{
         role: "assistant",
@@ -103,6 +128,10 @@ export default function Support() {
     setInput("");
     setAttachments([]);
 
+    // Increment attempt count
+    const newAttemptCount = attemptCount + 1;
+    setAttemptCount(newAttemptCount);
+
     const conversation = await base44.agents.getConversation(conversationId);
     
     if (messageAttachments.length > 0) {
@@ -117,6 +146,49 @@ export default function Support() {
         content: messageText
       });
     }
+
+    // Check for escalation after 2 attempts
+    if (newAttemptCount >= 2 && !escalated) {
+      setTimeout(() => {
+        setMessages(prev => [...prev, {
+          role: "assistant",
+          content: "🤝 I notice you might need more specialized help. Would you like me to connect you with a human support agent?\n\nOur team will reach out to you at **" + (user?.email || "your email") + "** within 1 hour to provide personalized assistance.\n\n✅ Click the button below if you'd like human support."
+        }]);
+        setEscalated(true);
+        
+        // Notify support team
+        base44.integrations.Core.SendEmail({
+          to: "support@fixplain.com",
+          subject: `🔔 Support Escalation - ${user?.full_name || 'User'}`,
+          body: `User requires human support assistance.\n\nUser: ${user?.full_name}\nEmail: ${user?.email}\nConversation ID: ${conversationId}\nAttempts: ${newAttemptCount}\n\nPlease reach out within 1 hour.`
+        }).catch(console.error);
+      }, 2000);
+    }
+
+    // Show rating prompt after response
+    if (!hasRated && newAttemptCount >= 1) {
+      setTimeout(() => setShowRating(true), 3000);
+    }
+  };
+
+  const handleRating = async (rating) => {
+    setShowRating(false);
+    setHasRated(true);
+    
+    // Send feedback
+    await base44.integrations.Core.SendEmail({
+      to: "feedback@fixplain.com",
+      subject: `⭐ AI Support Rating: ${rating}/5`,
+      body: `User ${user?.email} rated AI support: ${rating}/5 stars\nConversation ID: ${conversationId}\nAttempts: ${attemptCount}`
+    }).catch(console.error);
+    
+    // Show thank you
+    setMessages(prev => [...prev, {
+      role: "assistant",
+      content: rating >= 4 
+        ? "✨ Thank you for the feedback! I'm glad I could help. Is there anything else I can assist you with?" 
+        : "Thank you for your feedback. I'm sorry I couldn't help better. A human agent will be notified and follow up with you soon. 💙"
+    }]);
   };
 
   return (
@@ -231,6 +303,49 @@ export default function Support() {
           ))}
           <div ref={messagesEndRef} />
         </div>
+
+        {/* Rating Widget */}
+        {showRating && !hasRated && messages.length > 2 && (
+          <div className={cn(
+            "mt-4 p-4 rounded-2xl border-2 mx-4",
+            theme === "dark"
+              ? "bg-[#1A2F42] border-[#57CFA4]/30"
+              : "bg-blue-50 border-blue-200"
+          )}>
+            <p className={cn(
+              "text-sm font-semibold mb-3",
+              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+            )}>
+              💬 How helpful was this interaction?
+            </p>
+            <div className="flex gap-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Button
+                  key={star}
+                  onClick={() => handleRating(star)}
+                  variant="outline"
+                  className={cn(
+                    "flex-1 py-2 border-2 transition-all hover:scale-105",
+                    theme === "dark"
+                      ? "border-[#F7B600] text-[#F7B600] hover:bg-[#F7B600]/20"
+                      : "border-[#F7B600] text-[#F7B600] hover:bg-[#F7B600]/10"
+                  )}
+                >
+                  {"⭐".repeat(star)}
+                </Button>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowRating(false)}
+              className={cn(
+                "text-xs mt-2 w-full text-center",
+                theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+              )}
+            >
+              Skip
+            </button>
+          </div>
+        )}
       </main>
 
       <div className={cn(
