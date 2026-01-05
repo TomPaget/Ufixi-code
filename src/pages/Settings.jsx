@@ -1194,7 +1194,7 @@ export default function Settings() {
           "text-center text-xs",
           theme === "dark" ? "text-[#57CFA4]/50" : "text-[#1E3A57]/40"
         )}>
-          QuoFix v1.0.0
+          FixPlain v1.0.0
         </p>
           </TabsContent>
         </Tabs>
