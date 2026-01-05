@@ -20,7 +20,9 @@ import {
   Image,
   Film,
   Mic2,
-  Building2
+  Building2,
+  ShoppingCart,
+  ExternalLink
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
@@ -194,6 +196,9 @@ Examples:
         `${q.question}: ${answers[q.id] || "Not answered"}`
       ).join("\n");
 
+      const userCountry = user?.country || "UK";
+      const amazonDomain = userCountry === "US" ? "amazon.com" : userCountry === "CA" ? "amazon.ca" : userCountry === "AU" ? "amazon.com.au" : "amazon.co.uk";
+
       const suggestionsResult = await base44.integrations.Core.InvokeLLM({
         prompt: `Based on this ${issueType.category} issue and customer responses:
 
@@ -202,19 +207,73 @@ Issue: ${issueType.brief_description}
 Customer's answers:
 ${answersText}
 
-Provide:
-1. 2-3 likely causes of this problem
-2. 3-5 quick DIY fixes the customer can try right now (simple, safe actions)
-3. Warning signs that indicate they should call a professional immediately
+Provide a COMPREHENSIVE diagnostic analysis:
 
-Be practical, safety-conscious, and helpful.`,
+1. **Likely Root Causes** (2-3 detailed explanations)
+   - Explain each potential cause with technical details
+   - Include what to look for to confirm each cause
+
+2. **Diagnostic Steps** (3-5 specific steps to diagnose the exact problem)
+   - Numbered steps the user can follow to identify the root cause
+   - Include what they should see/hear/feel at each step
+   - Safety warnings where relevant
+
+3. **Quick DIY Fixes** (3-5 immediate actions they can try)
+   - Step-by-step action with description
+   - Estimated time for each fix (e.g., "5-10 minutes")
+   - Difficulty level: "Easy", "Moderate", or "Advanced"
+
+4. **Tools & Materials Needed** (4-8 specific items for DIY repair)
+   - Provide ACTUAL product names from popular brands (DeWalt, Bosch, Stanley, etc.)
+   - Include estimated cost in local currency
+   - Create accurate Amazon search URLs: https://${amazonDomain}/s?k=[exact product name]
+   - Example: "Stanley FatMax Tape Measure 8m" with URL to search for it
+
+5. **Estimated Repair Time**
+   - DIY time estimate (e.g., "30-60 minutes for beginner, 15-30 for experienced")
+   - Professional time estimate
+   - Time to order parts if needed
+
+6. **Manufacturer Documentation & Resources**
+   - If identifiable brand/model, provide typical documentation links (manuals, warranty info)
+   - Suggest manufacturer websites or support pages
+   - Common troubleshooting guide topics to search for
+   - Relevant YouTube search terms for video guides
+
+7. **Warning Signs to Call Professional**
+   - Specific conditions requiring immediate professional help
+   - Safety hazards to watch for
+
+Be detailed, practical, and safety-conscious. Use real product names and accurate Amazon search terms.`,
         file_urls: [mediaUrl],
+        add_context_from_internet: true,
         response_json_schema: {
           type: "object",
           properties: {
             likely_causes: {
               type: "array",
-              items: { type: "string" }
+              items: {
+                type: "object",
+                properties: {
+                  cause: { type: "string" },
+                  details: { type: "string" },
+                  confirmation_signs: { type: "array", items: { type: "string" } }
+                },
+                required: ["cause", "details"]
+              }
+            },
+            diagnostic_steps: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  step_number: { type: "number" },
+                  action: { type: "string" },
+                  expected_result: { type: "string" },
+                  safety_note: { type: "string" }
+                },
+                required: ["step_number", "action"]
+              }
             },
             diy_quick_fixes: {
               type: "array",
@@ -222,9 +281,43 @@ Be practical, safety-conscious, and helpful.`,
                 type: "object",
                 properties: {
                   action: { type: "string" },
-                  description: { type: "string" }
+                  description: { type: "string" },
+                  estimated_time: { type: "string" },
+                  difficulty: { type: "string", enum: ["Easy", "Moderate", "Advanced"] }
                 },
-                required: ["action", "description"]
+                required: ["action", "description", "estimated_time", "difficulty"]
+              }
+            },
+            tools_and_materials: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  product_name: { type: "string" },
+                  description: { type: "string" },
+                  estimated_cost: { type: "string" },
+                  amazon_search_url: { type: "string" },
+                  essential: { type: "boolean" }
+                },
+                required: ["product_name", "description", "amazon_search_url"]
+              }
+            },
+            estimated_repair_time: {
+              type: "object",
+              properties: {
+                diy_time: { type: "string" },
+                professional_time: { type: "string" },
+                parts_delivery: { type: "string" }
+              }
+            },
+            manufacturer_resources: {
+              type: "object",
+              properties: {
+                brand_identified: { type: "string" },
+                manual_search_terms: { type: "array", items: { type: "string" } },
+                support_website_suggestions: { type: "array", items: { type: "string" } },
+                youtube_search_terms: { type: "array", items: { type: "string" } },
+                common_troubleshooting_topics: { type: "array", items: { type: "string" } }
               }
             },
             call_pro_if: {
@@ -232,7 +325,7 @@ Be practical, safety-conscious, and helpful.`,
               items: { type: "string" }
             }
           },
-          required: ["likely_causes", "diy_quick_fixes", "call_pro_if"]
+          required: ["likely_causes", "diagnostic_steps", "diy_quick_fixes", "tools_and_materials", "estimated_repair_time", "call_pro_if"]
         }
       });
 
@@ -862,35 +955,207 @@ Be practical, safety-conscious, and helpful.`,
           theme === "dark" ? "text-white" : "text-[#1E3A57]"
         )}>
           <Lightbulb className="w-5 h-5 text-[#F7B600]" />
-          AI Suggestions
+          AI Diagnostic Analysis
         </h3>
         <p className={cn(
           "text-sm mb-6",
           theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
         )}>
-          Here's what might be causing this and some things you can try
+          Comprehensive analysis with diagnostic steps, tools needed, and repair guidance
         </p>
+
+        {/* Estimated Repair Time */}
+        {suggestions?.estimated_repair_time && (
+          <div className={cn(
+            "mb-6 p-4 rounded-xl border",
+            theme === "dark"
+              ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+              : "bg-blue-50 border-blue-200"
+          )}>
+            <h4 className={cn(
+              "font-semibold mb-2 flex items-center gap-2",
+              theme === "dark" ? "text-[#57CFA4]" : "text-blue-900"
+            )}>
+              ⏱️ Estimated Repair Time
+            </h4>
+            <div className="space-y-1 text-sm">
+              {suggestions.estimated_repair_time.diy_time && (
+                <p className={cn(theme === "dark" ? "text-white" : "text-blue-800")}>
+                  <strong>DIY:</strong> {suggestions.estimated_repair_time.diy_time}
+                </p>
+              )}
+              {suggestions.estimated_repair_time.professional_time && (
+                <p className={cn(theme === "dark" ? "text-white" : "text-blue-800")}>
+                  <strong>Professional:</strong> {suggestions.estimated_repair_time.professional_time}
+                </p>
+              )}
+              {suggestions.estimated_repair_time.parts_delivery && (
+                <p className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-blue-700")}>
+                  <strong>Parts delivery:</strong> {suggestions.estimated_repair_time.parts_delivery}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Likely Causes */}
         <div className="mb-6">
           <h4 className={cn(
-            "font-semibold mb-2",
+            "font-semibold mb-3",
             theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
           )}>
-            Likely Causes:
+            🔍 Root Cause Analysis:
           </h4>
-          <ul className="space-y-2">
+          <div className="space-y-3">
             {suggestions?.likely_causes?.map((cause, i) => (
-              <li key={i} className={cn(
-                "flex items-start gap-2 text-sm",
-                theme === "dark" ? "text-white" : "text-slate-700"
-              )}>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#F7B600] mt-2 flex-shrink-0" />
-                {cause}
-              </li>
+              <div
+                key={i}
+                className={cn(
+                  "p-3 rounded-xl border",
+                  theme === "dark"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                    : "bg-slate-50 border-slate-200"
+                )}
+              >
+                <p className={cn(
+                  "font-medium text-sm mb-1",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
+                  {cause.cause}
+                </p>
+                <p className={cn(
+                  "text-xs mb-2",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
+                  {cause.details}
+                </p>
+                {cause.confirmation_signs && cause.confirmation_signs.length > 0 && (
+                  <div className="text-xs">
+                    <strong className={cn(theme === "dark" ? "text-white" : "text-slate-700")}>
+                      Confirmation signs:
+                    </strong>
+                    <ul className="mt-1 space-y-0.5">
+                      {cause.confirmation_signs.map((sign, j) => (
+                        <li key={j} className={cn(
+                          "flex items-start gap-1",
+                          theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                        )}>
+                          <span>•</span> {sign}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
+
+        {/* Diagnostic Steps */}
+        {suggestions?.diagnostic_steps && suggestions.diagnostic_steps.length > 0 && (
+          <div className="mb-6">
+            <h4 className={cn(
+              "font-semibold mb-3",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+            )}>
+              🔬 Diagnostic Steps:
+            </h4>
+            <div className="space-y-3">
+              {suggestions.diagnostic_steps.map((step, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "p-3 rounded-xl border",
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                      : "bg-slate-50 border-slate-200"
+                  )}
+                >
+                  <p className={cn(
+                    "font-medium text-sm mb-1",
+                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                  )}>
+                    Step {step.step_number}: {step.action}
+                  </p>
+                  {step.expected_result && (
+                    <p className={cn(
+                      "text-xs mb-1",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                    )}>
+                      <strong>Expected:</strong> {step.expected_result}
+                    </p>
+                  )}
+                  {step.safety_note && (
+                    <p className="text-xs text-amber-600 mt-1">
+                      ⚠️ {step.safety_note}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Tools & Materials */}
+        {suggestions?.tools_and_materials && suggestions.tools_and_materials.length > 0 && (
+          <div className="mb-6">
+            <h4 className={cn(
+              "font-semibold mb-3 flex items-center gap-2",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+            )}>
+              🛠️ Tools & Materials Needed:
+            </h4>
+            <div className="space-y-2">
+              {suggestions.tools_and_materials.map((item, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "p-3 rounded-xl border",
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                      : "bg-slate-50 border-slate-200"
+                  )}
+                >
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <p className={cn(
+                      "font-medium text-sm flex items-center gap-2",
+                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                    )}>
+                      {item.essential && <span className="text-red-500">*</span>}
+                      {item.product_name}
+                    </p>
+                    {item.estimated_cost && (
+                      <span className={cn(
+                        "text-xs font-semibold",
+                        theme === "dark" ? "text-[#F7B600]" : "text-blue-600"
+                      )}>
+                        {item.estimated_cost}
+                      </span>
+                    )}
+                  </div>
+                  <p className={cn(
+                    "text-xs mb-2",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
+                    {item.description}
+                  </p>
+                  <a
+                    href={item.amazon_search_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] px-3 py-1 rounded-lg transition-colors"
+                  >
+                    <ShoppingCart className="w-3 h-3" />
+                    Buy on Amazon
+                  </a>
+                </div>
+              ))}
+              {suggestions.tools_and_materials.some(item => item.essential) && (
+                <p className="text-xs text-amber-600 mt-2">* Essential items required for repair</p>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* DIY Quick Fixes */}
         <div className="mb-6">
@@ -912,12 +1177,32 @@ Be practical, safety-conscious, and helpful.`,
                     : "bg-slate-50 border-slate-200"
                 )}
               >
-                <p className={cn(
-                  "font-medium text-sm mb-1",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>
-                  {i + 1}. {fix.action}
-                </p>
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <p className={cn(
+                    "font-medium text-sm",
+                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                  )}>
+                    {i + 1}. {fix.action}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <span className={cn(
+                      "text-xs px-2 py-0.5 rounded",
+                      fix.difficulty === "Easy"
+                        ? "bg-green-100 text-green-700"
+                        : fix.difficulty === "Moderate"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-red-100 text-red-700"
+                    )}>
+                      {fix.difficulty}
+                    </span>
+                    <span className={cn(
+                      "text-xs",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                    )}>
+                      {fix.estimated_time}
+                    </span>
+                  </div>
+                </div>
                 <p className={cn(
                   "text-xs",
                   theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
@@ -928,6 +1213,129 @@ Be practical, safety-conscious, and helpful.`,
             ))}
           </div>
         </div>
+
+        {/* Manufacturer Resources */}
+        {suggestions?.manufacturer_resources && (
+          <div className="mb-6">
+            <h4 className={cn(
+              "font-semibold mb-3 flex items-center gap-2",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+            )}>
+              📚 Manufacturer Resources & Guides:
+            </h4>
+            <div className={cn(
+              "p-3 rounded-xl border",
+              theme === "dark"
+                ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                : "bg-slate-50 border-slate-200"
+            )}>
+              {suggestions.manufacturer_resources.brand_identified && (
+                <p className={cn(
+                  "text-sm mb-2",
+                  theme === "dark" ? "text-white" : "text-slate-700"
+                )}>
+                  <strong>Identified Brand:</strong> {suggestions.manufacturer_resources.brand_identified}
+                </p>
+              )}
+              
+              {suggestions.manufacturer_resources.manual_search_terms && suggestions.manufacturer_resources.manual_search_terms.length > 0 && (
+                <div className="mb-2">
+                  <p className={cn(
+                    "text-xs font-semibold mb-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+                  )}>
+                    Manual Search Terms:
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {suggestions.manufacturer_resources.manual_search_terms.map((term, i) => (
+                      <span
+                        key={i}
+                        className={cn(
+                          "text-xs px-2 py-0.5 rounded",
+                          theme === "dark"
+                            ? "bg-[#57CFA4]/20 text-[#57CFA4]"
+                            : "bg-blue-100 text-blue-700"
+                        )}
+                      >
+                        {term}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {suggestions.manufacturer_resources.youtube_search_terms && suggestions.manufacturer_resources.youtube_search_terms.length > 0 && (
+                <div className="mb-2">
+                  <p className={cn(
+                    "text-xs font-semibold mb-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+                  )}>
+                    Video Guide Search Terms:
+                  </p>
+                  <div className="space-y-1">
+                    {suggestions.manufacturer_resources.youtube_search_terms.map((term, i) => (
+                      <a
+                        key={i}
+                        href={`https://www.youtube.com/results?search_query=${encodeURIComponent(term)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          "text-xs flex items-center gap-1 hover:underline",
+                          theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
+                        )}
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        {term}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {suggestions.manufacturer_resources.support_website_suggestions && suggestions.manufacturer_resources.support_website_suggestions.length > 0 && (
+                <div className="mb-2">
+                  <p className={cn(
+                    "text-xs font-semibold mb-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+                  )}>
+                    Support Websites:
+                  </p>
+                  <ul className="space-y-0.5">
+                    {suggestions.manufacturer_resources.support_website_suggestions.map((site, i) => (
+                      <li key={i} className={cn(
+                        "text-xs",
+                        theme === "dark" ? "text-white" : "text-slate-600"
+                      )}>
+                        • {site}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {suggestions.manufacturer_resources.common_troubleshooting_topics && suggestions.manufacturer_resources.common_troubleshooting_topics.length > 0 && (
+                <div>
+                  <p className={cn(
+                    "text-xs font-semibold mb-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+                  )}>
+                    Common Troubleshooting Topics:
+                  </p>
+                  <ul className="space-y-0.5">
+                    {suggestions.manufacturer_resources.common_troubleshooting_topics.map((topic, i) => (
+                      <li key={i} className={cn(
+                        "text-xs",
+                        theme === "dark" ? "text-white" : "text-slate-600"
+                      )}>
+                        • {topic}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Warning Signs */}
         <div className={cn(
