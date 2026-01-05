@@ -64,15 +64,19 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const handleFileSelect = async (type, file) => {
     if (!file) return;
     
-    // Validate file
-    const validation = validateFile(file, type);
-    if (!validation.valid) {
-      setError(validation.errors.join('. '));
-      return;
+    setError(null);
+    
+    // Auto-detect media type from file
+    let detectedType = type;
+    if (file.type.startsWith('image/')) {
+      detectedType = 'photo';
+    } else if (file.type.startsWith('video/')) {
+      detectedType = 'video';
+    } else if (file.type.startsWith('audio/')) {
+      detectedType = 'audio';
     }
     
-    setError(null);
-    setMediaType(type);
+    setMediaType(detectedType);
     setMediaFile(file);
     setMediaUrl(URL.createObjectURL(file));
   };
