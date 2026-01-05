@@ -43,24 +43,35 @@ export function validateFile(file, type = 'photo') {
     errors.push(`File size exceeds ${Math.floor(maxSize / 1024 / 1024)}MB limit`);
   }
 
-  // Check file type
+  // Check file type - use MIME type OR file extension
   let allowedTypes = [];
+  let allowedExtensions = [];
+  
   switch (type) {
     case 'photo':
       allowedTypes = ALLOWED_IMAGE_TYPES;
+      allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.heic', '.heif'];
       break;
     case 'video':
       allowedTypes = ALLOWED_VIDEO_TYPES;
+      allowedExtensions = ['.mp4', '.mov', '.avi', '.webm', '.mpeg'];
       break;
     case 'audio':
       allowedTypes = ALLOWED_AUDIO_TYPES;
+      allowedExtensions = ['.mp3', '.wav', '.webm', '.ogg', '.m4a'];
       break;
     default:
       allowedTypes = [...ALLOWED_IMAGE_TYPES, ...ALLOWED_VIDEO_TYPES, ...ALLOWED_AUDIO_TYPES];
+      allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.heic', '.heif', '.mp4', '.mov', '.avi', '.webm', '.mpeg', '.mp3', '.wav', '.ogg', '.m4a'];
   }
 
-  if (!allowedTypes.includes(file.type)) {
-    errors.push(`File type ${file.type} is not supported`);
+  // Check by MIME type first, fall back to extension if MIME type is missing/unknown
+  const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+  const isValidMimeType = file.type && allowedTypes.includes(file.type);
+  const isValidExtension = allowedExtensions.includes(fileExtension);
+
+  if (!isValidMimeType && !isValidExtension) {
+    errors.push(`File type not supported. Please use: ${allowedExtensions.join(', ')}`);
   }
 
   return {
@@ -69,7 +80,7 @@ export function validateFile(file, type = 'photo') {
     fileInfo: {
       name: file.name,
       size: file.size,
-      type: file.type,
+      type: file.type || fileExtension,
       sizeFormatted: formatFileSize(file.size)
     }
   };
