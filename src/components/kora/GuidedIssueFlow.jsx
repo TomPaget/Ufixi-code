@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
+import { validateFile } from "@/components/utils/fileValidation";
 import { aiAnalysisLimiter, fileUploadLimiter, checkRateLimit } from "@/components/utils/rateLimiter";
 import { sanitizeText } from "@/components/utils/sanitize";
 
@@ -63,19 +64,15 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const handleFileSelect = async (type, file) => {
     if (!file) return;
     
-    setError(null);
-    
-    // Auto-detect media type from file
-    let detectedType = type;
-    if (file.type.startsWith('image/')) {
-      detectedType = 'photo';
-    } else if (file.type.startsWith('video/')) {
-      detectedType = 'video';
-    } else if (file.type.startsWith('audio/')) {
-      detectedType = 'audio';
+    // Validate file
+    const validation = validateFile(file, type);
+    if (!validation.valid) {
+      setError(validation.errors.join('. '));
+      return;
     }
     
-    setMediaType(detectedType);
+    setError(null);
+    setMediaType(type);
     setMediaFile(file);
     setMediaUrl(URL.createObjectURL(file));
   };

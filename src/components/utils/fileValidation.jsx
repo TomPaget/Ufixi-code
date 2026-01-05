@@ -37,20 +37,39 @@ export function validateFile(file, type = 'photo') {
     return { valid: false, errors: ['No file provided'] };
   }
 
-  // Check file size only - accept all file types for AI analysis
+  // Check file size
   const maxSize = type === 'video' ? MAX_VIDEO_SIZE : MAX_FILE_SIZE;
   if (file.size > maxSize) {
     errors.push(`File size exceeds ${Math.floor(maxSize / 1024 / 1024)}MB limit`);
   }
 
-  // ACCEPT ALL FILE TYPES - AI can analyze any format
+  // Check file type
+  let allowedTypes = [];
+  switch (type) {
+    case 'photo':
+      allowedTypes = ALLOWED_IMAGE_TYPES;
+      break;
+    case 'video':
+      allowedTypes = ALLOWED_VIDEO_TYPES;
+      break;
+    case 'audio':
+      allowedTypes = ALLOWED_AUDIO_TYPES;
+      break;
+    default:
+      allowedTypes = [...ALLOWED_IMAGE_TYPES, ...ALLOWED_VIDEO_TYPES, ...ALLOWED_AUDIO_TYPES];
+  }
+
+  if (!allowedTypes.includes(file.type)) {
+    errors.push(`File type ${file.type} is not supported`);
+  }
+
   return {
     valid: errors.length === 0,
     errors,
     fileInfo: {
       name: file.name,
       size: file.size,
-      type: file.type || 'application/octet-stream',
+      type: file.type,
       sizeFormatted: formatFileSize(file.size)
     }
   };
