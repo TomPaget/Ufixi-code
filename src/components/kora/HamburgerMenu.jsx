@@ -18,9 +18,10 @@ const customerMenuItems = [
   { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: Calendar, label: "Reminders", page: "Reminders" },
-  { icon: HomeIcon, label: "Home Profile", page: "HomeProfile" },
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
-  { icon: Settings, label: "My Account", page: "Settings" }
+  { icon: Settings, label: "My Account", page: "Settings", submenu: [
+    { icon: HomeIcon, label: "Home Profile", page: "HomeProfile" }
+  ]}
 ];
 
 const tradesMenuItems = [
@@ -95,23 +96,44 @@ export default function HamburgerMenu({ isOpen, onClose }) {
 
               <nav className="space-y-2">
                 {menuItems.map((item) => (
-                  <Link
-                    key={item.page}
-                    to={createPageUrl(item.page)}
-                    onClick={onClose}
-                    className={cn(
-                      "flex items-center gap-3 p-3 rounded-xl transition-colors",
-                      theme === "dark"
-                        ? "hover:bg-[#57CFA4]/10 text-white"
-                        : "hover:bg-slate-100 text-slate-900"
+                  <div key={item.page}>
+                    <Link
+                      to={createPageUrl(item.page)}
+                      onClick={onClose}
+                      className={cn(
+                        "flex items-center gap-3 p-3 rounded-xl transition-colors",
+                        theme === "dark"
+                          ? "hover:bg-[#57CFA4]/10 text-white"
+                          : "hover:bg-slate-100 text-slate-900"
+                      )}
+                    >
+                      <item.icon className={cn(
+                        "w-5 h-5",
+                        theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+                      )} />
+                      <span className="font-medium">{item.label}</span>
+                    </Link>
+                    {item.submenu && (
+                      <div className="ml-8 mt-1 space-y-1">
+                        {item.submenu.map((subitem) => (
+                          <Link
+                            key={subitem.page}
+                            to={createPageUrl(subitem.page)}
+                            onClick={onClose}
+                            className={cn(
+                              "flex items-center gap-3 p-2 rounded-xl transition-colors text-sm",
+                              theme === "dark"
+                                ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
+                                : "hover:bg-slate-100 text-slate-700"
+                            )}
+                          >
+                            <subitem.icon className="w-4 h-4" />
+                            <span>{subitem.label}</span>
+                          </Link>
+                        ))}
+                      </div>
                     )}
-                  >
-                    <item.icon className={cn(
-                      "w-5 h-5",
-                      theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-                    )} />
-                    <span className="font-medium">{item.label}</span>
-                  </Link>
+                  </div>
                 ))}
               </nav>
             </div>
