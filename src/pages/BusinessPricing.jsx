@@ -174,7 +174,7 @@ export default function BusinessPricing() {
             theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
           )}>
             See a problem during a viewing? Need a quick explanation for your client? 
-            FixQuo gives you instant, professional property diagnostics on the spot.
+            Fixplain gives you instant, professional property diagnostics on the spot.
           </p>
 
           {/* Use Cases */}
@@ -410,7 +410,7 @@ export default function BusinessPricing() {
             "text-sm",
             theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
           )}>
-            Join hundreds of property professionals using FixQuo to provide better service to their clients
+            Join hundreds of property professionals using Fixplain to provide better service to their clients
           </p>
         </div>
       </main>
