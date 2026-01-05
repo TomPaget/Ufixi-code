@@ -42,6 +42,7 @@ export default function FindTradesmen() {
   const [certifications, setCertifications] = useState([]);
   const [showSavedSearches, setShowSavedSearches] = useState(false);
   const [searchName, setSearchName] = useState("");
+  const [minRating, setMinRating] = useState(0);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -277,6 +278,7 @@ Return the exact coordinates and verify the postcode is valid.`,
     })
     .filter(t => t.distance <= searchRadius)
     .filter(t => maxCost === "any" || t.hourlyRate <= parseInt(maxCost))
+    .filter(t => (t.rating || 0) >= minRating)
     .filter(t => {
       if (minExperience !== "any" && t.yearsExperience < parseInt(minExperience)) return false;
       if (availability !== "any" && t.availability !== availability) return false;
@@ -685,6 +687,32 @@ Return the exact coordinates and verify the postcode is valid.`,
                   <SelectItem value="10">10 miles</SelectItem>
                   <SelectItem value="20">20 miles</SelectItem>
                   <SelectItem value="50">50 miles</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className={cn(
+                "text-sm font-medium mb-1 block",
+                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+              )}>
+                Min Rating
+              </label>
+              <Select value={minRating.toString()} onValueChange={(v) => setMinRating(parseFloat(v))}>
+                <SelectTrigger className={cn(
+                  "border-2",
+                  theme === "dark"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                    : "bg-white border-[#1E3A57]/20"
+                )}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">Any Rating</SelectItem>
+                  <SelectItem value="3">3+ Stars</SelectItem>
+                  <SelectItem value="3.5">3.5+ Stars</SelectItem>
+                  <SelectItem value="4">4+ Stars</SelectItem>
+                  <SelectItem value="4.5">4.5+ Stars</SelectItem>
                 </SelectContent>
               </Select>
             </div>

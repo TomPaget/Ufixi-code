@@ -3,12 +3,13 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, Plus, MessageSquare, ThumbsUp, Filter } from "lucide-react";
+import { ArrowLeft, Plus, MessageSquare, ThumbsUp, Filter, Search, X, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { Input } from "@/components/ui/input";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { format, isAfter, isBefore, parseISO } from "date-fns";
 
 const categories = [
   { value: "all", label: "All Topics" },
@@ -29,6 +30,11 @@ export default function Forum() {
   const { theme } = useTheme();
   const queryClient = useQueryClient();
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [authorFilter, setAuthorFilter] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -41,8 +47,41 @@ export default function Forum() {
       const filter = selectedCategory === "all" 
         ? { moderation_status: "approved" }
         : { category: selectedCategory, moderation_status: "approved" };
-      return base44.entities.ForumPost.filter(filter, "-created_date", 50);
+      return base44.entities.ForumPost.filter(filter, "-created_date", 100);
     }
+  });
+
+  // Apply client-side filters
+  const filteredPosts = posts.filter(post => {
+    // Search query filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      const matchesTitle = post.title?.toLowerCase().includes(query);
+      const matchesContent = post.content?.toLowerCase().includes(query);
+      if (!matchesTitle && !matchesContent) return false;
+    }
+
+    // Author filter
+    if (authorFilter.trim()) {
+      const authorQuery = authorFilter.toLowerCase();
+      const matchesAuthor = post.author_name?.toLowerCase().includes(authorQuery);
+      if (!matchesAuthor) return false;
+    }
+
+    // Date range filter
+    if (dateFrom) {
+      const postDate = parseISO(post.created_date);
+      const fromDate = parseISO(dateFrom);
+      if (isBefore(postDate, fromDate)) return false;
+    }
+
+    if (dateTo) {
+      const postDate = parseISO(post.created_date);
+      const toDate = parseISO(dateTo);
+      if (isAfter(postDate, toDate)) return false;
+    }
+
+    return true;
   });
 
   return (
@@ -84,6 +123,146 @@ export default function Forum() {
       </header>
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
+        {/* Search Bar */}
+        <div className={cn(
+          "rounded-2xl p-4 border-2",
+          theme === "dark"
+            ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
+            : "bg-white border-[#1E3A57]/20"
+        )}>
+          <div className="flex gap-2 mb-3">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#57CFA4]" />
+              <Input
+                placeholder="Search posts by keyword..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className={cn(
+                  "pl-10 border-2",
+                  theme === "dark"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                    : "bg-white border-[#1E3A57]/20"
+                )}
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                >
+                  <X className="w-4 h-4 text-[#57CFA4]" />
+                </button>
+              )}
+            </div>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+              className={cn(
+                "border-2",
+                showAdvancedFilters 
+                  ? "bg-[#57CFA4] border-[#57CFA4] text-white"
+                  : theme === "dark"
+                    ? "border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
+                    : "border-[#1E3A57]/20 text-[#1E3A57] hover:bg-slate-50"
+              )}
+            >
+              <Filter className="w-4 h-4" />
+            </Button>
+          </div>
+
+          {/* Advanced Filters */}
+          <AnimatePresence>
+            {showAdvancedFilters && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="space-y-3 pt-3 border-t"
+              >
+                <div>
+                  <label className={cn(
+                    "text-xs font-medium mb-1 block",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                  )}>
+                    Author Name
+                  </label>
+                  <Input
+                    placeholder="Filter by author..."
+                    value={authorFilter}
+                    onChange={(e) => setAuthorFilter(e.target.value)}
+                    className={cn(
+                      "border-2",
+                      theme === "dark"
+                        ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                        : "bg-white border-[#1E3A57]/20"
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className={cn(
+                      "text-xs font-medium mb-1 block",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                    )}>
+                      From Date
+                    </label>
+                    <Input
+                      type="date"
+                      value={dateFrom}
+                      onChange={(e) => setDateFrom(e.target.value)}
+                      className={cn(
+                        "border-2",
+                        theme === "dark"
+                          ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                          : "bg-white border-[#1E3A57]/20"
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <label className={cn(
+                      "text-xs font-medium mb-1 block",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+                    )}>
+                      To Date
+                    </label>
+                    <Input
+                      type="date"
+                      value={dateTo}
+                      onChange={(e) => setDateTo(e.target.value)}
+                      className={cn(
+                        "border-2",
+                        theme === "dark"
+                          ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                          : "bg-white border-[#1E3A57]/20"
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setAuthorFilter("");
+                    setDateFrom("");
+                    setDateTo("");
+                  }}
+                  className={cn(
+                    "w-full text-xs",
+                    theme === "dark"
+                      ? "text-[#57CFA4] hover:bg-[#57CFA4]/10"
+                      : "text-red-600 hover:bg-red-50"
+                  )}
+                >
+                  Clear All Filters
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
         {/* Category Filter */}
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           {categories.map((cat) => (
@@ -116,9 +295,15 @@ export default function Forum() {
               )} />
             ))}
           </div>
-        ) : posts.length > 0 ? (
+        ) : filteredPosts.length > 0 ? (
           <div className="space-y-3">
-            {posts.map((post, i) => (
+            <p className={cn(
+              "text-sm font-medium",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
+            )}>
+              {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} found
+            </p>
+            {filteredPosts.map((post, i) => (
               <motion.div
                 key={post.id}
                 initial={{ opacity: 0, y: 20 }}
