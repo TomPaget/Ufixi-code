@@ -1,3 +1,4 @@
+import Bookings from './pages/Bookings';
 import BusinessPricing from './pages/BusinessPricing';
 import Chat from './pages/Chat';
 import ConsultationSummary from './pages/ConsultationSummary';
@@ -34,11 +35,11 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
-import Bookings from './pages/Bookings';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "Bookings": Bookings,
     "BusinessPricing": BusinessPricing,
     "Chat": Chat,
     "ConsultationSummary": ConsultationSummary,
@@ -75,7 +76,6 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
-    "Bookings": Bookings,
 }
 
 export const pagesConfig = {

@@ -13,13 +13,13 @@ export function useTheme() {
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("fixquo-theme") || "dark";
+      return localStorage.getItem("fixplain-theme") || "dark";
     }
     return "dark";
   });
 
   useEffect(() => {
-    localStorage.setItem("fixquo-theme", theme);
+    localStorage.setItem("fixplain-theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
