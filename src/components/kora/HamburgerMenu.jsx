@@ -11,7 +11,6 @@ import { base44 } from "@/api/base44Client";
 const customerMenuItems = [
   { icon: HomeIcon, label: "Home", page: "Home" },
   { icon: Mail, label: "Messages", page: "Messages" },
-  { icon: Calendar, label: "Bookings", page: "Bookings" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
   { icon: Building2, label: "Business Membership", page: "BusinessPricing" },
   { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
@@ -29,7 +28,6 @@ const tradesMenuItems = [
   { icon: Settings, label: "Manage Business", page: "ContractorManagement" },
   { icon: Briefcase, label: "My Profile", page: "TradesProfile" },
   { icon: Mail, label: "Messages", page: "Messages" },
-  { icon: Calendar, label: "Bookings", page: "Bookings" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
   { icon: HelpCircle, label: "Support Chat", page: "Support" },

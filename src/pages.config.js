@@ -1,4 +1,3 @@
-import Bookings from './pages/Bookings';
 import BusinessPricing from './pages/BusinessPricing';
 import Chat from './pages/Chat';
 import ConsultationSummary from './pages/ConsultationSummary';
@@ -38,7 +37,6 @@ import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Bookings": Bookings,
     "BusinessPricing": BusinessPricing,
     "Chat": Chat,
     "ConsultationSummary": ConsultationSummary,
