@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { X, Home as HomeIcon, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Smartphone, Building2 } from "lucide-react";
+import { X, Home as HomeIcon, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Building2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,6 @@ import { base44 } from "@/api/base44Client";
 
 const customerMenuItems = [
   { icon: HomeIcon, label: "Home", page: "Home" },
-  { icon: Smartphone, label: "Smart Home", page: "SmartHome" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: Calendar, label: "Bookings", page: "Bookings" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
