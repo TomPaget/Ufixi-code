@@ -23,7 +23,6 @@ import PropertyDetail from './pages/PropertyDetail';
 import PropertyIssues from './pages/PropertyIssues';
 import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
-import SmartHome from './pages/SmartHome';
 import Support from './pages/Support';
 import TeamManagement from './pages/TeamManagement';
 import TradesBoost from './pages/TradesBoost';
@@ -64,7 +63,6 @@ export const PAGES = {
     "PropertyIssues": PropertyIssues,
     "Reminders": Reminders,
     "Settings": Settings,
-    "SmartHome": SmartHome,
     "Support": Support,
     "TeamManagement": TeamManagement,
     "TradesBoost": TradesBoost,
