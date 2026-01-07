@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Star, MapPin, Calendar, MessageCircle, CheckCircle2, Award, Clock, Video } from "lucide-react";
+import { Star, MapPin, MessageCircle, CheckCircle2, Award, Clock, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
-import BookingDialog from "./BookingDialog";
 import TrustScoreBadge from "./TrustScoreBadge";
 import VideoConsultationScheduler from "./VideoConsultationScheduler";
 
@@ -20,7 +19,6 @@ const specialtyColors = {
 
 export default function TradespersonCard({ tradesperson, issueId }) {
   const { theme } = useTheme();
-  const [showBooking, setShowBooking] = useState(false);
   const [showVideoScheduler, setShowVideoScheduler] = useState(false);
 
   const rating = tradesperson.average_rating || 4.5;
@@ -153,18 +151,11 @@ export default function TradespersonCard({ tradesperson, issueId }) {
             {/* Actions */}
             <div className="flex gap-2">
               <Button
-                onClick={() => setShowBooking(true)}
+                onClick={() => setShowVideoScheduler(true)}
                 className="flex-1 bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] h-9 text-sm"
               >
-                <Calendar className="w-3 h-3 mr-2" />
-                Book Now
-              </Button>
-              <Button
-                onClick={() => setShowVideoScheduler(true)}
-                variant="outline"
-                className="h-9 px-3 border-blue-500 text-blue-600 hover:bg-blue-50"
-              >
-                <Video className="w-4 h-4" />
+                <Video className="w-4 h-4 mr-2" />
+                Video Call
               </Button>
               <Button
                 variant="outline"
@@ -177,13 +168,6 @@ export default function TradespersonCard({ tradesperson, issueId }) {
         </div>
       </div>
 
-      <BookingDialog
-        isOpen={showBooking}
-        onClose={() => setShowBooking(false)}
-        tradesperson={tradesperson}
-        issueId={issueId}
-      />
-      
       <VideoConsultationScheduler
         isOpen={showVideoScheduler}
         onClose={() => setShowVideoScheduler(false)}

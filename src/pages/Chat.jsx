@@ -3,10 +3,9 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, Send, Paperclip, Loader2, X, Check, CheckCheck, Image as ImageIcon, Calendar } from "lucide-react";
+import { ArrowLeft, Send, Paperclip, Loader2, X, Check, CheckCheck, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import BookingDialog from "@/components/kora/BookingDialog";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
@@ -24,7 +23,6 @@ export default function Chat() {
   const [attachments, setAttachments] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [showBookingDialog, setShowBookingDialog] = useState(false);
   const typingTimeoutRef = useRef(null);
 
   const { data: user } = useQuery({
@@ -392,19 +390,6 @@ Return whether any image should be blocked.`,
           )}
 
           <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setShowBookingDialog(true)}
-              className={cn(
-                "rounded-xl",
-                theme === "dark"
-                  ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
-                  : "hover:bg-slate-100 text-slate-600"
-              )}
-            >
-              <Calendar className="w-5 h-5" />
-            </Button>
             <label className={cn(
               "p-2 rounded-xl cursor-pointer",
               theme === "dark"
@@ -436,25 +421,6 @@ Return whether any image should be blocked.`,
           </div>
         </div>
       </div>
-
-      {/* Booking Dialog */}
-      {conversation && (
-        <BookingDialog
-          open={showBookingDialog}
-          onClose={() => setShowBookingDialog(false)}
-          tradespersonId={
-            conversation.participant_1_id === user?.id
-              ? conversation.participant_2_id
-              : conversation.participant_1_id
-          }
-          tradespersonName={
-            conversation.participant_1_id === user?.id
-              ? conversation.participant_2_name
-              : conversation.participant_1_name
-          }
-          conversationId={conversationId}
-        />
-      )}
     </div>
   );
 }
