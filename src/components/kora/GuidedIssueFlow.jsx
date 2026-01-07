@@ -66,13 +66,6 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const handleFileSelect = async (type, file) => {
     if (!file) return;
     
-    // Validate file
-    const validation = validateFile(file, type);
-    if (!validation.valid) {
-      setError(validation.errors.join('. '));
-      return;
-    }
-    
     setError(null);
     setMediaType(type);
     setMediaFile(file);
