@@ -20,7 +20,6 @@ import Notifications from './pages/Notifications';
 import PostJob from './pages/PostJob';
 import PropertyDetail from './pages/PropertyDetail';
 import PropertyIssues from './pages/PropertyIssues';
-import Reminders from './pages/Reminders';
 import Settings from './pages/Settings';
 import Support from './pages/Support';
 import TeamManagement from './pages/TeamManagement';
@@ -59,7 +58,6 @@ export const PAGES = {
     "PostJob": PostJob,
     "PropertyDetail": PropertyDetail,
     "PropertyIssues": PropertyIssues,
-    "Reminders": Reminders,
     "Settings": Settings,
     "Support": Support,
     "TeamManagement": TeamManagement,

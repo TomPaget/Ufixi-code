@@ -11,7 +11,7 @@ import IssueCard from "@/components/kora/IssueCard";
 import Disclaimer from "@/components/kora/Disclaimer";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
-import MaintenanceAlerts from "@/components/kora/MaintenanceAlerts";
+
 import NotificationBell from "@/components/kora/NotificationBell";
 import OnboardingTour from "@/components/kora/OnboardingTour";
 import FeatureTooltip from "@/components/kora/FeatureTooltip";
@@ -779,49 +779,44 @@ export default function Home() {
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3">
           <FeatureTooltip
-            title="Find Contractors"
-            description="Save and manage your trusted contractors for quick access when you need professional help."
-          >
-            <Link to={createPageUrl("Contractors")}>
-              <Button
-                variant="outline"
-                className={cn(
-                  "w-full h-20 rounded-2xl flex-col gap-2 border",
-                  theme === "dark"
-                    ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:bg-[#57CFA4]/10 text-white"
-                    : "bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
-                )}
-              >
-                <Users className="w-5 h-5 text-[#F7B600]" />
-                <span className="text-sm font-medium">Contractors</span>
-              </Button>
-            </Link>
-          </FeatureTooltip>
-          <FeatureTooltip
-            title="Maintenance Reminders"
-            description="Set up recurring reminders for HVAC filters, smoke detectors, and other routine maintenance tasks."
-          >
-            <Link to={createPageUrl("Reminders")}>
-              <Button
-                variant="outline"
-                className={cn(
-                  "w-full h-20 rounded-2xl flex-col gap-2 border",
-                  theme === "dark"
-                    ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:bg-[#57CFA4]/10 text-white"
-                    : "bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
-                )}
-              >
-                <Calendar className="w-5 h-5 text-[#57CFA4]" />
-                <span className="text-sm font-medium">Reminders</span>
-              </Button>
-            </Link>
-          </FeatureTooltip>
+              title="Find Contractors"
+              description="Save and manage your trusted contractors for quick access when you need professional help."
+            >
+              <Link to={createPageUrl("Contractors")}>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-full h-20 rounded-2xl flex-col gap-2 border",
+                    theme === "dark"
+                      ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:bg-[#57CFA4]/10 text-white"
+                      : "bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
+                  )}
+                >
+                  <Users className="w-5 h-5 text-[#F7B600]" />
+                  <span className="text-sm font-medium">Contractors</span>
+                </Button>
+              </Link>
+            </FeatureTooltip>
+            <FeatureTooltip
+              title="Community Forum"
+              description="Connect with other homeowners, renters, and landlords to share advice and experiences."
+            >
+              <Link to={createPageUrl("Forum")}>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-full h-20 rounded-2xl flex-col gap-2 border",
+                    theme === "dark"
+                      ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:bg-[#57CFA4]/10 text-white"
+                      : "bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
+                  )}
+                >
+                  <MessageCircle className="w-5 h-5 text-[#57CFA4]" />
+                  <span className="text-sm font-medium">Forum</span>
+                </Button>
+              </Link>
+            </FeatureTooltip>
         </div>
-
-        {/* AI Maintenance Predictions */}
-        <MaintenanceAlerts userId={user?.id} />
-
-
 
         {/* Recent Issues */}
         <section>

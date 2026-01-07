@@ -15,7 +15,6 @@ const customerMenuItems = [
   { icon: Building2, label: "Business Membership", page: "BusinessPricing" },
   { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
   { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
-  { icon: Calendar, label: "Reminders", page: "Reminders" },
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
   { icon: Settings, label: "My Account", page: "Settings", submenu: [
     { icon: HomeIcon, label: "Home Profile", page: "HomeProfile" }
