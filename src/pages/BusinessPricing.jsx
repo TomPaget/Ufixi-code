@@ -168,7 +168,7 @@ export default function BusinessPricing() {
       <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-[#F7B600]/10 border-[#F7B600]/30 text-[#F7B600]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-gradient-to-r from-green-300/10 to-yellow-400/10 border-yellow-400/30 text-yellow-600">
             <Building2 className="w-4 h-4" />
             <span className="text-sm font-semibold">For Estate Agents & Businesses</span>
           </div>
