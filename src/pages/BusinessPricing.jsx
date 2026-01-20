@@ -25,50 +25,47 @@ import {
 const plans = [
   {
     name: "Starter",
-    price: 18.99,
+    price: 6.99,
     icon: Building2,
     color: "from-slate-900 to-slate-950",
     features: [
+      "Up to 3 team members",
+      "No ads on app",
       "Unlimited property scans",
       "Instant AI diagnostics",
       "Cost estimates for repairs",
-      "Mobile app access",
-      "Email support",
-      "1 team member"
+      "Mobile app access"
     ]
   },
   {
     name: "Professional",
-    price: 39.99,
+    price: 14.99,
     icon: Zap,
     color: "from-slate-700 to-slate-900",
     popular: true,
     features: [
       "Everything in Starter",
+      "Up to 10 team members",
+      "Priority support",
       "Priority AI analysis",
       "Detailed repair reports",
       "Export & share functionality",
-      "Advanced cost breakdowns",
-      "Up to 5 team members",
-      "Priority support",
-      "Custom branding"
+      "Advanced cost breakdowns"
     ]
   },
   {
     name: "Enterprise",
-    price: 79.99,
+    price: 19.99,
     icon: TrendingUp,
     color: "from-slate-800 to-slate-950",
     features: [
       "Everything in Professional",
-      "Unlimited team members",
-      "API access",
-      "White-label options",
-      "Dedicated account manager",
-      "Custom integrations",
+      "Up to 25 team members",
+      "No ads on app",
       "Advanced analytics dashboard",
-      "24/7 priority support",
-      "Training & onboarding"
+      "Priority support",
+      "Custom integrations",
+      "Dedicated account manager"
     ]
   }
 ];
