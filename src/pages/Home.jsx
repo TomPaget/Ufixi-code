@@ -734,13 +734,31 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
             >
-              <Button
+              <div
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
-                className="w-full h-16 rounded-2xl font-semibold bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E]"
+                className="w-full h-16 rounded-2xl font-semibold text-[#0F1E2E] cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:shadow-2xl hover:scale-[1.02]"
+                style={{
+                  background: `linear-gradient(135deg, rgba(87,207,164,0.5) 0%, rgba(87,207,164,0.3) 40%, rgba(87,207,164,0.2) 100%), 
+                               radial-gradient(circle at 25% 25%, rgba(255,255,255,0.8) 0%, transparent 40%),
+                               radial-gradient(circle at 80% 80%, rgba(87,207,164,0.3) 0%, transparent 50%)`,
+                  backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                  WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                  boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
+                              inset 1px 1px 4px rgba(255,255,255,0.8),
+                              0 10px 50px rgba(87,207,164,0.25),
+                              0 1px 3px rgba(255,255,255,0.5),
+                              inset 0 -1px 0px rgba(0,0,0,0.06)`,
+                  borderColor: 'rgba(87,207,164,0.6)',
+                  animation: 'liquidFlow 6s ease-in-out infinite',
+                }}
               >
-                <Plus className="w-5 h-5 mr-2" />
-                <span>{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
-              </Button>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity" style={{
+                  background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(87,207,164,0.5) 0%, transparent 70%)',
+                  pointerEvents: 'none'
+                }} />
+                <Plus className="w-5 h-5 relative z-10" />
+                <span className="relative z-10">{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
