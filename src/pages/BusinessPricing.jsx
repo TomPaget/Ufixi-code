@@ -179,7 +179,7 @@ export default function BusinessPricing() {
           <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]">
             Property Issues?
             <br />
-            <span className="bg-gradient-to-r from-pink-300 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
+            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent">
               Instant Answers.
             </span>
           </h1>
