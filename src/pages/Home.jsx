@@ -741,13 +741,6 @@ export default function Home() {
                 <Plus className="w-5 h-5 mr-2" />
                 <span>{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
               </Button>
-
-              <p className="text-center text-sm mt-3 text-[#0F1E2E]/80 font-medium">
-                {scansLeft > 0 
-                  ? `${scansLeft} of ${FREE_SCAN_LIMIT} free scans remaining`
-                  : "£0.99 per scan after free scans"
-                }
-              </p>
             </motion.div>
           )}
         </AnimatePresence>
