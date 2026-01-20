@@ -259,7 +259,7 @@ export default function BusinessPricing() {
                   placeholder="e.g., Smith & Co Estate Agents"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  className="bg-white border-slate-200"
+                  className="bg-white/80 backdrop-blur-sm border-slate-200"
                 />
               </div>
 
@@ -273,7 +273,7 @@ export default function BusinessPricing() {
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                   defaultValue={user?.email}
-                  className="bg-white border-slate-200"
+                  className="bg-white/80 backdrop-blur-sm border-slate-200"
                 />
               </div>
 
