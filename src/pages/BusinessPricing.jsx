@@ -113,7 +113,7 @@ export default function BusinessPricing() {
   return (
     <div className="min-h-screen pb-20 bg-slate-50">
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b bg-white/80 backdrop-blur-md border-slate-200">
+      <header className="sticky top-0 z-30 border-b bg-white/60 backdrop-blur-md border-slate-200">
         <div className="max-w-6xl mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
@@ -159,7 +159,7 @@ export default function BusinessPricing() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="p-4 rounded-xl border bg-white/80 backdrop-blur-md border-slate-200"
+                className="p-4 rounded-xl border bg-white/60 backdrop-blur-md border-slate-200"
               >
                 <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
                 <p className="text-sm text-[#1E3A57]">
@@ -180,7 +180,7 @@ export default function BusinessPricing() {
               <div
                 key={plan.name}
                 className={cn(
-                  "relative rounded-2xl border-2 p-6 transition-all cursor-pointer bg-white/80 backdrop-blur-md",
+                  "relative rounded-2xl border-2 p-6 transition-all cursor-pointer bg-white/60 backdrop-blur-md",
                   isSelected
                     ? "border-[#F7B600] shadow-xl scale-105"
                     : "border-slate-200 hover:border-[#F7B600]/40",
@@ -245,7 +245,7 @@ export default function BusinessPricing() {
 
         {/* Company Details Form */}
         {selectedPlan && (
-          <div className="max-w-2xl mx-auto rounded-2xl border p-8 bg-white/80 backdrop-blur-md border-slate-200">
+          <div className="max-w-2xl mx-auto rounded-2xl border p-8 bg-white/60 backdrop-blur-md border-slate-200">
             <h2 className="text-2xl font-bold mb-6 text-[#1E3A57]">
               Complete Your Subscription
             </h2>
@@ -305,7 +305,7 @@ export default function BusinessPricing() {
         )}
 
         {/* Social Proof */}
-        <div className="text-center p-8 rounded-2xl border bg-white/80 backdrop-blur-md border-slate-200">
+        <div className="text-center p-8 rounded-2xl border bg-white/60 backdrop-blur-md border-slate-200">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Shield className="w-6 h-6 text-[#57CFA4]" />
             <h3 className="font-semibold text-[#1E3A57]">
