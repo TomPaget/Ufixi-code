@@ -3,11 +3,11 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { 
-  ArrowLeft, 
-  Home, 
-  Building2, 
-  Crown, 
+import {
+  ArrowLeft,
+  Home,
+  Building2,
+  Crown,
   LogOut,
   ChevronRight,
   User,
@@ -26,8 +26,8 @@ import {
   Calendar,
   CreditCard,
   MessageCircle,
-  Info
-} from "lucide-react";
+  Info } from
+"lucide-react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -40,8 +40,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  SelectValue } from
+"@/components/ui/select";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -105,9 +105,9 @@ export default function Settings() {
 
   const markAllReadMutation = useMutation({
     mutationFn: async () => {
-      const unreadIds = notifications.filter(n => !n.read).map(n => n.id);
-      await Promise.all(unreadIds.map(id => 
-        base44.entities.Notification.update(id, { read: true })
+      const unreadIds = notifications.filter((n) => !n.read).map((n) => n.id);
+      await Promise.all(unreadIds.map((id) =>
+      base44.entities.Notification.update(id, { read: true })
       ));
     },
     onSuccess: () => {
@@ -155,12 +155,12 @@ export default function Settings() {
 
   const handleRequestLocation = () => {
     setRequestingLocation(true);
-    
+
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-          
+
           // Get approximate city/area using reverse geocoding via LLM
           try {
             const locationData = await base44.integrations.Core.InvokeLLM({
@@ -201,35 +201,35 @@ export default function Settings() {
     }
   };
 
-  const unreadNotifications = notifications.filter(n => !n.read);
+  const unreadNotifications = notifications.filter((n) => !n.read);
   const isPremium = user?.subscription_tier === "premium";
 
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark"
-        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
-        : "bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50"
+      theme === "dark" ?
+      "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" :
+      "bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50"
     )}>
       {/* Header */}
       <header className={cn(
         "sticky top-0 z-10 backdrop-blur-lg border-b",
-        theme === "dark"
-          ? "bg-slate-900/80 border-slate-700/50"
-          : "bg-white/80 border-slate-200"
+        theme === "dark" ?
+        "bg-slate-900/80 border-slate-700/50" :
+        "bg-white/80 border-slate-200"
       )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             className={cn(
               "rounded-xl",
-              theme === "dark"
-                ? "hover:bg-slate-800 text-slate-400 hover:text-slate-300"
-                : "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
+              theme === "dark" ?
+              "hover:bg-slate-800 text-slate-400 hover:text-slate-300" :
+              "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
             )}
-            onClick={() => navigate(createPageUrl("Home"))}
-          >
+            onClick={() => navigate(createPageUrl("Home"))}>
+
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <h1 className={cn(
@@ -248,9 +248,9 @@ export default function Settings() {
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="notifications" className="relative">
               Notifications
-              {unreadNotifications.length > 0 && (
-                <Badge className="ml-1 bg-red-500 text-white">{unreadNotifications.length}</Badge>
-              )}
+              {unreadNotifications.length > 0 &&
+              <Badge className="ml-1 bg-red-500 text-white">{unreadNotifications.length}</Badge>
+              }
             </TabsTrigger>
             <TabsTrigger value="preferences">Preferences</TabsTrigger>
           </TabsList>
@@ -258,140 +258,140 @@ export default function Settings() {
           <TabsContent value="account" className="space-y-6">
         {/* Profile Section */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={cn(
-            "rounded-2xl p-5 border",
-            theme === "dark"
-              ? "bg-slate-800 border-slate-700/50"
-              : "bg-white border-slate-200"
-          )}
-        >
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={cn(
+                "rounded-2xl p-5 border",
+                theme === "dark" ?
+                "bg-slate-800 border-slate-700/50" :
+                "bg-white border-slate-200"
+              )}>
+
           <div className="flex items-center gap-4 mb-6">
             <div className="relative">
-              {user?.profile_picture_url ? (
-                <img
-                  src={user.profile_picture_url}
-                  alt="Profile"
-                  className="w-14 h-14 rounded-full object-cover shadow-lg"
-                />
-              ) : (
-                <div className={cn(
-                  "w-14 h-14 rounded-full flex items-center justify-center shadow-lg",
-                  theme === "dark"
-                    ? "bg-gradient-to-br from-blue-600 to-blue-700 shadow-blue-600/30 border border-blue-500/30"
-                    : "bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/20 border border-blue-400/30"
-                )}>
+              {user?.profile_picture_url ?
+                  <img
+                    src={user.profile_picture_url}
+                    alt="Profile"
+                    className="w-14 h-14 rounded-full object-cover shadow-lg" /> :
+
+
+                  <div className={cn(
+                    "w-14 h-14 rounded-full flex items-center justify-center shadow-lg",
+                    theme === "dark" ?
+                    "bg-gradient-to-br from-blue-600 to-blue-700 shadow-blue-600/30 border border-blue-500/30" :
+                    "bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/20 border border-blue-400/30"
+                  )}>
                   <User className={cn(
-                    "w-7 h-7",
-                    theme === "dark" ? "text-blue-100" : "text-white"
-                  )} />
+                      "w-7 h-7",
+                      theme === "dark" ? "text-blue-100" : "text-white"
+                    )} />
                 </div>
-              )}
+                  }
               <label className={cn(
-                "absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg",
-                uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform",
-                theme === "dark"
-                  ? "bg-[#57CFA4]"
-                  : "bg-[#57CFA4]"
-              )}>
+                    "absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg",
+                    uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform",
+                    theme === "dark" ?
+                    "bg-[#57CFA4]" :
+                    "bg-[#57CFA4]"
+                  )}>
                 <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handlePhotoUpload}
-                  disabled={uploadingPhoto}
-                />
-                {uploadingPhoto ? (
-                  <Loader2 className="w-3 h-3 text-white animate-spin" />
-                ) : (
-                  <Camera className="w-3 h-3 text-white" />
-                )}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handlePhotoUpload}
+                      disabled={uploadingPhoto} />
+
+                {uploadingPhoto ?
+                    <Loader2 className="w-3 h-3 text-white animate-spin" /> :
+
+                    <Camera className="w-3 h-3 text-white" />
+                    }
               </label>
             </div>
             <div className="flex-1">
               <h2 className={cn(
-                "font-semibold",
-                theme === "dark" ? "text-slate-100" : "text-slate-900"
-              )}>{user?.display_name || user?.full_name || "User"}</h2>
+                    "font-semibold",
+                    theme === "dark" ? "text-slate-100" : "text-slate-900"
+                  )}>{user?.display_name || user?.full_name || "User"}</h2>
               <p className={cn(
-                "text-sm",
-                theme === "dark" ? "text-slate-400" : "text-slate-600"
-              )}>{user?.email}</p>
+                    "text-sm",
+                    theme === "dark" ? "text-slate-400" : "text-slate-600"
+                  )}>{user?.email}</p>
             </div>
             <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setEditingProfile(!editingProfile)}
-              className={cn(
-                "rounded-xl",
-                theme === "dark" ? "hover:bg-slate-700" : "hover:bg-slate-100"
-              )}
-            >
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setEditingProfile(!editingProfile)}
+                  className={cn(
+                    "rounded-xl",
+                    theme === "dark" ? "hover:bg-slate-700" : "hover:bg-slate-100"
+                  )}>
+
               <Edit2 className="w-4 h-4" />
             </Button>
           </div>
 
-          {editingProfile && (
-            <div className="space-y-3 mb-4">
+          {editingProfile &&
+              <div className="space-y-3 mb-4">
               <div>
                 <Label className={cn(
-                  "text-sm mb-1 block",
-                  theme === "dark" ? "text-slate-300" : "text-slate-700"
-                )}>
+                    "text-sm mb-1 block",
+                    theme === "dark" ? "text-slate-300" : "text-slate-700"
+                  )}>
                   Display Name
                 </Label>
                 <Input
-                  value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  placeholder="Your display name"
-                  className={cn(
-                    theme === "dark"
-                      ? "bg-slate-700 border-slate-600 text-white"
-                      : "bg-white border-slate-200"
-                  )}
-                />
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    placeholder="Your display name"
+                    className={cn(
+                      theme === "dark" ?
+                      "bg-slate-700 border-slate-600 text-white" :
+                      "bg-white border-slate-200"
+                    )} />
+
               </div>
               <div>
                 <Label className={cn(
-                  "text-sm mb-1 block",
-                  theme === "dark" ? "text-slate-300" : "text-slate-700"
-                )}>
+                    "text-sm mb-1 block",
+                    theme === "dark" ? "text-slate-300" : "text-slate-700"
+                  )}>
                   Bio
                 </Label>
                 <Textarea
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  placeholder="Tell others about yourself..."
-                  className={cn(
-                    "h-20",
-                    theme === "dark"
-                      ? "bg-slate-700 border-slate-600 text-white"
-                      : "bg-white border-slate-200"
-                  )}
-                />
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    placeholder="Tell others about yourself..."
+                    className={cn(
+                      "h-20",
+                      theme === "dark" ?
+                      "bg-slate-700 border-slate-600 text-white" :
+                      "bg-white border-slate-200"
+                    )} />
+
               </div>
               
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label className={cn(
-                    "text-sm mb-1 block",
-                    theme === "dark" ? "text-slate-300" : "text-slate-700"
-                  )}>
+                      "text-sm mb-1 block",
+                      theme === "dark" ? "text-slate-300" : "text-slate-700"
+                    )}>
                     Country
                   </Label>
                   <Select
-                    value={user?.country || ""}
-                    onValueChange={(value) => {
-                      base44.auth.updateMe({ country: value });
-                      queryClient.invalidateQueries(["user"]);
-                    }}
-                  >
+                      value={user?.country || ""}
+                      onValueChange={(value) => {
+                        base44.auth.updateMe({ country: value });
+                        queryClient.invalidateQueries(["user"]);
+                      }}>
+
                     <SelectTrigger className={cn(
-                      theme === "dark"
-                        ? "bg-slate-700 border-slate-600 text-white"
-                        : "bg-white border-slate-200"
-                    )}>
+                        theme === "dark" ?
+                        "bg-slate-700 border-slate-600 text-white" :
+                        "bg-white border-slate-200"
+                      )}>
                       <SelectValue placeholder="Select country" />
                     </SelectTrigger>
                     <SelectContent>
@@ -406,154 +406,154 @@ export default function Settings() {
 
                 <div>
                   <Label className={cn(
-                    "text-sm mb-1 block",
-                    theme === "dark" ? "text-slate-300" : "text-slate-700"
-                  )}>
+                      "text-sm mb-1 block",
+                      theme === "dark" ? "text-slate-300" : "text-slate-700"
+                    )}>
                     Postcode
                   </Label>
                   <Input
-                    value={user?.postcode || ""}
-                    onChange={(e) => {
-                      base44.auth.updateMe({ postcode: e.target.value });
-                      queryClient.invalidateQueries(["user"]);
-                    }}
-                    placeholder="e.g., SW1A 1AA"
-                    className={cn(
-                      theme === "dark"
-                        ? "bg-slate-700 border-slate-600 text-white"
-                        : "bg-white border-slate-200"
-                    )}
-                  />
+                      value={user?.postcode || ""}
+                      onChange={(e) => {
+                        base44.auth.updateMe({ postcode: e.target.value });
+                        queryClient.invalidateQueries(["user"]);
+                      }}
+                      placeholder="e.g., SW1A 1AA"
+                      className={cn(
+                        theme === "dark" ?
+                        "bg-slate-700 border-slate-600 text-white" :
+                        "bg-white border-slate-200"
+                      )} />
+
                 </div>
               </div>
               
               <Button
-                onClick={handleSaveProfile}
-                disabled={updateUserMutation.isPending}
-                className="w-full bg-blue-600 hover:bg-blue-700"
-              >
+                  onClick={handleSaveProfile}
+                  disabled={updateUserMutation.isPending}
+                  className="w-full bg-blue-600 hover:bg-blue-700">
+
                 {updateUserMutation.isPending ? "Saving..." : "Save Changes"}
               </Button>
             </div>
-          )}
+              }
 
           {/* Location Section */}
           <div className={cn(
-            "rounded-xl p-4 border",
-            theme === "dark"
-              ? "bg-slate-700/50 border-slate-600/50"
-              : "bg-slate-50 border-slate-200"
-          )}>
+                "rounded-xl p-4 border",
+                theme === "dark" ?
+                "bg-slate-700/50 border-slate-600/50" :
+                "bg-slate-50 border-slate-200"
+              )}>
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3 flex-1">
                 <MapPin className={cn(
-                  "w-5 h-5 mt-0.5",
-                  user?.location_services_enabled
-                    ? "text-[#57CFA4]"
-                    : theme === "dark" ? "text-slate-400" : "text-slate-500"
-                )} />
+                      "w-5 h-5 mt-0.5",
+                      user?.location_services_enabled ?
+                      "text-[#57CFA4]" :
+                      theme === "dark" ? "text-slate-400" : "text-slate-500"
+                    )} />
                 <div className="flex-1">
                   <p className={cn(
-                    "font-medium text-sm",
-                    theme === "dark" ? "text-slate-200" : "text-slate-900"
-                  )}>
+                        "font-medium text-sm",
+                        theme === "dark" ? "text-slate-200" : "text-slate-900"
+                      )}>
                     Location Services
                   </p>
                   <p className={cn(
-                    "text-xs mt-0.5",
-                    theme === "dark" ? "text-slate-400" : "text-slate-600"
-                  )}>
-                    {user?.location_services_enabled && user?.approximate_location
-                      ? user.approximate_location
-                      : "Enable to find local tradespeople"}
+                        "text-xs mt-0.5",
+                        theme === "dark" ? "text-slate-400" : "text-slate-600"
+                      )}>
+                    {user?.location_services_enabled && user?.approximate_location ?
+                        user.approximate_location :
+                        "Enable to find local tradespeople"}
                   </p>
                 </div>
               </div>
               <Button
-                size="sm"
-                onClick={handleRequestLocation}
-                disabled={requestingLocation}
-                className={cn(
-                  "rounded-xl",
-                  user?.location_services_enabled
-                    ? "bg-slate-500 hover:bg-slate-600"
-                    : "bg-[#57CFA4] hover:bg-[#57CFA4]/90"
-                )}
-              >
-                {requestingLocation ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : user?.location_services_enabled ? (
-                  "Update"
-                ) : (
-                  "Enable"
-                )}
+                    size="sm"
+                    onClick={handleRequestLocation}
+                    disabled={requestingLocation}
+                    className={cn(
+                      "rounded-xl",
+                      user?.location_services_enabled ?
+                      "bg-slate-500 hover:bg-slate-600" :
+                      "bg-[#57CFA4] hover:bg-[#57CFA4]/90"
+                    )}>
+
+                {requestingLocation ?
+                    <Loader2 className="w-4 h-4 animate-spin" /> :
+                    user?.location_services_enabled ?
+                    "Update" :
+
+                    "Enable"
+                    }
               </Button>
             </div>
           </div>
 
-          {user?.bio && !editingProfile && (
-            <p className={cn(
-              "text-sm mb-4 p-3 rounded-xl",
-              theme === "dark"
-                ? "bg-slate-700/50 text-slate-300"
-                : "bg-slate-50 text-slate-600"
-            )}>
+          {user?.bio && !editingProfile &&
+              <p className={cn(
+                "text-sm mb-4 p-3 rounded-xl",
+                theme === "dark" ?
+                "bg-slate-700/50 text-slate-300" :
+                "bg-slate-50 text-slate-600"
+              )}>
               {user.bio}
             </p>
-          )}
+              }
 
 
         </motion.section>
 
         {/* Theme Toggle */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
-          className={cn(
-            "rounded-2xl p-5 border",
-            theme === "dark"
-              ? "bg-slate-800 border-slate-700/50"
-              : "bg-white border-slate-200"
-          )}
-        >
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              className={cn(
+                "rounded-2xl p-5 border",
+                theme === "dark" ?
+                "bg-slate-800 border-slate-700/50" :
+                "bg-white border-slate-200"
+              )}>
+
           <h3 className={cn(
-            "font-semibold mb-4",
-            theme === "dark" ? "text-slate-200" : "text-slate-900"
-          )}>Appearance</h3>
+                "font-semibold mb-4",
+                theme === "dark" ? "text-slate-200" : "text-slate-900"
+              )}>Appearance</h3>
           
           <button
-            onClick={toggleTheme}
-            className={cn(
-              "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all",
-              theme === "dark"
-                ? "border-blue-500 bg-blue-500/10 hover:bg-blue-500/20"
-                : "border-blue-500 bg-blue-50 hover:bg-blue-100"
-            )}
-          >
+                onClick={toggleTheme}
+                className={cn(
+                  "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all",
+                  theme === "dark" ?
+                  "border-blue-500 bg-blue-500/10 hover:bg-blue-500/20" :
+                  "border-blue-500 bg-blue-50 hover:bg-blue-100"
+                )}>
+
             <div className={cn(
-              "w-12 h-12 rounded-xl flex items-center justify-center",
-              theme === "dark"
-                ? "bg-blue-600/20 border border-blue-500/30"
-                : "bg-blue-500/20 border border-blue-400/30"
-            )}>
-              {theme === "dark" ? (
-                <Moon className="w-6 h-6 text-blue-400" />
-              ) : (
-                <Sun className="w-6 h-6 text-blue-600" />
-              )}
+                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  theme === "dark" ?
+                  "bg-blue-600/20 border border-blue-500/30" :
+                  "bg-blue-500/20 border border-blue-400/30"
+                )}>
+              {theme === "dark" ?
+                  <Moon className="w-6 h-6 text-blue-400" /> :
+
+                  <Sun className="w-6 h-6 text-blue-600" />
+                  }
             </div>
             <div className="flex-1 text-left">
               <p className={cn(
-                "font-medium",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
-              )}>
+                    "font-medium",
+                    theme === "dark" ? "text-slate-200" : "text-slate-900"
+                  )}>
                 {theme === "dark" ? "Dark Mode" : "Light Mode"}
               </p>
               <p className={cn(
-                "text-sm",
-                theme === "dark" ? "text-slate-400" : "text-slate-600"
-              )}>
+                    "text-sm",
+                    theme === "dark" ? "text-slate-400" : "text-slate-600"
+                  )}>
                 Tap to switch to {theme === "dark" ? "light" : "dark"} mode
               </p>
             </div>
@@ -562,247 +562,247 @@ export default function Settings() {
 
         {/* User Type */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className={cn(
-            "rounded-2xl p-5 border",
-            theme === "dark"
-              ? "bg-slate-800 border-slate-700/50"
-              : "bg-white border-slate-200"
-          )}
-        >
-          <h3 className={cn(
-            "font-semibold mb-4",
-            theme === "dark" ? "text-slate-200" : "text-slate-900"
-          )}>I am a...</h3>
-          
-          <RadioGroup 
-            value={user?.user_type || "renter"} 
-            onValueChange={handleUserTypeChange}
-            className="space-y-3"
-          >
-            <Label
-              htmlFor="renter"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
               className={cn(
-                "flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:border-blue-500/50 data-[state=checked]:border-blue-500",
-                theme === "dark"
-                  ? "data-[state=checked]:bg-blue-500/10"
-                  : "data-[state=checked]:bg-blue-50"
-              )}
-              data-state={user?.user_type === "renter" ? "checked" : "unchecked"}
-            >
+                "rounded-2xl p-5 border",
+                theme === "dark" ?
+                "bg-slate-800 border-slate-700/50" :
+                "bg-white border-slate-200"
+              )}>
+
+          <h3 className={cn(
+                "font-semibold mb-4",
+                theme === "dark" ? "text-slate-200" : "text-slate-900"
+              )}>I am a...</h3>
+          
+          <RadioGroup
+                value={user?.user_type || "renter"}
+                onValueChange={handleUserTypeChange}
+                className="space-y-3">
+
+            <Label
+                  htmlFor="renter"
+                  className={cn(
+                    "flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:border-blue-500/50 data-[state=checked]:border-blue-500",
+                    theme === "dark" ?
+                    "data-[state=checked]:bg-blue-500/10" :
+                    "data-[state=checked]:bg-blue-50"
+                  )}
+                  data-state={user?.user_type === "renter" ? "checked" : "unchecked"}>
+
               <RadioGroupItem value="renter" id="renter" className="sr-only" />
               <div className={cn(
-                "w-12 h-12 rounded-xl flex items-center justify-center border",
-                theme === "dark"
-                  ? "bg-teal-500/20 border-teal-500/30"
-                  : "bg-teal-100 border-teal-200"
-              )}>
+                    "w-12 h-12 rounded-xl flex items-center justify-center border",
+                    theme === "dark" ?
+                    "bg-teal-500/20 border-teal-500/30" :
+                    "bg-teal-100 border-teal-200"
+                  )}>
                 <Building2 className={cn(
-                  "w-6 h-6",
-                  theme === "dark" ? "text-teal-400" : "text-teal-600"
-                )} />
+                      "w-6 h-6",
+                      theme === "dark" ? "text-teal-400" : "text-teal-600"
+                    )} />
               </div>
               <div className="flex-1">
                 <p className={cn(
-                  "font-medium",
-                  theme === "dark" ? "text-slate-200" : "text-slate-900"
-                )}>Renter</p>
+                      "font-medium",
+                      theme === "dark" ? "text-slate-200" : "text-slate-900"
+                    )}>Renter</p>
                 <p className={cn(
-                  "text-sm",
-                  theme === "dark" ? "text-slate-400" : "text-slate-600"
-                )}>I rent my home</p>
+                      "text-sm",
+                      theme === "dark" ? "text-slate-400" : "text-slate-600"
+                    )}>I rent my home</p>
               </div>
               <div className={cn(
-                "w-5 h-5 rounded-full border-2",
-                user?.user_type === "renter"
-                  ? "border-blue-500 bg-blue-500"
-                  : theme === "dark" ? "border-slate-600" : "border-slate-300"
-              )}>
-                {user?.user_type === "renter" && (
-                  <div className="w-full h-full flex items-center justify-center">
+                    "w-5 h-5 rounded-full border-2",
+                    user?.user_type === "renter" ?
+                    "border-blue-500 bg-blue-500" :
+                    theme === "dark" ? "border-slate-600" : "border-slate-300"
+                  )}>
+                {user?.user_type === "renter" &&
+                    <div className="w-full h-full flex items-center justify-center">
                     <div className={cn(
-                      "w-2 h-2 rounded-full",
-                      theme === "dark" ? "bg-slate-900" : "bg-white"
-                    )} />
+                        "w-2 h-2 rounded-full",
+                        theme === "dark" ? "bg-slate-900" : "bg-white"
+                      )} />
                   </div>
-                )}
+                    }
               </div>
             </Label>
 
             <Label
-              htmlFor="homeowner"
-              className={cn(
-                "flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:border-blue-500/50 data-[state=checked]:border-blue-500",
-                theme === "dark"
-                  ? "data-[state=checked]:bg-blue-500/10"
-                  : "data-[state=checked]:bg-blue-50"
-              )}
-              data-state={user?.user_type === "homeowner" ? "checked" : "unchecked"}
-            >
+                  htmlFor="homeowner"
+                  className={cn(
+                    "flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:border-blue-500/50 data-[state=checked]:border-blue-500",
+                    theme === "dark" ?
+                    "data-[state=checked]:bg-blue-500/10" :
+                    "data-[state=checked]:bg-blue-50"
+                  )}
+                  data-state={user?.user_type === "homeowner" ? "checked" : "unchecked"}>
+
               <RadioGroupItem value="homeowner" id="homeowner" className="sr-only" />
               <div className={cn(
-                "w-12 h-12 rounded-xl flex items-center justify-center border",
-                theme === "dark"
-                  ? "bg-violet-500/20 border-violet-500/30"
-                  : "bg-violet-100 border-violet-200"
-              )}>
+                    "w-12 h-12 rounded-xl flex items-center justify-center border",
+                    theme === "dark" ?
+                    "bg-violet-500/20 border-violet-500/30" :
+                    "bg-violet-100 border-violet-200"
+                  )}>
                 <Home className={cn(
-                  "w-6 h-6",
-                  theme === "dark" ? "text-violet-400" : "text-violet-600"
-                )} />
+                      "w-6 h-6",
+                      theme === "dark" ? "text-violet-400" : "text-violet-600"
+                    )} />
               </div>
               <div className="flex-1">
                 <p className={cn(
-                  "font-medium",
-                  theme === "dark" ? "text-slate-200" : "text-slate-900"
-                )}>Homeowner</p>
+                      "font-medium",
+                      theme === "dark" ? "text-slate-200" : "text-slate-900"
+                    )}>Homeowner</p>
                 <p className={cn(
-                  "text-sm",
-                  theme === "dark" ? "text-slate-400" : "text-slate-600"
-                )}>I own my home</p>
+                      "text-sm",
+                      theme === "dark" ? "text-slate-400" : "text-slate-600"
+                    )}>I own my home</p>
               </div>
               <div className={cn(
-                "w-5 h-5 rounded-full border-2",
-                user?.user_type === "homeowner"
-                  ? "border-blue-500 bg-blue-500"
-                  : theme === "dark" ? "border-slate-600" : "border-slate-300"
-              )}>
-                {user?.user_type === "homeowner" && (
-                  <div className="w-full h-full flex items-center justify-center">
+                    "w-5 h-5 rounded-full border-2",
+                    user?.user_type === "homeowner" ?
+                    "border-blue-500 bg-blue-500" :
+                    theme === "dark" ? "border-slate-600" : "border-slate-300"
+                  )}>
+                {user?.user_type === "homeowner" &&
+                    <div className="w-full h-full flex items-center justify-center">
                     <div className={cn(
-                      "w-2 h-2 rounded-full",
-                      theme === "dark" ? "bg-slate-900" : "bg-white"
-                    )} />
+                        "w-2 h-2 rounded-full",
+                        theme === "dark" ? "bg-slate-900" : "bg-white"
+                      )} />
                   </div>
-                )}
+                    }
               </div>
             </Label>
           </RadioGroup>
         </motion.section>
 
         {/* Account Type Switch */}
-        {user?.is_trades && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className={cn(
-              "rounded-2xl p-5 border",
-              theme === "dark"
-                ? "bg-slate-800 border-slate-700/50"
-                : "bg-white border-slate-200"
-            )}
-          >
+        {user?.is_trades &&
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className={cn(
+                "rounded-2xl p-5 border",
+                theme === "dark" ?
+                "bg-slate-800 border-slate-700/50" :
+                "bg-white border-slate-200"
+              )}>
+
             <h3 className={cn(
-              "font-semibold mb-2",
-              theme === "dark" ? "text-slate-200" : "text-slate-900"
-            )}>Account Type</h3>
+                "font-semibold mb-2",
+                theme === "dark" ? "text-slate-200" : "text-slate-900"
+              )}>Account Type</h3>
             <p className={cn(
-              "text-sm mb-4",
-              theme === "dark" ? "text-slate-400" : "text-slate-600"
-            )}>
+                "text-sm mb-4",
+                theme === "dark" ? "text-slate-400" : "text-slate-600"
+              )}>
               You currently have a professional trades account. Switch to a standard account if you no longer want to receive job requests.
             </p>
             
             <Button
-              variant="outline"
-              onClick={() => {
-                if (confirm("Are you sure you want to switch to a standard account? You'll no longer receive job requests from customers.")) {
-                  updateUserMutation.mutate({
-                    is_trades: false,
-                    trades_status: null
-                  });
-                }
-              }}
-              disabled={updateUserMutation.isPending}
-              className={cn(
-                "w-full rounded-xl",
-                theme === "dark"
-                  ? "border-slate-600 hover:bg-slate-700"
-                  : "border-slate-300 hover:bg-slate-50"
-              )}
-            >
+                variant="outline"
+                onClick={() => {
+                  if (confirm("Are you sure you want to switch to a standard account? You'll no longer receive job requests from customers.")) {
+                    updateUserMutation.mutate({
+                      is_trades: false,
+                      trades_status: null
+                    });
+                  }
+                }}
+                disabled={updateUserMutation.isPending}
+                className={cn(
+                  "w-full rounded-xl",
+                  theme === "dark" ?
+                  "border-slate-600 hover:bg-slate-700" :
+                  "border-slate-300 hover:bg-slate-50"
+                )}>
+
               Switch to Standard Account
             </Button>
           </motion.section>
-        )}
+            }
 
         {/* About & Legal */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className={cn(
-            "rounded-2xl border overflow-hidden",
-            theme === "dark"
-              ? "bg-slate-800 border-slate-700/50"
-              : "bg-white border-slate-200"
-          )}
-        >
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className={cn(
+                "rounded-2xl border overflow-hidden",
+                theme === "dark" ?
+                "bg-slate-800 border-slate-700/50" :
+                "bg-white border-slate-200"
+              )}>
+
           <button className={cn(
-            "w-full flex items-center justify-between p-4 transition-colors",
-            theme === "dark"
-              ? "hover:bg-slate-700/50"
-              : "hover:bg-slate-50"
-          )}>
+                "w-full flex items-center justify-between p-4 transition-colors",
+                theme === "dark" ?
+                "hover:bg-slate-700/50" :
+                "hover:bg-slate-50"
+              )}>
             <div className="flex items-center gap-3">
               <Shield className={cn(
-                "w-5 h-5",
-                theme === "dark" ? "text-slate-400" : "text-slate-500"
-              )} />
+                    "w-5 h-5",
+                    theme === "dark" ? "text-slate-400" : "text-slate-500"
+                  )} />
               <span className={cn(
-                theme === "dark" ? "text-slate-300" : "text-slate-700"
-              )}>Privacy Policy</span>
+                    theme === "dark" ? "text-slate-300" : "text-slate-700"
+                  )}>Privacy Policy</span>
             </div>
             <ChevronRight className={cn(
-              "w-5 h-5",
-              theme === "dark" ? "text-slate-500" : "text-slate-400"
-            )} />
+                  "w-5 h-5",
+                  theme === "dark" ? "text-slate-500" : "text-slate-400"
+                )} />
           </button>
           <div className={cn(
-            "h-px",
-            theme === "dark" ? "bg-slate-700/50" : "bg-slate-200"
-          )} />
+                "h-px",
+                theme === "dark" ? "bg-slate-700/50" : "bg-slate-200"
+              )} />
           <button className={cn(
-            "w-full flex items-center justify-between p-4 transition-colors",
-            theme === "dark"
-              ? "hover:bg-slate-700/50"
-              : "hover:bg-slate-50"
-          )}>
+                "w-full flex items-center justify-between p-4 transition-colors",
+                theme === "dark" ?
+                "hover:bg-slate-700/50" :
+                "hover:bg-slate-50"
+              )}>
             <div className="flex items-center gap-3">
               <Shield className={cn(
-                "w-5 h-5",
-                theme === "dark" ? "text-slate-400" : "text-slate-500"
-              )} />
+                    "w-5 h-5",
+                    theme === "dark" ? "text-slate-400" : "text-slate-500"
+                  )} />
               <span className={cn(
-                theme === "dark" ? "text-slate-300" : "text-slate-700"
-              )}>Terms of Service</span>
+                    theme === "dark" ? "text-slate-300" : "text-slate-700"
+                  )}>Terms of Service</span>
             </div>
             <ChevronRight className={cn(
-              "w-5 h-5",
-              theme === "dark" ? "text-slate-500" : "text-slate-400"
-            )} />
+                  "w-5 h-5",
+                  theme === "dark" ? "text-slate-500" : "text-slate-400"
+                )} />
           </button>
         </motion.section>
 
         {/* Logout */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}>
+
           <Button
-            variant="outline"
-            onClick={handleLogout}
-            className={cn(
-              "w-full h-12 rounded-xl transition-colors",
-              theme === "dark"
-                ? "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/50"
-                : "border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
-            )}
-          >
+                variant="outline"
+                onClick={handleLogout}
+                className={cn(
+                  "w-full h-12 rounded-xl transition-colors",
+                  theme === "dark" ?
+                  "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/50" :
+                  "border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
+                )}>
+
             <LogOut className="w-5 h-5 mr-2" />
             Log Out
           </Button>
@@ -816,19 +816,19 @@ export default function Settings() {
                   "text-xl font-bold",
                   theme === "dark" ? "text-white" : "text-slate-900"
                 )}>Your Notifications</h2>
-                {unreadNotifications.length > 0 && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => markAllReadMutation.mutate()}
-                    className={cn(
-                      "text-sm",
-                      theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
-                    )}
-                  >
+                {unreadNotifications.length > 0 &&
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => markAllReadMutation.mutate()}
+                  className={cn(
+                    "text-sm",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
+                  )}>
+
                     Mark all read
                   </Button>
-                )}
+                }
               </div>
 
               <Tabs defaultValue="unread">
@@ -837,200 +837,200 @@ export default function Settings() {
                   theme === "dark" ? "bg-[#1A2F42]" : "bg-slate-100"
                 )}>
                   <TabsTrigger value="unread">
-                    Unread {unreadNotifications.length > 0 && (
-                      <Badge className="ml-2 bg-red-500">{unreadNotifications.length}</Badge>
-                    )}
+                    Unread {unreadNotifications.length > 0 &&
+                    <Badge className="ml-2 bg-red-500">{unreadNotifications.length}</Badge>
+                    }
                   </TabsTrigger>
                   <TabsTrigger value="all">All</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="unread" className="space-y-3">
-                  {unreadNotifications.length === 0 ? (
-                    <div className={cn(
-                      "text-center py-12 rounded-2xl border",
-                      theme === "dark"
-                        ? "bg-[#1A2F42] border-[#57CFA4]/20"
-                        : "bg-white border-slate-200"
-                    )}>
+                  {unreadNotifications.length === 0 ?
+                  <div className={cn(
+                    "text-center py-12 rounded-2xl border",
+                    theme === "dark" ?
+                    "bg-[#1A2F42] border-[#57CFA4]/20" :
+                    "bg-white border-slate-200"
+                  )}>
                       <Bell className={cn(
-                        "w-12 h-12 mx-auto mb-3",
-                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
-                      )} />
+                      "w-12 h-12 mx-auto mb-3",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+                    )} />
                       <p className={cn(
-                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                      )}>
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                    )}>
                         No unread notifications
                       </p>
-                    </div>
-                  ) : (
-                    unreadNotifications.map((notification) => {
-                      const Icon = typeIcons[notification.type] || Info;
-                      return (
-                        <div
-                          key={notification.id}
-                          onClick={() => handleNotificationClick(notification)}
-                          className={cn(
-                            "rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02]",
-                            theme === "dark"
-                              ? "bg-[#1A2F42] border-[#57CFA4]"
-                              : "bg-blue-50 border-blue-200"
-                          )}
-                        >
+                    </div> :
+
+                  unreadNotifications.map((notification) => {
+                    const Icon = typeIcons[notification.type] || Info;
+                    return (
+                      <div
+                        key={notification.id}
+                        onClick={() => handleNotificationClick(notification)}
+                        className={cn(
+                          "rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02]",
+                          theme === "dark" ?
+                          "bg-[#1A2F42] border-[#57CFA4]" :
+                          "bg-blue-50 border-blue-200"
+                        )}>
+
                           <div className="flex items-start gap-3">
                             <div className={cn(
-                              "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
-                              theme === "dark"
-                                ? "bg-[#57CFA4]/20"
-                                : "bg-blue-100"
-                            )}>
+                            "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
+                            theme === "dark" ?
+                            "bg-[#57CFA4]/20" :
+                            "bg-blue-100"
+                          )}>
                               <Icon className={cn(
-                                "w-5 h-5",
-                                priorityColors[notification.priority]
-                              )} />
+                              "w-5 h-5",
+                              priorityColors[notification.priority]
+                            )} />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between gap-2 mb-1">
                                 <h3 className={cn(
-                                  "font-semibold text-sm",
-                                  theme === "dark" ? "text-white" : "text-slate-900"
-                                )}>
+                                "font-semibold text-sm",
+                                theme === "dark" ? "text-white" : "text-slate-900"
+                              )}>
                                   {notification.title}
                                 </h3>
                                 <p className={cn(
-                                  "text-xs whitespace-nowrap",
-                                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-                                )}>
+                                "text-xs whitespace-nowrap",
+                                theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                              )}>
                                   {format(new Date(notification.created_date), "MMM d")}
                                 </p>
                               </div>
                               <p className={cn(
-                                "text-sm",
-                                theme === "dark" ? "text-white" : "text-slate-700"
-                              )}>
+                              "text-sm",
+                              theme === "dark" ? "text-white" : "text-slate-700"
+                            )}>
                                 {notification.message}
                               </p>
                             </div>
                             <div className="flex flex-col gap-2">
                               <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-8 w-8"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  markReadMutation.mutate(notification.id);
-                                }}
-                              >
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                markReadMutation.mutate(notification.id);
+                              }}>
+
                                 <Check className="w-4 h-4" />
                               </Button>
                               <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-8 w-8 text-red-500"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  deleteMutation.mutate(notification.id);
-                                }}
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })
-                  )}
-                </TabsContent>
-
-                <TabsContent value="all" className="space-y-3">
-                  {notifications.length === 0 ? (
-                    <div className={cn(
-                      "text-center py-12 rounded-2xl border",
-                      theme === "dark"
-                        ? "bg-[#1A2F42] border-[#57CFA4]/20"
-                        : "bg-white border-slate-200"
-                    )}>
-                      <Bell className={cn(
-                        "w-12 h-12 mx-auto mb-3",
-                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
-                      )} />
-                      <p className={cn(
-                        theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                      )}>
-                        No notifications yet
-                      </p>
-                    </div>
-                  ) : (
-                    notifications.map((notification) => {
-                      const Icon = typeIcons[notification.type] || Info;
-                      return (
-                        <div
-                          key={notification.id}
-                          onClick={() => handleNotificationClick(notification)}
-                          className={cn(
-                            "rounded-2xl p-4 border cursor-pointer transition-all hover:scale-[1.01]",
-                            notification.read
-                              ? theme === "dark"
-                                ? "bg-[#1A2F42]/50 border-[#57CFA4]/20"
-                                : "bg-white border-slate-200"
-                              : theme === "dark"
-                                ? "bg-[#1A2F42] border-[#57CFA4]"
-                                : "bg-blue-50 border-blue-200"
-                          )}
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className={cn(
-                              "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
-                              theme === "dark"
-                                ? "bg-[#57CFA4]/20"
-                                : "bg-blue-100"
-                            )}>
-                              <Icon className={cn(
-                                "w-5 h-5",
-                                priorityColors[notification.priority]
-                              )} />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-start justify-between gap-2 mb-1">
-                                <h3 className={cn(
-                                  "font-semibold text-sm",
-                                  notification.read
-                                    ? theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                                    : theme === "dark" ? "text-white" : "text-slate-900"
-                                )}>
-                                  {notification.title}
-                                </h3>
-                                <p className={cn(
-                                  "text-xs whitespace-nowrap",
-                                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-                                )}>
-                                  {format(new Date(notification.created_date), "MMM d")}
-                                </p>
-                              </div>
-                              <p className={cn(
-                                "text-sm",
-                                notification.read
-                                  ? theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                                  : theme === "dark" ? "text-white" : "text-slate-700"
-                              )}>
-                                {notification.message}
-                              </p>
-                            </div>
-                            <Button
                               variant="ghost"
                               size="icon"
                               className="h-8 w-8 text-red-500"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 deleteMutation.mutate(notification.id);
-                              }}
-                            >
+                              }}>
+
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>);
+
+                  })
+                  }
+                </TabsContent>
+
+                <TabsContent value="all" className="space-y-3">
+                  {notifications.length === 0 ?
+                  <div className={cn(
+                    "text-center py-12 rounded-2xl border",
+                    theme === "dark" ?
+                    "bg-[#1A2F42] border-[#57CFA4]/20" :
+                    "bg-white border-slate-200"
+                  )}>
+                      <Bell className={cn(
+                      "w-12 h-12 mx-auto mb-3",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+                    )} />
+                      <p className={cn(
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                    )}>
+                        No notifications yet
+                      </p>
+                    </div> :
+
+                  notifications.map((notification) => {
+                    const Icon = typeIcons[notification.type] || Info;
+                    return (
+                      <div
+                        key={notification.id}
+                        onClick={() => handleNotificationClick(notification)}
+                        className={cn(
+                          "rounded-2xl p-4 border cursor-pointer transition-all hover:scale-[1.01]",
+                          notification.read ?
+                          theme === "dark" ?
+                          "bg-[#1A2F42]/50 border-[#57CFA4]/20" :
+                          "bg-white border-slate-200" :
+                          theme === "dark" ?
+                          "bg-[#1A2F42] border-[#57CFA4]" :
+                          "bg-blue-50 border-blue-200"
+                        )}>
+
+                          <div className="flex items-start gap-3">
+                            <div className={cn(
+                            "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
+                            theme === "dark" ?
+                            "bg-[#57CFA4]/20" :
+                            "bg-blue-100"
+                          )}>
+                              <Icon className={cn(
+                              "w-5 h-5",
+                              priorityColors[notification.priority]
+                            )} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2 mb-1">
+                                <h3 className={cn(
+                                "font-semibold text-sm",
+                                notification.read ?
+                                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600" :
+                                theme === "dark" ? "text-white" : "text-slate-900"
+                              )}>
+                                  {notification.title}
+                                </h3>
+                                <p className={cn(
+                                "text-xs whitespace-nowrap",
+                                theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                              )}>
+                                  {format(new Date(notification.created_date), "MMM d")}
+                                </p>
+                              </div>
+                              <p className={cn(
+                              "text-sm",
+                              notification.read ?
+                              theme === "dark" ? "text-[#57CFA4]" : "text-slate-600" :
+                              theme === "dark" ? "text-white" : "text-slate-700"
+                            )}>
+                                {notification.message}
+                              </p>
+                            </div>
+                            <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-red-500"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteMutation.mutate(notification.id);
+                            }}>
+
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
-                        </div>
-                      );
-                    })
-                  )}
+                        </div>);
+
+                  })
+                  }
                 </TabsContent>
               </Tabs>
             </div>
@@ -1040,118 +1040,118 @@ export default function Settings() {
 
         {/* Notification Preferences */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className={cn(
-            "rounded-2xl p-5 border",
-            theme === "dark"
-              ? "bg-slate-800 border-slate-700/50"
-              : "bg-white border-slate-200"
-          )}
-        >
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className={cn(
+                "rounded-2xl p-5 border",
+                theme === "dark" ?
+                "bg-slate-800 border-slate-700/50" :
+                "bg-white border-slate-200"
+              )}>
+
           <h3 className={cn(
-            "font-semibold mb-4",
-            theme === "dark" ? "text-slate-200" : "text-slate-900"
-          )}>Notification Preferences</h3>
+                "font-semibold mb-4",
+                theme === "dark" ? "text-slate-200" : "text-slate-900"
+              )}>Notification Preferences</h3>
           
           <div className="space-y-3">
             {[
-              { key: "email_enabled", label: "Email Notifications", description: "Receive updates via email" },
-              { key: "push_enabled", label: "Push Notifications", description: "Receive mobile push alerts" },
-              { key: "issueupdate_enabled", label: "Issue Updates", description: "Notifications when issues change status" },
-              { key: "workrequest_enabled", label: "Work Requests", description: "New job requests from tradespeople" },
-              { key: "appointment_enabled", label: "Appointments", description: "Upcoming maintenance reminders" },
-              { key: "payment_enabled", label: "Payment Alerts", description: "Payment due and completed notifications" },
-              { key: "message_enabled", label: "Messages", description: "New messages from tradespeople" },
-              { key: "reminders_enabled", label: "Maintenance Reminders", description: "Automated reminder notifications" }
-            ].map((pref) => {
-              const prefs = user?.notification_preferences || {};
-              const isEnabled = prefs[pref.key] !== false;
-              
-              return (
-                <button
-                  key={pref.key}
-                  onClick={() => {
-                    updateUserMutation.mutate({
-                      notification_preferences: {
-                        ...prefs,
-                        [pref.key]: !isEnabled
-                      }
-                    });
-                  }}
-                  className={cn(
-                    "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left",
-                    isEnabled
-                      ? theme === "dark"
-                        ? "border-[#57CFA4] bg-[#57CFA4]/10"
-                        : "border-[#57CFA4] bg-[#57CFA4]/10"
-                      : theme === "dark"
-                        ? "border-slate-700 bg-slate-800/50"
-                        : "border-slate-200 bg-slate-50"
-                  )}
-                >
+                { key: "email_enabled", label: "Email Notifications", description: "Receive updates via email" },
+                { key: "push_enabled", label: "Push Notifications", description: "Receive mobile push alerts" },
+                { key: "issueupdate_enabled", label: "Issue Updates", description: "Notifications when issues change status" },
+                { key: "workrequest_enabled", label: "Work Requests", description: "New job requests from tradespeople" },
+                { key: "appointment_enabled", label: "Appointments", description: "Upcoming maintenance reminders" },
+                { key: "payment_enabled", label: "Payment Alerts", description: "Payment due and completed notifications" },
+                { key: "message_enabled", label: "Messages", description: "New messages from tradespeople" },
+                { key: "reminders_enabled", label: "Maintenance Reminders", description: "Automated reminder notifications" }].
+                map((pref) => {
+                  const prefs = user?.notification_preferences || {};
+                  const isEnabled = prefs[pref.key] !== false;
+
+                  return (
+                    <button
+                      key={pref.key}
+                      onClick={() => {
+                        updateUserMutation.mutate({
+                          notification_preferences: {
+                            ...prefs,
+                            [pref.key]: !isEnabled
+                          }
+                        });
+                      }}
+                      className={cn(
+                        "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left",
+                        isEnabled ?
+                        theme === "dark" ?
+                        "border-[#57CFA4] bg-[#57CFA4]/10" :
+                        "border-[#57CFA4] bg-[#57CFA4]/10" :
+                        theme === "dark" ?
+                        "border-slate-700 bg-slate-800/50" :
+                        "border-slate-200 bg-slate-50"
+                      )}>
+
                   <div className="flex-1">
                     <p className={cn(
-                      "font-medium text-sm",
-                      theme === "dark" ? "text-slate-200" : "text-slate-900"
-                    )}>
+                          "font-medium text-sm",
+                          theme === "dark" ? "text-slate-200" : "text-slate-900"
+                        )}>
                       {pref.label}
                     </p>
                     <p className={cn(
-                      "text-xs mt-0.5",
-                      theme === "dark" ? "text-slate-400" : "text-slate-600"
-                    )}>
+                          "text-xs mt-0.5",
+                          theme === "dark" ? "text-slate-400" : "text-slate-600"
+                        )}>
                       {pref.description}
                     </p>
                   </div>
                   <div className={cn(
-                    "w-12 h-6 rounded-full transition-all",
-                    isEnabled ? "bg-[#57CFA4]" : theme === "dark" ? "bg-slate-700" : "bg-slate-300"
-                  )}>
+                        "w-12 h-6 rounded-full transition-all",
+                        isEnabled ? "bg-[#57CFA4]" : theme === "dark" ? "bg-slate-700" : "bg-slate-300"
+                      )}>
                     <div className={cn(
-                      "w-5 h-5 rounded-full bg-white shadow-lg transition-all mt-0.5",
-                      isEnabled ? "ml-6" : "ml-0.5"
-                    )} />
+                          "w-5 h-5 rounded-full bg-white shadow-lg transition-all mt-0.5",
+                          isEnabled ? "ml-6" : "ml-0.5"
+                        )} />
                   </div>
-                </button>
-              );
-            })}
+                </button>);
+
+                })}
           </div>
         </motion.section>
 
         {/* Language & Currency */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className={cn(
-            "rounded-2xl p-5 border",
-            theme === "dark"
-              ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
-              : "bg-white border-slate-200"
-          )}
-        >
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className={cn(
+                "rounded-2xl p-5 border",
+                theme === "dark" ?
+                "bg-[#1E3A57]/50 border-[#57CFA4]/20" :
+                "bg-white border-slate-200"
+              )}>
+
           <h3 className={cn(
-            "font-semibold mb-4",
-            theme === "dark" ? "text-white" : "text-[#1E3A57]"
-          )}>Language & Currency</h3>
+                "font-semibold mb-4",
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
+              )}>Language & Currency</h3>
           
           <div className="space-y-3">
             <div>
               <Label className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
                 Language
               </Label>
-              <Select 
-                value={user?.language || "en"} 
-                onValueChange={(val) => updateUserMutation.mutate({ language: val })}
-              >
+              <Select
+                    value={user?.language || "en"}
+                    onValueChange={(val) => updateUserMutation.mutate({ language: val })}>
+
                 <SelectTrigger className={cn(
-                  "mt-1",
-                  theme === "dark"
-                    ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-slate-200"
-                )}>
+                      "mt-1",
+                      theme === "dark" ?
+                      "bg-[#1E3A57] border-[#57CFA4]/30 text-white" :
+                      "bg-white border-slate-200"
+                    )}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -1167,16 +1167,16 @@ export default function Settings() {
               <Label className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
                 Currency
               </Label>
-              <Select 
-                value={user?.currency || "GBP"} 
-                onValueChange={(val) => updateUserMutation.mutate({ currency: val })}
-              >
+              <Select
+                    value={user?.currency || "GBP"}
+                    onValueChange={(val) => updateUserMutation.mutate({ currency: val })}>
+
                 <SelectTrigger className={cn(
-                  "mt-1",
-                  theme === "dark"
-                    ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-slate-200"
-                )}>
+                      "mt-1",
+                      theme === "dark" ?
+                      "bg-[#1E3A57] border-[#57CFA4]/30 text-white" :
+                      "bg-white border-slate-200"
+                    )}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -1190,15 +1190,15 @@ export default function Settings() {
         </motion.section>
 
         {/* App Version */}
-        <p className={cn(
-          "text-center text-xs",
-          theme === "dark" ? "text-[#57CFA4]/50" : "text-[#1E3A57]/40"
-        )}>
-          Fixplain v1.0.0
-        </p>
+        <p className="text-center text-xs text-[#57CFA4]/50">UFixi v1.0.0
+
+
+
+
+            </p>
           </TabsContent>
         </Tabs>
       </main>
-    </div>
-  );
+    </div>);
+
 }
