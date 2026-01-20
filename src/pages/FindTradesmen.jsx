@@ -403,7 +403,14 @@ Return the exact coordinates and verify the postcode is valid.`,
                   placeholder="e.g., SW1A 1AA"
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
-                  className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/60"
+                  style={{
+                    background: getGradientStyle(theme, 'main'),
+                    backdropFilter: getBackdropFilter(),
+                    WebkitBackdropFilter: getBackdropFilter(),
+                    boxShadow: getBoxShadow('main'),
+                    borderColor: getBorderColor(theme),
+                  }}
+                  className="border-2"
                 />
                 <Button
                   onClick={handlePostcodeSearch}
