@@ -833,8 +833,8 @@ export default function Settings() {
             className={cn(
               "w-full h-12 rounded-xl transition-colors",
               theme === "dark"
-                ? "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/50"
-                : "border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
+                ? "border-red-500/60 bg-red-500/25 text-red-300 hover:bg-red-500/35 hover:text-red-200 hover:border-red-500/80"
+                : "border-red-300 bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-800"
             )}
           >
             <LogOut className="w-5 h-5 mr-2" />
