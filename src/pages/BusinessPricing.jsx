@@ -114,45 +114,45 @@ export default function BusinessPricing() {
     <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/50 to-orange-500/90 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-emerald-400/40 to-blue-500/80 animate-gradient-shift-slow-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/70 via-pink-200/45 to-orange-500/75 animate-gradient-shift-reverse-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
         <div className="absolute inset-0 bg-white/5" />
       </div>
       
       <style jsx>{`
-        @keyframes gradient-shift-slower {
+        @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
-          50% { transform: translate(4%, 16%) scale(1.08) rotate(-2deg); }
-          75% { transform: translate(-8%, 8%) scale(1.12) rotate(3deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes gradient-shift-slow-slower {
+        @keyframes gradient-shift-slow {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-8%, 12%) scale(1.25) rotate(-5deg); }
-          66% { transform: translate(8%, -8%) scale(1.08) rotate(4deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes gradient-shift-reverse-slower {
+        @keyframes gradient-shift-reverse {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(16%, -12%) scale(1.2) rotate(6deg); }
-          60% { transform: translate(-12%, 8%) scale(1.12) rotate(-3deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        .animate-gradient-shift-slower {
-          animation: gradient-shift-slower 18s ease-in-out infinite;
+        .animate-gradient-shift {
+          animation: gradient-shift 12s ease-in-out infinite;
         }
-        .animate-gradient-shift-slow-slower {
-          animation: gradient-shift-slow-slower 22s ease-in-out infinite;
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 15s ease-in-out infinite;
         }
-        .animate-gradient-shift-reverse-slower {
-          animation: gradient-shift-reverse-slower 20s ease-in-out infinite;
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 13s ease-in-out infinite;
         }
       `}</style>
       
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b bg-white/60 backdrop-blur-md border-slate-200">
+      <header className="sticky top-0 z-30 border-b-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
         <div className="max-w-6xl mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
@@ -198,7 +198,7 @@ export default function BusinessPricing() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="p-4 rounded-xl border bg-white/60 backdrop-blur-md border-slate-200"
+                className="p-4 rounded-xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20"
               >
                 <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
                 <p className="text-sm font-semibold text-slate-900">
@@ -221,8 +221,8 @@ export default function BusinessPricing() {
                 className={cn(
                   "relative rounded-2xl border-2 p-6 transition-all cursor-pointer bg-white/60 backdrop-blur-md",
                   isSelected
-                    ? "border-[#F7B600] shadow-xl scale-105"
-                    : "border-slate-200 hover:border-[#F7B600]/40",
+                    ? "border-[#57CFA4] shadow-xl scale-105"
+                    : "border-[#1E3A57]/20 hover:border-[#57CFA4]/40",
                   plan.popular && "ring-2 ring-[#F7B600] ring-offset-4"
                 )}
                 onClick={() => handleSelectPlan(plan)}
@@ -281,7 +281,7 @@ export default function BusinessPricing() {
 
         {/* Company Details Form */}
         {selectedPlan && (
-          <div className="max-w-2xl mx-auto rounded-2xl border p-8 bg-white/60 backdrop-blur-md border-slate-200">
+          <div className="max-w-2xl mx-auto rounded-2xl border-2 p-8 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
             <h2 className="text-2xl font-bold mb-6 text-[#1E3A57]">
               Complete Your Subscription
             </h2>
@@ -295,7 +295,7 @@ export default function BusinessPricing() {
                   placeholder="e.g., Smith & Co Estate Agents"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  className="bg-white/60 backdrop-blur-sm border-slate-200"
+                  className="bg-white/60 backdrop-blur-sm border-2 border-[#1E3A57]/20"
                 />
               </div>
 
@@ -309,7 +309,7 @@ export default function BusinessPricing() {
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                   defaultValue={user?.email}
-                  className="bg-white/60 backdrop-blur-sm border-slate-200"
+                  className="bg-white/60 backdrop-blur-sm border-2 border-[#1E3A57]/20"
                 />
               </div>
 
@@ -341,7 +341,7 @@ export default function BusinessPricing() {
         )}
 
         {/* Social Proof */}
-        <div className="text-center p-8 rounded-2xl border bg-white/60 backdrop-blur-md border-slate-200">
+        <div className="text-center p-8 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Shield className="w-6 h-6 text-[#57CFA4]" />
             <h3 className="font-semibold text-[#1E3A57]">
