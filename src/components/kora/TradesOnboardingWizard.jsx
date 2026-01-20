@@ -830,58 +830,59 @@ export default function TradesOnboardingWizard({ onComplete }) {
             )}
           </div>
         )}
-      </div>
+        </div>
 
-      {/* Navigation Buttons */}
-      <div className="flex justify-between gap-3">
-        <Button
-          variant="outline"
-          onClick={() => setCurrentStep(currentStep - 1)}
-          disabled={currentStep === 1}
-          className={cn(
-            "rounded-xl",
-            theme === "dark"
-              ? "border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
-              : "border-slate-200"
-          )}
-        >
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          Back
-        </Button>
+        {/* Navigation Buttons */}
+        <div className="flex justify-between gap-3">
+          <Button
+            variant="outline"
+            onClick={() => setCurrentStep(currentStep - 1)}
+            disabled={currentStep === 1}
+            className={cn(
+              "rounded-xl",
+              theme === "dark"
+                ? "border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
+                : "border-slate-200"
+            )}
+          >
+            <ChevronLeft className="w-4 h-4 mr-2" />
+            Back
+          </Button>
 
-        <Button
-          onClick={handleNext}
-          disabled={
-            verifying ||
-            (currentStep === 1 && !isStep1Valid) ||
-            (currentStep === 2 && !isStep2Valid) ||
-            (currentStep === 3 && !isStep3Valid) ||
-            (currentStep === 4 && !isStep4Valid)
-          }
-          className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] rounded-xl flex-1"
-        >
-          {verifying ? (
-            <>
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Verifying Documents...
-            </>
-          ) : currentStep === 4 ? (
-            <>
-              <Sparkles className="w-4 h-4 mr-2" />
-              {verificationResult ? 'Finish' : 'Submit & AI Verify'}
-            </>
-          ) : currentStep === 1 && generatingProfile ? (
-            <>
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Generating Profile...
-            </>
-          ) : (
-            <>
-              Continue
-              <ChevronRight className="w-4 h-4 ml-2" />
-            </>
-          )}
-        </Button>
+          <Button
+            onClick={handleNext}
+            disabled={
+              verifying ||
+              (currentStep === 1 && !isStep1Valid) ||
+              (currentStep === 2 && !isStep2Valid) ||
+              (currentStep === 3 && !isStep3Valid) ||
+              (currentStep === 4 && !isStep4Valid)
+            }
+            className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] rounded-xl flex-1"
+          >
+            {verifying ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Verifying Documents...
+              </>
+            ) : currentStep === 4 ? (
+              <>
+                <Sparkles className="w-4 h-4 mr-2" />
+                {verificationResult ? 'Finish' : 'Submit & AI Verify'}
+              </>
+            ) : currentStep === 1 && generatingProfile ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Generating Profile...
+              </>
+            ) : (
+              <>
+                Continue
+                <ChevronRight className="w-4 h-4 ml-2" />
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );
