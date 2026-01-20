@@ -346,7 +346,7 @@ export default function BusinessPricing() {
             </h3>
           </div>
           <p className="text-sm text-slate-800 font-medium">
-            Join hundreds of property professionals using Fixplain to provide better service to their clients
+            Join hundreds of property professionals using UFixi to provide better service to their clients
           </p>
         </div>
       </main>
