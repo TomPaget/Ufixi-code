@@ -208,9 +208,11 @@ export default function BusinessPricing() {
                 )}
                 onClick={() => handleSelectPlan(plan)}
                 style={{
-                  background: `linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.1) 100%)`,
-                  backdropFilter: 'blur(20px) saturate(150%)',
-                  WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+                  background: `linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0.15) 100%), 
+                               radial-gradient(circle at 20% 20%, rgba(255,255,255,0.8) 0%, transparent 50%)`,
+                  backdropFilter: 'blur(25px) saturate(200%) brightness(1.1)',
+                  WebkitBackdropFilter: 'blur(25px) saturate(200%) brightness(1.1)',
+                  boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.7), 0 8px 32px rgba(31,65,100,0.1)',
                 }}
               >
                 {plan.popular && (
