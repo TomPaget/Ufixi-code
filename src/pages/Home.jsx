@@ -631,6 +631,11 @@ export default function Home() {
           60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
+        @keyframes liquidFlow {
+          0% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 50px rgba(87,207,164,0.25), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
+          50% { box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15), inset 2px 2px 6px rgba(255,255,255,0.9), 0 15px 60px rgba(87,207,164,0.35), 0 2px 4px rgba(255,255,255,0.6), inset 0 -2px 1px rgba(0,0,0,0.08); }
+          100% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 50px rgba(87,207,164,0.25), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
+        }
         .animate-gradient-shift {
           animation: gradient-shift 12s ease-in-out infinite;
         }
