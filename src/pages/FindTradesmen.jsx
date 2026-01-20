@@ -434,8 +434,14 @@ Return the exact coordinates and verify the postcode is valid.`,
         {location && tradesmen.length > 0 && (
           <Button
             onClick={() => setShowMap(!showMap)}
-            variant="outline"
-            className="w-full border-2 gap-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-[#1E3A57] hover:bg-white/50"
+            style={{
+              background: getGradientStyle(theme, 'main'),
+              backdropFilter: getBackdropFilter(),
+              WebkitBackdropFilter: getBackdropFilter(),
+              boxShadow: getBoxShadow('main'),
+              borderColor: getBorderColor(theme),
+            }}
+            className="w-full border-2 gap-2 text-[#1E3A57]"
           >
             <Map className="w-4 h-4" />
             {showMap ? "Hide Map" : "Show Map"}
