@@ -669,7 +669,13 @@ export default function Home() {
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
       
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+      <header className="sticky top-0 z-30 border-2" style={{
+        background: getGradientStyle(theme, 'main'),
+        backdropFilter: getBackdropFilter(),
+        WebkitBackdropFilter: getBackdropFilter(),
+        boxShadow: getBoxShadow('main'),
+        borderColor: getBorderColor(theme),
+      }}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <Button 
             variant="ghost" 
