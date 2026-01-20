@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, CheckCircle2, Briefcase } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Briefcase, Wrench, Users, Clock, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
