@@ -604,7 +604,7 @@ export default function Home() {
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#0a1929]" : "bg-white"
+      theme === "dark" ? "bg-gradient-to-br from-[#0a1929] via-[#0f2942] to-[#1a3a52]" : "bg-white"
     )}>
       {showOnboarding && (
         <OnboardingTour onComplete={() => setShowOnboarding(false)} />

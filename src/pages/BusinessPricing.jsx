@@ -113,7 +113,7 @@ export default function BusinessPricing() {
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#0a1929]" : "bg-slate-50"
+      theme === "dark" ? "bg-gradient-to-br from-[#0a1929] via-[#0f2942] to-[#1a3a52]" : "bg-slate-50"
     )}>
       {/* Header */}
       <header className={cn(
