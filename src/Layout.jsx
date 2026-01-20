@@ -10,6 +10,10 @@ export default function Layout({ children, currentPageName }) {
           :root {
             --dark-bg: #ffffff;
             --dark-card: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+          }
+          * {
+            font-family: 'Times New Roman', Times, serif;
           }
         `}</style>
         <div className="min-h-screen">
