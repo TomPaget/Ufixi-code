@@ -189,10 +189,10 @@ export default function BusinessPricing() {
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          {plans.map((plan) => {
+           {plans.map((plan) => {
             const Icon = plan.icon;
             const isSelected = selectedPlan?.name === plan.name;
-            
+
             return (
               <div
                 key={plan.name}
@@ -255,6 +255,25 @@ export default function BusinessPricing() {
               </div>
             );
           })}
+        </div>
+
+        {/* Use Cases */}
+        <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          {[
+            { icon: Home, text: "Spot issues during viewings" },
+            { icon: Clock, text: "Get instant cost estimates" },
+            { icon: BarChart3, text: "Build trust with clients" }
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="p-4 rounded-xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20"
+            >
+              <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
+              <p className="text-sm font-semibold text-slate-900">
+                {item.text}
+              </p>
+            </div>
+          ))}
         </div>
 
         {/* Company Details Form */}
