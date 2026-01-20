@@ -6,12 +6,12 @@ export default function Layout({ children, currentPageName }) {
   return (
     <ThemeProvider>
       <ErrorBoundary>
-      <style>{`
-        :root {
-          --dark-bg: #000000;
-          --dark-card: #1a1a1a;
-        }
-      `}
+        <style>{`
+          :root {
+            --dark-bg: #000000;
+            --dark-card: #1a1a1a;
+          }
+        `}</style>
         <div className="min-h-screen">
           {children}
           <BannerAd />
