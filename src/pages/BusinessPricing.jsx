@@ -179,7 +179,7 @@ export default function BusinessPricing() {
           <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]">
             Property Issues?
             <br />
-            <span className="bg-gradient-to-r from-[#F7B600] to-[#57CFA4] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-500 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg" style={{WebkitTextStroke: '0.5px rgba(255,255,255,0.3)'}}>
               Instant Answers.
             </span>
           </h1>
