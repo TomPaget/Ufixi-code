@@ -632,13 +632,13 @@ export default function Home() {
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
         .animate-gradient-shift {
-          animation: gradient-shift 18s ease-in-out infinite;
+          animation: gradient-shift 12s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 22s ease-in-out infinite;
+          animation: gradient-shift-slow 15s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 20s ease-in-out infinite;
+          animation: gradient-shift-reverse 13s ease-in-out infinite;
         }
       `}</style>
       
