@@ -197,13 +197,21 @@ export default function BusinessPricing() {
               <div
                 key={plan.name}
                 className={cn(
-                  "relative rounded-2xl border-2 p-6 transition-all cursor-pointer bg-white/60 backdrop-blur-md",
+                  "relative rounded-3xl border-2 p-6 transition-all cursor-pointer overflow-hidden group",
+                  "bg-gradient-to-br from-white/40 via-white/20 to-white/10",
+                  "backdrop-blur-xl backdrop-saturate-200",
+                  "shadow-lg shadow-white/20",
                   isSelected
-                    ? "border-[#57CFA4] shadow-xl scale-105"
-                    : "border-[#1E3A57]/20 hover:border-[#57CFA4]/40",
-                  plan.popular && "ring-2 ring-[#F7B600] ring-offset-4"
+                    ? "border-[#57CFA4]/60 shadow-2xl shadow-[#57CFA4]/30 scale-105"
+                    : "border-white/30 hover:border-white/50 hover:shadow-xl hover:shadow-white/20",
+                  plan.popular && "ring-2 ring-[#F7B600]/40 ring-offset-4"
                 )}
                 onClick={() => handleSelectPlan(plan)}
+                style={{
+                  background: `linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.1) 100%)`,
+                  backdropFilter: 'blur(20px) saturate(150%)',
+                  WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+                }}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
