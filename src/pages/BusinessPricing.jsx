@@ -113,11 +113,11 @@ export default function BusinessPricing() {
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-white">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-600/35 via-rose-500/18 to-orange-600/35 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-700/30 via-amber-500/15 to-slate-500/30 animate-gradient-shift-slow-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-slate-500/28 via-rose-400/16 to-orange-600/30 animate-gradient-shift-reverse-slower blur-3xl" />
-        <div className="absolute inset-0 bg-white/15" />
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/50 to-orange-500/90 animate-gradient-shift-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-yellow-300/40 to-blue-500/80 animate-gradient-shift-slow-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/70 via-pink-200/45 to-orange-500/75 animate-gradient-shift-reverse-slower blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
       </div>
       
       <style jsx>{`
