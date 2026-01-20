@@ -90,11 +90,11 @@ export default function Forum() {
       theme === "dark" ? "bg-[#1E3A57]" : "bg-white"
     )}>
       {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-700/70 via-pink-400/35 to-orange-600/70 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-600/60 via-yellow-400/25 to-blue-600/60 animate-gradient-shift-slow-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/55 via-pink-300/30 to-orange-600/60 animate-gradient-shift-reverse-slower blur-3xl" />
-        <div className="absolute inset-0 bg-white/5" />
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-200 to-slate-100">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-rose-600/25 to-orange-700/50 animate-gradient-shift-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-800/45 via-amber-600/20 to-slate-600/45 animate-gradient-shift-slow-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-slate-600/40 via-rose-500/22 to-orange-700/45 animate-gradient-shift-reverse-slower blur-3xl" />
+        <div className="absolute inset-0 bg-white/10" />
       </div>
       
       <style jsx>{`
