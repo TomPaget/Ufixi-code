@@ -200,54 +200,88 @@ export default function TradesOnboardingWizard({ onComplete }) {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Progress Steps */}
-      <div className="flex items-center justify-between">
-        {STEPS.map((step, index) => (
-          <div key={step.id} className="flex items-center flex-1">
-            <div className="flex flex-col items-center flex-1">
-              <div className={cn(
-                "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all",
-                currentStep >= step.id
-                  ? "bg-[#F7B600] border-[#F7B600] text-[#0F1E2E]"
-                  : theme === "dark"
-                    ? "border-[#57CFA4]/30 text-[#57CFA4]"
-                    : "border-slate-200 text-slate-400"
-              )}>
-                {currentStep > step.id ? (
-                  <CheckCircle2 className="w-5 h-5" />
-                ) : (
-                  <step.icon className="w-5 h-5" />
-                )}
-              </div>
-              <span className={cn(
-                "text-xs mt-2 text-center",
-                currentStep >= step.id
-                  ? theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                  : theme === "dark" ? "text-[#57CFA4]/50" : "text-slate-400"
-              )}>
-                {step.title}
-              </span>
-            </div>
-            {index < STEPS.length - 1 && (
-              <div className={cn(
-                "h-0.5 flex-1 -mt-8",
-                currentStep > step.id
-                  ? "bg-[#F7B600]"
-                  : theme === "dark" ? "bg-[#57CFA4]/30" : "bg-slate-200"
-              )} />
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="relative overflow-hidden rounded-3xl">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+      <div className="absolute inset-0 -z-10 bg-white/5" />
 
-      {/* Step Content */}
-      <div className={cn(
-        "rounded-2xl p-6 border min-h-[400px]",
-        theme === "dark"
-          ? "bg-[#1A2F42] border-[#57CFA4]/20"
-          : "bg-white border-slate-200"
-      )}>
+      <style jsx>{`
+        @keyframes gradient-shift {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-slow {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-reverse {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        .animate-gradient-shift {
+          animation: gradient-shift 12s ease-in-out infinite;
+        }
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 15s ease-in-out infinite;
+        }
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 13s ease-in-out infinite;
+        }
+      `}</style>
+
+      <div className="relative space-y-6 p-6">
+        {/* Progress Steps */}
+        <div className="flex items-center justify-between">
+          {STEPS.map((step, index) => (
+            <div key={step.id} className="flex items-center flex-1">
+              <div className="flex flex-col items-center flex-1">
+                <div className={cn(
+                  "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all",
+                  currentStep >= step.id
+                    ? "bg-[#F7B600] border-[#F7B600] text-[#0F1E2E]"
+                    : "border-slate-200 text-slate-400"
+                )}>
+                  {currentStep > step.id ? (
+                    <CheckCircle2 className="w-5 h-5" />
+                  ) : (
+                    <step.icon className="w-5 h-5" />
+                  )}
+                </div>
+                <span className={cn(
+                  "text-xs mt-2 text-center",
+                  currentStep >= step.id
+                    ? "text-[#0F1E2E]"
+                    : "text-slate-400"
+                )}>
+                  {step.title}
+                </span>
+              </div>
+              {index < STEPS.length - 1 && (
+                <div className={cn(
+                  "h-0.5 flex-1 -mt-8",
+                  currentStep > step.id
+                    ? "bg-[#F7B600]"
+                    : "bg-slate-200"
+                )} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Step Content */}
+        <div className={cn(
+          "rounded-2xl p-6 border min-h-[400px] backdrop-blur-md",
+          "bg-white/60 border-slate-200"
+        )}>
         {/* Step 1: Business Details */}
         {currentStep === 1 && (
           <div className="space-y-4">
