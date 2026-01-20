@@ -303,23 +303,18 @@ export default function TradesOnboardingWizard({ onComplete }) {
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
+                <Label className="text-[#0F1E2E]/80">
                   Location *
                 </Label>
                 <Input
                   placeholder="City/Town"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className={cn(
-                    "mt-1",
-                    theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                      : "bg-white border-slate-200"
-                  )}
+                  className="bg-white/60 border-slate-200"
                 />
               </div>
               <div>
-                <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
+                <Label className="text-[#0F1E2E]/80">
                   Years Operating
                 </Label>
                 <Input
@@ -327,30 +322,20 @@ export default function TradesOnboardingWizard({ onComplete }) {
                   placeholder="e.g., 5"
                   value={yearsOperated}
                   onChange={(e) => setYearsOperated(e.target.value)}
-                  className={cn(
-                    "mt-1",
-                    theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                      : "bg-white border-slate-200"
-                  )}
+                  className="bg-white/60 border-slate-200"
                 />
               </div>
             </div>
 
             <div>
-              <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
+              <Label className="text-[#0F1E2E]/80">
                 Service Area *
               </Label>
               <Input
                 placeholder="e.g., Greater London, 20 mile radius"
                 value={serviceArea}
                 onChange={(e) => setServiceArea(e.target.value)}
-                className={cn(
-                  "mt-1",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-slate-200"
-                )}
+                className="bg-white/60 border-slate-200"
               />
             </div>
 
