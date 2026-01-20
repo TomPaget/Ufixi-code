@@ -11,7 +11,7 @@ export default function Layout({ children, currentPageName }) {
             --dark-bg: #ffffff;
             --dark-card: #ffffff;
           }
-        `}
+        `}</style>
         <div className="min-h-screen">
           {children}
           <BannerAd />
