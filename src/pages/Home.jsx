@@ -632,9 +632,9 @@ export default function Home() {
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
         @keyframes liquidFlow {
-          0% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 50px rgba(87,207,164,0.25), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
-          50% { box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15), inset 2px 2px 6px rgba(255,255,255,0.9), 0 15px 60px rgba(87,207,164,0.35), 0 2px 4px rgba(255,255,255,0.6), inset 0 -2px 1px rgba(0,0,0,0.08); }
-          100% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 50px rgba(87,207,164,0.25), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
+          0% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 50px rgba(43,157,111,0.35), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
+          50% { box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15), inset 2px 2px 6px rgba(255,255,255,0.9), 0 15px 60px rgba(43,157,111,0.45), 0 2px 4px rgba(255,255,255,0.6), inset 0 -2px 1px rgba(0,0,0,0.08); }
+          100% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 50px rgba(43,157,111,0.35), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
         }
         .animate-gradient-shift {
           animation: gradient-shift 12s ease-in-out infinite;
@@ -743,17 +743,17 @@ export default function Home() {
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                 className="w-full h-16 rounded-2xl font-semibold text-[#0F1E2E] cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:shadow-2xl hover:scale-[1.02]"
                 style={{
-                  background: `linear-gradient(135deg, rgba(87,207,164,0.5) 0%, rgba(87,207,164,0.3) 40%, rgba(87,207,164,0.2) 100%), 
-                               radial-gradient(circle at 25% 25%, rgba(255,255,255,0.8) 0%, transparent 40%),
-                               radial-gradient(circle at 80% 80%, rgba(87,207,164,0.3) 0%, transparent 50%)`,
+                  background: `linear-gradient(135deg, rgba(43,157,111,0.6) 0%, rgba(43,157,111,0.4) 40%, rgba(43,157,111,0.25) 100%), 
+                               radial-gradient(circle at 25% 25%, rgba(255,255,255,0.85) 0%, transparent 40%),
+                               radial-gradient(circle at 80% 80%, rgba(43,157,111,0.4) 0%, transparent 50%)`,
                   backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
                   WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
                   boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
                               inset 1px 1px 4px rgba(255,255,255,0.8),
-                              0 10px 50px rgba(87,207,164,0.25),
+                              0 10px 50px rgba(43,157,111,0.35),
                               0 1px 3px rgba(255,255,255,0.5),
                               inset 0 -1px 0px rgba(0,0,0,0.06)`,
-                  borderColor: 'rgba(87,207,164,0.6)',
+                  borderColor: 'rgba(43,157,111,0.7)',
                   animation: 'liquidFlow 6s ease-in-out infinite',
                 }}
               >
