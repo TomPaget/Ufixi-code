@@ -51,14 +51,48 @@ export default function TradesSignup() {
   }
 
   return (
-    <div className={cn(
-      "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
-    )}>
-      <header className={cn(
-        "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
-      )}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/50 to-orange-500/90 animate-gradient-shift-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-emerald-400/40 to-blue-500/80 animate-gradient-shift-slow-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/70 via-pink-200/45 to-orange-500/75 animate-gradient-shift-reverse-slower blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
+      </div>
+      
+      <style jsx>{`
+        @keyframes gradient-shift-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          25% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
+          50% { transform: translate(4%, 16%) scale(1.08) rotate(-2deg); }
+          75% { transform: translate(-8%, 8%) scale(1.12) rotate(3deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-slow-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          33% { transform: translate(-8%, 12%) scale(1.25) rotate(-5deg); }
+          66% { transform: translate(8%, -8%) scale(1.08) rotate(4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-reverse-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          30% { transform: translate(16%, -12%) scale(1.2) rotate(6deg); }
+          60% { transform: translate(-12%, 8%) scale(1.12) rotate(-3deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        .animate-gradient-shift-slower {
+          animation: gradient-shift-slower 18s ease-in-out infinite;
+        }
+        .animate-gradient-shift-slow-slower {
+          animation: gradient-shift-slow-slower 22s ease-in-out infinite;
+        }
+        .animate-gradient-shift-reverse-slower {
+          animation: gradient-shift-reverse-slower 20s ease-in-out infinite;
+        }
+      `}</style>
+      
+      {/* Header */}
+      <header className="sticky top-0 z-30 border-b bg-white/60 backdrop-blur-md border-slate-200">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
