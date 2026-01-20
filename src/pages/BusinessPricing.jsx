@@ -167,7 +167,7 @@ export default function BusinessPricing() {
 
       <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
           {plans.map((plan) => {
             const Icon = plan.icon;
             const isSelected = selectedPlan?.name === plan.name;
