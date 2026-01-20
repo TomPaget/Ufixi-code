@@ -17,6 +17,7 @@ import {
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
+import { getGradientStyle, getBackdropFilter, getBoxShadow, getBorderColor } from "@/components/kora/gradientThemes";
 
 export default function FindTradesmen() {
   const navigate = useNavigate();
