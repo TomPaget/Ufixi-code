@@ -299,59 +299,51 @@ Return the exact coordinates and verify the postcode is valid.`,
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-200 to-slate-100">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-rose-600/25 to-orange-700/50 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-800/45 via-amber-600/20 to-slate-600/45 animate-gradient-shift-slow-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-slate-600/40 via-rose-500/22 to-orange-700/45 animate-gradient-shift-reverse-slower blur-3xl" />
-        <div className="absolute inset-0 bg-white/10" />
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
       </div>
       
       <style jsx>{`
-        @keyframes gradient-shift-slower {
+        @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
-          50% { transform: translate(4%, 16%) scale(1.08) rotate(-2deg); }
-          75% { transform: translate(-8%, 8%) scale(1.12) rotate(3deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes gradient-shift-slow-slower {
+        @keyframes gradient-shift-slow {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-8%, 12%) scale(1.25) rotate(-5deg); }
-          66% { transform: translate(8%, -8%) scale(1.08) rotate(4deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes gradient-shift-reverse-slower {
+        @keyframes gradient-shift-reverse {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(16%, -12%) scale(1.2) rotate(6deg); }
-          60% { transform: translate(-12%, 8%) scale(1.12) rotate(-3deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        .animate-gradient-shift-slower {
-          animation: gradient-shift-slower 18s ease-in-out infinite;
+        .animate-gradient-shift {
+          animation: gradient-shift 12s ease-in-out infinite;
         }
-        .animate-gradient-shift-slow-slower {
-          animation: gradient-shift-slow-slower 22s ease-in-out infinite;
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 15s ease-in-out infinite;
         }
-        .animate-gradient-shift-reverse-slower {
-          animation: gradient-shift-reverse-slower 20s ease-in-out infinite;
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 13s ease-in-out infinite;
         }
       `}</style>
       
-      <header className={cn(
-        "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
-      )}>
+      <header className="sticky top-0 z-30 border-b-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
-            className={cn(
-              "rounded-xl",
-              theme === "dark"
-                ? "hover:bg-[#57CFA4]/20 text-[#57CFA4]"
-                : "hover:bg-slate-100 text-[#1E3A57]"
-            )}
             onClick={() => navigate(createPageUrl("Home"))}
+            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
@@ -359,37 +351,25 @@ Return the exact coordinates and verify the postcode is valid.`,
             <div className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-lg bg-[#F7B600] text-[#0F1E2E]">
               Q
             </div>
-            <h1 className={cn(
-              "font-bold text-lg",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>Find Local Tradesmen</h1>
+            <h1 className="font-bold text-lg text-[#1E3A57]">
+              Find Local Tradesmen
+            </h1>
           </div>
         </div>
       </header>
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Location & Refresh */}
-        <div className={cn(
-          "rounded-2xl p-5 border-2",
-          theme === "dark"
-            ? "bg-[#1A2F42] border-[#57CFA4]/30"
-            : "bg-[#57CFA4]/10 border-[#57CFA4]/30"
-        )}>
+        <div className="rounded-2xl p-5 border-2 bg-white/60 backdrop-blur-md border-[#57CFA4]/30">
           {location ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <MapPin className="w-6 h-6 text-[#57CFA4]" />
                 <div>
-                  <p className={cn(
-                    "font-semibold",
-                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                  )}>
+                  <p className="font-semibold text-[#1E3A57]">
                     Location Enabled
                   </p>
-                  <p className={cn(
-                    "text-sm",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                  )}>
+                  <p className="text-sm text-[#1E3A57]/70">
                     {postcode ? `${postcode} • ` : ""}{tradesmen.length} tradesmen found
                   </p>
                 </div>
@@ -405,10 +385,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
           ) : (
             <div>
-              <p className={cn(
-                "font-semibold mb-2",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+              <p className="font-semibold mb-2 text-[#1E3A57]">
                 Enter your postcode
               </p>
               <div className="flex gap-2">
@@ -416,12 +393,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                   placeholder="e.g., SW1A 1AA"
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
-                  className={cn(
-                    "border-2",
-                    theme === "dark"
-                      ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
-                      : "bg-white border-[#1E3A57]/20"
-                  )}
+                  className="border-2 bg-white border-[#1E3A57]/20"
                 />
                 <Button
                   onClick={handlePostcodeSearch}
@@ -439,12 +411,7 @@ Return the exact coordinates and verify the postcode is valid.`,
           <Button
             onClick={() => setShowMap(!showMap)}
             variant="outline"
-            className={cn(
-              "w-full border-2 gap-2",
-              theme === "dark"
-                ? "bg-[#1A2F42] border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
-                : "bg-white border-[#1E3A57]/20 text-[#1E3A57] hover:bg-slate-50"
-            )}
+            className="w-full border-2 gap-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-[#1E3A57] hover:bg-white/50"
           >
             <Map className="w-4 h-4" />
             {showMap ? "Hide Map" : "Show Map"}
@@ -453,26 +420,15 @@ Return the exact coordinates and verify the postcode is valid.`,
 
         {/* Mini Map */}
         {showMap && location && (
-          <div className={cn(
-            "rounded-2xl overflow-hidden border-2",
-            theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/30"
-              : "bg-white border-[#1E3A57]/20"
-          )}>
+          <div className="rounded-2xl overflow-hidden border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
             <div className="p-3 border-b">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#F7B600]" />
-                <p className={cn(
-                  "text-sm font-medium",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>
+                <p className="text-sm font-medium text-[#1E3A57]">
                   Your Location: {postcode || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
                 </p>
               </div>
-              <p className={cn(
-                "text-xs mt-1",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <p className="text-xs mt-1 text-[#1E3A57]/70">
                 Red marker shows your exact location
               </p>
             </div>
@@ -492,27 +448,20 @@ Return the exact coordinates and verify the postcode is valid.`,
 
         {/* Saved Searches */}
         {savedSearches.length > 0 && (
-          <div className={cn(
-            "rounded-2xl p-4 border-2",
-            theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/30"
-              : "bg-white border-[#1E3A57]/20"
-          )}>
+          <div className="rounded-2xl p-4 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
             <button
               onClick={() => setShowSavedSearches(!showSavedSearches)}
               className="w-full flex items-center justify-between"
             >
               <div className="flex items-center gap-2">
                 <Bookmark className="w-5 h-5 text-[#F7B600]" />
-                <h3 className={cn(
-                  "font-bold",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>Saved Searches ({savedSearches.length})</h3>
+                <h3 className="font-bold text-[#1E3A57]">
+                  Saved Searches ({savedSearches.length})
+                </h3>
               </div>
               <ChevronDown className={cn(
-                "w-5 h-5 transition-transform",
-                showSavedSearches && "rotate-180",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+                "w-5 h-5 transition-transform text-[#1E3A57]",
+                showSavedSearches && "rotate-180"
               )} />
             </button>
             {showSavedSearches && (
@@ -530,17 +479,11 @@ Return the exact coordinates and verify the postcode is valid.`,
                       setSearchRadius(search.search_radius || 5);
                       if (location) searchLocalTradesmen();
                     }}
-                    className={cn(
-                      "w-full text-left p-3 rounded-xl border flex items-center justify-between hover:scale-[1.02] transition-transform",
-                      theme === "dark"
-                        ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:border-[#57CFA4]"
-                        : "bg-slate-50 border-slate-200 hover:border-[#57CFA4]"
-                    )}
+                    className="w-full text-left p-3 rounded-xl border flex items-center justify-between hover:scale-[1.02] transition-transform bg-slate-50 border-slate-200 hover:border-[#57CFA4]"
                   >
-                    <span className={cn(
-                      "font-medium text-sm",
-                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                    )}>{search.name}</span>
+                    <span className="font-medium text-sm text-[#1E3A57]">
+                      {search.name}
+                    </span>
                     <button
                       onClick={async (e) => {
                         e.stopPropagation();
@@ -559,19 +502,11 @@ Return the exact coordinates and verify the postcode is valid.`,
         )}
 
         {/* Filters */}
-        <div className={cn(
-          "rounded-2xl p-5 space-y-4 border-2",
-          theme === "dark"
-            ? "bg-[#1A2F42] border-[#57CFA4]/30"
-            : "bg-white border-[#1E3A57]/20"
-        )}>
+        <div className="rounded-2xl p-5 space-y-4 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Filter className="w-5 h-5 text-[#F7B600]" />
-              <h2 className={cn(
-                "font-bold",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>Filters</h2>
+              <h2 className="font-bold text-[#1E3A57]">Filters</h2>
             </div>
             <div className="flex gap-2">
               <Button
@@ -781,9 +716,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                         "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
                         services.includes(service)
                           ? "bg-[#57CFA4] text-white"
-                          : theme === "dark"
-                            ? "bg-[#1E3A57] border border-[#57CFA4]/30 text-[#57CFA4]"
-                            : "bg-white border border-slate-300 text-slate-700"
+                          : "bg-white border border-slate-300 text-slate-700"
                       )}
                     >
                       {services.includes(service) && <Check className="w-3 h-3 inline mr-1" />}
@@ -864,9 +797,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                         "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
                         certifications.includes(cert)
                           ? "bg-[#F7B600] text-[#0F1E2E]"
-                          : theme === "dark"
-                            ? "bg-[#1E3A57] border border-[#57CFA4]/30 text-[#57CFA4]"
-                            : "bg-white border border-slate-300 text-slate-700"
+                          : "bg-white border border-slate-300 text-slate-700"
                       )}
                     >
                       {certifications.includes(cert) && <Award className="w-3 h-3 inline mr-1" />}
@@ -884,39 +815,23 @@ Return the exact coordinates and verify the postcode is valid.`,
           {loading ? (
             <div className="text-center py-12">
               <RefreshCw className="w-8 h-8 animate-spin text-[#57CFA4] mx-auto mb-3" />
-              <p className={cn(
-                "text-sm",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <p className="text-sm text-[#1E3A57]/70">
                 Searching Google Maps, Checkatrade, RatedPeople & local directories...
               </p>
             </div>
           ) : filteredTradesmen.length === 0 ? (
-            <div className={cn(
-              "text-center py-12 rounded-2xl border-2",
-              theme === "dark"
-                ? "bg-[#1A2F42] border-[#57CFA4]/30"
-                : "bg-white border-[#1E3A57]/20"
-            )}>
+            <div className="text-center py-12 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
               <MapPin className="w-12 h-12 mx-auto mb-3 text-[#57CFA4]" />
-              <p className={cn(
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+              <p className="text-[#1E3A57]">
                 No tradesmen found
               </p>
-              <p className={cn(
-                "text-sm mt-1",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <p className="text-sm mt-1 text-[#1E3A57]/70">
                 Try enabling location or entering a postcode
               </p>
             </div>
           ) : (
             <>
-              <p className={cn(
-                "text-sm font-medium",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <p className="text-sm font-medium text-[#1E3A57]/70">
                 {filteredTradesmen.length} tradesmen found
               </p>
 
