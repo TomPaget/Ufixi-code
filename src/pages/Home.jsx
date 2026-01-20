@@ -604,11 +604,11 @@ export default function Home() {
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated liquid gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-50 to-white">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/80 via-pink-300/50 to-orange-500/80 animate-gradient-shift blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-400/70 via-purple-300/40 to-blue-400/70 animate-gradient-shift-slow blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/60 via-pink-200/50 to-orange-400/60 animate-gradient-shift-reverse blur-3xl" />
-        <div className="absolute inset-0 bg-white/10" />
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
       </div>
       
       <style jsx>{`
