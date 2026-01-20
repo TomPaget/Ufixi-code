@@ -219,7 +219,16 @@ export default function TradesSignup() {
         </div>
 
         {/* Social Proof */}
-        <div className="text-center p-8 rounded-2xl border bg-white/60 backdrop-blur-md border-slate-200">
+        <div 
+          className="text-center p-8 rounded-2xl border"
+          style={{
+            background: getGradientStyle(theme, 'main'),
+            backdropFilter: getBackdropFilter(),
+            WebkitBackdropFilter: getBackdropFilter(),
+            boxShadow: getBoxShadow('main'),
+            borderColor: getBorderColor(theme),
+          }}
+        >
           <div className="flex items-center justify-center gap-2 mb-4">
             <Shield className="w-6 h-6 text-[#57CFA4]" />
             <h3 className="font-semibold text-[#1E3A57]">
