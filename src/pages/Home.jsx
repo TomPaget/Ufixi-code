@@ -678,7 +678,7 @@ export default function Home() {
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold text-[#0F1E2E] mt-8 mb-6">
             <span className="whitespace-nowrap font-normal" style={{ fontFamily: "'Coolvetica', sans-serif" }}>What needs</span>{" "}
-            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
+            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent font-normal" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
               fixing?
             </span>
           </h1>
