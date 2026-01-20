@@ -361,7 +361,16 @@ Return the exact coordinates and verify the postcode is valid.`,
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Location & Refresh */}
-        <div className="rounded-2xl p-5 border-2 bg-white/60 backdrop-blur-md border-[#57CFA4]/30">
+        <div 
+          className="rounded-2xl p-5 border-2"
+          style={{
+            background: getGradientStyle(theme, 'main'),
+            backdropFilter: getBackdropFilter(),
+            WebkitBackdropFilter: getBackdropFilter(),
+            boxShadow: getBoxShadow('main'),
+            borderColor: getBorderColor(theme),
+          }}
+        >
           {location ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
