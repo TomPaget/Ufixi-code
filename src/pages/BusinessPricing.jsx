@@ -113,13 +113,13 @@ export default function BusinessPricing() {
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" ? "bg-black" : "bg-slate-50"
+      theme === "dark" ? "bg-[#0a1929]" : "bg-slate-50"
     )}>
       {/* Header */}
       <header className={cn(
         "sticky top-0 z-30 border-b",
         theme === "dark" 
-          ? "bg-black border-[#57CFA4]/20" 
+          ? "bg-[#0a1929] border-[#57CFA4]/20" 
           : "bg-white border-slate-200"
       )}>
         <div className="max-w-6xl mx-auto px-5 py-4 flex items-center gap-4">

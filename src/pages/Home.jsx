@@ -604,7 +604,7 @@ export default function Home() {
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" ? "bg-black" : "bg-white"
+      theme === "dark" ? "bg-[#0a1929]" : "bg-white"
     )}>
       {showOnboarding && (
         <OnboardingTour onComplete={() => setShowOnboarding(false)} />
@@ -615,7 +615,7 @@ export default function Home() {
       {/* Header */}
       <header className={cn(
         "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-black border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
+        theme === "dark" ? "bg-[#0a1929] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
       )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <Button 
