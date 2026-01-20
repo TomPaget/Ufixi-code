@@ -10,7 +10,7 @@ export default function BannerAd() {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-[#faffeb] text-slate-800 fixed bottom-0 left-0 right-0 z-50 border-t shadow-lg border-slate-700">
+    <div className="bg-[#faffeb]/80 text-slate-800 fixed bottom-0 left-0 right-0 z-50 border-t shadow-lg border-slate-700">
 
 
 
