@@ -805,7 +805,22 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 rounded-2xl bg-white/60 backdrop-blur-md border border-slate-200">
+            <div 
+              className="text-center py-12 rounded-3xl border-2 overflow-hidden"
+              style={{
+                background: `linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.2) 100%), 
+                             radial-gradient(circle at 25% 25%, rgba(255,255,255,0.9) 0%, transparent 40%),
+                             radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 0%, transparent 50%)`,
+                backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
+                            inset 1px 1px 4px rgba(255,255,255,0.9),
+                            0 10px 40px rgba(31,65,100,0.15),
+                            0 1px 3px rgba(255,255,255,0.4),
+                            inset 0 -1px 0px rgba(0,0,0,0.08)`,
+                borderColor: 'rgba(255,255,255,0.5)',
+              }}
+            >
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
                 <Sparkles className="w-8 h-8 text-slate-400" />
               </div>
