@@ -602,10 +602,39 @@ export default function Home() {
   };
 
   return (
-    <div className={cn(
-      "min-h-screen pb-20",
-      theme === "dark" ? "bg-gradient-to-br from-[#0a1929] via-[#0f2942] to-[#1a3a52]" : "bg-white"
-    )}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      {/* Animated liquid gradient background */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-100/40 via-pink-100/40 to-blue-100/40 animate-gradient-shift" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-200/30 via-white/50 to-orange-200/30 animate-gradient-shift-slow" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-pink-200/20 via-orange-100/30 to-blue-100/20 animate-gradient-shift-reverse" />
+      </div>
+      
+      <style jsx>{`
+        @keyframes gradient-shift {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(10%, 10%) scale(1.1); }
+          66% { transform: translate(-10%, 5%) scale(1.05); }
+        }
+        @keyframes gradient-shift-slow {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          50% { transform: translate(-5%, -5%) rotate(2deg); }
+        }
+        @keyframes gradient-shift-reverse {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(5%, -10%) scale(1.08); }
+        }
+        .animate-gradient-shift {
+          animation: gradient-shift 20s ease-in-out infinite;
+        }
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 25s ease-in-out infinite;
+        }
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 22s ease-in-out infinite;
+        }
+      `}</style>
+      
       {showOnboarding && (
         <OnboardingTour onComplete={() => setShowOnboarding(false)} />
       )}
