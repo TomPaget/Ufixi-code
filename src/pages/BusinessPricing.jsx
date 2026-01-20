@@ -149,7 +149,7 @@ export default function BusinessPricing() {
       `}</style>
       
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+      <header className="sticky top-0 z-30 border-b-2 bg-transparent border-[#1E3A57]/20">
         <div className="max-w-6xl mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
