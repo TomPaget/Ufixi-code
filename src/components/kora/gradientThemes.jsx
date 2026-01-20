@@ -15,14 +15,14 @@ export const lightGradients = {
 // Dark mode
 export const darkGradients = {
   main: {
-    baseGradient: "linear-gradient(135deg, rgba(30,58,87,0.25) 0%, rgba(59,130,246,0.15) 40%, rgba(255,193,7,0.12) 100%)",
+    baseGradient: "linear-gradient(135deg, rgba(30,58,87,0.25) 0%, rgba(217,70,56,0.18) 40%, rgba(244,114,61,0.15) 100%)",
     radial1: "radial-gradient(circle at 25% 25%, rgba(255,255,255,0.08) 0%, transparent 40%)",
-    radial2: "radial-gradient(circle at 80% 80%, rgba(255,193,7,0.15) 0%, transparent 50%)"
+    radial2: "radial-gradient(circle at 80% 80%, rgba(236,100,82,0.18) 0%, transparent 50%)"
   },
   accent: {
-    baseGradient: "linear-gradient(135deg, rgba(30,58,87,0.3) 0%, rgba(59,130,246,0.18) 40%, rgba(255,193,7,0.15) 100%)",
+    baseGradient: "linear-gradient(135deg, rgba(30,58,87,0.3) 0%, rgba(236,100,82,0.22) 40%, rgba(244,114,61,0.2) 100%)",
     radial1: "radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 40%)",
-    radial2: "radial-gradient(circle at 80% 80%, rgba(255,193,7,0.18) 0%, transparent 50%)"
+    radial2: "radial-gradient(circle at 80% 80%, rgba(244,114,61,0.22) 0%, transparent 50%)"
   }
 };
 
