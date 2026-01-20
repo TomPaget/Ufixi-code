@@ -285,27 +285,19 @@ export default function TradesOnboardingWizard({ onComplete }) {
         {/* Step 1: Business Details */}
         {currentStep === 1 && (
           <div className="space-y-4">
-            <h3 className={cn(
-              "text-xl font-semibold mb-4",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
+            <h3 className="text-xl font-semibold mb-4 text-[#0F1E2E]">
               Tell us about your business
             </h3>
 
             <div>
-              <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
+              <Label className="text-[#0F1E2E]/80">
                 Business Name *
               </Label>
               <Input
                 placeholder="Your business name"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
-                className={cn(
-                  "mt-1",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-slate-200"
-                )}
+                className="bg-white/60 border-slate-200"
               />
             </div>
 
