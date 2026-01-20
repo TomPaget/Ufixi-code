@@ -92,7 +92,7 @@ export default function TradesSignup() {
       `}</style>
       
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b bg-white/60 backdrop-blur-md border-slate-200">
+      <header className="sticky top-0 z-30 border-b bg-white/95 backdrop-blur-sm border-slate-200/50">
         <div className="max-w-6xl mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
