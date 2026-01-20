@@ -123,6 +123,19 @@ export default function Forum() {
         .animate-gradient-shift-reverse {
           animation: gradient-shift-reverse 13s ease-in-out infinite;
         }
+        .overflow-x-auto::-webkit-scrollbar {
+          height: 6px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .overflow-x-auto::-webkit-scrollbar-thumb {
+          background: #F7B600;
+          border-radius: 3px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+          background: #E5A400;
+        }
       `}</style>
       
       <header className="sticky top-0 z-30 border-b-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
