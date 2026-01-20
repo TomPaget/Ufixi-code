@@ -325,7 +325,7 @@ export default function BusinessPricing() {
                   onChange={(e) => setCompanyName(e.target.value)}
                   className={cn(
                     theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      ? "bg-black border-[#57CFA4]/30 text-white"
                       : "bg-white border-slate-200"
                   )}
                 />
@@ -346,7 +346,7 @@ export default function BusinessPricing() {
                   defaultValue={user?.email}
                   className={cn(
                     theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      ? "bg-black border-[#57CFA4]/30 text-white"
                       : "bg-white border-slate-200"
                   )}
                 />
