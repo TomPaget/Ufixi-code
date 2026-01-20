@@ -111,7 +111,7 @@ export default function TradesSignup() {
       <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-[#F7B600]/10 border-[#F7B600]/30 text-[#F7B600]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-[#F7B600]/20 border-[#F7B600]/60 text-[#F7B600]">
             <Briefcase className="w-4 h-4" />
             <span className="text-sm font-semibold">For Tradespeople</span>
           </div>
