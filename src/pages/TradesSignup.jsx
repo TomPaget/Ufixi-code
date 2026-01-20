@@ -129,30 +129,6 @@ export default function TradesSignup() {
             Join hundreds of verified tradespeople finding local jobs. No commission fees - keep 100% of your earnings.
           </p>
 
-          {/* Pricing */}
-          <div 
-            className="max-w-md mx-auto mt-8 p-8 rounded-2xl border-2 relative overflow-hidden"
-            style={{
-              background: 'linear-gradient(135deg, rgba(87, 207, 164, 0.95) 0%, rgba(87, 207, 164, 0.85) 50%, rgba(74, 222, 128, 0.90) 100%)',
-              backdropFilter: 'blur(20px) saturate(180%) brightness(1.1)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%) brightness(1.1)',
-              boxShadow: '0 8px 32px rgba(87, 207, 164, 0.4), inset 0 1px 2px rgba(255,255,255,0.6)',
-              borderColor: '#4ade80',
-            }}
-          >
-            <div className="flex items-center justify-center gap-6">
-              <div className="text-center">
-                <p className="text-5xl font-bold text-white">£1.99</p>
-                <p className="text-sm text-white/90 font-semibold">per week</p>
-              </div>
-              <div className="h-12 w-px bg-white/40" />
-              <div className="text-center">
-                <p className="text-5xl font-bold text-white">0%</p>
-                <p className="text-sm text-white/90 font-semibold">commission</p>
-              </div>
-            </div>
-          </div>
-
           {/* Use Cases */}
           <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mt-8">
             {[
