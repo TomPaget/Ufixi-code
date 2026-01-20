@@ -183,7 +183,7 @@ export default function BusinessPricing() {
           
           <p className="text-lg max-w-2xl mx-auto text-slate-800 font-medium">
             See a problem during a viewing? Need a quick explanation for your client? 
-            Fixplain gives you instant, professional property diagnostics on the spot.
+            UFixi gives you instant, professional property diagnostics on the spot.
           </p>
 
           {/* Use Cases */}
