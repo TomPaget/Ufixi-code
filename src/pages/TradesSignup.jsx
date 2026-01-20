@@ -7,6 +7,7 @@ import { ArrowLeft, CheckCircle2, Briefcase, Wrench, Users, Clock, Shield } from
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
+import { getGradientStyle, getBackdropFilter, getBoxShadow, getBorderColor } from "@/components/kora/gradientThemes";
 import TradesOnboardingWizard from "@/components/kora/TradesOnboardingWizard";
 
 export default function TradesSignup() {
