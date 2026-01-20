@@ -297,6 +297,46 @@ export default function BusinessPricing() {
           </div>
         )}
 
+        {/* Hero Section */}
+        <div className="text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-gradient-to-r from-green-300/10 to-yellow-400/10 border-yellow-400/30 text-yellow-600">
+            <Building2 className="w-4 h-4" />
+            <span className="text-sm font-semibold">For Estate Agents & Businesses</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
+            <span style={{ fontWeight: "normal" }}>Property Issues?</span>
+            <br />
+            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
+              Instant Answers.
+            </span>
+          </h1>
+          
+          <p className="text-lg max-w-2xl mx-auto text-slate-800 font-medium">
+            See a problem during a viewing? Need a quick explanation for your client? 
+            UFixi gives you instant, professional property diagnostics on the spot.
+          </p>
+
+          {/* Use Cases */}
+          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mt-8">
+            {[
+              { icon: Home, text: "Spot issues during viewings" },
+              { icon: Clock, text: "Get instant cost estimates" },
+              { icon: BarChart3, text: "Build trust with clients" }
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="p-4 rounded-xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20"
+              >
+                <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
+                <p className="text-sm font-semibold text-slate-900">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Social Proof */}
         <div className="text-center p-8 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
           <div className="flex items-center justify-center gap-2 mb-4">
