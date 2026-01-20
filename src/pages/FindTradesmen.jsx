@@ -413,11 +413,18 @@ Return the exact coordinates and verify the postcode is valid.`,
                   className="border-2"
                 />
                 <Button
-                  onClick={handlePostcodeSearch}
-                  className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] font-semibold"
-                >
-                  Search
-                </Button>
+                   onClick={handlePostcodeSearch}
+                   style={{
+                     background: getGradientStyle(theme, 'main'),
+                     backdropFilter: getBackdropFilter(),
+                     WebkitBackdropFilter: getBackdropFilter(),
+                     boxShadow: getBoxShadow('main'),
+                     borderColor: getBorderColor(theme),
+                   }}
+                   className="text-[#1E3A57] font-semibold border-2"
+                 >
+                   Search
+                 </Button>
               </div>
             </div>
           )}
