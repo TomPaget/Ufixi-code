@@ -181,7 +181,16 @@ export default function TradesSignup() {
         </div>
 
         {/* Benefits */}
-        <div className="max-w-3xl mx-auto rounded-2xl border p-8 bg-white/60 backdrop-blur-md border-slate-200">
+        <div 
+          className="max-w-3xl mx-auto rounded-2xl border p-8"
+          style={{
+            background: getGradientStyle(theme, 'main'),
+            backdropFilter: getBackdropFilter(),
+            WebkitBackdropFilter: getBackdropFilter(),
+            boxShadow: getBoxShadow('main'),
+            borderColor: getBorderColor(theme),
+          }}
+        >
           <h2 className="text-2xl font-bold mb-6 text-[#1E3A57]">
             What You Get
           </h2>
