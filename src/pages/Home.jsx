@@ -780,7 +780,7 @@ export default function Home() {
         {/* Recent Issues */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold flex items-center gap-2 text-[#0F1E2E]">
+            <h2 className="font-bold flex items-center gap-1 text-[#0F1E2E]">
               <History className="w-5 h-5 text-[#57CFA4]" />
               Recent Issues
             </h2>
