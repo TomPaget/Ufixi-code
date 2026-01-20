@@ -513,10 +513,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                 size="sm"
                 variant="ghost"
                 onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-                className={cn(
-                  "text-xs",
-                  theme === "dark" ? "text-[#57CFA4] hover:bg-[#57CFA4]/10" : "text-blue-600 hover:bg-blue-50"
-                )}
+                className="text-xs text-blue-600 hover:bg-blue-50"
               >
                 {showAdvancedFilters ? "Basic" : "Advanced"}
               </Button>
@@ -540,10 +537,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                     queryClient.invalidateQueries(["savedSearches"]);
                   }
                 }}
-                className={cn(
-                  "text-xs",
-                  theme === "dark" ? "text-[#57CFA4] hover:bg-[#57CFA4]/10" : "text-blue-600 hover:bg-blue-50"
-                )}
+                className="text-xs text-blue-600 hover:bg-blue-50"
               >
                 <Bookmark className="w-3 h-3 mr-1" />
                 Save
@@ -553,10 +547,7 @@ Return the exact coordinates and verify the postcode is valid.`,
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-1 block",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
                 Trade Type
               </label>
               <Select value={tradeType} onValueChange={(value) => {
@@ -565,12 +556,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                   setTimeout(() => searchLocalTradesmen(), 100);
                 }
               }}>
-                <SelectTrigger className={cn(
-                  "border-2",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}>
+                <SelectTrigger className="border-2 bg-white border-[#1E3A57]/20">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -588,19 +574,11 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
 
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-1 block",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
                 Sort By
               </label>
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className={cn(
-                  "border-2",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}>
+                <SelectTrigger className="border-2 bg-white border-[#1E3A57]/20">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -613,19 +591,11 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
 
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-1 block",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
                 Max {currencySymbol}/hour
               </label>
               <Select value={maxCost} onValueChange={setMaxCost}>
-                <SelectTrigger className={cn(
-                  "border-2",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}>
+                <SelectTrigger className="border-2 bg-white border-[#1E3A57]/20">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -638,19 +608,11 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
 
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-1 block",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
                 Distance
               </label>
               <Select value={searchRadius.toString()} onValueChange={(v) => setSearchRadius(parseInt(v))}>
-                <SelectTrigger className={cn(
-                  "border-2",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}>
+                <SelectTrigger className="border-2 bg-white border-[#1E3A57]/20">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -663,19 +625,11 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
 
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-1 block",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
                 Min Rating
               </label>
               <Select value={minRating.toString()} onValueChange={(v) => setMinRating(parseFloat(v))}>
-                <SelectTrigger className={cn(
-                  "border-2",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}>
+                <SelectTrigger className="border-2 bg-white border-[#1E3A57]/20">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -697,10 +651,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               className="space-y-4 pt-4 border-t"
             >
               <div>
-                <label className={cn(
-                  "text-sm font-medium mb-2 block",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
+                <label className="text-sm font-medium mb-2 block text-[#1E3A57]/70">
                   Services Offered
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -727,19 +678,11 @@ Return the exact coordinates and verify the postcode is valid.`,
               </div>
 
               <div>
-                <label className={cn(
-                  "text-sm font-medium mb-2 block",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
+                <label className="text-sm font-medium mb-2 block text-[#1E3A57]/70">
                   Minimum Experience
                 </label>
                 <Select value={minExperience} onValueChange={setMinExperience}>
-                  <SelectTrigger className={cn(
-                    "border-2",
-                    theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                      : "bg-white border-[#1E3A57]/20"
-                  )}>
+                  <SelectTrigger className="border-2 bg-white border-[#1E3A57]/20">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -753,19 +696,11 @@ Return the exact coordinates and verify the postcode is valid.`,
               </div>
 
               <div>
-                <label className={cn(
-                  "text-sm font-medium mb-2 block",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
+                <label className="text-sm font-medium mb-2 block text-[#1E3A57]/70">
                   Availability
                 </label>
                 <Select value={availability} onValueChange={setAvailability}>
-                  <SelectTrigger className={cn(
-                    "border-2",
-                    theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                      : "bg-white border-[#1E3A57]/20"
-                  )}>
+                  <SelectTrigger className="border-2 bg-white border-[#1E3A57]/20">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -778,10 +713,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               </div>
 
               <div>
-                <label className={cn(
-                  "text-sm font-medium mb-2 block",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
+                <label className="text-sm font-medium mb-2 block text-[#1E3A57]/70">
                   Certifications Required
                 </label>
                 <div className="flex flex-wrap gap-2">
