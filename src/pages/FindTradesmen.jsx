@@ -297,10 +297,7 @@ Return the exact coordinates and verify the postcode is valid.`,
   const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[user?.currency || "GBP"];
 
   return (
-    <div className={cn(
-      "min-h-screen pb-20 relative overflow-hidden",
-      theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
-    )}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-200 to-slate-100">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-rose-600/25 to-orange-700/50 animate-gradient-shift-slower blur-3xl" />
