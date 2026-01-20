@@ -7,13 +7,16 @@ export default function Layout({ children, currentPageName }) {
     <ThemeProvider>
       <ErrorBoundary>
         <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
           :root {
             --dark-bg: #ffffff;
             --dark-card: #ffffff;
-            font-family: 'Times New Roman', Times, serif;
           }
           * {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: 'Coolvetica', sans-serif;
+          }
+          h1, h2, h3, h4, h5, h6 {
+            font-family: 'DM Sans', sans-serif;
           }
         `}</style>
         <div className="min-h-screen">
