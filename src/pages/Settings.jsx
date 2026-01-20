@@ -205,46 +205,12 @@ export default function Settings() {
   const isPremium = user?.subscription_tier === "premium";
 
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-200 to-slate-100">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-rose-600/25 to-orange-700/50 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-800/45 via-amber-600/20 to-slate-600/45 animate-gradient-shift-slow-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-slate-600/40 via-rose-500/22 to-orange-700/45 animate-gradient-shift-reverse-slower blur-3xl" />
-        <div className="absolute inset-0 bg-white/10" />
-      </div>
-      
-      <style jsx>{`
-        @keyframes gradient-shift-slower {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
-          50% { transform: translate(4%, 16%) scale(1.08) rotate(-2deg); }
-          75% { transform: translate(-8%, 8%) scale(1.12) rotate(3deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-slow-slower {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-8%, 12%) scale(1.25) rotate(-5deg); }
-          66% { transform: translate(8%, -8%) scale(1.08) rotate(4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-reverse-slower {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(16%, -12%) scale(1.2) rotate(6deg); }
-          60% { transform: translate(-12%, 8%) scale(1.12) rotate(-3deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        .animate-gradient-shift-slower {
-          animation: gradient-shift-slower 18s ease-in-out infinite;
-        }
-        .animate-gradient-shift-slow-slower {
-          animation: gradient-shift-slow-slower 22s ease-in-out infinite;
-        }
-        .animate-gradient-shift-reverse-slower {
-          animation: gradient-shift-reverse-slower 20s ease-in-out infinite;
-        }
-      `}</style>
-      
+    <div className={cn(
+      "min-h-screen pb-20",
+      theme === "dark"
+        ? "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+        : "bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50"
+    )}>
       {/* Header */}
       <header className={cn(
         "sticky top-0 z-10 backdrop-blur-lg border-b",
@@ -833,8 +799,8 @@ export default function Settings() {
             className={cn(
               "w-full h-12 rounded-xl transition-colors",
               theme === "dark"
-                ? "border-red-500/60 bg-red-500/25 text-red-300 hover:bg-red-500/35 hover:text-red-200 hover:border-red-500/80"
-                : "border-red-300 bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-800"
+                ? "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/50"
+                : "border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
             )}
           >
             <LogOut className="w-5 h-5 mr-2" />
