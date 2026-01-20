@@ -690,21 +690,21 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="grid grid-cols-3 gap-3"
           >
-            <div className="rounded-2xl p-4 text-center border bg-white/80 backdrop-blur-md border-slate-200">
+            <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
               <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
               <p className="text-xl font-bold text-[#1E3A57]">
                 {issues.filter(i => i.status === "active").length}
               </p>
               <p className="text-xs text-[#1E3A57]/70">Active</p>
             </div>
-            <div className="rounded-2xl p-4 text-center border bg-white/80 backdrop-blur-md border-slate-200">
+            <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
               <Calendar className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
               <p className="text-xl font-bold text-[#1E3A57]">
                 {issues.filter(i => i.urgency === "fix_soon").length}
               </p>
               <p className="text-xs text-[#1E3A57]/70">Fix Soon</p>
             </div>
-            <div className="rounded-2xl p-4 text-center border bg-white/80 backdrop-blur-md border-slate-200">
+            <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
               <History className="w-5 h-5 mx-auto mb-1 text-[#57CFA4]" />
               <p className="text-xl font-bold text-[#1E3A57]">
                 {issues.filter(i => i.status === "resolved").length}
@@ -762,7 +762,7 @@ export default function Home() {
               <Link to={createPageUrl("Contractors")}>
                 <Button
                   variant="outline"
-                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/80 backdrop-blur-md border-slate-200 hover:bg-white/60 text-[#1E3A57]"
+                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50 text-[#1E3A57]"
                 >
                   <Users className="w-5 h-5 text-[#F7B600]" />
                   <span className="text-sm font-medium">Contractors</span>
@@ -776,7 +776,7 @@ export default function Home() {
               <Link to={createPageUrl("Forum")}>
                 <Button
                   variant="outline"
-                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/80 backdrop-blur-md border-slate-200 hover:bg-white/60 text-[#1E3A57]"
+                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50 text-[#1E3A57]"
                 >
                   <MessageCircle className="w-5 h-5 text-[#57CFA4]" />
                   <span className="text-sm font-medium">Forum</span>
