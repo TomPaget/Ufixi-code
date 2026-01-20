@@ -138,7 +138,14 @@ export default function TradesSignup() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="p-4 rounded-xl border bg-white/60 backdrop-blur-md border-slate-200"
+                className="p-4 rounded-xl border"
+                style={{
+                  background: getGradientStyle(theme, 'main'),
+                  backdropFilter: getBackdropFilter(),
+                  WebkitBackdropFilter: getBackdropFilter(),
+                  boxShadow: getBoxShadow('main'),
+                  borderColor: getBorderColor(theme),
+                }}
               >
                 <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
                 <p className="text-sm font-semibold text-slate-900">
@@ -165,16 +172,7 @@ export default function TradesSignup() {
         </div>
 
         {/* Benefits */}
-        <div 
-          className="max-w-3xl mx-auto rounded-2xl border p-8"
-          style={{
-            background: getGradientStyle(theme, 'main'),
-            backdropFilter: getBackdropFilter(),
-            WebkitBackdropFilter: getBackdropFilter(),
-            boxShadow: getBoxShadow('main'),
-            borderColor: getBorderColor(theme),
-          }}
-        >
+        <div className="max-w-3xl mx-auto rounded-2xl border p-8 bg-white/60 backdrop-blur-md border-slate-200">
           <h2 className="text-2xl font-bold mb-6 text-[#1E3A57]">
             What You Get
           </h2>
