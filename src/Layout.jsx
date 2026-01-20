@@ -13,10 +13,6 @@ export default function Layout({ children, currentPageName }) {
             --dark-card: #ffffff;
           }
           * {
-            font-family: 'Coolvetica', sans-serif;
-            font-weight: normal;
-          }
-          h1, h2, h3, h4, h5, h6 {
             font-family: 'DM Sans', sans-serif;
             font-weight: normal;
           }
