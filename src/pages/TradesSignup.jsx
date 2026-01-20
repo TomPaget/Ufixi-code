@@ -168,7 +168,7 @@ export default function TradesSignup() {
           >
             <div className="flex items-center justify-center gap-6">
               <div className="text-center">
-                <p className="text-4xl font-bold text-[#F7B600]">£2.99</p>
+                <p className="text-4xl font-bold text-[#F7B600]">£1.99</p>
                 <p className="text-sm text-slate-700 font-medium">per week</p>
               </div>
               <div className="h-12 w-px bg-slate-300" />
@@ -219,16 +219,7 @@ export default function TradesSignup() {
         </div>
 
         {/* Social Proof */}
-        <div 
-          className="text-center p-8 rounded-2xl border"
-          style={{
-            background: getGradientStyle(theme, 'main'),
-            backdropFilter: getBackdropFilter(),
-            WebkitBackdropFilter: getBackdropFilter(),
-            boxShadow: getBoxShadow('main'),
-            borderColor: getBorderColor(theme),
-          }}
-        >
+        <div className="text-center p-8 rounded-2xl border bg-white/60 backdrop-blur-md border-slate-200">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Shield className="w-6 h-6 text-[#57CFA4]" />
             <h3 className="font-semibold text-[#1E3A57]">
