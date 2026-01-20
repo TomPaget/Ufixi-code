@@ -115,7 +115,7 @@ export default function BusinessPricing() {
       {/* Animated gradient background */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/50 to-orange-500/90 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-yellow-300/40 to-blue-500/80 animate-gradient-shift-slow-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-emerald-400/40 to-blue-500/80 animate-gradient-shift-slow-slower blur-3xl" />
         <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/70 via-pink-200/45 to-orange-500/75 animate-gradient-shift-reverse-slower blur-3xl" />
         <div className="absolute inset-0 bg-white/5" />
       </div>
@@ -184,7 +184,7 @@ export default function BusinessPricing() {
             </span>
           </h1>
           
-          <p className="text-lg max-w-2xl mx-auto text-slate-600">
+          <p className="text-lg max-w-2xl mx-auto text-slate-800 font-medium">
             See a problem during a viewing? Need a quick explanation for your client? 
             Fixplain gives you instant, professional property diagnostics on the spot.
           </p>
@@ -201,7 +201,7 @@ export default function BusinessPricing() {
                 className="p-4 rounded-xl border bg-white/60 backdrop-blur-md border-slate-200"
               >
                 <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
-                <p className="text-sm text-[#1E3A57]">
+                <p className="text-sm font-semibold text-slate-900">
                   {item.text}
                 </p>
               </div>
@@ -250,7 +250,7 @@ export default function BusinessPricing() {
                   <span className="text-4xl font-bold text-[#1E3A57]">
                     £{plan.price}
                   </span>
-                  <span className="text-sm text-slate-600">
+                  <span className="text-sm text-slate-700 font-medium">
                     /month
                   </span>
                 </div>
@@ -259,7 +259,7 @@ export default function BusinessPricing() {
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <CheckCircle2 className="w-5 h-5 text-[#57CFA4] flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-slate-700">
+                      <span className="text-sm text-slate-900 font-medium">
                         {feature}
                       </span>
                     </li>
@@ -320,7 +320,7 @@ export default function BusinessPricing() {
                 <p className="text-sm text-[#1E3A57]">
                   <strong>Selected Plan:</strong> {selectedPlan.name} - £{selectedPlan.price}/month
                 </p>
-                <p className="text-xs mt-2 text-slate-600">
+                <p className="text-xs mt-2 text-slate-700 font-medium">
                   Cancel anytime. No hidden fees.
                 </p>
               </div>
@@ -351,7 +351,7 @@ export default function BusinessPricing() {
               Trusted by Estate Agents Across the UK
             </h3>
           </div>
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-slate-800 font-medium">
             Join hundreds of property professionals using Fixplain to provide better service to their clients
           </p>
         </div>
