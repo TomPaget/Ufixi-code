@@ -649,7 +649,7 @@ export default function Home() {
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
       
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b-2 bg-white border-[#1E3A57]/20">
+      <header className="sticky top-0 z-30 border-b-2 bg-white/80 backdrop-blur-md border-[#1E3A57]/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <Button 
             variant="ghost" 
@@ -673,7 +673,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl p-6 border-2 bg-white border-[#57CFA4]/30"
+          className="rounded-2xl p-6 border-2 bg-white/80 backdrop-blur-md border-[#57CFA4]/30"
         >
           <h1 className="text-2xl font-bold mb-2 text-[#1E3A57]">
             What needs fixing?
@@ -803,7 +803,7 @@ export default function Home() {
           {issuesLoading ? (
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="rounded-2xl h-24 animate-pulse bg-slate-100" />
+                <div key={i} className="rounded-2xl h-24 animate-pulse bg-white/60 backdrop-blur-md" />
               ))}
             </div>
           ) : issues.length > 0 ? (
@@ -813,7 +813,7 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 rounded-2xl bg-white border border-slate-200">
+            <div className="text-center py-12 rounded-2xl bg-white/80 backdrop-blur-md border border-slate-200">
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
                 <Sparkles className="w-8 h-8 text-slate-400" />
               </div>
@@ -836,7 +836,7 @@ export default function Home() {
             <DialogTitle className="text-xl">Pay for Scan</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
-            <div className="rounded-2xl p-6 text-center border-2 bg-yellow-50 border-yellow-300">
+            <div className="rounded-2xl p-6 text-center border-2 bg-yellow-50/80 backdrop-blur-md border-yellow-300">
               <p className="text-4xl font-bold mb-2 text-yellow-700">
                 £0.99
               </p>
