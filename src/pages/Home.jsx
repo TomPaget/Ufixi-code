@@ -752,13 +752,25 @@ export default function Home() {
               description="Save and manage your trusted contractors for quick access when you need professional help."
             >
               <Link to={createPageUrl("Contractors")}>
-                <Button
-                  variant="outline"
-                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50 text-[#0F1E2E]"
+                <div
+                  className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
+                  style={{
+                    background: `linear-gradient(135deg, rgba(219,234,254,0.4) 0%, rgba(191,219,254,0.25) 40%, rgba(147,197,253,0.1) 100%), 
+                                 radial-gradient(circle at 25% 25%, rgba(255,255,255,0.75) 0%, transparent 40%),
+                                 radial-gradient(circle at 80% 80%, rgba(147,197,253,0.2) 0%, transparent 50%)`,
+                    backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                    boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
+                                inset 1px 1px 4px rgba(255,255,255,0.7),
+                                0 10px 40px rgba(31,65,100,0.15),
+                                0 1px 3px rgba(255,255,255,0.4),
+                                inset 0 -1px 0px rgba(0,0,0,0.06)`,
+                    borderColor: 'rgba(255,255,255,0.4)',
+                  }}
                 >
                   <Users className="w-5 h-5 text-[#57CFA4]" />
-                  <span className="text-sm font-semibold">Contractors</span>
-                </Button>
+                  <span className="text-sm font-semibold text-[#0F1E2E]">Contractors</span>
+                </div>
               </Link>
               </FeatureTooltip>
               <FeatureTooltip
@@ -766,13 +778,25 @@ export default function Home() {
               description="Connect with other homeowners, renters, and landlords to share advice and experiences."
               >
               <Link to={createPageUrl("Forum")}>
-                <Button
-                  variant="outline"
-                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50 text-[#0F1E2E]"
+                <div
+                  className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
+                  style={{
+                    background: `linear-gradient(135deg, rgba(219,234,254,0.4) 0%, rgba(191,219,254,0.25) 40%, rgba(147,197,253,0.1) 100%), 
+                                 radial-gradient(circle at 25% 25%, rgba(255,255,255,0.75) 0%, transparent 40%),
+                                 radial-gradient(circle at 80% 80%, rgba(147,197,253,0.2) 0%, transparent 50%)`,
+                    backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                    boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
+                                inset 1px 1px 4px rgba(255,255,255,0.7),
+                                0 10px 40px rgba(31,65,100,0.15),
+                                0 1px 3px rgba(255,255,255,0.4),
+                                inset 0 -1px 0px rgba(0,0,0,0.06)`,
+                    borderColor: 'rgba(255,255,255,0.4)',
+                  }}
                 >
                   <MessageCircle className="w-5 h-5 text-[#57CFA4]" />
-                  <span className="text-sm font-semibold">Forum</span>
-                </Button>
+                  <span className="text-sm font-semibold text-[#0F1E2E]">Forum</span>
+                </div>
               </Link>
               </FeatureTooltip>
         </div>
