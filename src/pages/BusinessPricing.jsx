@@ -174,7 +174,7 @@ export default function BusinessPricing() {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
-            <span style={{ fontWeight: "normal" }}>Property Issues?</span>
+            <span style={{ fontWeight: "normal", fontFamily: "'Coolvetica', sans-serif" }}>Property Issues?</span>
             <br />
             <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
               Instant Answers.
