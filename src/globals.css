@@ -1,12 +1,18 @@
 css
-@import url('https://fonts.cdnfonts.com/css/coolvetica');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('https://cdn.jsdelivr.net/npm/@fontsource/coolvetica@1.0.0/index.min.css');
+  font-display: swap;
+}
+
 @layer base {
-  * {
-    font-family: 'Coolvetica', sans-serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Coolvetica', 'Oswald', sans-serif;
   }
 }
