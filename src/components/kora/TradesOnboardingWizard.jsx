@@ -340,10 +340,7 @@ export default function TradesOnboardingWizard({ onComplete }) {
             </div>
 
             <div>
-              <Label className={cn(
-                "mb-2 block",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+              <Label className="mb-2 block text-[#0F1E2E]/80">
                 Specialties * (select at least one)
               </Label>
               <div className="flex flex-wrap gap-2">
@@ -354,10 +351,8 @@ export default function TradesOnboardingWizard({ onComplete }) {
                     className={cn(
                       "px-3 py-2 rounded-lg border-2 text-sm capitalize transition-colors",
                       specialties.includes(specialty)
-                        ? "bg-[#F7B600] border-[#F7B600] text-[#0F1E2E]"
-                        : theme === "dark"
-                          ? "border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
-                          : "border-slate-200 text-slate-600 hover:bg-slate-50"
+                        ? "bg-[#57CFA4] border-[#57CFA4] text-white"
+                        : "border-slate-200 text-[#0F1E2E]/70 hover:bg-slate-100"
                     )}
                   >
                     {specialty}
