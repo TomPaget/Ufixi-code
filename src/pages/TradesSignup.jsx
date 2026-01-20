@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, CheckCircle2, Briefcase } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Briefcase, Wrench, Users, Clock, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -51,92 +51,124 @@ export default function TradesSignup() {
   }
 
   return (
-    <div className={cn(
-      "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
-    )}>
-      <header className={cn(
-        "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
-      )}>
-        <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/50 to-orange-500/90 animate-gradient-shift-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-emerald-400/40 to-blue-500/80 animate-gradient-shift-slow-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/70 via-pink-200/45 to-orange-500/75 animate-gradient-shift-reverse-slower blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
+      </div>
+      
+      <style jsx>{`
+        @keyframes gradient-shift-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          25% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
+          50% { transform: translate(4%, 16%) scale(1.08) rotate(-2deg); }
+          75% { transform: translate(-8%, 8%) scale(1.12) rotate(3deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-slow-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          33% { transform: translate(-8%, 12%) scale(1.25) rotate(-5deg); }
+          66% { transform: translate(8%, -8%) scale(1.08) rotate(4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-reverse-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          30% { transform: translate(16%, -12%) scale(1.2) rotate(6deg); }
+          60% { transform: translate(-12%, 8%) scale(1.12) rotate(-3deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        .animate-gradient-shift-slower {
+          animation: gradient-shift-slower 18s ease-in-out infinite;
+        }
+        .animate-gradient-shift-slow-slower {
+          animation: gradient-shift-slow-slower 22s ease-in-out infinite;
+        }
+        .animate-gradient-shift-reverse-slower {
+          animation: gradient-shift-reverse-slower 20s ease-in-out infinite;
+        }
+      `}</style>
+      
+      {/* Header */}
+      <header className="sticky top-0 z-30 border-b bg-white/60 backdrop-blur-md border-slate-200">
+        <div className="max-w-6xl mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
-            className={cn(
-              "rounded-xl",
-              theme === "dark"
-                ? "hover:bg-[#57CFA4]/20 text-[#57CFA4]"
-                : "hover:bg-slate-100 text-[#1E3A57]"
-            )}
             onClick={() => navigate(createPageUrl("Home"))}
+            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className={cn(
-            "font-bold text-lg",
-            theme === "dark" ? "text-white" : "text-[#1E3A57]"
-          )}>Join as a Tradesperson</h1>
+          <h1 className="text-lg font-bold text-[#1E3A57]">
+            Join as a Tradesperson
+          </h1>
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-5 py-6 space-y-6">
+      <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
         {/* Hero Section */}
-        <div className={cn(
-          "rounded-2xl p-6 border-2 text-center",
-          theme === "dark"
-            ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
-            : "bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200"
-        )}>
-          <Briefcase className="w-12 h-12 mx-auto mb-3 text-[#F7B600]" />
-          <h2 className={cn(
-            "text-2xl font-bold mb-2",
-            theme === "dark" ? "text-white" : "text-[#1E3A57]"
-          )}>
-            Become a Verified Tradesperson
-          </h2>
-          <p className={cn(
-            "text-sm mb-4",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-          )}>
-            Connect with local customers, grow your business, and manage jobs all in one place
+        <div className="text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-[#F7B600]/10 border-[#F7B600]/30 text-[#F7B600]">
+            <Briefcase className="w-4 h-4" />
+            <span className="text-sm font-semibold">For Tradespeople</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]">
+            Grow Your Business
+            <br />
+            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent">
+              Connect with Customers
+            </span>
+          </h1>
+          
+          <p className="text-lg max-w-2xl mx-auto text-slate-800 font-medium">
+            Join hundreds of verified tradespeople finding local jobs. No commission fees - keep 100% of your earnings.
           </p>
-          <div className="flex items-center justify-center gap-6 mt-6">
-            <div className={cn(
-              "text-center",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
-              <p className="text-2xl font-bold text-[#F7B600]">£2.99</p>
-              <p className="text-xs">per week</p>
-            </div>
-            <div className={cn(
-              "h-8 w-px",
-              theme === "dark" ? "bg-[#57CFA4]/30" : "bg-slate-300"
-            )} />
-            <div className={cn(
-              "text-center",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
-              <p className="text-2xl font-bold text-[#57CFA4]">0%</p>
-              <p className="text-xs">commission</p>
+
+          {/* Use Cases */}
+          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mt-8">
+            {[
+              { icon: Users, text: "Direct customer connections" },
+              { icon: Clock, text: "Flexible job management" },
+              { icon: Wrench, text: "Keep 100% of earnings" }
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="p-4 rounded-xl border bg-white/60 backdrop-blur-md border-slate-200"
+              >
+                <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
+                <p className="text-sm font-semibold text-slate-900">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Pricing */}
+          <div className="max-w-md mx-auto mt-8 p-6 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#F7B600]">
+            <div className="flex items-center justify-center gap-6">
+              <div className="text-center">
+                <p className="text-4xl font-bold text-[#F7B600]">£2.99</p>
+                <p className="text-sm text-slate-700 font-medium">per week</p>
+              </div>
+              <div className="h-12 w-px bg-slate-300" />
+              <div className="text-center">
+                <p className="text-4xl font-bold text-[#57CFA4]">0%</p>
+                <p className="text-sm text-slate-700 font-medium">commission</p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Benefits */}
-        <div className={cn(
-          "rounded-2xl p-6 border",
-          theme === "dark"
-            ? "bg-[#1A2F42] border-[#57CFA4]/20"
-            : "bg-white border-slate-200"
-        )}>
-          <h3 className={cn(
-            "font-semibold mb-4",
-            theme === "dark" ? "text-white" : "text-[#1E3A57]"
-          )}>
-            What you get:
-          </h3>
-          <ul className="space-y-3">
+        <div className="max-w-3xl mx-auto rounded-2xl border p-8 bg-white/60 backdrop-blur-md border-slate-200">
+          <h2 className="text-2xl font-bold mb-6 text-[#1E3A57]">
+            What You Get
+          </h2>
+          <ul className="space-y-4">
             {[
               "Direct customer connections in your area",
               "Professional profile with reviews and ratings",
@@ -145,19 +177,33 @@ export default function TradesSignup() {
               "AI-powered customer matching",
               "No commission on jobs - keep 100% of your earnings"
             ].map((benefit, i) => (
-              <li key={i} className={cn(
-                "flex items-start gap-3",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-              )}>
+              <li key={i} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-[#57CFA4] flex-shrink-0 mt-0.5" />
-                <span className="text-sm">{benefit}</span>
+                <span className="text-sm text-slate-900 font-medium">
+                  {benefit}
+                </span>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Onboarding Wizard */}
-        <TradesOnboardingWizard onComplete={handleComplete} />
+        <div className="max-w-3xl mx-auto">
+          <TradesOnboardingWizard onComplete={handleComplete} />
+        </div>
+
+        {/* Social Proof */}
+        <div className="text-center p-8 rounded-2xl border bg-white/60 backdrop-blur-md border-slate-200">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Shield className="w-6 h-6 text-[#57CFA4]" />
+            <h3 className="font-semibold text-[#1E3A57]">
+              Trusted by Tradespeople Across the UK
+            </h3>
+          </div>
+          <p className="text-sm text-slate-800 font-medium">
+            Join hundreds of verified professionals growing their business with Fixplain
+          </p>
+        </div>
       </main>
     </div>
   );
