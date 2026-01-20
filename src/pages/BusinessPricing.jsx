@@ -27,7 +27,7 @@ const plans = [
     name: "Starter",
     price: 18.99,
     icon: Building2,
-    color: "from-blue-500 to-blue-600",
+    color: "from-slate-900 to-slate-950",
     features: [
       "Unlimited property scans",
       "Instant AI diagnostics",
@@ -41,7 +41,7 @@ const plans = [
     name: "Professional",
     price: 39.99,
     icon: Zap,
-    color: "from-indigo-500 to-purple-600",
+    color: "from-slate-700 to-slate-900",
     popular: true,
     features: [
       "Everything in Starter",
@@ -58,7 +58,7 @@ const plans = [
     name: "Enterprise",
     price: 79.99,
     icon: TrendingUp,
-    color: "from-purple-500 to-pink-600",
+    color: "from-slate-800 to-slate-950",
     features: [
       "Everything in Professional",
       "Unlimited team members",
