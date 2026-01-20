@@ -612,9 +612,9 @@ export default function Home() {
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/40 via-yellow-400/20 to-yellow-500/35 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500/30 via-blue-600/15 to-blue-700/30 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/25 via-yellow-400/15 to-yellow-600/25 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-700/45 via-pink-600/25 to-orange-600/40 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-pink-700/35 via-orange-600/20 to-red-700/35 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-orange-600/30 via-pink-500/18 to-orange-700/28 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
