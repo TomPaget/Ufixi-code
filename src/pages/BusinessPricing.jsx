@@ -230,9 +230,9 @@ export default function BusinessPricing() {
                 <Button
                   onClick={() => handleSelectPlan(plan)}
                   className={cn(
-                    "w-full",
+                    "w-full font-semibold",
                     isSelected
-                      ? "bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+                      ? "bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E]"
                       : "bg-[#1E3A57] hover:bg-[#1E3A57]/90 text-white"
                   )}
                 >
@@ -289,7 +289,7 @@ export default function BusinessPricing() {
               <Button
                 onClick={handleSubscribe}
                 disabled={!companyName || upgradeMutation.isPending}
-                className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] h-12"
+                className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E] h-12 font-semibold"
               >
                 {upgradeMutation.isPending ? (
                   "Processing..."

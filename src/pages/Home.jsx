@@ -675,10 +675,10 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           className="rounded-2xl p-6 border-2 bg-white/60 backdrop-blur-md border-[#57CFA4]/30"
         >
-          <h1 className="text-2xl font-bold mb-2 text-[#1E3A57]">
+          <h1 className="text-2xl font-bold mb-2 text-[#0F1E2E]">
             What needs fixing?
           </h1>
-          <p className="text-[#1E3A57]/70">
+          <p className="text-[#0F1E2E]/80 font-medium">
             Upload media to receive professional assessment
           </p>
         </motion.div>
@@ -692,24 +692,24 @@ export default function Home() {
           >
             <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
               <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
-              <p className="text-xl font-bold text-[#1E3A57]">
+              <p className="text-xl font-bold text-[#0F1E2E]">
                 {issues.filter(i => i.status === "active").length}
               </p>
-              <p className="text-xs text-[#1E3A57]/70">Active</p>
+              <p className="text-xs text-[#0F1E2E]/80 font-semibold">Active</p>
             </div>
             <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
               <Calendar className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
-              <p className="text-xl font-bold text-[#1E3A57]">
+              <p className="text-xl font-bold text-[#0F1E2E]">
                 {issues.filter(i => i.urgency === "fix_soon").length}
               </p>
-              <p className="text-xs text-[#1E3A57]/70">Fix Soon</p>
+              <p className="text-xs text-[#0F1E2E]/80 font-semibold">Fix Soon</p>
             </div>
             <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
               <History className="w-5 h-5 mx-auto mb-1 text-[#57CFA4]" />
-              <p className="text-xl font-bold text-[#1E3A57]">
+              <p className="text-xl font-bold text-[#0F1E2E]">
                 {issues.filter(i => i.status === "resolved").length}
               </p>
-              <p className="text-xs text-[#1E3A57]/70">Resolved</p>
+              <p className="text-xs text-[#0F1E2E]/80 font-semibold">Resolved</p>
             </div>
           </motion.div>
         )}
@@ -737,13 +737,13 @@ export default function Home() {
             >
               <Button
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
-                className="w-full h-16 rounded-2xl font-semibold bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57]"
+                className="w-full h-16 rounded-2xl font-semibold bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E]"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 <span>{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
               </Button>
 
-              <p className="text-center text-sm mt-3 text-[#1E3A57]/70">
+              <p className="text-center text-sm mt-3 text-[#0F1E2E]/80 font-medium">
                 {scansLeft > 0 
                   ? `${scansLeft} of ${FREE_SCAN_LIMIT} free scans remaining`
                   : "£0.99 per scan after free scans"
@@ -762,10 +762,10 @@ export default function Home() {
               <Link to={createPageUrl("Contractors")}>
                 <Button
                   variant="outline"
-                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50 text-[#1E3A57]"
+                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50 text-[#0F1E2E]"
                 >
-                  <Users className="w-5 h-5 text-[#F7B600]" />
-                  <span className="text-sm font-medium">Contractors</span>
+                  <Users className="w-5 h-5 text-[#57CFA4]" />
+                  <span className="text-sm font-semibold">Contractors</span>
                 </Button>
               </Link>
               </FeatureTooltip>
@@ -776,10 +776,10 @@ export default function Home() {
               <Link to={createPageUrl("Forum")}>
                 <Button
                   variant="outline"
-                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50 text-[#1E3A57]"
+                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50 text-[#0F1E2E]"
                 >
                   <MessageCircle className="w-5 h-5 text-[#57CFA4]" />
-                  <span className="text-sm font-medium">Forum</span>
+                  <span className="text-sm font-semibold">Forum</span>
                 </Button>
               </Link>
               </FeatureTooltip>
@@ -788,13 +788,13 @@ export default function Home() {
         {/* Recent Issues */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold flex items-center gap-2 text-slate-900">
-              <History className="w-5 h-5 text-blue-600" />
+            <h2 className="font-bold flex items-center gap-2 text-[#0F1E2E]">
+              <History className="w-5 h-5 text-[#57CFA4]" />
               Recent Issues
             </h2>
             <Link 
               to={createPageUrl("History")}
-              className="text-sm font-medium text-blue-600 hover:text-blue-700"
+              className="text-sm font-semibold text-[#57CFA4] hover:text-[#57CFA4]/80"
             >
               View All
             </Link>
@@ -817,8 +817,8 @@ export default function Home() {
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
                 <Sparkles className="w-8 h-8 text-slate-400" />
               </div>
-              <p className="text-slate-600">No issues scanned yet</p>
-              <p className="text-sm mt-1 text-slate-500">
+              <p className="text-[#0F1E2E] font-semibold">No issues scanned yet</p>
+              <p className="text-sm mt-1 text-[#0F1E2E]/70 font-medium">
                 Tap the button above to get started
               </p>
             </div>
@@ -860,7 +860,7 @@ export default function Home() {
             <Button
               onClick={handlePayAndScan}
               disabled={processingPayment}
-              className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] h-12 rounded-xl"
+              className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E] h-12 rounded-xl font-semibold"
             >
               {processingPayment ? (
                 <>
