@@ -124,7 +124,7 @@ export default function TradesSignup() {
             </span>
           </h1>
           
-          <p className="text-lg max-w-2xl mx-auto text-slate-800 font-medium">
+          <p className="text-base max-w-2xl mx-auto text-slate-800 font-medium">
             Join hundreds of verified tradespeople finding local jobs. No commission fees - keep 100% of your earnings.
           </p>
 
