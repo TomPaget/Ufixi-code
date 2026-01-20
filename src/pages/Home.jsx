@@ -17,6 +17,7 @@ import OnboardingTour from "@/components/kora/OnboardingTour";
 import FeatureTooltip from "@/components/kora/FeatureTooltip";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
+import { getGradientStyle, getBackdropFilter, getBoxShadow, getBorderColor } from "@/components/kora/gradientThemes";
 
 const FREE_SCAN_LIMIT = 2;
 
