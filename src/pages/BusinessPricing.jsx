@@ -235,7 +235,7 @@ export default function BusinessPricing() {
                   </div>
                 )}
 
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-gradient-to-br ${plan.color}`}>
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-gradient-to-br from-slate-900 to-slate-950">
                   <Icon className="w-6 h-6 text-white" />
                 </div>
 
