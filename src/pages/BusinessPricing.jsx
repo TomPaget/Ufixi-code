@@ -25,11 +25,11 @@ import {
 const plans = [
   {
     name: "Starter",
-    price: 6.99,
+    price: 9.99,
     icon: Building2,
     color: "from-slate-900 to-slate-950",
     features: [
-      "Up to 3 team members",
+      "Up to 5 team members",
       "No ads on app",
       "Unlimited property scans",
       "Instant AI diagnostics",
