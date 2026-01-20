@@ -808,17 +808,17 @@ export default function Home() {
             <div 
               className="text-center py-12 rounded-3xl border-2 overflow-hidden"
               style={{
-                background: `linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0.08) 100%), 
-                             radial-gradient(circle at 25% 25%, rgba(255,255,255,0.6) 0%, transparent 40%),
-                             radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 0%, transparent 50%)`,
+                background: `linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.3) 40%, rgba(255,255,255,0.15) 100%), 
+                             radial-gradient(circle at 25% 25%, rgba(255,255,255,0.75) 0%, transparent 40%),
+                             radial-gradient(circle at 80% 80%, rgba(255,255,255,0.25) 0%, transparent 50%)`,
                 backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
                 WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-                boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.08), 
-                            inset 1px 1px 3px rgba(255,255,255,0.6),
-                            0 10px 40px rgba(31,65,100,0.12),
-                            0 1px 2px rgba(255,255,255,0.25),
-                            inset 0 -1px 0px rgba(0,0,0,0.05)`,
-                borderColor: 'rgba(255,255,255,0.3)',
+                boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
+                            inset 1px 1px 4px rgba(255,255,255,0.7),
+                            0 10px 40px rgba(31,65,100,0.15),
+                            0 1px 3px rgba(255,255,255,0.4),
+                            inset 0 -1px 0px rgba(0,0,0,0.06)`,
+                borderColor: 'rgba(255,255,255,0.4)',
               }}
             >
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
