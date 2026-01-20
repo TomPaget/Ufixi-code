@@ -298,9 +298,48 @@ Return the exact coordinates and verify the postcode is valid.`,
 
   return (
     <div className={cn(
-      "min-h-screen pb-20",
+      "min-h-screen pb-20 relative overflow-hidden",
       theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
     )}>
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-700/70 via-pink-400/35 to-orange-600/70 animate-gradient-shift-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-600/60 via-yellow-400/25 to-blue-600/60 animate-gradient-shift-slow-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/55 via-pink-300/30 to-orange-600/60 animate-gradient-shift-reverse-slower blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
+      </div>
+      
+      <style jsx>{`
+        @keyframes gradient-shift-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          25% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
+          50% { transform: translate(4%, 16%) scale(1.08) rotate(-2deg); }
+          75% { transform: translate(-8%, 8%) scale(1.12) rotate(3deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-slow-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          33% { transform: translate(-8%, 12%) scale(1.25) rotate(-5deg); }
+          66% { transform: translate(8%, -8%) scale(1.08) rotate(4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-reverse-slower {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          30% { transform: translate(16%, -12%) scale(1.2) rotate(6deg); }
+          60% { transform: translate(-12%, 8%) scale(1.12) rotate(-3deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        .animate-gradient-shift-slower {
+          animation: gradient-shift-slower 18s ease-in-out infinite;
+        }
+        .animate-gradient-shift-slow-slower {
+          animation: gradient-shift-slow-slower 22s ease-in-out infinite;
+        }
+        .animate-gradient-shift-reverse-slower {
+          animation: gradient-shift-reverse-slower 20s ease-in-out infinite;
+        }
+      `}</style>
+      
       <header className={cn(
         "sticky top-0 z-30 border-b-2",
         theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
