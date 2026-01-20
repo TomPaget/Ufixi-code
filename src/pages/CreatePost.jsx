@@ -84,32 +84,57 @@ export default function CreatePost() {
   };
 
   return (
-    <div className={cn(
-      "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#1E3A57]" : "bg-white"
-    )}>
-      <header className={cn(
-        "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#1E3A57] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
-      )}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      {/* Animated liquid gradient background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
+      </div>
+
+      <style jsx>{`
+        @keyframes gradient-shift {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-slow {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-reverse {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        .animate-gradient-shift {
+          animation: gradient-shift 12s ease-in-out infinite;
+        }
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 15s ease-in-out infinite;
+        }
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 13s ease-in-out infinite;
+        }
+      `}</style>
+
+      <header className="sticky top-0 z-30 border-b-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
-            className={cn(
-              "rounded-xl",
-              theme === "dark"
-                ? "hover:bg-[#57CFA4]/20 text-[#57CFA4]"
-                : "hover:bg-slate-100 text-[#1E3A57]"
-            )}
+            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
             onClick={() => navigate(-1)}
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className={cn(
-            "font-bold text-lg",
-            theme === "dark" ? "text-white" : "text-[#1E3A57]"
-          )}>Create Post</h1>
+          <h1 className="font-bold text-lg text-[#1E3A57]">Create Post</h1>
         </div>
       </header>
 
