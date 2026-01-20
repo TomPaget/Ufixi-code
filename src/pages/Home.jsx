@@ -605,10 +605,24 @@ export default function Home() {
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated liquid gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+      <div className="fixed inset-0 -z-10" style={{
+        background: theme === 'dark' 
+          ? 'linear-gradient(135deg, #1a2332 0%, #0f1e2e 50%, #1a3a52 100%)'
+          : 'linear-gradient(to-br, #f1f5f9, #f8fafc)'
+      }}>
+        {theme === 'dark' ? (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/40 via-yellow-400/20 to-yellow-500/35 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500/30 via-blue-600/15 to-blue-700/30 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/25 via-yellow-400/15 to-yellow-600/25 animate-gradient-shift-reverse blur-3xl" />
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+          </>
+        )}
         <div className="absolute inset-0 bg-white/5" />
       </div>
       
