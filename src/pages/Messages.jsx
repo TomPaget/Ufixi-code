@@ -91,7 +91,7 @@ export default function Messages() {
         }
       `}</style>
       
-      <header className="sticky top-0 z-30 border-b-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+      <header className="sticky top-0 z-30 border-b bg-white/95 backdrop-blur-sm border-slate-200/50">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
