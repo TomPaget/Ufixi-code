@@ -604,11 +604,29 @@ export default function Home() {
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated liquid gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
-        <div className="absolute inset-0 bg-white/5" />
+      <div className="fixed inset-0 -z-10" style={{
+        background: theme === 'dark' 
+          ? 'linear-gradient(to bottom right, #0a0e27, #1a1a2e)'
+          : 'linear-gradient(to bottom right, #f8fafc, #f1f5f9)'
+      }}>
+        <div className="absolute inset-0 animate-gradient-shift blur-3xl" style={{
+          background: theme === 'dark'
+            ? 'linear-gradient(to bottom right, rgba(139, 0, 139, 0.6), rgba(255, 20, 147, 0.4), rgba(255, 215, 0, 0.3))'
+            : 'linear-gradient(to bottom right, rgba(96, 165, 250, 0.85), rgba(255, 20, 147, 0.45), rgba(255, 215, 0, 0.85))'
+        }} />
+        <div className="absolute inset-0 animate-gradient-shift-slow blur-3xl" style={{
+          background: theme === 'dark'
+            ? 'linear-gradient(to top right, rgba(220, 38, 38, 0.5), rgba(255, 215, 0, 0.35), rgba(96, 165, 250, 0.5))'
+            : 'linear-gradient(to top right, rgba(220, 38, 38, 0.75), rgba(255, 215, 0, 0.35), rgba(96, 165, 250, 0.75))'
+        }} />
+        <div className="absolute inset-0 animate-gradient-shift-reverse blur-3xl" style={{
+          background: theme === 'dark'
+            ? 'linear-gradient(to bottom left, rgba(96, 165, 250, 0.45), rgba(255, 20, 147, 0.35), rgba(220, 38, 38, 0.5))'
+            : 'linear-gradient(to bottom left, rgba(96, 165, 250, 0.65), rgba(255, 20, 147, 0.4), rgba(220, 38, 38, 0.7))'
+        }} />
+        <div className="absolute inset-0" style={{
+          background: theme === 'dark' ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.05)'
+        }} />
       </div>
       
       <style jsx>{`
