@@ -363,17 +363,16 @@ export default function TradesOnboardingWizard({ onComplete }) {
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <Label className={theme === "dark" ? "text-white" : "text-[#1E3A57]"}>
+                <Label className="text-[#0F1E2E]/80">
                   Professional Bio
                 </Label>
                 {!aiProfile && (
                   <Button
                     type="button"
                     size="sm"
-                    variant="outline"
+                    className="text-xs bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-white"
                     onClick={handleGenerateProfile}
                     disabled={generatingProfile || !businessName || specialties.length === 0}
-                    className="text-xs"
                   >
                     {generatingProfile ? (
                       <>
@@ -393,20 +392,10 @@ export default function TradesOnboardingWizard({ onComplete }) {
                 placeholder="Tell customers about your experience and services..."
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className={cn(
-                  "mt-1 min-h-32",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-slate-200"
-                )}
+                className="bg-white/60 border-slate-200 min-h-32"
               />
               {aiProfile && (
-                <div className={cn(
-                  "mt-2 p-3 rounded-lg border text-xs",
-                  theme === "dark"
-                    ? "bg-green-900/20 border-green-500/30 text-green-300"
-                    : "bg-green-50 border-green-200 text-green-700"
-                )}>
+                <div className="mt-2 p-3 rounded-lg border text-xs bg-green-50/60 backdrop-blur-md border-green-200">
                   <strong>✓ AI Profile Generated:</strong> Bio, service highlights, and pricing recommendations created. Review and edit as needed.
                 </div>
               )}
