@@ -8,10 +8,10 @@ export default function Layout({ children, currentPageName }) {
       <ErrorBoundary>
         <style>{`
           :root {
-            --dark-bg: #0a1929;
-            --dark-card: #1a2332;
+            --dark-bg: #ffffff;
+            --dark-card: #ffffff;
           }
-        `}</style>
+        `}
         <div className="min-h-screen">
           {children}
           <BannerAd />

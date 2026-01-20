@@ -649,31 +649,18 @@ export default function Home() {
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
       
       {/* Header */}
-      <header className={cn(
-        "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#0a1929] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
-      )}>
+      <header className="sticky top-0 z-30 border-b-2 bg-white border-[#1E3A57]/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={() => setMenuOpen(true)}
-            className={cn(
-              "rounded-xl",
-              theme === "dark"
-                ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
-                : "hover:bg-slate-100 text-[#1E3A57]"
-            )}
+            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
           >
             <Menu className="w-5 h-5" />
           </Button>
           
-          <div className={cn(
-            "w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg",
-            theme === "dark"
-              ? "bg-[#F7B600] text-[#0F1E2E]"
-              : "bg-[#1E3A57] text-white"
-          )}>
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg bg-[#1E3A57] text-white">
             F
           </div>
 
@@ -686,22 +673,12 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className={cn(
-            "rounded-2xl p-6 border-2",
-            theme === "dark"
-              ? "bg-[#1a1a1a] border-[#57CFA4]/30"
-              : "bg-[#57CFA4]/10 border-[#57CFA4]/30"
-          )}
+          className="rounded-2xl p-6 border-2 bg-white border-[#57CFA4]/30"
         >
-          <h1 className={cn(
-            "text-2xl font-bold mb-2",
-            theme === "dark" ? "text-white" : "text-[#1E3A57]"
-          )}>
+          <h1 className="text-2xl font-bold mb-2 text-[#1E3A57]">
             What needs fixing?
           </h1>
-          <p className={cn(
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-          )}>
+          <p className="text-[#1E3A57]/70">
             Upload media to receive professional assessment
           </p>
         </motion.div>
@@ -713,59 +690,26 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="grid grid-cols-3 gap-3"
           >
-            <div className={cn(
-              "rounded-2xl p-4 text-center border",
-              theme === "dark"
-                ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
-                : "bg-white border-slate-200"
-            )}>
+            <div className="rounded-2xl p-4 text-center border bg-white border-slate-200">
               <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
-              <p className={cn(
-                "text-xl font-bold",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+              <p className="text-xl font-bold text-[#1E3A57]">
                 {issues.filter(i => i.status === "active").length}
               </p>
-              <p className={cn(
-                "text-xs",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>Active</p>
+              <p className="text-xs text-[#1E3A57]/70">Active</p>
             </div>
-            <div className={cn(
-              "rounded-2xl p-4 text-center border",
-              theme === "dark"
-                ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
-                : "bg-white border-slate-200"
-            )}>
+            <div className="rounded-2xl p-4 text-center border bg-white border-slate-200">
               <Calendar className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
-              <p className={cn(
-                "text-xl font-bold",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+              <p className="text-xl font-bold text-[#1E3A57]">
                 {issues.filter(i => i.urgency === "fix_soon").length}
               </p>
-              <p className={cn(
-                "text-xs",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>Fix Soon</p>
+              <p className="text-xs text-[#1E3A57]/70">Fix Soon</p>
             </div>
-            <div className={cn(
-              "rounded-2xl p-4 text-center border",
-              theme === "dark"
-                ? "bg-[#1E3A57]/50 border-[#57CFA4]/20"
-                : "bg-white border-slate-200"
-            )}>
+            <div className="rounded-2xl p-4 text-center border bg-white border-slate-200">
               <History className="w-5 h-5 mx-auto mb-1 text-[#57CFA4]" />
-              <p className={cn(
-                "text-xl font-bold",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+              <p className="text-xl font-bold text-[#1E3A57]">
                 {issues.filter(i => i.status === "resolved").length}
               </p>
-              <p className={cn(
-                "text-xs",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>Resolved</p>
+              <p className="text-xs text-[#1E3A57]/70">Resolved</p>
             </div>
           </motion.div>
         )}
@@ -799,10 +743,7 @@ export default function Home() {
                 <span>{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
               </Button>
 
-              <p className={cn(
-                "text-center text-sm mt-3",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <p className="text-center text-sm mt-3 text-[#1E3A57]/70">
                 {scansLeft > 0 
                   ? `${scansLeft} of ${FREE_SCAN_LIMIT} free scans remaining`
                   : "£0.99 per scan after free scans"
@@ -821,60 +762,39 @@ export default function Home() {
               <Link to={createPageUrl("Contractors")}>
                 <Button
                   variant="outline"
-                  className={cn(
-                    "w-full h-20 rounded-2xl flex-col gap-2 border",
-                    theme === "dark"
-                      ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:bg-[#57CFA4]/10 text-white"
-                      : "bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
-                  )}
+                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
                 >
                   <Users className="w-5 h-5 text-[#F7B600]" />
                   <span className="text-sm font-medium">Contractors</span>
                 </Button>
               </Link>
-            </FeatureTooltip>
-            <FeatureTooltip
+              </FeatureTooltip>
+              <FeatureTooltip
               title="Community Forum"
               description="Connect with other homeowners, renters, and landlords to share advice and experiences."
-            >
+              >
               <Link to={createPageUrl("Forum")}>
                 <Button
                   variant="outline"
-                  className={cn(
-                    "w-full h-20 rounded-2xl flex-col gap-2 border",
-                    theme === "dark"
-                      ? "bg-[#1E3A57]/50 border-[#57CFA4]/20 hover:bg-[#57CFA4]/10 text-white"
-                      : "bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
-                  )}
+                  className="w-full h-20 rounded-2xl flex-col gap-2 border bg-white border-slate-200 hover:bg-slate-50 text-[#1E3A57]"
                 >
                   <MessageCircle className="w-5 h-5 text-[#57CFA4]" />
                   <span className="text-sm font-medium">Forum</span>
                 </Button>
               </Link>
-            </FeatureTooltip>
+              </FeatureTooltip>
         </div>
 
         {/* Recent Issues */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className={cn(
-              "font-semibold flex items-center gap-2",
-              theme === "dark" ? "text-slate-200" : "text-slate-900"
-            )}>
-              <History className={cn(
-                "w-5 h-5",
-                theme === "dark" ? "text-blue-400" : "text-blue-600"
-              )} />
+            <h2 className="font-semibold flex items-center gap-2 text-slate-900">
+              <History className="w-5 h-5 text-blue-600" />
               Recent Issues
             </h2>
             <Link 
               to={createPageUrl("History")}
-              className={cn(
-                "text-sm font-medium",
-                theme === "dark" 
-                  ? "text-blue-400 hover:text-blue-300" 
-                  : "text-blue-600 hover:text-blue-700"
-              )}
+              className="text-sm font-medium text-blue-600 hover:text-blue-700"
             >
               View All
             </Link>
@@ -883,12 +803,7 @@ export default function Home() {
           {issuesLoading ? (
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className={cn(
-                  "rounded-2xl h-24 animate-pulse",
-                  theme === "dark"
-                    ? "bg-slate-800 border border-slate-700/50"
-                    : "bg-slate-100"
-                )} />
+                <div key={i} className="rounded-2xl h-24 animate-pulse bg-slate-100" />
               ))}
             </div>
           ) : issues.length > 0 ? (
@@ -898,28 +813,12 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className={cn(
-              "text-center py-12 rounded-2xl",
-              theme === "dark"
-                ? "bg-slate-800/50 border border-slate-700/50"
-                : "bg-white border border-slate-200"
-            )}>
-              <div className={cn(
-                "w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4",
-                theme === "dark" ? "bg-slate-700/50" : "bg-slate-100"
-              )}>
-                <Sparkles className={cn(
-                  "w-8 h-8",
-                  theme === "dark" ? "text-slate-500" : "text-slate-400"
-                )} />
+            <div className="text-center py-12 rounded-2xl bg-white border border-slate-200">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
+                <Sparkles className="w-8 h-8 text-slate-400" />
               </div>
-              <p className={cn(
-                theme === "dark" ? "text-slate-400" : "text-slate-600"
-              )}>No issues scanned yet</p>
-              <p className={cn(
-                "text-sm mt-1",
-                theme === "dark" ? "text-slate-500" : "text-slate-500"
-              )}>
+              <p className="text-slate-600">No issues scanned yet</p>
+              <p className="text-sm mt-1 text-slate-500">
                 Tap the button above to get started
               </p>
             </div>
@@ -937,43 +836,23 @@ export default function Home() {
             <DialogTitle className="text-xl">Pay for Scan</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 mt-4">
-            <div className={cn(
-              "rounded-2xl p-6 text-center border-2",
-              theme === "dark"
-                ? "bg-[#1A2F42] border-[#F7B600]"
-                : "bg-yellow-50 border-yellow-300"
-            )}>
-              <p className={cn(
-                "text-4xl font-bold mb-2",
-                theme === "dark" ? "text-[#F7B600]" : "text-yellow-700"
-              )}>
+            <div className="rounded-2xl p-6 text-center border-2 bg-yellow-50 border-yellow-300">
+              <p className="text-4xl font-bold mb-2 text-yellow-700">
                 £0.99
               </p>
-              <p className={cn(
-                "text-sm",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+              <p className="text-sm text-slate-600">
                 One-time payment for this scan
               </p>
             </div>
 
             <div className="space-y-2">
-              <p className={cn(
-                "text-sm",
-                theme === "dark" ? "text-white" : "text-slate-700"
-              )}>
+              <p className="text-sm text-slate-700">
                 ✓ AI-powered issue analysis
               </p>
-              <p className={cn(
-                "text-sm",
-                theme === "dark" ? "text-white" : "text-slate-700"
-              )}>
+              <p className="text-sm text-slate-700">
                 ✓ Cost estimates & repair guide
               </p>
-              <p className={cn(
-                "text-sm",
-                theme === "dark" ? "text-white" : "text-slate-700"
-              )}>
+              <p className="text-sm text-slate-700">
                 ✓ Professional recommendations
               </p>
             </div>
