@@ -676,8 +676,8 @@ export default function Home() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-normal text-[#0F1E2E] mt-8 mb-6">
-            <span className="whitespace-nowrap" style={{ fontFamily: "'Coolvetica', sans-serif" }}>What needs</span>{" "}
+          <h1 className="text-4xl md:text-5xl font-bold text-[#0F1E2E] mt-8 mb-6">
+            <span className="whitespace-nowrap font-normal" style={{ fontFamily: "'Coolvetica', sans-serif" }}>What needs</span>{" "}
             <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
               fixing?
             </span>
