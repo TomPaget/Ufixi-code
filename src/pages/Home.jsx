@@ -672,8 +672,7 @@ export default function Home() {
         {/* Welcome Section */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold text-[#0F1E2E]">
-            What needs
-            <br />
+            What needs{" "}
             <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent">
               fixing?
             </span>
