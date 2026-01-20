@@ -140,7 +140,7 @@ export default function CreatePost() {
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-4">
         {moderationError && (
-          <div className="bg-red-500/20 border-2 border-red-500 rounded-2xl p-4 flex items-start gap-3">
+          <div className="bg-red-500/20 border-2 border-red-500 rounded-2xl p-4 flex items-start gap-3 backdrop-blur-md">
             <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
             <div>
               <p className="font-semibold text-red-500">Post Not Allowed</p>
@@ -150,39 +150,23 @@ export default function CreatePost() {
         )}
 
         <div>
-          <label className={cn(
-            "text-sm font-medium mb-1 block",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-          )}>
+          <label className="text-sm font-medium mb-1 block text-[#0F1E2E]/80">
             Title
           </label>
           <Input
             placeholder="What's your question or topic?"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className={cn(
-              "border-2",
-              theme === "dark"
-                ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
-                : "bg-white border-[#1E3A57]/20"
-            )}
+            className="bg-white/60 backdrop-blur-md border-slate-200"
           />
         </div>
 
         <div>
-          <label className={cn(
-            "text-sm font-medium mb-1 block",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-          )}>
+          <label className="text-sm font-medium mb-1 block text-[#0F1E2E]/80">
             Category
           </label>
           <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className={cn(
-              "border-2",
-              theme === "dark"
-                ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
-                : "bg-white border-[#1E3A57]/20"
-            )}>
+            <SelectTrigger className="bg-white/60 backdrop-blur-md border-slate-200">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -201,30 +185,19 @@ export default function CreatePost() {
         </div>
 
         <div>
-          <label className={cn(
-            "text-sm font-medium mb-1 block",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-          )}>
+          <label className="text-sm font-medium mb-1 block text-[#0F1E2E]/80">
             Description
           </label>
           <Textarea
             placeholder="Share details, ask questions, or provide tips..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className={cn(
-              "border-2 min-h-[150px]",
-              theme === "dark"
-                ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
-                : "bg-white border-[#1E3A57]/20"
-            )}
+            className="bg-white/60 backdrop-blur-md border-slate-200 min-h-[150px]"
           />
         </div>
 
         <div>
-          <label className={cn(
-            "text-sm font-medium mb-2 block",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-          )}>
+          <label className="text-sm font-medium mb-2 block text-[#0F1E2E]/80">
             Image (optional)
           </label>
           {imageFile ? (
@@ -238,19 +211,14 @@ export default function CreatePost() {
               </button>
             </div>
           ) : (
-            <label className={cn(
-              "flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-2xl cursor-pointer transition-colors",
-              theme === "dark"
-                ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-                : "border-[#1E3A57]/20 hover:bg-slate-50"
-            )}>
+            <label className="flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-2xl cursor-pointer transition-colors bg-white/60 backdrop-blur-md border-slate-200 hover:bg-white/50">
               <input type="file" accept="image/*" className="hidden" onChange={handleImageSelect} />
               {uploading ? (
                 <Loader2 className="w-8 h-8 animate-spin text-[#57CFA4]" />
               ) : (
                 <>
-                  <Upload className={cn("w-8 h-8 mb-2", theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/50")} />
-                  <span className={cn("text-sm", theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
+                  <Upload className="w-8 h-8 mb-2 text-[#0F1E2E]/50" />
+                  <span className="text-sm text-[#0F1E2E]/70">
                     Tap to upload
                   </span>
                 </>
@@ -262,7 +230,7 @@ export default function CreatePost() {
         <Button
           onClick={handleSubmit}
           disabled={!title || !content || createPostMutation.isPending}
-          className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] font-semibold h-12 rounded-2xl"
+          className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E] font-semibold h-12 rounded-2xl"
         >
           {createPostMutation.isPending ? (
             <>
@@ -274,10 +242,7 @@ export default function CreatePost() {
           )}
         </Button>
 
-        <p className={cn(
-          "text-xs text-center",
-          theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-        )}>
+        <p className="text-xs text-center text-[#0F1E2E]/70">
           Posts are automatically moderated to ensure community safety
         </p>
       </main>
