@@ -670,18 +670,18 @@ export default function Home() {
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl p-6 border-2 bg-white/60 backdrop-blur-md border-[#57CFA4]/30"
-        >
-          <h1 className="text-2xl font-bold mb-2 text-[#0F1E2E]">
-            What needs fixing?
+        <div className="text-center space-y-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#0F1E2E]">
+            What needs
+            <br />
+            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent">
+              fixing?
+            </span>
           </h1>
-          <p className="text-[#0F1E2E]/80 font-medium">
-            Upload media to receive professional assessment
+          <p className="text-lg max-w-2xl mx-auto text-slate-800 font-medium">
+            Upload a photo or video of any issue and get an instant professional assessment with repair guidance.
           </p>
-        </motion.div>
+        </div>
 
         {/* Quick Stats */}
         {issues.length > 0 && (
