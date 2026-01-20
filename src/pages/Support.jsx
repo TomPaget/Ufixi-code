@@ -194,58 +194,50 @@ export default function Support() {
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
       {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-200 to-slate-100">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-rose-600/25 to-orange-700/50 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-800/45 via-amber-600/20 to-slate-600/45 animate-gradient-shift-slow-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-slate-600/40 via-rose-500/22 to-orange-700/45 animate-gradient-shift-reverse-slower blur-3xl" />
-        <div className="absolute inset-0 bg-white/10" />
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
       </div>
       
       <style jsx>{`
-        @keyframes gradient-shift-slower {
+        @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
-          50% { transform: translate(4%, 16%) scale(1.08) rotate(-2deg); }
-          75% { transform: translate(-8%, 8%) scale(1.12) rotate(3deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes gradient-shift-slow-slower {
+        @keyframes gradient-shift-slow {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-8%, 12%) scale(1.25) rotate(-5deg); }
-          66% { transform: translate(8%, -8%) scale(1.08) rotate(4deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes gradient-shift-reverse-slower {
+        @keyframes gradient-shift-reverse {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(16%, -12%) scale(1.2) rotate(6deg); }
-          60% { transform: translate(-12%, 8%) scale(1.12) rotate(-3deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        .animate-gradient-shift-slower {
-          animation: gradient-shift-slower 18s ease-in-out infinite;
+        .animate-gradient-shift {
+          animation: gradient-shift 12s ease-in-out infinite;
         }
-        .animate-gradient-shift-slow-slower {
-          animation: gradient-shift-slow-slower 22s ease-in-out infinite;
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 15s ease-in-out infinite;
         }
-        .animate-gradient-shift-reverse-slower {
-          animation: gradient-shift-reverse-slower 20s ease-in-out infinite;
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 13s ease-in-out infinite;
         }
       `}</style>
       
-      <header className={cn(
-        "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#1E3A57] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
-      )}>
+      <header className="sticky top-0 z-30 border-b-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button
             variant="ghost"
             size="icon"
-            className={cn(
-              "rounded-xl",
-              theme === "dark"
-                ? "hover:bg-[#57CFA4]/20 text-[#57CFA4]"
-                : "hover:bg-slate-100 text-[#1E3A57]"
-            )}
+            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
             onClick={() => navigate(createPageUrl("Home"))}
           >
             <ArrowLeft className="w-5 h-5" />
@@ -255,14 +247,8 @@ export default function Support() {
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className={cn(
-                "font-bold text-sm",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>Fixplain Support</h1>
-              <p className={cn(
-                "text-xs",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>AI Assistant</p>
+              <h1 className="font-bold text-sm text-[#1E3A57]">Fixplain Support</h1>
+              <p className="text-xs text-[#1E3A57]/70">AI Assistant</p>
             </div>
           </div>
         </div>
@@ -283,10 +269,8 @@ export default function Support() {
               <div className={cn(
                 "max-w-[80%] rounded-2xl px-4 py-3",
                 msg.role === "user"
-                  ? "bg-[#F7B600] text-[#1E3A57]"
-                  : theme === "dark"
-                    ? "bg-[#1E3A57]/50 border-2 border-[#57CFA4]/30 text-white"
-                    : "bg-white border-2 border-[#1E3A57]/20 text-[#1E3A57]"
+                  ? "bg-[#1E3A57] text-white"
+                  : "bg-white/60 backdrop-blur-md border-2 border-[#1E3A57]/20 text-[#1E3A57]"
               )}>
                 {msg.role === "assistant" ? (
                   <ReactMarkdown className="text-sm prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
@@ -325,14 +309,8 @@ export default function Support() {
                 )}
               </div>
               {msg.role === "user" && (
-                <div className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0",
-                  theme === "dark" ? "bg-white/10" : "bg-slate-100"
-                )}>
-                  <User className={cn(
-                    "w-5 h-5",
-                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                  )} />
+                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-slate-100">
+                  <User className="w-5 h-5 text-[#1E3A57]" />
                 </div>
               )}
             </div>
@@ -342,16 +320,8 @@ export default function Support() {
 
         {/* Rating Widget */}
         {showRating && !hasRated && messages.length > 2 && (
-          <div className={cn(
-            "mt-4 p-4 rounded-2xl border-2 mx-4",
-            theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/30"
-              : "bg-blue-50 border-blue-200"
-          )}>
-            <p className={cn(
-              "text-sm font-semibold mb-3",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
+          <div className="mt-4 p-4 rounded-2xl border-2 mx-4 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+            <p className="text-sm font-semibold mb-3 text-[#1E3A57]">
               💬 How helpful was this interaction?
             </p>
             <div className="flex gap-2">
@@ -360,12 +330,7 @@ export default function Support() {
                   key={star}
                   onClick={() => handleRating(star)}
                   variant="outline"
-                  className={cn(
-                    "flex-1 py-2 border-2 transition-all hover:scale-105",
-                    theme === "dark"
-                      ? "border-[#F7B600] text-[#F7B600] hover:bg-[#F7B600]/20"
-                      : "border-[#F7B600] text-[#F7B600] hover:bg-[#F7B600]/10"
-                  )}
+                  className="flex-1 py-2 border-2 transition-all hover:scale-105 border-[#F7B600] text-[#F7B600] hover:bg-[#F7B600]/10"
                 >
                   {"⭐".repeat(star)}
                 </Button>
@@ -373,10 +338,7 @@ export default function Support() {
             </div>
             <button
               onClick={() => setShowRating(false)}
-              className={cn(
-                "text-xs mt-2 w-full text-center",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-              )}
+              className="text-xs mt-2 w-full text-center text-slate-500"
             >
               Skip
             </button>
@@ -384,10 +346,7 @@ export default function Support() {
         )}
       </main>
 
-      <div className={cn(
-        "sticky bottom-0 border-t-2",
-        theme === "dark" ? "bg-[#1E3A57] border-[#57CFA4]/30" : "bg-white border-[#1E3A57]/20"
-      )}>
+      <div className="sticky bottom-0 border-t-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
         <div className="max-w-lg mx-auto px-5 py-4">
           {/* Attachments Preview */}
           {attachments.length > 0 && (
@@ -395,12 +354,7 @@ export default function Support() {
               {attachments.map((file, idx) => (
                 <div
                   key={idx}
-                  className={cn(
-                    "flex items-center gap-2 px-3 py-2 rounded-xl text-sm border",
-                    theme === "dark"
-                      ? "bg-[#1E3A57]/50 border-[#57CFA4]/30 text-white"
-                      : "bg-slate-50 border-slate-200"
-                  )}
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm border bg-slate-50 border-slate-200 text-[#1E3A57]"
                 >
                   {file.type === "image" ? (
                     <ImageIcon className="w-4 h-4 text-[#57CFA4]" />
@@ -433,12 +387,7 @@ export default function Support() {
               size="icon"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading || sending}
-              className={cn(
-                "rounded-xl",
-                theme === "dark"
-                  ? "border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
-                  : "border-slate-200 hover:bg-slate-50"
-              )}
+              className="rounded-xl border-slate-200 text-[#1E3A57] hover:bg-slate-50"
             >
               {uploading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -452,12 +401,7 @@ export default function Support() {
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
               disabled={sending}
-              className={cn(
-                "flex-1 border-2",
-                theme === "dark"
-                  ? "bg-[#1E3A57] border-[#57CFA4]/30 text-white"
-                  : "bg-white border-[#1E3A57]/20"
-              )}
+              className="flex-1 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/30 text-[#1E3A57]"
             />
             <Button
               onClick={handleSend}
