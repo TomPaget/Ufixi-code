@@ -156,7 +156,16 @@ export default function TradesSignup() {
           </div>
 
           {/* Pricing */}
-          <div className="max-w-md mx-auto mt-8 p-6 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#F7B600]">
+          <div 
+            className="max-w-md mx-auto mt-8 p-6 rounded-2xl border-2"
+            style={{
+              background: getGradientStyle(theme, 'accent'),
+              backdropFilter: getBackdropFilter(),
+              WebkitBackdropFilter: getBackdropFilter(),
+              boxShadow: getBoxShadow('accent'),
+              borderColor: '#F7B600',
+            }}
+          >
             <div className="flex items-center justify-center gap-6">
               <div className="text-center">
                 <p className="text-4xl font-bold text-[#F7B600]">£2.99</p>
