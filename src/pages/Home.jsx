@@ -604,7 +604,7 @@ export default function Home() {
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
+      theme === "dark" ? "bg-black" : "bg-white"
     )}>
       {showOnboarding && (
         <OnboardingTour onComplete={() => setShowOnboarding(false)} />
@@ -615,7 +615,7 @@ export default function Home() {
       {/* Header */}
       <header className={cn(
         "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
+        theme === "dark" ? "bg-black border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
       )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <Button 
@@ -653,7 +653,7 @@ export default function Home() {
           className={cn(
             "rounded-2xl p-6 border-2",
             theme === "dark"
-              ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
+              ? "bg-[#1a1a1a] border-[#57CFA4]/30"
               : "bg-[#57CFA4]/10 border-[#57CFA4]/30"
           )}
         >

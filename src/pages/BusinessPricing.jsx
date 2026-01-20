@@ -113,13 +113,13 @@ export default function BusinessPricing() {
   return (
     <div className={cn(
       "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#0F1E2E]" : "bg-slate-50"
+      theme === "dark" ? "bg-black" : "bg-slate-50"
     )}>
       {/* Header */}
       <header className={cn(
         "sticky top-0 z-30 border-b",
         theme === "dark" 
-          ? "bg-[#0F1E2E] border-[#57CFA4]/20" 
+          ? "bg-black border-[#57CFA4]/20" 
           : "bg-white border-slate-200"
       )}>
         <div className="max-w-6xl mx-auto px-5 py-4 flex items-center gap-4">
@@ -189,7 +189,7 @@ export default function BusinessPricing() {
                 className={cn(
                   "p-4 rounded-xl border",
                   theme === "dark"
-                    ? "bg-[#1A2F42] border-[#57CFA4]/20"
+                    ? "bg-[#1a1a1a] border-[#57CFA4]/20"
                     : "bg-white border-slate-200"
                 )}
               >
@@ -301,7 +301,7 @@ export default function BusinessPricing() {
           <div className={cn(
             "max-w-2xl mx-auto rounded-2xl border p-8",
             theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/20"
+              ? "bg-[#1a1a1a] border-[#57CFA4]/20"
               : "bg-white border-slate-200"
           )}>
             <h2 className={cn(
@@ -394,7 +394,7 @@ export default function BusinessPricing() {
         <div className={cn(
           "text-center p-8 rounded-2xl border",
           theme === "dark"
-            ? "bg-[#1A2F42] border-[#57CFA4]/20"
+            ? "bg-[#1a1a1a] border-[#57CFA4]/20"
             : "bg-white border-slate-200"
         )}>
           <div className="flex items-center justify-center gap-2 mb-4">
