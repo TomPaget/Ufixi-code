@@ -630,21 +630,21 @@ export default function Home() {
       <style jsx>{`
         @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
-          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
-          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
+          25% { transform: translate(12%, 8%) scale(1.15) rotate(3deg); }
+          50% { transform: translate(-8%, 15%) scale(1.08) rotate(-2deg); }
+          75% { transform: translate(-5%, -10%) scale(1.12) rotate(2deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
         @keyframes gradient-shift-slow {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
-          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
+          30% { transform: translate(-12%, 18%) scale(1.2) rotate(-4deg); }
+          60% { transform: translate(15%, -12%) scale(1.1) rotate(3deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
         @keyframes gradient-shift-reverse {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
-          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
+          35% { transform: translate(18%, -10%) scale(1.18) rotate(4deg); }
+          70% { transform: translate(-10%, 14%) scale(1.1) rotate(-3deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
         @keyframes liquidFlow {
@@ -653,13 +653,13 @@ export default function Home() {
           100% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 60px rgba(74,222,128,0.5), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
         }
         .animate-gradient-shift {
-          animation: gradient-shift 12s ease-in-out infinite;
+          animation: gradient-shift 20s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 15s ease-in-out infinite;
+          animation: gradient-shift-slow 25s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 13s ease-in-out infinite;
+          animation: gradient-shift-reverse 22s ease-in-out infinite;
         }
       `}</style>
       
