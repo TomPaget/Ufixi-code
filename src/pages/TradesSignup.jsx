@@ -117,10 +117,10 @@ export default function TradesSignup() {
             <span className="text-sm font-semibold">For Tradespeople</span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
             Grow Your Business
             <br />
-            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
               Connect with Customers
             </span>
           </h1>
