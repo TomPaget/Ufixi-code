@@ -789,9 +789,9 @@ export default function Home() {
               title="Find Contractors"
               description="Save and manage your trusted contractors for quick access when you need professional help."
             >
-              <Link to={createPageUrl("Contractors")}>
+              <Link to={createPageUrl("FindTradesmen")}>
                 <div
-                  className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
+                  className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all cursor-pointer"
                   style={{
                     background: getGradientStyle(theme, 'main'),
                     backdropFilter: getBackdropFilter(),

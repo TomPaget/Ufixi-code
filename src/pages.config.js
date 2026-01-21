@@ -8,11 +8,13 @@ import FindTradesmen from './pages/FindTradesmen';
 import Forum from './pages/Forum';
 import ForumPost from './pages/ForumPost';
 import History from './pages/History';
+import Home from './pages/Home';
 import HomeProfile from './pages/HomeProfile';
 import Integrations from './pages/Integrations';
 import Invoices from './pages/Invoices';
 import IssueDetail from './pages/IssueDetail';
 import JobDetail from './pages/JobDetail';
+import Landing from './pages/Landing';
 import Messages from './pages/Messages';
 import MyJobs from './pages/MyJobs';
 import Notifications from './pages/Notifications';
@@ -27,12 +29,10 @@ import TradesDashboard from './pages/TradesDashboard';
 import TradesPayment from './pages/TradesPayment';
 import TradesPending from './pages/TradesPending';
 import TradesProfile from './pages/TradesProfile';
+import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
-import Home from './pages/Home';
-import TradesSignup from './pages/TradesSignup';
-import Landing from './pages/Landing';
 import __Layout from './Layout.jsx';
 
 
@@ -47,11 +47,13 @@ export const PAGES = {
     "Forum": Forum,
     "ForumPost": ForumPost,
     "History": History,
+    "Home": Home,
     "HomeProfile": HomeProfile,
     "Integrations": Integrations,
     "Invoices": Invoices,
     "IssueDetail": IssueDetail,
     "JobDetail": JobDetail,
+    "Landing": Landing,
     "Messages": Messages,
     "MyJobs": MyJobs,
     "Notifications": Notifications,
@@ -66,12 +68,10 @@ export const PAGES = {
     "TradesPayment": TradesPayment,
     "TradesPending": TradesPending,
     "TradesProfile": TradesProfile,
+    "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
-    "Home": Home,
-    "TradesSignup": TradesSignup,
-    "Landing": Landing,
 }
 
 export const pagesConfig = {
