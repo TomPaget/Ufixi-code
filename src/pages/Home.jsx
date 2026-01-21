@@ -646,11 +646,7 @@ export default function Home() {
           60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes liquidFlow {
-          0% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 60px rgba(74,222,128,0.5), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
-          50% { box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15), inset 2px 2px 6px rgba(255,255,255,0.9), 0 15px 70px rgba(74,222,128,0.6), 0 2px 4px rgba(255,255,255,0.6), inset 0 -2px 1px rgba(0,0,0,0.08); }
-          100% { box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.8), 0 10px 60px rgba(74,222,128,0.5), 0 1px 3px rgba(255,255,255,0.5), inset 0 -1px 0px rgba(0,0,0,0.06); }
-        }
+
         .animate-gradient-shift {
           animation: gradient-shift 12s ease-in-out infinite;
         }
@@ -756,20 +752,12 @@ export default function Home() {
             >
               <div
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
-                className="w-full h-16 rounded-2xl font-semibold text-[#0F1E2E] cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:shadow-2xl hover:scale-[1.02]"
+                className="w-full h-16 rounded-2xl font-semibold text-[#0F1E2E] cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:shadow-lg hover:scale-[1.02]"
                 style={{
-                  background: `linear-gradient(135deg, rgba(74,222,128,0.85) 0%, rgba(74,222,128,0.65) 40%, rgba(74,222,128,0.5) 100%), 
-                               radial-gradient(circle at 25% 25%, rgba(255,255,255,0.9) 0%, transparent 40%),
-                               radial-gradient(circle at 80% 80%, rgba(74,222,128,0.6) 0%, transparent 50%)`,
-                  backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-                  WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-                  boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
-                              inset 1px 1px 4px rgba(255,255,255,0.8),
-                              0 10px 60px rgba(74,222,128,0.5),
-                              0 1px 3px rgba(255,255,255,0.5),
-                              inset 0 -1px 0px rgba(0,0,0,0.06)`,
+                  background: `linear-gradient(135deg, rgba(74,222,128,0.85) 0%, rgba(74,222,128,0.65) 40%, rgba(74,222,128,0.5) 100%)`,
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
                   borderColor: 'rgba(74,222,128,0.85)',
-                  animation: 'liquidFlow 6s ease-in-out infinite',
                 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity" style={{
