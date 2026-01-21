@@ -607,14 +607,14 @@ export default function Home() {
       {/* Animated liquid gradient background */}
       <div className="fixed inset-0 -z-10" style={{
         background: theme === 'dark' 
-          ? 'linear-gradient(135deg, #1a2332 0%, #2d3f52 25%, #3d2f47 50%, #4a2f3f 75%, #2a1f2e 100%)'
+          ? 'linear-gradient(135deg, #2a3f5f 0%, #3d5a7a 25%, #4a3d6f 50%, #5f4a5a 75%, #3d2f4a 100%)'
           : 'linear-gradient(to-br, #f1f5f9, #f8fafc)'
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-700/45 via-orange-600/48 to-yellow-500/45 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/40 via-yellow-600/45 to-orange-600/42 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/35 via-orange-500/40 to-yellow-600/38 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/65 via-orange-500/70 to-yellow-400/65 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/60 via-pink-400/65 to-orange-500/60 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/55 via-orange-400/60 to-yellow-500/58 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
