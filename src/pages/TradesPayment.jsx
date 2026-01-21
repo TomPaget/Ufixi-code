@@ -38,10 +38,21 @@ export default function TradesPayment() {
 
   const handlePayment = async () => {
     setProcessing(true);
-    // Simulate payment processing
-    setTimeout(() => {
-      activateSubscriptionMutation.mutate();
-    }, 2000);
+    try {
+      const { data } = await base44.functions.invoke('createStripeCheckout', {
+        planType: 'trades',
+        planName: 'Trades Subscription',
+        price: 2.99,
+        accountType: 'trades'
+      });
+
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      setProcessing(false);
+    }
   };
 
   return (

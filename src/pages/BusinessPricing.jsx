@@ -101,9 +101,30 @@ export default function BusinessPricing() {
     setSelectedPlan(plan);
   };
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async () => {
     if (selectedPlan && companyName) {
-      upgradeMutation.mutate(selectedPlan);
+      try {
+        // Save company name first
+        await base44.auth.updateMe({
+          company_name: companyName,
+          account_type: "business"
+        });
+
+        // Create Stripe checkout session
+        const { data } = await base44.functions.invoke('createStripeCheckout', {
+          planType: selectedPlan.name.toLowerCase(),
+          planName: `${selectedPlan.name} Plan`,
+          price: selectedPlan.price,
+          accountType: 'business'
+        });
+
+        // Redirect to Stripe checkout
+        if (data.url) {
+          window.location.href = data.url;
+        }
+      } catch (error) {
+        console.error('Checkout error:', error);
+      }
     }
   };
 
@@ -373,17 +394,11 @@ export default function BusinessPricing() {
 
               <Button
                 onClick={handleSubscribe}
-                disabled={!companyName || upgradeMutation.isPending}
+                disabled={!companyName}
                 className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E] h-12 font-semibold"
               >
-                {upgradeMutation.isPending ? (
-                  "Processing..."
-                ) : (
-                  <>
-                    <Sparkles className="w-5 h-5 mr-2" />
-                    Start Business Membership
-                  </>
-                )}
+                <Sparkles className="w-5 h-5 mr-2" />
+                Continue to Payment
               </Button>
             </div>
           </div>
