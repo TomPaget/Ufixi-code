@@ -224,8 +224,8 @@ export default function BusinessPricing() {
               >
                 {plan.popular && (
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 w-full flex justify-center px-4">
-                    <span className="bg-gradient-to-r from-[#F7B600] to-[#57CFA4] text-[#0F1E2E] px-8 py-2.5 rounded-full text-base font-bold shadow-2xl border-2 border-white whitespace-nowrap">
-                      ⭐ MOST POPULAR ⭐
+                    <span className="bg-gradient-to-r from-[#F7B600] to-[#57CFA4] text-[#0F1E2E] px-4 py-1.5 rounded-full text-sm font-bold shadow-lg border border-white whitespace-nowrap">
+                      Most Popular
                     </span>
                   </div>
                 )}
