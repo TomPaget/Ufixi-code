@@ -26,8 +26,10 @@ import {
   Calendar,
   CreditCard,
   MessageCircle,
-  Info } from
+  Info,
+  AlertCircle } from
 "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -73,6 +75,8 @@ export default function Settings() {
   const [bio, setBio] = useState("");
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [requestingLocation, setRequestingLocation] = useState(false);
+  const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -734,6 +738,71 @@ export default function Settings() {
           </RadioGroup>
         </motion.section>
 
+        {/* Subscription Management for Business Users */}
+        {user?.account_type === 'business' && user?.subscription_tier === 'business' && (
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.18 }}
+            className={cn(
+              "rounded-2xl p-5 border",
+              theme === "dark" ?
+              "bg-slate-800 border-slate-700/50" :
+              "bg-white border-slate-200"
+            )}>
+
+            <h3 className={cn(
+              "font-semibold mb-4",
+              theme === "dark" ? "text-slate-200" : "text-slate-900"
+            )}>Business Subscription</h3>
+
+            <div className="space-y-4">
+              <div className={cn(
+                "p-4 rounded-xl border",
+                theme === "dark" ?
+                "bg-slate-700/50 border-slate-600/50" :
+                "bg-slate-50 border-slate-200"
+              )}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className={cn(
+                    "font-semibold",
+                    theme === "dark" ? "text-slate-200" : "text-slate-900"
+                  )}>
+                    {user?.business_plan ? `${user.business_plan.charAt(0).toUpperCase() + user.business_plan.slice(1)} Plan` : 'Business Plan'}
+                  </span>
+                  <span className={cn(
+                    "text-sm font-bold",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
+                  )}>
+                    £{user?.business_monthly_price || 0}/month
+                  </span>
+                </div>
+                {user?.subscription_cancelled && user?.subscription_cancel_at && (
+                  <p className="text-sm text-orange-600 flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    Cancels on {new Date(user.subscription_cancel_at).toLocaleDateString()}
+                  </p>
+                )}
+              </div>
+
+              {!user?.subscription_cancelled && (
+                <Button
+                  onClick={() => setShowCancelDialog(true)}
+                  variant="outline"
+                  className={cn(
+                    "w-full rounded-xl",
+                    theme === "dark" ?
+                    "border-red-500/30 text-red-400 hover:bg-red-500/10" :
+                    "border-red-200 text-red-600 hover:bg-red-50"
+                  )}
+                >
+                  Cancel Subscription
+                </Button>
+              )}
+            </div>
+          </motion.section>
+        )}
+
         {/* Account Type Switch */}
         {user?.is_trades &&
             <motion.section
@@ -1251,6 +1320,45 @@ export default function Settings() {
           </TabsContent>
         </Tabs>
       </main>
+
+      {/* Cancel Subscription Dialog */}
+      <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+        <DialogContent className={cn(
+          "max-w-md",
+          theme === "dark" ? "bg-slate-800 border-slate-700" : "bg-white"
+        )}>
+          <DialogHeader>
+            <DialogTitle className={cn(
+              theme === "dark" ? "text-white" : "text-slate-900"
+            )}>Cancel Subscription?</DialogTitle>
+            <DialogDescription className={cn(
+              theme === "dark" ? "text-slate-400" : "text-slate-600"
+            )}>
+              Your subscription will remain active until the end of your current billing period. 
+              You'll lose access to business features after that.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setShowCancelDialog(false)}
+              disabled={cancelling}
+              className={cn(
+                theme === "dark" ? "border-slate-600 hover:bg-slate-700" : ""
+              )}
+            >
+              Keep Subscription
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleCancelSubscription}
+              disabled={cancelling}
+            >
+              {cancelling ? "Cancelling..." : "Yes, Cancel"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>);
 
 }
