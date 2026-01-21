@@ -205,6 +205,32 @@ export default function TradesSignup() {
             Join hundreds of verified professionals growing their business with Fixplain
           </p>
         </div>
+
+        {/* Use Cases */}
+        <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mt-8">
+          {[
+            { icon: Users, text: "Direct customer connections" },
+            { icon: Clock, text: "Flexible job management" },
+            { icon: Wrench, text: "Keep 100% of earnings" }
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="p-4 rounded-xl border"
+              style={{
+                background: getGradientStyle(theme, 'main'),
+                backdropFilter: getBackdropFilter(),
+                WebkitBackdropFilter: getBackdropFilter(),
+                boxShadow: getBoxShadow('main'),
+                borderColor: getBorderColor(theme),
+              }}
+            >
+              <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
+              <p className="text-sm font-semibold text-slate-900">
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
       </main>
     </div>
   );
