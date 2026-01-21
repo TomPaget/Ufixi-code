@@ -131,6 +131,24 @@ export default function Settings() {
     base44.auth.logout();
   };
 
+  const handleCancelSubscription = async () => {
+    if (!user?.stripe_subscription_id) return;
+    
+    setCancelling(true);
+    try {
+      await base44.functions.invoke('cancelSubscription', {
+        subscriptionId: user.stripe_subscription_id
+      });
+      
+      queryClient.invalidateQueries(["user"]);
+      setShowCancelDialog(false);
+    } catch (error) {
+      console.error('Failed to cancel subscription:', error);
+    } finally {
+      setCancelling(false);
+    }
+  };
+
   const handleSaveProfile = () => {
     updateUserMutation.mutate({
       display_name: displayName,
