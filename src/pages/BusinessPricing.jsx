@@ -197,7 +197,8 @@ export default function BusinessPricing() {
               <div
                 key={plan.name}
                 className={cn(
-                  "relative rounded-3xl border-2 p-6 transition-all cursor-pointer overflow-hidden group",
+                  "relative rounded-3xl border-2 transition-all cursor-pointer group",
+                  plan.popular ? "p-6 pt-12" : "p-6",
                   "bg-gradient-to-br from-white/40 via-white/20 to-white/10",
                   "backdrop-blur-xl backdrop-saturate-200",
                   "shadow-lg shadow-white/20",
@@ -222,8 +223,8 @@ export default function BusinessPricing() {
                 }}
               >
                 {plan.popular && (
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-30 w-full flex justify-center">
-                    <span className="bg-gradient-to-r from-[#F7B600] to-[#57CFA4] text-[#0F1E2E] px-8 py-2.5 rounded-full text-base font-bold shadow-2xl border-2 border-white">
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 w-full flex justify-center px-4">
+                    <span className="bg-gradient-to-r from-[#F7B600] to-[#57CFA4] text-[#0F1E2E] px-8 py-2.5 rounded-full text-base font-bold shadow-2xl border-2 border-white whitespace-nowrap">
                       ⭐ MOST POPULAR ⭐
                     </span>
                   </div>
