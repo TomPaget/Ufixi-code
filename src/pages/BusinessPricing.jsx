@@ -188,7 +188,7 @@ export default function BusinessPricing() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid md:grid-cols-3 gap-6 mb-16 items-center">
            {plans.map((plan) => {
             const Icon = plan.icon;
             const isSelected = selectedPlan?.name === plan.name;
@@ -204,7 +204,7 @@ export default function BusinessPricing() {
                   isSelected
                     ? "border-[#57CFA4]/60 shadow-2xl shadow-[#57CFA4]/30 scale-105"
                     : "border-white/30 hover:border-white/50 hover:shadow-xl hover:shadow-white/20",
-                  plan.popular && "ring-2 ring-[#F7B600]/40 ring-offset-4"
+                  plan.popular && "md:scale-110 md:z-10 ring-4 ring-[#F7B600]/60 shadow-2xl"
                 )}
                 onClick={() => handleSelectPlan(plan)}
                 style={{
@@ -222,9 +222,9 @@ export default function BusinessPricing() {
                 }}
               >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-[#F7B600] to-[#57CFA4] text-[#0F1E2E] px-4 py-1 rounded-full text-xs font-bold">
-                      MOST POPULAR
+                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
+                    <span className="bg-gradient-to-r from-[#F7B600] to-[#57CFA4] text-[#0F1E2E] px-6 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
+                      ⭐ MOST POPULAR
                     </span>
                   </div>
                 )}
