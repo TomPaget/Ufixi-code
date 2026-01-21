@@ -611,18 +611,18 @@ export default function Home() {
           : 'linear-gradient(to-br, #f1f5f9, #f8fafc)'
       }}>
         {theme === 'dark' ? (
-            <>
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/75 via-orange-500/70 to-cyan-500/70 animate-gradient-shift blur-3xl" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/70 via-pink-400/65 to-orange-500/60 animate-gradient-shift-slow blur-3xl" />
-              <div className="absolute inset-0 bg-gradient-to-bl from-cyan-600/65 via-orange-400/60 to-blue-600/65 animate-gradient-shift-reverse blur-3xl" />
-            </>
-          ) : (
-            <>
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/95 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-blue-400/50 to-blue-600/85 animate-gradient-shift-slow blur-3xl" />
-              <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
-            </>
-          )}
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/75 via-orange-500/70 to-cyan-400/70 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/70 via-pink-400/65 to-orange-500/60 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-400/65 via-orange-400/60 to-cyan-500/65 animate-gradient-shift-reverse blur-3xl" />
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+          </>
+        )}
         <div className="absolute inset-0 bg-white/5" />
       </div>
       
