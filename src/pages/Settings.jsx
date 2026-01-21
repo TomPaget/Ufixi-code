@@ -250,7 +250,7 @@ export default function Settings() {
         "sticky top-0 z-10 backdrop-blur-lg border-b",
         theme === "dark" ?
         "bg-slate-900/80 border-slate-700/50" :
-        "bg-white/80 border-slate-200"
+        "bg-white border-slate-200"
       )}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button
