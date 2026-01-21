@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import GuidedIssueFlow from "@/components/kora/GuidedIssueFlow";
 import IssueCard from "@/components/kora/IssueCard";
 import Disclaimer from "@/components/kora/Disclaimer";
+import AdBreak from "@/components/kora/AdBreak";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 
@@ -32,6 +33,8 @@ export default function Home() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const [processingPayment, setProcessingPayment] = useState(false);
+  const [showAdBreak, setShowAdBreak] = useState(false);
+  const [pendingIssueData, setPendingIssueData] = useState(null);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -537,8 +540,8 @@ export default function Home() {
               }
               });
 
-      // Create the issue with sentiment and historical data
-      const newIssue = await createIssueMutation.mutateAsync({
+      // Store issue data and show ad break instead of navigating immediately
+      setPendingIssueData({
         ...analysis,
         media_url: fileUrl,
         media_type: mediaType,
@@ -555,52 +558,68 @@ export default function Home() {
         property_category: additionalInfo.propertyCategory,
         scanned_by_name: user?.full_name
       });
-
-      // Update scan count (always increment)
-      await base44.auth.updateMe({
-        total_scans_used: totalScansUsed + 1
-      });
-
-      // Calculate AI-powered priority
-      try {
-        await base44.functions.invoke('calculateIssuePriority', {
-          issueId: newIssue.id
-        });
-      } catch (error) {
-        console.error('Failed to calculate priority:', error);
-      }
-
-      // Trigger notification for critical issues or fix_now urgency
-      if (analysis.severity_score >= 8 || analysis.urgency === 'fix_now') {
-        try {
-          await base44.functions.invoke('createIssueNotification', {
-            issueId: newIssue.id,
-            userId: user.id,
-            notificationType: analysis.urgency === 'fix_now' ? 'fix_now_urgency' : 'critical_issue'
-          });
-        } catch (error) {
-          console.error('Failed to send notification:', error);
-        }
-      } else {
-        // Send regular issue created notification
-        try {
-          await base44.functions.invoke('createIssueNotification', {
-            issueId: newIssue.id,
-            userId: user.id,
-            notificationType: 'issue_created'
-          });
-        } catch (error) {
-          console.error('Failed to send notification:', error);
-        }
-      }
+      setShowAdBreak(true);
 
     } catch (error) {
-      console.error("Analysis failed:", error);
-    } finally {
-      setAnalyzing(false);
-      setShowScanner(false);
-    }
-  };
+        console.error("Analysis failed:", error);
+      } finally {
+        setAnalyzing(false);
+        setShowScanner(false);
+      }
+    };
+
+    const handleAdComplete = async () => {
+      setShowAdBreak(false);
+
+      if (!pendingIssueData) return;
+
+      try {
+        // Create the issue with stored data
+        const newIssue = await createIssueMutation.mutateAsync(pendingIssueData);
+
+        // Update scan count
+        await base44.auth.updateMe({
+          total_scans_used: totalScansUsed + 1
+        });
+
+        // Calculate AI-powered priority
+        try {
+          await base44.functions.invoke('calculateIssuePriority', {
+            issueId: newIssue.id
+          });
+        } catch (error) {
+          console.error('Failed to calculate priority:', error);
+        }
+
+        // Trigger notification
+        if (pendingIssueData.severity_score >= 8 || pendingIssueData.urgency === 'fix_now') {
+          try {
+            await base44.functions.invoke('createIssueNotification', {
+              issueId: newIssue.id,
+              userId: user.id,
+              notificationType: pendingIssueData.urgency === 'fix_now' ? 'fix_now_urgency' : 'critical_issue'
+            });
+          } catch (error) {
+            console.error('Failed to send notification:', error);
+          }
+        } else {
+          try {
+            await base44.functions.invoke('createIssueNotification', {
+              issueId: newIssue.id,
+              userId: user.id,
+              notificationType: 'issue_created'
+            });
+          } catch (error) {
+            console.error('Failed to send notification:', error);
+          }
+        }
+
+        navigate(createPageUrl(`IssueDetail?id=${newIssue.id}`));
+        setPendingIssueData(null);
+      } catch (error) {
+        console.error("Failed to create issue:", error);
+      }
+    };
 
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden">
@@ -661,7 +680,14 @@ export default function Home() {
       {showOnboarding && (
         <OnboardingTour onComplete={() => setShowOnboarding(false)} />
       )}
-      
+
+      {showAdBreak && pendingIssueData && (
+        <AdBreak 
+          onAdComplete={handleAdComplete}
+          issueTitle={pendingIssueData.title}
+        />
+      )}
+
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
       
       {/* Header */}
