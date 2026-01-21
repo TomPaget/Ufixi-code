@@ -785,46 +785,36 @@ export default function Home() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3">
-          <FeatureTooltip
-              title="Find Contractors"
-              description="Save and manage your trusted contractors for quick access when you need professional help."
+          <Link to={createPageUrl("FindTradesmen")}>
+            <div
+              className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all cursor-pointer"
+              style={{
+                background: getGradientStyle(theme, 'main'),
+                backdropFilter: getBackdropFilter(),
+                WebkitBackdropFilter: getBackdropFilter(),
+                boxShadow: getBoxShadow('main'),
+                borderColor: getBorderColor(theme),
+              }}
             >
-              <Link to={createPageUrl("FindTradesmen")}>
-                <div
-                  className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all cursor-pointer"
-                  style={{
-                    background: getGradientStyle(theme, 'main'),
-                    backdropFilter: getBackdropFilter(),
-                    WebkitBackdropFilter: getBackdropFilter(),
-                    boxShadow: getBoxShadow('main'),
-                    borderColor: getBorderColor(theme),
-                  }}
-                >
-                  <Users className="w-5 h-5 text-[#57CFA4]" />
-                  <span className="text-sm font-semibold text-[#0F1E2E]">Contractors</span>
-                </div>
-              </Link>
-              </FeatureTooltip>
-              <FeatureTooltip
-              title="Community Forum"
-              description="Connect with other homeowners, renters, and landlords to share advice and experiences."
-              >
-              <Link to={createPageUrl("Forum")}>
-                <div
-                  className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
-                  style={{
-                    background: getGradientStyle(theme, 'main'),
-                    backdropFilter: getBackdropFilter(),
-                    WebkitBackdropFilter: getBackdropFilter(),
-                    boxShadow: getBoxShadow('main'),
-                    borderColor: getBorderColor(theme),
-                  }}
-                >
-                  <MessageCircle className="w-5 h-5 text-[#57CFA4]" />
-                  <span className="text-sm font-semibold text-[#0F1E2E]">Forum</span>
-                </div>
-              </Link>
-              </FeatureTooltip>
+              <Users className="w-5 h-5 text-[#57CFA4]" />
+              <span className="text-sm font-semibold text-[#0F1E2E]">Contractors</span>
+            </div>
+          </Link>
+          <Link to={createPageUrl("Forum")}>
+            <div
+              className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
+              style={{
+                background: getGradientStyle(theme, 'main'),
+                backdropFilter: getBackdropFilter(),
+                WebkitBackdropFilter: getBackdropFilter(),
+                boxShadow: getBoxShadow('main'),
+                borderColor: getBorderColor(theme),
+              }}
+            >
+              <MessageCircle className="w-5 h-5 text-[#57CFA4]" />
+              <span className="text-sm font-semibold text-[#0F1E2E]">Forum</span>
+            </div>
+          </Link>
         </div>
 
         {/* Recent Issues */}
