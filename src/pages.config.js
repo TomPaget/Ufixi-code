@@ -27,11 +27,11 @@ import TradesDashboard from './pages/TradesDashboard';
 import TradesPayment from './pages/TradesPayment';
 import TradesPending from './pages/TradesPending';
 import TradesProfile from './pages/TradesProfile';
-import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
 import Home from './pages/Home';
+import TradesSignup from './pages/TradesSignup';
 import __Layout from './Layout.jsx';
 
 
@@ -65,11 +65,11 @@ export const PAGES = {
     "TradesPayment": TradesPayment,
     "TradesPending": TradesPending,
     "TradesProfile": TradesProfile,
-    "TradesSignup": TradesSignup,
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
     "Home": Home,
+    "TradesSignup": TradesSignup,
 }
 
 export const pagesConfig = {
