@@ -137,6 +137,32 @@ export default function BusinessPricing() {
           60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
+        @keyframes liquidBorder {
+          0% { 
+            border-color: #57CFA4;
+            box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), 
+                       inset 1px 1px 4px rgba(255,255,255,0.9),
+                       0 0 0 3px rgba(87,207,164,0.4),
+                       0 0 20px rgba(87,207,164,0.6),
+                       0 10px 40px rgba(31,65,100,0.15);
+          }
+          50% { 
+            border-color: #4ADE80;
+            box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), 
+                       inset 1px 1px 4px rgba(255,255,255,0.9),
+                       0 0 0 4px rgba(74,222,128,0.5),
+                       0 0 30px rgba(74,222,128,0.8),
+                       0 10px 40px rgba(31,65,100,0.15);
+          }
+          100% { 
+            border-color: #57CFA4;
+            box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), 
+                       inset 1px 1px 4px rgba(255,255,255,0.9),
+                       0 0 0 3px rgba(87,207,164,0.4),
+                       0 0 20px rgba(87,207,164,0.6),
+                       0 10px 40px rgba(31,65,100,0.15);
+          }
+        }
         .animate-gradient-shift {
           animation: gradient-shift 8s ease-in-out infinite;
         }
@@ -205,7 +231,7 @@ export default function BusinessPricing() {
                   isSelected
                     ? "border-[#57CFA4]/60 shadow-2xl shadow-[#57CFA4]/30 scale-105"
                     : "border-white/30 hover:border-white/50 hover:shadow-xl hover:shadow-white/20",
-                  plan.popular && "md:scale-110 md:z-10 ring-4 ring-[#F7B600]/60 shadow-2xl"
+                  plan.popular && "md:scale-110 md:z-10 shadow-2xl"
                 )}
                 onClick={() => handleSelectPlan(plan)}
                 style={{
@@ -214,12 +240,21 @@ export default function BusinessPricing() {
                                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 0%, transparent 50%)`,
                   backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
                   WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-                  boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
-                              inset 1px 1px 4px rgba(255,255,255,0.9),
-                              0 10px 40px rgba(31,65,100,0.15),
-                              0 1px 3px rgba(255,255,255,0.4),
-                              inset 0 -1px 0px rgba(0,0,0,0.08)`,
-                  border: '1px solid rgba(255,255,255,0.5)',
+                  boxShadow: plan.popular 
+                    ? `inset -1px -1px 3px rgba(0,0,0,0.1), 
+                       inset 1px 1px 4px rgba(255,255,255,0.9),
+                       0 0 0 3px rgba(87,207,164,0.4),
+                       0 0 20px rgba(87,207,164,0.6),
+                       0 10px 40px rgba(31,65,100,0.15),
+                       0 1px 3px rgba(255,255,255,0.4),
+                       inset 0 -1px 0px rgba(0,0,0,0.08)`
+                    : `inset -1px -1px 3px rgba(0,0,0,0.1), 
+                       inset 1px 1px 4px rgba(255,255,255,0.9),
+                       0 10px 40px rgba(31,65,100,0.15),
+                       0 1px 3px rgba(255,255,255,0.4),
+                       inset 0 -1px 0px rgba(0,0,0,0.08)`,
+                  border: plan.popular ? '3px solid #57CFA4' : '1px solid rgba(255,255,255,0.5)',
+                  animation: plan.popular ? 'liquidBorder 3s ease-in-out infinite' : 'none'
                 }}
               >
                 {plan.popular && (
