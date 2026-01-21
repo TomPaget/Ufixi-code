@@ -231,7 +231,7 @@ export default function BusinessPricing() {
                   isSelected
                     ? "border-[#57CFA4]/60 shadow-2xl shadow-[#57CFA4]/30 scale-105"
                     : "border-white/30 hover:border-white/50 hover:shadow-xl hover:shadow-white/20",
-                  plan.popular && "md:scale-110 md:z-10 shadow-2xl"
+                  plan.popular && "md:scale-105 md:z-10 shadow-2xl"
                 )}
                 onClick={() => handleSelectPlan(plan)}
                 style={{
