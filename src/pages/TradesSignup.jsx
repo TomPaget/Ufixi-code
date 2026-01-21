@@ -131,7 +131,7 @@ export default function TradesSignup() {
 
           {/* Pricing */}
           <div 
-            className="max-w-md mx-auto mt-8 p-8 rounded-2xl border-2 relative overflow-hidden"
+            className="max-w-sm mx-auto mt-8 p-5 rounded-2xl border-2 relative overflow-hidden"
             style={{
               background: 'linear-gradient(135deg, rgba(87, 207, 164, 0.95) 0%, rgba(87, 207, 164, 0.85) 50%, rgba(74, 222, 128, 0.90) 100%)',
               backdropFilter: 'blur(20px) saturate(180%) brightness(1.1)',
@@ -140,15 +140,15 @@ export default function TradesSignup() {
               borderColor: '#4ade80',
             }}
           >
-            <div className="flex items-center justify-center gap-6">
+            <div className="flex items-center justify-center gap-4">
               <div className="text-center">
-                <p className="text-5xl font-bold text-white">£1.99</p>
-                <p className="text-sm text-white/90 font-semibold">per week</p>
+                <p className="text-3xl font-bold text-white">£1.99</p>
+                <p className="text-xs text-white/90 font-semibold">per week</p>
               </div>
-              <div className="h-12 w-px bg-white/40" />
+              <div className="h-10 w-px bg-white/40" />
               <div className="text-center">
-                <p className="text-5xl font-bold text-white">0%</p>
-                <p className="text-sm text-white/90 font-semibold">commission</p>
+                <p className="text-3xl font-bold text-white">0%</p>
+                <p className="text-xs text-white/90 font-semibold">commission</p>
               </div>
             </div>
           </div>
