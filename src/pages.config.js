@@ -32,6 +32,7 @@ import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
 import Home from './pages/Home';
 import TradesSignup from './pages/TradesSignup';
+import Landing from './pages/Landing';
 import __Layout from './Layout.jsx';
 
 
@@ -70,6 +71,7 @@ export const PAGES = {
     "VideoCall": VideoCall,
     "Home": Home,
     "TradesSignup": TradesSignup,
+    "Landing": Landing,
 }
 
 export const pagesConfig = {
