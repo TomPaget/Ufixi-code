@@ -754,10 +754,10 @@ export default function Home() {
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                 className="w-full h-16 rounded-2xl font-semibold text-[#0F1E2E] cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:shadow-lg hover:scale-[1.02]"
                 style={{
-                  background: `linear-gradient(135deg, rgba(74,222,128,0.85) 0%, rgba(74,222,128,0.65) 40%, rgba(74,222,128,0.5) 100%)`,
+                  background: `linear-gradient(135deg, rgba(40,250,140,0.95) 0%, rgba(40,250,140,0.75) 40%, rgba(40,250,140,0.6) 100%)`,
                   backdropFilter: 'blur(10px)',
                   WebkitBackdropFilter: 'blur(10px)',
-                  borderColor: 'rgba(74,222,128,0.85)',
+                  borderColor: 'rgba(40,250,140,0.95)',
                 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity" style={{
