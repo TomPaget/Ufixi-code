@@ -618,9 +618,9 @@ export default function Home() {
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/95 via-pink-300/50 to-orange-500/90 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-yellow-300/40 to-blue-600/85 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/80 via-pink-100/45 to-orange-500/75 animate-gradient-shift-reverse blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
