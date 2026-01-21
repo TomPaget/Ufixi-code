@@ -55,9 +55,9 @@ export default function TradesSignup() {
     <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/50 to-orange-500/90 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-emerald-400/40 to-blue-500/80 animate-gradient-shift-slow-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/70 via-pink-200/45 to-orange-500/75 animate-gradient-shift-reverse-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/95 via-pink-300/50 to-orange-500/90 animate-gradient-shift-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/80 via-emerald-400/40 to-blue-600/85 animate-gradient-shift-slow-slower blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/45 to-orange-500/75 animate-gradient-shift-reverse-slower blur-3xl" />
         <div className="absolute inset-0 bg-white/5" />
       </div>
       
