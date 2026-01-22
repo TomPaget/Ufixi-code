@@ -77,6 +77,7 @@ export default function BusinessPricing() {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
