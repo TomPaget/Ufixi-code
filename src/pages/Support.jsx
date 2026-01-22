@@ -3,12 +3,13 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, Send, Bot, User, Paperclip, X, FileText, Image as ImageIcon, Loader2 } from "lucide-react";
+import { Menu, Send, Bot, User, Paperclip, X, FileText, Image as ImageIcon, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
+import HamburgerMenu from "@/components/kora/HamburgerMenu";
 
 export default function Support() {
   const navigate = useNavigate();
