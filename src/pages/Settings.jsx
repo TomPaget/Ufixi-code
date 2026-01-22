@@ -270,22 +270,20 @@ export default function Settings() {
       `}</style>
       
       {/* Header */}
-      <header className={cn(
-        "sticky top-0 z-30 backdrop-blur-lg border-b",
-        theme === "dark" ?
-        "bg-slate-900/80 border-slate-700/50" :
-        "bg-white border-slate-200"
-      )}>
+      <header 
+        className="sticky top-0 z-30 border-b"
+        style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.3) 40%, rgba(255,255,255,0.1) 100%)',
+          backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+          WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+          boxShadow: 'inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.9), 0 10px 40px rgba(31,65,100,0.15)',
+          borderColor: 'rgba(255,255,255,0.4)'
+        }}>
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-center relative">
           <Button
             variant="ghost"
             size="icon"
-            className={cn(
-              "absolute left-5 rounded-xl",
-              theme === "dark" ?
-              "hover:bg-slate-800 text-slate-400 hover:text-slate-300" :
-              "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
-            )}
+            className="absolute left-5 rounded-xl hover:bg-white/30 text-white hover:text-white"
             onClick={() => setMenuOpen(true)}>
 
             <Menu className="w-5 h-5" />
