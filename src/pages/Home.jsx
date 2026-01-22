@@ -709,7 +709,7 @@ export default function Home() {
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold mt-8 mb-6">
             <span className="whitespace-nowrap font-bold text-white" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
-            <span className="font-bold" style={{ 
+            <span className="font-bold relative" style={{ 
               fontFamily: "'Fredoka', sans-serif",
               background: 'linear-gradient(135deg, #90EE90 0%, rgba(255, 255, 255, 0.7) 15%, #F0D9E6 28%, #ADD8E6 50%, #F0D9E6 72%, rgba(255, 255, 255, 0.7) 85%, #90EE90 100%)',
               backgroundClip: 'text',
@@ -718,7 +718,9 @@ export default function Home() {
               backgroundSize: '200% 200%',
               animation: 'gradientFlow 2s ease-in-out infinite',
               backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)'
+              WebkitBackdropFilter: 'blur(10px)',
+              textShadow: '0 0 30px rgba(255, 255, 255, 0.6), 0 0 60px rgba(144, 238, 144, 0.3)',
+              filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))'
             }}>
               fixing?
             </span>
