@@ -126,7 +126,18 @@ export default function TradesSignup() {
            <h1 className="text-4xl md:text-5xl font-bold text-white" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
              Grow Your Business
              <br />
-             <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
+             <span style={{ 
+               fontFamily: "'Coolvetica', sans-serif",
+               background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 25%, transparent 50%, rgba(255, 255, 255, 0.3) 75%, transparent 100%), linear-gradient(135deg, #90EE90 0%, rgba(255, 255, 255, 0.7) 15%, #F0D9E6 28%, #ADD8E6 50%, #F0D9E6 72%, rgba(255, 255, 255, 0.7) 85%, #90EE90 100%)',
+               backgroundClip: 'text',
+               WebkitBackgroundClip: 'text',
+               WebkitTextFillColor: 'transparent',
+               backgroundSize: '200% 200%, 200% 200%',
+               backgroundPosition: '0% 0%, 0% 50%',
+               animation: 'shine 3s ease-in-out infinite, gradientFlow 4s ease-in-out infinite',
+               backdropFilter: 'blur(10px)',
+               WebkitBackdropFilter: 'blur(10px)'
+             }}>
                Connect with Customers
              </span>
            </h1>
