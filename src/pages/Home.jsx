@@ -868,7 +868,7 @@ export default function Home() {
             >
               <div className="absolute inset-0 rounded-3xl opacity-40 pointer-events-none" style={{ background: 'inherit' }} />
               <div className="relative z-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
-                <Sparkles className="w-8 h-8 text-slate-400" />
+                <Sparkles className="w-8 h-8" style={{ color: '#63c49f' }} />
               </div>
               <p className="relative z-10 text-white font-semibold">No issues scanned yet</p>
               <p className="relative z-10 text-sm mt-1 text-white font-medium">
