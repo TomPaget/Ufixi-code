@@ -646,6 +646,11 @@ export default function Home() {
       </div>
       
       <style jsx>{`
+        @keyframes lavaLamp {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
         @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
           20% { transform: translate(30%, 35%) scale(1.7) rotate(8deg); }
