@@ -631,15 +631,15 @@ export default function Home() {
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-300 via-green-300 via-orange-600 to-orange-500 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500 via-pink-200 via-cyan-200 to-blue-300 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-green-300 via-orange-600 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-300 via-green-300 via-orange-600 to-orange-500 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500 via-pink-200 via-cyan-200 to-blue-300 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-green-300 via-orange-600 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
@@ -715,7 +715,7 @@ export default function Home() {
             <span className="whitespace-nowrap font-bold text-white" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
             <span className="font-bold" style={{ 
               fontFamily: "'Fredoka', sans-serif",
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 25%, transparent 50%, rgba(255, 255, 255, 0.3) 75%, transparent 100%), linear-gradient(135deg, #FF9966 0%, rgba(255, 255, 255, 0.7) 15%, #F0D9E6 28%, #ADD8E6 50%, #F0D9E6 72%, rgba(255, 255, 255, 0.7) 85%, #FF9966 100%)',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 25%, transparent 50%, rgba(255, 255, 255, 0.3) 75%, transparent 100%), linear-gradient(135deg, #90EE90 0%, rgba(255, 255, 255, 0.7) 15%, #F0D9E6 28%, #ADD8E6 50%, #F0D9E6 72%, rgba(255, 255, 255, 0.7) 85%, #90EE90 100%)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
