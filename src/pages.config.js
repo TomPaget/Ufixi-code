@@ -8,7 +8,6 @@ import FindTradesmen from './pages/FindTradesmen';
 import Forum from './pages/Forum';
 import ForumPost from './pages/ForumPost';
 import History from './pages/History';
-import Home from './pages/Home';
 import HomeProfile from './pages/HomeProfile';
 import Integrations from './pages/Integrations';
 import Invoices from './pages/Invoices';
@@ -33,6 +32,7 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
+import Home from './pages/Home';
 import __Layout from './Layout.jsx';
 
 
@@ -47,7 +47,6 @@ export const PAGES = {
     "Forum": Forum,
     "ForumPost": ForumPost,
     "History": History,
-    "Home": Home,
     "HomeProfile": HomeProfile,
     "Integrations": Integrations,
     "Invoices": Invoices,
@@ -72,6 +71,7 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
+    "Home": Home,
 }
 
 export const pagesConfig = {
