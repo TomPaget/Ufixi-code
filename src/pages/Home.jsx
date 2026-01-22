@@ -853,6 +853,7 @@ export default function Home() {
                 WebkitBackdropFilter: getBackdropFilter(),
                 boxShadow: getBoxShadow('accent'),
                 borderColor: getBorderColor(theme),
+                backgroundColor: 'rgba(255, 255, 255, 0.3)',
               }}
             >
               <div className="absolute inset-0 rounded-3xl opacity-40 pointer-events-none" style={{ background: 'inherit' }} />
