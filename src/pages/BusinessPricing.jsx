@@ -314,7 +314,7 @@ export default function BusinessPricing() {
                 <ul className="space-y-3 mb-6">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-[#57CFA4] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#63c49f' }} />
                       <span className="text-sm font-medium" style={{ color: '#1a2f42' }}>
                         {feature}
                       </span>
