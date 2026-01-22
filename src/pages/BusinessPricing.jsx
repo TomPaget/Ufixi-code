@@ -206,7 +206,7 @@ export default function BusinessPricing() {
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="text-lg font-bold text-white">
+          <h1 className="text-lg font-bold text-[#1E3A57]">
             Business Membership
           </h1>
         </div>
@@ -215,12 +215,12 @@ export default function BusinessPricing() {
       <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-gradient-to-r from-green-300/10 to-yellow-400/10 border-yellow-400/30 text-white">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-gradient-to-r from-green-300/10 to-yellow-400/10 border-yellow-400/30 text-yellow-600">
             <Building2 className="w-4 h-4" />
             <span className="text-sm font-semibold">For Estate Agents & Businesses</span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
+          <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
             <span style={{ fontWeight: "normal", fontFamily: "'Coolvetica', sans-serif" }}>Property Issues?</span>
             <br />
             <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
@@ -228,7 +228,7 @@ export default function BusinessPricing() {
             </span>
           </h1>
           
-          <p className="text-lg max-w-2xl mx-auto text-white font-medium">
+          <p className="text-lg max-w-2xl mx-auto text-slate-800 font-medium">
             See a problem during a viewing? Need a quick explanation for your client? 
             UFixi gives you instant, professional property diagnostics on the spot.
           </p>
@@ -290,15 +290,15 @@ export default function BusinessPricing() {
                   <Icon className="w-6 h-6 text-white" />
                 </div>
 
-                <h3 className="text-xl font-bold mb-2 text-white">
+                <h3 className="text-xl font-bold mb-2 text-[#1E3A57]">
                   {plan.name}
                 </h3>
 
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-white">
+                  <span className="text-4xl font-bold text-[#1E3A57]">
                     £{plan.price}
                   </span>
-                  <span className="text-sm text-white font-medium">
+                  <span className="text-sm text-slate-700 font-medium">
                     /month
                   </span>
                 </div>
@@ -307,7 +307,7 @@ export default function BusinessPricing() {
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <CheckCircle2 className="w-5 h-5 text-[#57CFA4] flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-white font-medium">
+                      <span className="text-sm text-slate-900 font-medium">
                         {feature}
                       </span>
                     </li>
@@ -342,7 +342,7 @@ export default function BusinessPricing() {
               className="p-4 rounded-xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20"
             >
               <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold text-slate-900">
                 {item.text}
               </p>
             </div>
@@ -352,13 +352,13 @@ export default function BusinessPricing() {
         {/* Company Details Form */}
         {selectedPlan && (
           <div className="max-w-2xl mx-auto rounded-2xl border-2 p-8 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
-            <h2 className="text-2xl font-bold mb-6 text-white">
+            <h2 className="text-2xl font-bold mb-6 text-[#1E3A57]">
               Complete Your Subscription
             </h2>
 
             <div className="space-y-4">
               <div>
-                <Label className="mb-2 block text-white">
+                <Label className="mb-2 block text-[#1E3A57]">
                   Company Name *
                 </Label>
                 <Input
@@ -370,7 +370,7 @@ export default function BusinessPricing() {
               </div>
 
               <div>
-                <Label className="mb-2 block text-white">
+                <Label className="mb-2 block text-[#1E3A57]">
                   Contact Email
                 </Label>
                 <Input
@@ -384,10 +384,10 @@ export default function BusinessPricing() {
               </div>
 
               <div className="p-4 rounded-xl border bg-[#F7B600]/10 border-[#F7B600]/30">
-                <p className="text-sm text-white">
+                <p className="text-sm text-[#1E3A57]">
                   <strong>Selected Plan:</strong> {selectedPlan.name} - £{selectedPlan.price}/month
                 </p>
-                <p className="text-xs mt-2 text-white font-medium">
+                <p className="text-xs mt-2 text-slate-700 font-medium">
                   Cancel anytime. No hidden fees.
                 </p>
               </div>
@@ -408,11 +408,11 @@ export default function BusinessPricing() {
         <div className="text-center p-8 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Shield className="w-6 h-6 text-[#57CFA4]" />
-            <h3 className="font-semibold text-white">
+            <h3 className="font-semibold text-[#1E3A57]">
               Trusted by Estate Agents Across the UK
             </h3>
           </div>
-          <p className="text-sm text-white font-medium">
+          <p className="text-sm text-slate-800 font-medium">
             Join hundreds of property professionals using UFixi to provide better service to their clients
           </p>
         </div>
