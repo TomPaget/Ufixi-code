@@ -631,15 +631,15 @@ export default function Home() {
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-lime-200 to-orange-300 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-yellow-100 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-200 to-orange-300 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-lime-200 to-orange-300 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-yellow-100 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-200 to-orange-300 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
