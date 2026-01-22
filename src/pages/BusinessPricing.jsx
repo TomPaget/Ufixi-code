@@ -223,7 +223,7 @@ export default function BusinessPricing() {
           <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
             <span style={{ fontWeight: "normal", fontFamily: "'Coolvetica', sans-serif", color: "white" }}>Property Issues?</span>
             <br />
-            <span style={{ fontFamily: "'Coolvetica', sans-serif", background: "linear-gradient(to right, #63c49f, #ffffff)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            <span style={{ fontFamily: "'Coolvetica', sans-serif", background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 25%, transparent 50%, rgba(255, 255, 255, 0.3) 75%, transparent 100%), linear-gradient(135deg, #90EE90 0%, rgba(255, 255, 255, 0.7) 15%, #F0D9E6 28%, #ADD8E6 50%, #F0D9E6 72%, rgba(255, 255, 255, 0.7) 85%, #90EE90 100%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundSize: '200% 200%, 200% 200%', backgroundPosition: '0% 0%, 0% 50%', animation: 'shine 3s ease-in-out infinite, gradientFlow 4s ease-in-out infinite', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
               Instant Answers.
             </span>
           </h1>
