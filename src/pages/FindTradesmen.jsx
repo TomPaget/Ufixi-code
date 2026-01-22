@@ -595,7 +595,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                   setTimeout(() => searchLocalTradesmen(), 100);
                 }
               }}>
-                <SelectTrigger className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/60">
+                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -617,7 +617,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                 Sort By
               </label>
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/60">
+                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -634,7 +634,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                 Max {currencySymbol}/hour
               </label>
               <Select value={maxCost} onValueChange={setMaxCost}>
-                <SelectTrigger className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/60">
+                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -651,7 +651,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                 Distance
               </label>
               <Select value={searchRadius.toString()} onValueChange={(v) => setSearchRadius(parseInt(v))}>
-                <SelectTrigger className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/60">
+                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -668,7 +668,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                 Min Rating
               </label>
               <Select value={minRating.toString()} onValueChange={(v) => setMinRating(parseFloat(v))}>
-                <SelectTrigger className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/60">
+                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -721,7 +721,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                   Minimum Experience
                 </label>
                 <Select value={minExperience} onValueChange={setMinExperience}>
-                  <SelectTrigger className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/60">
+                  <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -739,7 +739,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                   Availability
                 </label>
                 <Select value={availability} onValueChange={setAvailability}>
-                  <SelectTrigger className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/60">
+                  <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
