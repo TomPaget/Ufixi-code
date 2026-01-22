@@ -792,6 +792,7 @@ export default function Home() {
                 WebkitBackdropFilter: getBackdropFilter(),
                 boxShadow: getBoxShadow('main'),
                 borderColor: getBorderColor(theme),
+                opacity: 0.5,
               }}
             >
               <Users className="w-5 h-5 text-[#63c49f]" />
@@ -807,6 +808,7 @@ export default function Home() {
                 WebkitBackdropFilter: getBackdropFilter(),
                 boxShadow: getBoxShadow('main'),
                 borderColor: getBorderColor(theme),
+                opacity: 0.5,
               }}
               >
               <MessageCircle className="w-5 h-5 text-[#63c49f]" />
