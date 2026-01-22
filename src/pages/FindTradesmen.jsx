@@ -533,16 +533,16 @@ Return the exact coordinates and verify the postcode is valid.`,
         )}
 
         {/* Filters */}
-        <div 
-          className="rounded-2xl p-5 space-y-4 border-2"
-          style={{
-            background: getGradientStyle(theme, 'main'),
-            backdropFilter: getBackdropFilter(),
-            WebkitBackdropFilter: getBackdropFilter(),
-            boxShadow: getBoxShadow('main'),
-            borderColor: getBorderColor(theme),
-          }}
-        >
+         <div 
+           className="rounded-2xl p-5 space-y-4 border-2"
+           style={{
+             background: getGradientStyle(theme, 'main').replace('rgba(', 'rgba(').replace(/, 0\.\d+\)/, ', 0.3)'),
+             backdropFilter: getBackdropFilter(),
+             WebkitBackdropFilter: getBackdropFilter(),
+             boxShadow: getBoxShadow('main'),
+             borderColor: getBorderColor(theme),
+           }}
+         >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Filter className="w-5 h-5 text-[#F7B600]" />
