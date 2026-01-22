@@ -15,6 +15,7 @@ export default function Messages() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
