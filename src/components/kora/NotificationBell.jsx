@@ -30,14 +30,9 @@ export default function NotificationBell() {
   return (
     <Link 
       to={createPageUrl("Notifications")}
-      className={cn(
-        "relative w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
-        theme === "dark"
-          ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
-          : "hover:bg-slate-100 text-[#1E3A57]"
-      )}
+      className="relative w-10 h-10 rounded-xl flex items-center justify-center transition-colors hover:bg-slate-100"
     >
-      <Bell className="w-5 h-5" />
+      <Bell className="w-5 h-5 text-[#63c49f]" />
       {unreadCount > 0 && (
         <motion.span
           initial={{ scale: 0 }}
