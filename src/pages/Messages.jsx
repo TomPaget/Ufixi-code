@@ -155,7 +155,7 @@ export default function Messages() {
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold bg-[#1E3A57] text-white">
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold bg-[#63c49f] text-white">
                         {otherPerson?.charAt(0).toUpperCase()}
                       </div>
                       <div>
