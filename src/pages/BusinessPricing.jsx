@@ -205,18 +205,20 @@ export default function BusinessPricing() {
       
       {/* Header */}
       <header className="sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20">
-        <div className="max-w-6xl mx-auto px-5 py-4 flex items-center gap-4">
+        <div className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-center relative">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => navigate(-1)}
-            className="rounded-xl hover:bg-slate-100 text-white"
+            className="absolute left-5 rounded-xl hover:bg-slate-100 text-white"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="text-lg font-bold text-white">
-            Business Membership
-          </h1>
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"
+            alt="Ufixi Logo"
+            className="h-8 object-contain"
+          />
         </div>
       </header>
 
