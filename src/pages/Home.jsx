@@ -836,16 +836,16 @@ export default function Home() {
               </div>
               </Link>
               <Link to={createPageUrl("Forum")}>
-              <div
-              className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
-              style={{
-                background: getGradientStyle(theme, 'main'),
-                backdropFilter: getBackdropFilter(),
-                WebkitBackdropFilter: getBackdropFilter(),
-                boxShadow: getBoxShadow('main'),
-                borderColor: getBorderColor(theme),
-                backgroundColor: 'rgba(255, 255, 255, 0.4)',
-              }}
+               <div
+               className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
+               style={{
+                 background: getGradientStyle(theme, 'main'),
+                 backdropFilter: getBackdropFilter(),
+                 WebkitBackdropFilter: getBackdropFilter(),
+                 boxShadow: getBoxShadow('main'),
+                 borderColor: getBorderColor(theme),
+                 backgroundColor: 'rgba(255, 255, 255, 0.2)',
+               }}
               >
               <MessageCircle className="w-5 h-5 text-[#63c49f]" />
               <span className="text-sm font-semibold text-white">Forum</span>
