@@ -294,7 +294,7 @@ export default function BusinessPricing() {
                   </div>
                 )}
 
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-gradient-to-br from-slate-900 to-slate-950">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4">
                   <Icon className="w-6 h-6" style={{ color: '#63c49f' }} />
                 </div>
 
