@@ -78,6 +78,7 @@ export default function Settings() {
   const [requestingLocation, setRequestingLocation] = useState(false);
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
