@@ -631,15 +631,27 @@ export default function Home() {
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 blur-3xl animate-gradient-shift" style={{
+              background: 'linear-gradient(to-bottom, var(--color-1-start), var(--color-1-mid), var(--color-1-end))'
+            }} />
+            <div className="absolute inset-0 blur-3xl animate-gradient-shift-slow" style={{
+              background: 'linear-gradient(to-top-right, var(--color-2-start), var(--color-2-mid), var(--color-2-end))'
+            }} />
+            <div className="absolute inset-0 blur-3xl animate-gradient-shift-reverse" style={{
+              background: 'linear-gradient(to-bottom-left, var(--color-3-start), var(--color-3-end))'
+            }} />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 blur-3xl animate-gradient-shift" style={{
+              background: 'linear-gradient(to-bottom, var(--color-1-start), var(--color-1-mid), var(--color-1-end))'
+            }} />
+            <div className="absolute inset-0 blur-3xl animate-gradient-shift-slow" style={{
+              background: 'linear-gradient(to-top-right, var(--color-2-start), var(--color-2-mid), var(--color-2-end))'
+            }} />
+            <div className="absolute inset-0 blur-3xl animate-gradient-shift-reverse" style={{
+              background: 'linear-gradient(to-bottom-left, var(--color-3-start), var(--color-3-end))'
+            }} />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
