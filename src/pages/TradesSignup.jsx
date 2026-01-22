@@ -165,14 +165,14 @@ export default function TradesSignup() {
         <div 
           className="max-w-3xl mx-auto rounded-2xl border p-8"
           style={{
-            background: getGradientStyle(theme, 'main'),
+            background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: getBackdropFilter(),
             WebkitBackdropFilter: getBackdropFilter(),
             boxShadow: getBoxShadow('main'),
-            borderColor: getBorderColor(theme),
+            borderColor: 'rgba(255, 255, 255, 0.2)',
           }}
         >
-          <h2 className="text-2xl font-bold mb-6 text-[#1E3A57]">
+          <h2 className="text-2xl font-bold mb-6 text-white">
             What You Get
           </h2>
           <ul className="space-y-4">
@@ -186,7 +186,7 @@ export default function TradesSignup() {
             ].map((benefit, i) => (
               <li key={i} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-[#57CFA4] flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-900 font-medium">
+                <span className="text-sm text-white font-medium">
                   {benefit}
                 </span>
               </li>
