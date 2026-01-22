@@ -798,10 +798,8 @@ export default function Home() {
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                 className="w-full h-16 rounded-2xl font-semibold cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:scale-[1.02]"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.7)',
+                  background: '#ffffff',
                   color: '#63c49f',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
                   borderColor: '#63c49f',
                   borderTop: '1px solid #63c49f',
                   borderBottom: '1px solid #63c49f'
