@@ -711,12 +711,12 @@ export default function Home() {
             <span className="whitespace-nowrap font-bold text-white" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
             <span className="font-bold" style={{ 
               fontFamily: "'Fredoka', sans-serif",
-              background: 'linear-gradient(135deg, #90EE90 0%, rgba(255, 255, 255, 0.95) 25%, #ADD8E6 50%, rgba(255, 255, 255, 0.95) 75%, #90EE90 100%)',
+              background: 'linear-gradient(135deg, #90EE90 0%, rgba(255, 255, 255, 0.7) 15%, #FFB6D9 28%, #ADD8E6 50%, #FFB6D9 72%, rgba(255, 255, 255, 0.7) 85%, #90EE90 100%)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundSize: '200% 200%',
-              animation: 'gradientFlow 6s ease-in-out infinite',
+              animation: 'gradientFlow 4s ease-in-out infinite',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)'
             }}>
