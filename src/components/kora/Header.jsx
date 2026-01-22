@@ -22,7 +22,7 @@ export default function Header({ onMenuClick }) {
           variant="ghost" 
           size="icon" 
           onClick={onMenuClick}
-          className="rounded-xl hover:bg-slate-700 text-[#63c49f]"
+          className="rounded-xl hover:bg-slate-700 text-white"
         >
           <Menu className="w-5 h-5" />
         </Button>
