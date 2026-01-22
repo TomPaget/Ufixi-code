@@ -24,6 +24,7 @@ export default function Support() {
   const [escalated, setEscalated] = useState(false);
   const [showRating, setShowRating] = useState(false);
   const [hasRated, setHasRated] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
 
