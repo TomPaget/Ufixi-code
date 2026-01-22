@@ -809,8 +809,8 @@ export default function Home() {
                   background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%)',
                   pointerEvents: 'none'
                 }} />
-                <Plus className="w-5 h-5 relative z-10 text-white" />
-                <span className="relative z-10 text-white text-base">{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
+                <Plus className="w-5 h-5 relative z-10" style={{ color: '#63c49f' }} />
+                <span className="relative z-10 text-base" style={{ color: '#63c49f' }}>{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
               </div>
             </motion.div>
           )}
