@@ -6,6 +6,10 @@ css
 @tailwind utilities;
 
 @layer base {
+  body {
+    color: #1a2f42;
+  }
+  
   h1, h2, h3, h4, h5, h6, [style*="Coolvetica"] {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
