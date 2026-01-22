@@ -647,25 +647,25 @@ export default function Home() {
       
       <style jsx>{`
         @keyframes gradient-shift {
-          0% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); filter: hue-rotate(0deg); }
-          25% { transform: translate(30%, 35%) scale(1.7) rotate(8deg); filter: hue-rotate(7deg); }
-          50% { transform: translate(-25%, 40%) scale(1.6) rotate(-12deg); filter: hue-rotate(15deg); }
-          75% { transform: translate(-35%, -20%) scale(1.8) rotate(15deg); filter: hue-rotate(22deg); }
-          100% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); filter: hue-rotate(30deg); }
+          0% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
+          20% { transform: translate(30%, 35%) scale(1.7) rotate(8deg); }
+          40% { transform: translate(-25%, 40%) scale(1.6) rotate(-12deg); }
+          60% { transform: translate(-35%, -20%) scale(1.8) rotate(15deg); }
+          80% { transform: translate(20%, -40%) scale(1.55) rotate(-10deg); }
+          100% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
         }
         @keyframes gradient-shift-slow {
-          0% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); filter: hue-rotate(0deg); }
-          25% { transform: translate(-45%, 40%) scale(1.8) rotate(-15deg); filter: hue-rotate(9deg); }
-          50% { transform: translate(35%, -30%) scale(1.5) rotate(12deg); filter: hue-rotate(18deg); }
-          75% { transform: translate(-30%, -45%) scale(1.75) rotate(-10deg); filter: hue-rotate(27deg); }
-          100% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); filter: hue-rotate(35deg); }
+          0% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); }
+          25% { transform: translate(-45%, 40%) scale(1.8) rotate(-15deg); }
+          50% { transform: translate(35%, -30%) scale(1.5) rotate(12deg); }
+          75% { transform: translate(-30%, -45%) scale(1.75) rotate(-10deg); }
+          100% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); }
         }
         @keyframes gradient-shift-reverse {
-          0% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); filter: hue-rotate(0deg); }
-          25% { transform: translate(50%, -35%) scale(1.7) rotate(18deg); filter: hue-rotate(6deg); }
-          50% { transform: translate(-40%, 30%) scale(1.65) rotate(-14deg); filter: hue-rotate(13deg); }
-          75% { transform: translate(0%, -20%) scale(1.6) rotate(10deg); filter: hue-rotate(19deg); }
-          100% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); filter: hue-rotate(25deg); }
+          0% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
+          33% { transform: translate(50%, -35%) scale(1.7) rotate(18deg); }
+          66% { transform: translate(-40%, 30%) scale(1.65) rotate(-14deg); }
+          100% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
         }
 
         .animate-gradient-shift {
