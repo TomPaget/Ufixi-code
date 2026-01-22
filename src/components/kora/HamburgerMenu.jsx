@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { X, Home as HomeIcon, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Building2 } from "lucide-react";
+import { X, Home as HomeIcon, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Building2, ArrowLeftRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
+import { Button } from "@/components/ui/button";
 
 const customerMenuItems = [
   { icon: HomeIcon, label: "Home", page: "Home" },
@@ -44,11 +45,33 @@ const businessMenuItems = [
 
 export default function HamburgerMenu({ isOpen, onClose }) {
   const { theme } = useTheme();
+  const queryClient = useQueryClient();
   
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => base44.auth.me()
   });
+
+  const switchAccountMutation = useMutation({
+    mutationFn: async (newAccountType) => {
+      await base44.auth.updateMe({ account_type: newAccountType });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["user"]);
+      onClose();
+    }
+  });
+
+  const handleSwitchAccount = () => {
+    if (user?.account_type === "business") {
+      switchAccountMutation.mutate("customer");
+    } else if (user?.business_subscription_active) {
+      switchAccountMutation.mutate("business");
+    }
+  };
+
+  const canSwitchToBusiness = user?.business_subscription_active;
+  const isBusinessAccount = user?.account_type === "business";
 
   const menuItems = user?.account_type === "trades" 
     ? tradesMenuItems 
@@ -132,6 +155,24 @@ export default function HamburgerMenu({ isOpen, onClose }) {
                   </div>
                 ))}
               </nav>
+
+              {user?.account_type !== "trades" && (isBusinessAccount || canSwitchToBusiness) && (
+                <div className="mt-6 pt-6 border-t border-slate-200/20">
+                  <Button
+                    onClick={handleSwitchAccount}
+                    disabled={switchAccountMutation.isPending}
+                    className={cn(
+                      "w-full flex items-center justify-center gap-2 rounded-xl font-medium",
+                      theme === "dark"
+                        ? "bg-[#57CFA4]/20 text-[#57CFA4] hover:bg-[#57CFA4]/30"
+                        : "bg-slate-100 text-slate-900 hover:bg-slate-200"
+                    )}
+                  >
+                    <ArrowLeftRight className="w-4 h-4" />
+                    {isBusinessAccount ? "Switch to Standard Account" : "Switch to Business Account"}
+                  </Button>
+                </div>
+              )}
             </div>
           </motion.div>
         </>
