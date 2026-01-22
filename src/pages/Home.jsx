@@ -828,7 +828,7 @@ export default function Home() {
                 WebkitBackdropFilter: getBackdropFilter(),
                 boxShadow: getBoxShadow('main'),
                 borderColor: getBorderColor(theme),
-                backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
               }}
             >
               <Users className="w-5 h-5 text-[#63c49f]" />
