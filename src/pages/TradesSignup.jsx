@@ -223,15 +223,15 @@ export default function TradesSignup() {
               key={i}
               className="p-4 rounded-xl border"
               style={{
-                background: getGradientStyle(theme, 'main'),
+                background: 'rgba(255, 255, 255, 0.08)',
                 backdropFilter: getBackdropFilter(),
                 WebkitBackdropFilter: getBackdropFilter(),
                 boxShadow: getBoxShadow('main'),
-                borderColor: getBorderColor(theme),
+                borderColor: 'rgba(255, 255, 255, 0.2)',
               }}
             >
               <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
-              <p className="text-sm font-semibold text-slate-900">
+              <p className="text-sm font-semibold text-white">
                 {item.text}
               </p>
             </div>
