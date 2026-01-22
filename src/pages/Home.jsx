@@ -695,13 +695,13 @@ export default function Home() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#0F1E2E] mt-8 mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#1a2f42] mt-8 mb-6">
             <span className="whitespace-nowrap font-bold" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
             <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent font-bold" style={{ fontFamily: "'Fredoka', sans-serif" }}>
               fixing?
             </span>
           </h1>
-          <p className="text-base max-w-2xl mx-auto text-slate-800 font-medium">
+          <p className="text-base max-w-2xl mx-auto text-[#1a2f42] font-medium">
             Upload a photo or video of any issue and get an instant professional assessment with repair guidance.
           </p>
         </div>
@@ -715,24 +715,24 @@ export default function Home() {
           >
             <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
               <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
-              <p className="text-xl font-bold text-[#0F1E2E]">
+              <p className="text-xl font-bold text-[#1a2f42]">
                 {issues.filter(i => i.status === "active").length}
               </p>
-              <p className="text-xs text-[#0F1E2E]/80 font-semibold">Active</p>
+              <p className="text-xs text-[#1a2f42]/80 font-semibold">Active</p>
             </div>
             <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
               <Calendar className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
-              <p className="text-xl font-bold text-[#0F1E2E]">
+              <p className="text-xl font-bold text-[#1a2f42]">
                 {issues.filter(i => i.urgency === "fix_soon").length}
               </p>
-              <p className="text-xs text-[#0F1E2E]/80 font-semibold">Fix Soon</p>
+              <p className="text-xs text-[#1a2f42]/80 font-semibold">Fix Soon</p>
             </div>
             <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
-              <History className="w-5 h-5 mx-auto mb-1 text-[#57CFA4]" />
-              <p className="text-xl font-bold text-[#0F1E2E]">
+              <History className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
+              <p className="text-xl font-bold text-[#1a2f42]">
                 {issues.filter(i => i.status === "resolved").length}
               </p>
-              <p className="text-xs text-[#0F1E2E]/80 font-semibold">Resolved</p>
+              <p className="text-xs text-[#1a2f42]/80 font-semibold">Resolved</p>
             </div>
           </motion.div>
         )}
@@ -773,7 +773,7 @@ export default function Home() {
                   pointerEvents: 'none'
                 }} />
                 <Plus className="w-5 h-5 relative z-10" />
-                <span className="relative z-10">{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
+                <span className="relative z-10 text-[#1a2f42]">{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
               </div>
             </motion.div>
           )}
@@ -793,11 +793,11 @@ export default function Home() {
               }}
             >
               <Users className="w-5 h-5 text-[#63c49f]" />
-              <span className="text-sm font-semibold text-[#0F1E2E]">Contractors</span>
-            </div>
-            </Link>
-            <Link to={createPageUrl("Forum")}>
-            <div
+              <span className="text-sm font-semibold text-[#1a2f42]">Contractors</span>
+              </div>
+              </Link>
+              <Link to={createPageUrl("Forum")}>
+              <div
               className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
               style={{
                 background: getGradientStyle(theme, 'main'),
@@ -806,9 +806,9 @@ export default function Home() {
                 boxShadow: getBoxShadow('main'),
                 borderColor: getBorderColor(theme),
               }}
-            >
+              >
               <MessageCircle className="w-5 h-5 text-[#63c49f]" />
-              <span className="text-sm font-semibold text-[#0F1E2E]">Forum</span>
+              <span className="text-sm font-semibold text-[#1a2f42]">Forum</span>
             </div>
           </Link>
         </div>
@@ -816,7 +816,7 @@ export default function Home() {
         {/* Recent Issues */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold flex items-center gap-1 text-[#0F1E2E]">
+            <h2 className="font-bold flex items-center gap-1 text-[#1a2f42]">
               <History className="w-5 h-5 text-[#63c49f]" />
               Recent Issues
             </h2>
@@ -854,8 +854,8 @@ export default function Home() {
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
                 <Sparkles className="w-8 h-8 text-slate-400" />
               </div>
-              <p className="text-[#0F1E2E] font-semibold">No issues scanned yet</p>
-              <p className="text-sm mt-1 text-[#0F1E2E]/70 font-medium">
+              <p className="text-[#1a2f42] font-semibold">No issues scanned yet</p>
+              <p className="text-sm mt-1 text-[#1a2f42]/70 font-medium">
                 Tap the button above to get started
               </p>
             </div>
