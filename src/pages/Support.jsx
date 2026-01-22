@@ -237,7 +237,7 @@ export default function Support() {
           <Button
             variant="ghost"
             size="icon"
-            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
+            className="rounded-xl hover:bg-slate-100 text-white"
             onClick={() => navigate(createPageUrl("Home"))}
           >
             <ArrowLeft className="w-5 h-5" />
@@ -247,8 +247,8 @@ export default function Support() {
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="font-bold text-sm text-[#1E3A57]">Fixplain Support</h1>
-              <p className="text-xs text-[#1E3A57]/70">AI Assistant</p>
+              <h1 className="font-bold text-sm text-white">Fixplain Support</h1>
+              <p className="text-xs text-white">AI Assistant</p>
             </div>
           </div>
         </div>
@@ -270,7 +270,7 @@ export default function Support() {
                 "max-w-[80%] rounded-2xl px-4 py-3",
                 msg.role === "user"
                   ? "bg-[#1E3A57] text-white"
-                  : "bg-white/60 backdrop-blur-md border-2 border-[#1E3A57]/20 text-[#1E3A57]"
+                  : "bg-white/60 backdrop-blur-md border-2 border-[#1E3A57]/20 text-white"
               )}>
                 {msg.role === "assistant" ? (
                   <ReactMarkdown className="text-sm prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
@@ -321,7 +321,7 @@ export default function Support() {
         {/* Rating Widget */}
         {showRating && !hasRated && messages.length > 2 && (
           <div className="mt-4 p-4 rounded-2xl border-2 mx-4 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
-            <p className="text-sm font-semibold mb-3 text-[#1E3A57]">
+            <p className="text-sm font-semibold mb-3 text-white">
               💬 How helpful was this interaction?
             </p>
             <div className="flex gap-2">
@@ -354,7 +354,7 @@ export default function Support() {
               {attachments.map((file, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm border bg-slate-50 border-slate-200 text-[#1E3A57]"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm border bg-slate-50 border-slate-200 text-white"
                 >
                   {file.type === "image" ? (
                     <ImageIcon className="w-4 h-4 text-[#57CFA4]" />
@@ -387,7 +387,7 @@ export default function Support() {
               size="icon"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading || sending}
-              className="rounded-xl border-slate-200 text-[#1E3A57] hover:bg-slate-50"
+              className="rounded-xl border-slate-200 text-white hover:bg-slate-50"
             >
               {uploading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -401,7 +401,7 @@ export default function Support() {
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
               disabled={sending}
-              className="flex-1 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/30 text-[#1E3A57]"
+              className="flex-1 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/30 text-white"
             />
             <Button
               onClick={handleSend}
