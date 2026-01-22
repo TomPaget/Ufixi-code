@@ -93,20 +93,12 @@ export default function Messages() {
         }
       `}</style>
       
-      <header 
-        className="sticky top-0 z-30 border-b"
-        style={{
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.02) 100%)',
-          backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-          WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-          boxShadow: 'inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.9), 0 10px 40px rgba(31,65,100,0.15)',
-          borderColor: 'rgba(255,255,255,0.15)'
-        }}>
+      <header className="sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-center relative">
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-5 rounded-xl hover:bg-white/30 text-white hover:text-white"
+            className="absolute left-5 rounded-xl hover:bg-slate-700 text-white"
             onClick={() => setMenuOpen(true)}
           >
             <Menu className="w-5 h-5" />
