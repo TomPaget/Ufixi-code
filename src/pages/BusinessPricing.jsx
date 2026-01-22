@@ -298,15 +298,15 @@ export default function BusinessPricing() {
                   <Icon className="w-6 h-6 text-white" />
                 </div>
 
-                <h3 className="text-xl font-bold mb-2 text-white">
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#1a2f42' }}>
                   {plan.name}
                 </h3>
 
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-white">
+                  <span className="text-4xl font-bold" style={{ color: '#1a2f42' }}>
                     £{plan.price}
                   </span>
-                  <span className="text-sm text-white/80 font-medium">
+                  <span className="text-sm font-medium" style={{ color: '#1a2f42' }}>
                     /month
                   </span>
                 </div>
@@ -315,7 +315,7 @@ export default function BusinessPricing() {
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <CheckCircle2 className="w-5 h-5 text-[#57CFA4] flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-white font-medium">
+                      <span className="text-sm font-medium" style={{ color: '#1a2f42' }}>
                         {feature}
                       </span>
                     </li>
