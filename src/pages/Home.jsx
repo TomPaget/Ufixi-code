@@ -861,7 +861,7 @@ export default function Home() {
             </h2>
             <Link 
               to={createPageUrl("History")}
-              className="text-sm font-semibold text-[#63c49f] hover:text-[#63c49f]/80"
+              className="text-sm font-semibold text-white hover:text-white/80"
             >
               View All
             </Link>
