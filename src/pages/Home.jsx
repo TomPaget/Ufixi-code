@@ -623,82 +623,42 @@ export default function Home() {
 
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden">
-      {/* Animated liquid gradient background */}
-      <div className="fixed inset-0 -z-10" style={{
-        background: theme === 'dark' 
-          ? 'linear-gradient(135deg, #2a3f5f 0%, #3d5a7a 15%, #D97706 28%, #4a3d6f 40%, #5f4a5a 55%, #E598C0 68%, #3366cc 85%, #1E1B4B 100%)'
-          : 'linear-gradient(to-br, #f1f5f9, #f8fafc)'
-      }}>
-        {theme === 'dark' ? (
-          <>
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
-          </>
-        ) : (
-          <>
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
-          </>
-        )}
-        <div className="absolute inset-0 bg-white/5" />
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+        <div className="absolute inset-0 bg-white/1" />
       </div>
       
       <style jsx>{`
-        @keyframes gradientFlow {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        @keyframes shine {
-          0% { background-position: -1000px 0; }
-          100% { background-position: 1000px 0; }
-        }
-        @keyframes lavaLamp {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
         @keyframes gradient-shift {
-          0% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
-          12% { transform: translate(42%, -28%) scale(1.75) rotate(22deg); }
-          25% { transform: translate(-38%, 45%) scale(1.6) rotate(-18deg); }
-          37% { transform: translate(28%, -52%) scale(1.8) rotate(35deg); }
-          50% { transform: translate(-52%, -15%) scale(1.55) rotate(-8deg); }
-          62% { transform: translate(35%, 38%) scale(1.7) rotate(12deg); }
-          75% { transform: translate(-45%, -38%) scale(1.65) rotate(-28deg); }
-          88% { transform: translate(22%, 25%) scale(1.72) rotate(16deg); }
-          100% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
         @keyframes gradient-shift-slow {
-          0% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); }
-          14% { transform: translate(-52%, 32%) scale(1.75) rotate(-22deg); }
-          28% { transform: translate(38%, -48%) scale(1.55) rotate(28deg); }
-          42% { transform: translate(-28%, -42%) scale(1.8) rotate(-12deg); }
-          57% { transform: translate(48%, 28%) scale(1.65) rotate(18deg); }
-          71% { transform: translate(-42%, 52%) scale(1.7) rotate(-35deg); }
-          85% { transform: translate(25%, -35%) scale(1.6) rotate(8deg); }
-          100% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); }
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
         @keyframes gradient-shift-reverse {
-          0% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
-          18% { transform: translate(58%, -42%) scale(1.7) rotate(28deg); }
-          36% { transform: translate(-48%, 38%) scale(1.75) rotate(-20deg); }
-          54% { transform: translate(32%, -52%) scale(1.6) rotate(15deg); }
-          72% { transform: translate(-52%, -28%) scale(1.8) rotate(-32deg); }
-          90% { transform: translate(35%, 45%) scale(1.65) rotate(10deg); }
-          100% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-
         .animate-gradient-shift {
-          animation: gradient-shift 16s ease-in-out infinite;
+          animation: gradient-shift 8s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 20s ease-in-out infinite;
+          animation: gradient-shift-slow 10s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 14s ease-in-out infinite;
+          animation: gradient-shift-reverse 9s ease-in-out infinite;
         }
       `}</style>
       
