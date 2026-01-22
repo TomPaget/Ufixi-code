@@ -631,17 +631,17 @@ export default function Home() {
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-green-300/90 via-green-400/85 to-blue-600/80 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/60 via-green-500/85 to-green-600/85 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-green-400/85 via-blue-500/70 to-green-300/80 animate-gradient-shift-reverse blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-200/40 via-green-500/80 to-orange-300/35 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-green-300/70 via-blue-400/75 to-blue-600/80 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/60 via-green-400/65 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-green-300/65 via-blue-500/70 to-white/60 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-200/40 via-green-400/60 to-orange-300/35 animate-gradient-shift blur-3xl" />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-green-300/90 via-green-400/85 to-blue-600/80 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/60 via-green-500/85 to-green-600/85 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-green-400/85 via-blue-500/70 to-green-300/80 animate-gradient-shift-reverse blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-200/40 via-green-500/80 to-orange-300/35 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-green-300/70 via-blue-400/75 to-blue-600/80 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/60 via-green-400/65 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-green-300/65 via-blue-500/70 to-white/60 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-200/40 via-green-400/60 to-orange-300/35 animate-gradient-shift blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
