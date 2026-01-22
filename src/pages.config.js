@@ -1,4 +1,3 @@
-import BusinessPricing from './pages/BusinessPricing';
 import Chat from './pages/Chat';
 import ConsultationSummary from './pages/ConsultationSummary';
 import ContractorManagement from './pages/ContractorManagement';
@@ -33,11 +32,11 @@ import History from './pages/History';
 import IssueDetail from './pages/IssueDetail';
 import Settings from './pages/Settings';
 import Home from './pages/Home';
+import BusinessPricing from './pages/BusinessPricing';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "BusinessPricing": BusinessPricing,
     "Chat": Chat,
     "ConsultationSummary": ConsultationSummary,
     "ContractorManagement": ContractorManagement,
@@ -72,6 +71,7 @@ export const PAGES = {
     "IssueDetail": IssueDetail,
     "Settings": Settings,
     "Home": Home,
+    "BusinessPricing": BusinessPricing,
 }
 
 export const pagesConfig = {
