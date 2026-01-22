@@ -235,26 +235,24 @@ export default function Support() {
       `}</style>
       
       <header className="sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20">
-        <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
+        <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-center relative">
           <Button
             variant="ghost"
             size="icon"
-            className="rounded-xl hover:bg-slate-100 text-white"
-            onClick={() => navigate(createPageUrl("Home"))}
+            className="absolute left-5 rounded-xl hover:bg-white/20 text-white"
+            onClick={() => setMenuOpen(true)}
           >
-            <ArrowLeft className="w-5 h-5" />
+            <Menu className="w-5 h-5" />
           </Button>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#57CFA4] flex items-center justify-center">
-              <Bot className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="font-bold text-sm text-white">Fixplain Support</h1>
-              <p className="text-xs text-white">AI Assistant</p>
-            </div>
-          </div>
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"
+            alt="Ufixi Logo"
+            className="h-8 object-contain"
+          />
         </div>
       </header>
+
+      <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <main className="flex-1 max-w-lg mx-auto w-full px-5 py-6 overflow-y-auto">
         <div className="space-y-4">
