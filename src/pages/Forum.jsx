@@ -36,6 +36,7 @@ export default function Forum() {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
