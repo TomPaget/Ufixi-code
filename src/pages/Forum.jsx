@@ -3,12 +3,13 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, Plus, MessageSquare, ThumbsUp, Filter, Search, X, Calendar } from "lucide-react";
+import { Menu, Plus, MessageSquare, ThumbsUp, Filter, Search, X, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
+import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import { format, isAfter, isBefore, parseISO } from "date-fns";
 
 const categories = [
