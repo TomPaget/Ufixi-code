@@ -151,7 +151,7 @@ export default function Messages() {
                 <button
                   key={conv.id}
                   onClick={() => navigate(createPageUrl(`Chat?id=${conv.id}`))}
-                  className="w-full rounded-2xl p-4 border-2 text-left transition-colors bg-white/60 backdrop-blur-md border-[#1E3A57]/20 hover:bg-white/80"
+                  className="w-full rounded-2xl p-4 border-2 text-left transition-colors bg-white/40 backdrop-blur-md border-[#1E3A57]/20 hover:bg-white/60"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center gap-3">
