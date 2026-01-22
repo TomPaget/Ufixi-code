@@ -11,6 +11,6 @@ export default function Disclaimer() {
 
         </p>
       </div>
-    </div>);
-
+    </div>
+  );
 }
