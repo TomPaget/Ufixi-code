@@ -692,13 +692,13 @@ export default function Home() {
         }
 
         .animate-gradient-shift {
-          animation: gradient-shift 12s ease-in-out infinite;
+          animation: gradient-shift 16s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 15s ease-in-out infinite;
+          animation: gradient-shift-slow 20s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 10s ease-in-out infinite;
+          animation: gradient-shift-reverse 14s ease-in-out infinite;
         }
       `}</style>
       
