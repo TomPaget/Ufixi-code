@@ -714,14 +714,14 @@ export default function Home() {
             className="grid grid-cols-3 gap-3"
           >
             <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
-              <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
+              <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
               <p className="text-xl font-bold text-[#0F1E2E]">
                 {issues.filter(i => i.status === "active").length}
               </p>
               <p className="text-xs text-[#0F1E2E]/80 font-semibold">Active</p>
             </div>
             <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
-              <Calendar className="w-5 h-5 mx-auto mb-1 text-[#F7B600]" />
+              <Calendar className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
               <p className="text-xl font-bold text-[#0F1E2E]">
                 {issues.filter(i => i.urgency === "fix_soon").length}
               </p>
@@ -792,11 +792,11 @@ export default function Home() {
                 borderColor: getBorderColor(theme),
               }}
             >
-              <Users className="w-5 h-5 text-[#57CFA4]" />
+              <Users className="w-5 h-5 text-[#63c49f]" />
               <span className="text-sm font-semibold text-[#0F1E2E]">Contractors</span>
             </div>
-          </Link>
-          <Link to={createPageUrl("Forum")}>
+            </Link>
+            <Link to={createPageUrl("Forum")}>
             <div
               className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all"
               style={{
@@ -807,7 +807,7 @@ export default function Home() {
                 borderColor: getBorderColor(theme),
               }}
             >
-              <MessageCircle className="w-5 h-5 text-[#57CFA4]" />
+              <MessageCircle className="w-5 h-5 text-[#63c49f]" />
               <span className="text-sm font-semibold text-[#0F1E2E]">Forum</span>
             </div>
           </Link>
@@ -817,12 +817,12 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold flex items-center gap-1 text-[#0F1E2E]">
-              <History className="w-5 h-5 text-[#57CFA4]" />
+              <History className="w-5 h-5 text-[#63c49f]" />
               Recent Issues
             </h2>
             <Link 
               to={createPageUrl("History")}
-              className="text-sm font-semibold text-[#57CFA4] hover:text-[#57CFA4]/80"
+              className="text-sm font-semibold text-[#63c49f] hover:text-[#63c49f]/80"
             >
               View All
             </Link>
