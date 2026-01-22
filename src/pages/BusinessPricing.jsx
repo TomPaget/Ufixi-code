@@ -228,7 +228,7 @@ export default function BusinessPricing() {
             </span>
           </h1>
           
-          <p className="text-lg max-w-2xl mx-auto text-slate-800 font-medium">
+          <p className="text-lg max-w-2xl mx-auto text-white font-medium">
             See a problem during a viewing? Need a quick explanation for your client? 
             UFixi gives you instant, professional property diagnostics on the spot.
           </p>
