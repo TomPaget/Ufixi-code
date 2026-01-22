@@ -688,7 +688,27 @@ export default function Home() {
         />
       )}
 
+      <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      
+      {/* Header */}
+      <header className="sticky top-0 z-30 border-b bg-white/95 backdrop-blur-sm border-slate-200/50">
+        <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setMenuOpen(true)}
+            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
+          >
+            <Menu className="w-5 h-5" />
+          </Button>
+          
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg bg-[#1E3A57] text-white">
+            F
+          </div>
 
+          <NotificationBell />
+        </div>
+      </header>
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
