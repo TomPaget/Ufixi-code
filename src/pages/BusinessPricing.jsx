@@ -405,17 +405,17 @@ export default function BusinessPricing() {
         )}
 
         {/* Social Proof */}
-        <div className="text-center p-8 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Shield className="w-6 h-6 text-[#57CFA4]" />
-            <h3 className="font-semibold text-[#1E3A57]">
-              Trusted by Estate Agents Across the UK
-            </h3>
-          </div>
-          <p className="text-sm text-slate-800 font-medium">
-            Join hundreds of property professionals using UFixi to provide better service to their clients
-          </p>
-        </div>
+         <div className="text-center p-8 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+           <div className="flex items-center justify-center gap-2 mb-4">
+             <Shield className="w-6 h-6 text-white" />
+             <h3 className="font-semibold text-white">
+               Trusted by Estate Agents Across the UK
+             </h3>
+           </div>
+           <p className="text-sm text-white font-medium">
+             Join hundreds of property professionals using UFixi to provide better service to their clients
+           </p>
+         </div>
       </main>
     </div>
   );
