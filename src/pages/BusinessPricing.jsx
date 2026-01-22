@@ -339,7 +339,7 @@ export default function BusinessPricing() {
           ].map((item, i) => (
             <div
               key={i}
-              className="p-4 rounded-xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20"
+              className="p-4 rounded-xl border-2 bg-white/30 backdrop-blur-md border-[#1E3A57]/20"
             >
               <item.icon className="w-8 h-8 mx-auto mb-2 text-white" />
               <p className="text-sm font-semibold text-white">
