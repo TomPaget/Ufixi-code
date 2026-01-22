@@ -9,43 +9,10 @@ css
   body {
     color: #1a2f42;
   }
-
+  
   h1, h2, h3, h4, h5, h6, [style*="Coolvetica"] {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
-}
-
-@keyframes lavaLampGradient1 {
-  0% { background: linear-gradient(to-b, #ec4899, #10b981, #3b82f6); }
-  33% { background: linear-gradient(to-b, #f97316, #3b82f6, #3b82f6); }
-  66% { background: linear-gradient(to-b, #ec4899, #10b981, #3b82f6); }
-  100% { background: linear-gradient(to-b, #ec4899, #10b981, #3b82f6); }
-}
-
-@keyframes lavaLampGradient2 {
-  0% { background: linear-gradient(to-tr, #f97316, #fbbf24, #60a5fa, #06b6d4); }
-  33% { background: linear-gradient(to-tr, #ec4899, #fbbf24, #60a5fa, #06b6d4); }
-  66% { background: linear-gradient(to-tr, #f97316, #fbbf24, #60a5fa, #06b6d4); }
-  100% { background: linear-gradient(to-tr, #f97316, #fbbf24, #60a5fa, #06b6d4); }
-}
-
-@keyframes lavaLampGradient3 {
-  0% { background: linear-gradient(to-bl, #60a5fa, #10b981, #f97316); }
-  33% { background: linear-gradient(to-bl, #60a5fa, #3b82f6, #ec4899); }
-  66% { background: linear-gradient(to-bl, #60a5fa, #10b981, #f97316); }
-  100% { background: linear-gradient(to-bl, #60a5fa, #10b981, #f97316); }
-}
-
-.animate-lava-lamp-1 {
-  animation: lavaLampGradient1 12s ease-in-out infinite;
-}
-
-.animate-lava-lamp-2 {
-  animation: lavaLampGradient2 14s ease-in-out infinite;
-}
-
-.animate-lava-lamp-3 {
-  animation: lavaLampGradient3 16s ease-in-out infinite;
 }
