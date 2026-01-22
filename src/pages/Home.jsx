@@ -856,7 +856,7 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold flex items-center gap-1 text-white">
-              <History className="w-5 h-5 text-[#63c49f]" />
+              <History className="w-5 h-5 text-white" />
               Recent Issues
             </h2>
             <Link 
