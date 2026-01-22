@@ -405,7 +405,7 @@ export default function BusinessPricing() {
         )}
 
         {/* Social Proof */}
-         <div className="text-center p-8 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+         <div className="text-center p-8 rounded-2xl border-2 bg-white/30 backdrop-blur-md border-[#1E3A57]/20">
            <div className="flex items-center justify-center gap-2 mb-4">
              <Shield className="w-6 h-6 text-white" />
              <h3 className="font-semibold text-white">
