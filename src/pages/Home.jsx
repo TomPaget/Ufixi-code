@@ -695,8 +695,8 @@ export default function Home() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold mt-8 mb-6">
-            <span className="whitespace-nowrap font-bold text-white" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
+          <h1 className="text-4xl md:text-5xl font-bold text-[#1a2f42] mt-8 mb-6">
+            <span className="whitespace-nowrap font-bold" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
             <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent font-bold" style={{ fontFamily: "'Fredoka', sans-serif" }}>
               fixing?
             </span>
@@ -793,7 +793,7 @@ export default function Home() {
               }}
             >
               <Users className="w-5 h-5 text-[#63c49f]" />
-              <span className="text-sm font-semibold text-[#1a2f42]">Contractors</span>
+              <span className="text-sm font-semibold text-white">Contractors</span>
               </div>
               </Link>
               <Link to={createPageUrl("Forum")}>
