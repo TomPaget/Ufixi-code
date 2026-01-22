@@ -118,20 +118,20 @@ export default function TradesSignup() {
       <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-[#F7B600]/20 border-[#F7B600]/60">
-            <Briefcase className="w-4 h-4 text-[#1E3A57]" />
-            <span className="text-sm font-semibold text-[#1E3A57]">For Tradespeople</span>
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
-            Grow Your Business
-            <br />
-            <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
-              Connect with Customers
-            </span>
-          </h1>
-          
-          <p className="text-base max-w-2xl mx-auto text-slate-800 font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-white/10 border-white/30">
+             <Briefcase className="w-4 h-4 text-white" />
+             <span className="text-sm font-semibold text-white">For Tradespeople</span>
+           </div>
+
+           <h1 className="text-4xl md:text-5xl font-bold text-white" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
+             Grow Your Business
+             <br />
+             <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
+               Connect with Customers
+             </span>
+           </h1>
+
+           <p className="text-base max-w-2xl mx-auto text-white font-medium">
             Join hundreds of verified tradespeople finding local jobs. No commission fees - keep 100% of your earnings.
           </p>
 
