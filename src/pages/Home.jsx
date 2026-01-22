@@ -699,7 +699,16 @@ export default function Home() {
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold mt-8 mb-6">
             <span className="whitespace-nowrap font-bold text-white" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
-            <span className="bg-gradient-to-r from-cyan-300 via-lime-300 to-orange-300 bg-clip-text text-transparent font-bold drop-shadow-lg" style={{ fontFamily: "'Fredoka', sans-serif", textShadow: '0 0 30px rgba(99, 196, 159, 0.8)' }}>
+            <span className="font-bold" style={{ 
+              fontFamily: "'Fredoka', sans-serif",
+              background: 'linear-gradient(135deg, #63c49f 0%, rgba(255, 255, 255, 0.95) 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backdropFilter: 'blur(10px)',
+              textShadow: '0 0 30px rgba(99, 196, 159, 0.6)',
+              filter: 'drop-shadow(0 0 20px rgba(99, 196, 159, 0.4))'
+            }}>
               fixing?
             </span>
           </h1>
