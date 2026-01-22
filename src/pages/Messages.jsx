@@ -129,7 +129,7 @@ export default function Messages() {
             <p style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}>
               No messages yet
             </p>
-            <p className="text-sm mt-1 text-slate-500">
+            <p className="text-sm mt-1" style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}>
               Start a conversation with a tradesperson
             </p>
           </div>
