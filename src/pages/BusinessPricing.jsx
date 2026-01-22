@@ -139,6 +139,14 @@ export default function BusinessPricing() {
       </div>
       
       <style jsx>{`
+        @keyframes shine {
+          0%, 100% { background-position: 0% 0%, 0% 50%; }
+          50% { background-position: 100% 100%, 100% 50%; }
+        }
+        @keyframes gradientFlow {
+          0%, 100% { background-position: 0% 0%, 0% 0%; }
+          50% { background-position: 100% 100%, 100% 100%; }
+        }
         @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
           25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
