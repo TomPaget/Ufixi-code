@@ -646,6 +646,11 @@ export default function Home() {
       </div>
       
       <style jsx>{`
+        @keyframes gradientFlow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
         @keyframes lavaLamp {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
