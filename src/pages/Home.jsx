@@ -844,7 +844,7 @@ export default function Home() {
             </div>
           ) : (
             <div 
-              className="text-center py-12 rounded-3xl border-2 overflow-hidden"
+              className="text-center py-12 rounded-3xl border-2 overflow-hidden opacity-40"
               style={{
                 background: getGradientStyle(theme, 'accent'),
                 backdropFilter: getBackdropFilter(),
