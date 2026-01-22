@@ -631,15 +631,15 @@ export default function Home() {
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-green-200 via-green-400 via-blue-300 via-cyan-300 to-blue-400 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-green-300 via-blue-300 via-orange-200 to-cyan-300 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-blue-300 via-green-300 to-blue-300 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-green-200 via-green-300 via-orange-300 via-blue-300 to-cyan-300 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-green-300 via-pink-200 via-orange-200 via-pink-300 to-blue-300 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-pink-300 via-orange-200 via-blue-300 to-green-300 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-green-200 via-green-400 via-blue-300 via-cyan-300 to-blue-400 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-green-300 via-blue-300 via-orange-200 to-cyan-300 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-blue-300 via-green-300 to-blue-300 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-green-200 via-green-300 via-orange-300 via-blue-300 to-cyan-300 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-green-300 via-pink-200 via-orange-200 via-pink-300 to-blue-300 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-pink-300 via-orange-200 via-blue-300 to-green-300 animate-gradient-shift-reverse blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
