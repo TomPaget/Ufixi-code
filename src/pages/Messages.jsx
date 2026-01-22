@@ -114,7 +114,8 @@ export default function Messages() {
             placeholder="Search conversations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/30 text-[#1E3A57]"
+            className="pl-10 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/30"
+            style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}
           />
         </div>
 
