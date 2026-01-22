@@ -782,12 +782,11 @@ export default function Home() {
             <div
               className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all cursor-pointer"
               style={{
-                background: getGradientStyle(theme, 'main'),
-                backdropFilter: getBackdropFilter(),
-                WebkitBackdropFilter: getBackdropFilter(),
-                boxShadow: getBoxShadow('main'),
-                borderColor: getBorderColor(theme),
-                backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.2) 100%)',
+                backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
+                boxShadow: 'inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.9), 0 10px 40px rgba(31,65,100,0.15)',
+                borderColor: 'rgba(255,255,255,0.5)',
               }}
             >
               <Users className="w-5 h-5 text-[#63c49f]" />
