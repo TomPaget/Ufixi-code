@@ -132,7 +132,7 @@ export default function Messages() {
             <div className="w-8 h-8 border-2 border-[#57CFA4] border-t-transparent rounded-full animate-spin mx-auto" />
           </div>
         ) : filteredConversations.length === 0 ? (
-          <div className="text-center py-12 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+          <div className="text-center py-12 rounded-2xl border-2 bg-white/20 backdrop-blur-md border-[#1E3A57]/20">
             <MessageCircle className="w-12 h-12 mx-auto mb-3" style={{ color: '#63c49f' }} />
             <p style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}>
               No messages yet
