@@ -143,12 +143,12 @@ export default function Forum() {
           <Button
             variant="ghost"
             size="icon"
-            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
+            className="rounded-xl hover:bg-slate-100 text-white"
             onClick={() => navigate(createPageUrl("Home"))}
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="font-bold text-lg flex-1 text-[#1E3A57]">Community Forum</h1>
+          <h1 className="font-bold text-lg flex-1 text-white">Community Forum</h1>
           <Button
             size="sm"
             className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] rounded-xl"
@@ -170,7 +170,7 @@ export default function Forum() {
                 placeholder="Search posts by keyword..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-[#1E3A57]"
+                className="pl-10 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-white"
               />
               {searchQuery && (
                 <button
@@ -206,9 +206,9 @@ export default function Forum() {
                 className="space-y-3 pt-3 border-t"
               >
                 <div>
-                   <label className="text-xs font-medium mb-1 block text-[#1E3A57]/70">
-                     Author Name
-                   </label>
+                   <label className="text-xs font-medium mb-1 block text-white">
+                      Author Name
+                    </label>
                    <Input
                      placeholder="Filter by author..."
                      value={authorFilter}
@@ -219,7 +219,7 @@ export default function Forum() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                     <label className="text-xs font-medium mb-1 block text-[#1E3A57]/70">
+                     <label className="text-xs font-medium mb-1 block text-white">
                        From Date
                      </label>
                      <Input
@@ -230,7 +230,7 @@ export default function Forum() {
                      />
                    </div>
                    <div>
-                     <label className="text-xs font-medium mb-1 block text-[#1E3A57]/70">
+                     <label className="text-xs font-medium mb-1 block text-white">
                        To Date
                      </label>
                      <Input
@@ -270,7 +270,7 @@ export default function Forum() {
                  "px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-colors border-2",
                  selectedCategory === cat.value
                    ? "bg-[#57CFA4] border-[#57CFA4] text-white"
-                   : "bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-[#1E3A57] hover:bg-white/80"
+                   : "bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-white hover:bg-white/80"
                )}
             >
               {cat.label}
@@ -287,7 +287,7 @@ export default function Forum() {
           </div>
         ) : filteredPosts.length > 0 ? (
           <div className="space-y-3">
-            <p className="text-sm font-medium text-[#1E3A57]/70">
+            <p className="text-sm font-medium text-white">
               {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} found
             </p>
             {filteredPosts.map((post, i) => (
@@ -301,7 +301,7 @@ export default function Forum() {
                   <div className="rounded-2xl p-4 border-2 transition-all hover:scale-[1.02] bg-white/60 backdrop-blur-md border-[#1E3A57]/20 hover:border-[#57CFA4]/50">
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="flex-1">
-                        <h3 className="font-bold text-[#1E3A57]">{post.title}</h3>
+                        <h3 className="font-bold text-white">{post.title}</h3>
                         {post.author_is_trades && (
                           <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-blue-500 text-white mt-1">
                             ✓ Verified Trades
@@ -317,9 +317,9 @@ export default function Forum() {
                         {post.category.replace(/_/g, " ")}
                       </span>
                     </div>
-                    <p className="text-sm mb-3 line-clamp-2 text-[#1E3A57]/70">{post.content}</p>
+                    <p className="text-sm mb-3 line-clamp-2 text-white">{post.content}</p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[#1E3A57]/70">
+                      <span className="text-white">
                          by {post.author_name || "Anonymous"} • {format(new Date(post.created_date), "MMM d")}
                        </span>
                       <div className="flex items-center gap-3">
@@ -341,8 +341,8 @@ export default function Forum() {
         ) : (
           <div className="text-center py-12 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
              <MessageSquare className="w-12 h-12 mx-auto mb-3 text-[#1E3A57]/50" />
-             <p className="text-[#1E3A57]">No posts yet</p>
-             <p className="text-sm mt-1 text-[#1E3A57]/70">Be the first to start a discussion!</p>
+             <p className="text-white">No posts yet</p>
+             <p className="text-sm mt-1 text-white">Be the first to start a discussion!</p>
            </div>
         )}
       </main>
