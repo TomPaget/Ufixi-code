@@ -796,12 +796,13 @@ export default function Home() {
             >
               <div
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
-                className="w-full h-16 rounded-2xl font-semibold text-white cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:scale-[1.02]"
+                className="w-full h-16 rounded-2xl font-semibold cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:scale-[1.02]"
                 style={{
-                  background: `linear-gradient(180deg, #63c49f 0%, #5ab98f 50%, #52ae83 100%)`,
-                  borderColor: 'rgba(99, 196, 159, 0.8)',
-                  borderTop: '1px solid rgba(99, 196, 159, 1)',
-                  borderBottom: '1px solid rgba(99, 196, 159, 0.3)'
+                  background: '#ffffff',
+                  color: '#63c49f',
+                  borderColor: '#63c49f',
+                  borderTop: '1px solid #63c49f',
+                  borderBottom: '1px solid #63c49f'
                 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity" style={{
