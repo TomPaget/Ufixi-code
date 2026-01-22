@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import {
-  ArrowLeft,
+  Menu,
   Building2,
   CheckCircle2,
   Sparkles,
@@ -21,6 +21,7 @@ import {
   BarChart3,
   Home
 } from "lucide-react";
+import HamburgerMenu from "@/components/kora/HamburgerMenu";
 
 const plans = [
   {
