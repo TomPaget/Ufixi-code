@@ -844,13 +844,14 @@ export default function Home() {
             </div>
           ) : (
             <div 
-              className="text-center py-12 rounded-3xl border-2 overflow-hidden opacity-40"
+              className="text-center py-12 rounded-3xl border-2 overflow-hidden"
               style={{
                 background: getGradientStyle(theme, 'accent'),
                 backdropFilter: getBackdropFilter(),
                 WebkitBackdropFilter: getBackdropFilter(),
                 boxShadow: getBoxShadow('accent'),
                 borderColor: getBorderColor(theme),
+                opacity: 0.4,
               }}
             >
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
