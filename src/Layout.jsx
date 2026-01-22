@@ -2,6 +2,19 @@ import { ThemeProvider } from "@/components/kora/ThemeProvider";
 import BannerAd from "@/components/kora/BannerAd";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
+import { useTheme } from "@/components/kora/ThemeProvider";
+
+function LayoutContent({ children }) {
+  const { theme } = useTheme();
+  
+  return (
+    <div className="min-h-screen" style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}>
+      {children}
+      <BannerAd />
+    </div>
+  );
+}
+
 export default function Layout({ children, currentPageName }) {
   return (
     <ThemeProvider>
@@ -12,10 +25,7 @@ export default function Layout({ children, currentPageName }) {
             --dark-card: #ffffff;
           }
         `}</style>
-        <div className="min-h-screen">
-          {children}
-          <BannerAd />
-        </div>
+        <LayoutContent>{children}</LayoutContent>
       </ErrorBoundary>
     </ThemeProvider>
   );
