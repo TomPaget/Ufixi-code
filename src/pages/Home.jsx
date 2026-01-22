@@ -808,7 +808,7 @@ export default function Home() {
               }}
               >
               <MessageCircle className="w-5 h-5 text-[#63c49f]" />
-              <span className="text-sm font-semibold text-[#1a2f42]">Forum</span>
+              <span className="text-sm font-semibold text-white">Forum</span>
             </div>
           </Link>
         </div>
@@ -816,7 +816,7 @@ export default function Home() {
         {/* Recent Issues */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold flex items-center gap-1 text-[#1a2f42]">
+            <h2 className="font-bold flex items-center gap-1 text-white">
               <History className="w-5 h-5 text-[#63c49f]" />
               Recent Issues
             </h2>
