@@ -702,9 +702,11 @@ export default function Home() {
             <Menu className="w-5 h-5" />
           </Button>
           
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg bg-[#1E3A57] text-white">
-            F
-          </div>
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/b6e7c1091_ufixi_primary_RGB.png"
+            alt="UFixi"
+            className="h-8 w-auto object-contain"
+          />
 
           <NotificationBell />
         </div>
