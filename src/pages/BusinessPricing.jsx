@@ -341,8 +341,8 @@ export default function BusinessPricing() {
               key={i}
               className="p-4 rounded-xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20"
             >
-              <item.icon className="w-8 h-8 mx-auto mb-2 text-[#F7B600]" />
-              <p className="text-sm font-semibold text-slate-900">
+              <item.icon className="w-8 h-8 mx-auto mb-2 text-white" />
+              <p className="text-sm font-semibold text-white">
                 {item.text}
               </p>
             </div>
