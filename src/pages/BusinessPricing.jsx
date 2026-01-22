@@ -211,10 +211,10 @@ export default function BusinessPricing() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate(-1)}
+            onClick={() => setMenuOpen(true)}
             className="absolute left-5 rounded-xl hover:bg-slate-100 text-white"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <Menu className="w-5 h-5" />
           </Button>
           <img 
             src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"
@@ -223,6 +223,8 @@ export default function BusinessPricing() {
           />
         </div>
       </header>
+
+      <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
         {/* Hero Section */}
