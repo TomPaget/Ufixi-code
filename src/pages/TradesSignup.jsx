@@ -14,6 +14,7 @@ import HamburgerMenu from "@/components/kora/HamburgerMenu";
 export default function TradesSignup() {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
