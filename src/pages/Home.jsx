@@ -854,7 +854,7 @@ export default function Home() {
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
                 <Sparkles className="w-8 h-8 text-slate-400" />
               </div>
-              <p className="text-[#1a2f42] font-semibold">No issues scanned yet</p>
+              <p className="text-white font-semibold">No issues scanned yet</p>
               <p className="text-sm mt-1 text-white/70 font-medium">
                 Tap the button above to get started
               </p>
