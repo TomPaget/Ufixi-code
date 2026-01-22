@@ -344,7 +344,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             variant="ghost"
             size="icon"
             onClick={() => navigate(createPageUrl("Home"))}
-            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
+            className="rounded-xl hover:bg-slate-100 text-white"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
@@ -352,7 +352,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             <div className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-lg bg-[#F7B600] text-[#0F1E2E]">
               Q
             </div>
-            <h1 className="font-bold text-lg text-[#1E3A57]">
+            <h1 className="font-bold text-lg text-white">
               Find Local Tradesmen
             </h1>
           </div>
@@ -376,10 +376,10 @@ Return the exact coordinates and verify the postcode is valid.`,
               <div className="flex items-center gap-3">
                 <MapPin className="w-6 h-6 text-[#57CFA4]" />
                 <div>
-                  <p className="font-semibold text-[#1E3A57]">
+                  <p className="font-semibold text-white">
                     Location Enabled
                   </p>
-                  <p className="text-sm text-[#1E3A57]/70">
+                  <p className="text-sm text-white">
                     {postcode ? `${postcode} • ` : ""}{tradesmen.length} tradesmen found
                   </p>
                 </div>
@@ -395,7 +395,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
           ) : (
             <div>
-              <p className="font-semibold mb-2 text-[#1E3A57]">
+              <p className="font-semibold mb-2 text-white">
                 Enter your postcode
               </p>
               <div className="flex gap-2">
@@ -421,7 +421,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                      boxShadow: getBoxShadow('main'),
                      borderColor: getBorderColor(theme),
                    }}
-                   className="text-[#1E3A57] font-semibold border-2"
+                   className="text-white font-semibold border-2"
                  >
                    Search
                  </Button>
@@ -441,7 +441,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               boxShadow: getBoxShadow('main'),
               borderColor: getBorderColor(theme),
             }}
-            className="w-full border-2 gap-2 text-[#1E3A57]"
+            className="w-full border-2 gap-2 text-white"
           >
             <Map className="w-4 h-4" />
             {showMap ? "Hide Map" : "Show Map"}
@@ -454,13 +454,13 @@ Return the exact coordinates and verify the postcode is valid.`,
             <div className="p-3 border-b">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#F7B600]" />
-                <p className="text-sm font-medium text-[#1E3A57]">
+                <p className="text-sm font-medium text-white">
                   Your Location: {postcode || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
                 </p>
-              </div>
-              <p className="text-xs mt-1 text-[#1E3A57]/70">
+                </div>
+                <p className="text-xs mt-1 text-white">
                 Red marker shows your exact location
-              </p>
+                </p>
             </div>
             <div className="h-80 relative bg-slate-200">
               <iframe
@@ -485,12 +485,12 @@ Return the exact coordinates and verify the postcode is valid.`,
             >
               <div className="flex items-center gap-2">
                 <Bookmark className="w-5 h-5 text-[#F7B600]" />
-                <h3 className="font-bold text-[#1E3A57]">
+                <h3 className="font-bold text-white">
                   Saved Searches ({savedSearches.length})
                 </h3>
               </div>
               <ChevronDown className={cn(
-                "w-5 h-5 transition-transform text-[#1E3A57]",
+                "w-5 h-5 transition-transform text-white",
                 showSavedSearches && "rotate-180"
               )} />
             </button>
@@ -511,7 +511,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                     }}
                     className="w-full text-left p-3 rounded-xl border flex items-center justify-between hover:scale-[1.02] transition-transform bg-slate-50 border-slate-200 hover:border-[#57CFA4]"
                   >
-                    <span className="font-medium text-sm text-[#1E3A57]">
+                    <span className="font-medium text-sm text-white">
                       {search.name}
                     </span>
                     <button
@@ -545,7 +545,7 @@ Return the exact coordinates and verify the postcode is valid.`,
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Filter className="w-5 h-5 text-[#F7B600]" />
-              <h2 className="font-bold text-[#1E3A57]">Filters</h2>
+              <h2 className="font-bold text-white">Filters</h2>
             </div>
             <div className="flex gap-2">
               <Button
@@ -586,7 +586,7 @@ Return the exact coordinates and verify the postcode is valid.`,
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
+              <label className="text-sm font-medium mb-1 block text-white">
                 Trade Type
               </label>
               <Select value={tradeType} onValueChange={(value) => {
@@ -613,7 +613,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
+              <label className="text-sm font-medium mb-1 block text-white">
                 Sort By
               </label>
               <Select value={sortBy} onValueChange={setSortBy}>
@@ -630,7 +630,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
+              <label className="text-sm font-medium mb-1 block text-white">
                 Max {currencySymbol}/hour
               </label>
               <Select value={maxCost} onValueChange={setMaxCost}>
@@ -647,7 +647,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
+              <label className="text-sm font-medium mb-1 block text-white">
                 Distance
               </label>
               <Select value={searchRadius.toString()} onValueChange={(v) => setSearchRadius(parseInt(v))}>
@@ -664,7 +664,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-1 block text-[#1E3A57]/70">
+              <label className="text-sm font-medium mb-1 block text-white">
                 Min Rating
               </label>
               <Select value={minRating.toString()} onValueChange={(v) => setMinRating(parseFloat(v))}>
@@ -690,7 +690,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               className="space-y-4 pt-4 border-t"
             >
               <div>
-                <label className="text-sm font-medium mb-2 block text-[#1E3A57]/70">
+                <label className="text-sm font-medium mb-2 block text-white">
                   Services Offered
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -717,7 +717,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block text-[#1E3A57]/70">
+                <label className="text-sm font-medium mb-2 block text-white">
                   Minimum Experience
                 </label>
                 <Select value={minExperience} onValueChange={setMinExperience}>
@@ -735,7 +735,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block text-[#1E3A57]/70">
+                <label className="text-sm font-medium mb-2 block text-white">
                   Availability
                 </label>
                 <Select value={availability} onValueChange={setAvailability}>
@@ -752,7 +752,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block text-[#1E3A57]/70">
+                <label className="text-sm font-medium mb-2 block text-white">
                   Certifications Required
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -786,23 +786,23 @@ Return the exact coordinates and verify the postcode is valid.`,
           {loading ? (
             <div className="text-center py-12">
               <RefreshCw className="w-8 h-8 animate-spin text-[#57CFA4] mx-auto mb-3" />
-              <p className="text-sm text-[#1E3A57]/70">
+              <p className="text-sm text-white">
                 Searching Google Maps, Checkatrade, RatedPeople & local directories...
               </p>
             </div>
           ) : filteredTradesmen.length === 0 ? (
             <div className="text-center py-12 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
               <MapPin className="w-12 h-12 mx-auto mb-3 text-[#57CFA4]" />
-              <p className="text-[#1E3A57]">
+              <p className="text-white">
                 No tradesmen found
               </p>
-              <p className="text-sm mt-1 text-[#1E3A57]/70">
+              <p className="text-sm mt-1 text-white">
                 Try enabling location or entering a postcode
               </p>
             </div>
           ) : (
             <>
-              <p className="text-sm font-medium text-[#1E3A57]/70">
+              <p className="text-sm font-medium text-white">
                 {filteredTradesmen.length} tradesmen found
               </p>
 
