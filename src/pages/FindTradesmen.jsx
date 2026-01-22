@@ -450,7 +450,7 @@ Return the exact coordinates and verify the postcode is valid.`,
 
         {/* Mini Map */}
         {showMap && location && (
-          <div className="rounded-2xl overflow-hidden border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+          <div className="rounded-2xl overflow-hidden border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/20">
             <div className="p-3 border-b">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#F7B600]" />
@@ -478,7 +478,7 @@ Return the exact coordinates and verify the postcode is valid.`,
 
         {/* Saved Searches */}
         {savedSearches.length > 0 && (
-          <div className="rounded-2xl p-4 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+          <div className="rounded-2xl p-4 border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/20">
             <button
               onClick={() => setShowSavedSearches(!showSavedSearches)}
               className="w-full flex items-center justify-between"
