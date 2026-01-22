@@ -758,20 +758,20 @@ export default function Home() {
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                 className="w-full h-16 rounded-2xl font-semibold cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:scale-[1.02]"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(99,196,159,0.15) 0%, rgba(99,196,159,0.08) 40%, rgba(99,196,159,0.03) 100%)',
+                  background: 'linear-gradient(135deg, rgba(99,196,159,0.25) 0%, rgba(99,196,159,0.15) 40%, rgba(99,196,159,0.08) 100%)',
                   backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
                   WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
                   boxShadow: 'inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.9), 0 10px 40px rgba(31,65,100,0.15)',
-                  borderColor: 'rgba(99,196,159,0.4)',
+                  borderColor: 'rgba(99,196,159,0.5)',
                   color: '#63c49f'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(99,196,159,0.25) 0%, rgba(99,196,159,0.15) 40%, rgba(99,196,159,0.08) 100%)';
-                  e.currentTarget.style.borderColor = 'rgba(99,196,159,0.6)';
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(99,196,159,0.35) 0%, rgba(99,196,159,0.25) 40%, rgba(99,196,159,0.15) 100%)';
+                  e.currentTarget.style.borderColor = 'rgba(99,196,159,0.7)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(99,196,159,0.15) 0%, rgba(99,196,159,0.08) 40%, rgba(99,196,159,0.03) 100%)';
-                  e.currentTarget.style.borderColor = 'rgba(99,196,159,0.4)';
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(99,196,159,0.25) 0%, rgba(99,196,159,0.15) 40%, rgba(99,196,159,0.08) 100%)';
+                  e.currentTarget.style.borderColor = 'rgba(99,196,159,0.5)';
                 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity" style={{
