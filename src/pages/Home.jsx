@@ -626,7 +626,7 @@ export default function Home() {
       {/* Animated liquid gradient background */}
       <div className="fixed inset-0 -z-10" style={{
         background: theme === 'dark' 
-          ? 'linear-gradient(135deg, #2a3f5f 0%, #3d5a7a 15%, #D97706 28%, #4a3d6f 40%, #5f4a5a 55%, #F472B6 72%, #3d2f4a 85%, #1E1B4B 100%)'
+          ? 'linear-gradient(135deg, #2a3f5f 0%, #3d5a7a 15%, #D97706 28%, #4a3d6f 40%, #5f4a5a 55%, #F472B6 72%, #3366cc 85%, #1E1B4B 100%)'
           : 'linear-gradient(to-br, #f1f5f9, #f8fafc)'
       }}>
         {theme === 'dark' ? (
