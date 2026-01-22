@@ -798,14 +798,16 @@ export default function Home() {
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                 className="w-full h-16 rounded-2xl font-semibold text-white cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:scale-[1.02]"
                 style={{
-                  background: `rgba(255, 255, 255, 0.2)`,
+                  background: `linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.05) 100%)`,
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
-                  borderColor: 'rgba(255, 255, 255, 0.3)'
+                  borderColor: 'rgba(255, 255, 255, 0.5)',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.8)',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
                 }}
               >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity" style={{
-                  background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(87,207,164,0.5) 0%, transparent 70%)',
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity" style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%)',
                   pointerEvents: 'none'
                 }} />
                 <Plus className="w-5 h-5 relative z-10 text-white" />
