@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 export default function NotificationBell() {
   const { theme } = useTheme();
-
+  
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => base44.auth.me()
@@ -28,25 +28,20 @@ export default function NotificationBell() {
   const unreadCount = notifications.length;
 
   return (
-    <Link
-      to={createPageUrl("Notifications")} className="text-black rounded-xl relative w-10 h-10 flex items-center justify-center transition-colors hover:bg-slate-100">
-
-
-
-
-
-
-
-      <Bell className="w-5 h-5" />
-      {unreadCount > 0 &&
-      <motion.span
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
-
+    <Link 
+      to={createPageUrl("Notifications")}
+      className="relative w-10 h-10 rounded-xl flex items-center justify-center transition-colors hover:bg-slate-100"
+    >
+      <Bell className="w-5 h-5 text-[#63c49f]" />
+      {unreadCount > 0 && (
+        <motion.span
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center"
+        >
           {unreadCount > 9 ? "9+" : unreadCount}
         </motion.span>
-      }
-    </Link>);
-
+      )}
+    </Link>
+  );
 }

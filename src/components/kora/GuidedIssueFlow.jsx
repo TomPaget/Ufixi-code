@@ -6,12 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Loader2,
-  Upload,
-  Camera,
-  Video,
-  Mic,
+import { 
+  Loader2, 
+  Upload, 
+  Camera, 
+  Video, 
+  Mic, 
   CheckCircle2,
   Lightbulb,
   Wrench,
@@ -22,8 +22,8 @@ import {
   Mic2,
   Building2,
   ShoppingCart,
-  ExternalLink } from
-"lucide-react";
+  ExternalLink
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { validateFile } from "@/components/utils/fileValidation";
@@ -43,29 +43,29 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [suggestions, setSuggestions] = useState(null);
-
+  
   // User-provided details
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [duration, setDuration] = useState("");
   const [category, setCategory] = useState("");
-
+  
   // Business user property details
   const [propertyName, setPropertyName] = useState("");
   const [propertyAddress, setPropertyAddress] = useState("");
   const [propertyCategory, setPropertyCategory] = useState("residential");
-
+  
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: () => base44.auth.me()
   });
-
+  
   const isBusinessUser = user?.account_type === "business";
 
   // Step 1: Upload media
   const handleFileSelect = async (type, file) => {
     if (!file) return;
-
+    
     setError(null);
     setMediaType(type);
     setMediaFile(file);
@@ -86,13 +86,13 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
     try {
       // Rate limit check
       checkRateLimit(fileUploadLimiter, user?.id || 'anonymous');
-
+      
       const { file_url } = await base44.integrations.Core.UploadFile({ file: mediaFile });
       setMediaUrl(file_url);
-
+      
       // Rate limit check for AI
       checkRateLimit(aiAnalysisLimiter, user?.id || 'anonymous');
-
+      
       // Quick AI triage to identify issue type
       setAnalyzing(true);
       const triage = await base44.integrations.Core.InvokeLLM({
@@ -128,7 +128,7 @@ Be forensically precise. Use technical terminology. Differentiate between simila
       });
 
       setIssueType(triage);
-
+      
       // Generate context-specific questions
       const questionsResult = await base44.integrations.Core.InvokeLLM({
         prompt: `Based on this ${triage.category} issue: "${triage.brief_description}"
@@ -185,8 +185,8 @@ Examples:
     setAnalyzing(true);
     setError(null);
     try {
-      const answersText = questions.map((q) =>
-      `${q.question}: ${answers[q.id] || "Not answered"}`
+      const answersText = questions.map(q => 
+        `${q.question}: ${answers[q.id] || "Not answered"}`
       ).join("\n");
 
       const userCountry = user?.country || "UK";
@@ -337,8 +337,8 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
     setAnalyzing(true);
     setError(null);
     try {
-      const answersText = questions.map((q) =>
-      `${q.question}: ${answers[q.id] || "Not answered"}`
+      const answersText = questions.map(q => 
+        `${q.question}: ${answers[q.id] || "Not answered"}`
       ).join("\n");
 
       await onComplete(mediaUrl, mediaType, {
@@ -362,9 +362,9 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
     return (
       <div className={cn(
         "rounded-2xl p-6 border",
-        theme === "dark" ?
-        "bg-[#1A2F42] border-[#57CFA4]/20" :
-        "bg-white border-slate-200"
+        theme === "dark"
+          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+          : "bg-white border-slate-200"
       )}>
         <h3 className={cn(
           "font-semibold mb-2",
@@ -379,83 +379,83 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
           Take a photo, video, or audio recording of the problem
         </p>
 
-        {error &&
-        <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
             <p className="text-sm text-red-800">{error}</p>
           </div>
-        }
+        )}
 
-        {!mediaFile ?
-        <div className="space-y-4">
+        {!mediaFile ? (
+          <div className="space-y-4">
             <div>
               <h4 className={cn(
-              "text-sm font-medium mb-2",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
+                "text-sm font-medium mb-2",
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
+              )}>
                 Capture Media
               </h4>
               <div className="grid grid-cols-3 gap-3">
                 <label className={cn(
-                "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
-                theme === "dark" ?
-                "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10" :
-                "border-slate-200 hover:bg-slate-50"
-              )}>
+                  "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
+                  theme === "dark"
+                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                    : "border-slate-200 hover:bg-slate-50"
+                )}>
                   <input
-                  type="file"
-                  accept="*/*"
-                  capture="environment"
-                  className="hidden"
-                  onChange={(e) => handleFileSelect("photo", e.target.files[0])} />
-
+                    type="file"
+                    accept="*/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={(e) => handleFileSelect("photo", e.target.files[0])}
+                  />
                   <Camera className="w-6 h-6 mb-2 text-[#F7B600]" />
                   <span className={cn(
-                  "text-xs text-center",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                )}>
+                    "text-xs text-center",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
                     Take Photo
                   </span>
                 </label>
 
                 <label className={cn(
-                "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
-                theme === "dark" ?
-                "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10" :
-                "border-slate-200 hover:bg-slate-50"
-              )}>
+                  "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
+                  theme === "dark"
+                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                    : "border-slate-200 hover:bg-slate-50"
+                )}>
                   <input
-                  type="file"
-                  accept="*/*"
-                  capture="environment"
-                  className="hidden"
-                  onChange={(e) => handleFileSelect("video", e.target.files[0])} />
-
+                    type="file"
+                    accept="*/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={(e) => handleFileSelect("video", e.target.files[0])}
+                  />
                   <Video className="w-6 h-6 mb-2 text-[#57CFA4]" />
                   <span className={cn(
-                  "text-xs text-center",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                )}>
+                    "text-xs text-center",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
                     Record Video
                   </span>
                 </label>
 
                 <label className={cn(
-                "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
-                theme === "dark" ?
-                "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10" :
-                "border-slate-200 hover:bg-slate-50"
-              )}>
+                  "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
+                  theme === "dark"
+                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                    : "border-slate-200 hover:bg-slate-50"
+                )}>
                   <input
-                  type="file"
-                  accept="*/*"
-                  className="hidden"
-                  onChange={(e) => handleFileSelect("audio", e.target.files[0])} />
-
+                    type="file"
+                    accept="*/*"
+                    className="hidden"
+                    onChange={(e) => handleFileSelect("audio", e.target.files[0])}
+                  />
                   <Mic className="w-6 h-6 mb-2 text-blue-500" />
                   <span className={cn(
-                  "text-xs text-center",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                )}>
+                    "text-xs text-center",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
                     Record Audio
                   </span>
                 </label>
@@ -463,17 +463,17 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
             </div>
 
             <div className={cn(
-            "relative",
-            theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
-          )}>
+              "relative",
+              theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
+            )}>
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className={cn(
-                "px-2",
-                theme === "dark" ? "bg-[#1A2F42]" : "bg-white"
-              )}>
+                  "px-2",
+                  theme === "dark" ? "bg-[#1A2F42]" : "bg-white"
+                )}>
                   Or Upload File
                 </span>
               </div>
@@ -481,140 +481,140 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
 
             <div className="grid grid-cols-3 gap-3">
               <label className={cn(
-              "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
-              theme === "dark" ?
-              "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10" :
-              "border-slate-200 hover:bg-slate-50"
-            )}>
+                "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
+                theme === "dark"
+                  ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                  : "border-slate-200 hover:bg-slate-50"
+              )}>
                 <input
-                type="file"
-                accept="*/*"
-                className="hidden"
-                onChange={(e) => handleFileSelect("photo", e.target.files[0])} />
-
+                  type="file"
+                  accept="*/*"
+                  className="hidden"
+                  onChange={(e) => handleFileSelect("photo", e.target.files[0])}
+                />
                 <Image className="w-6 h-6 mb-2 text-[#F7B600]" />
                 <span className={cn(
-                "text-xs text-center",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+                  "text-xs text-center",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
                   Upload Photo
                 </span>
               </label>
 
               <label className={cn(
-              "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
-              theme === "dark" ?
-              "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10" :
-              "border-slate-200 hover:bg-slate-50"
-            )}>
+                "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
+                theme === "dark"
+                  ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                  : "border-slate-200 hover:bg-slate-50"
+              )}>
                 <input
-                type="file"
-                accept="*/*"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (!file) return;
-                  let type = "photo";
-                  if (file.type.includes("video")) type = "video";else
-                  if (file.type.includes("audio")) type = "audio";
-                  handleFileSelect(type, file);
-                }} />
-
+                  type="file"
+                  accept="*/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    let type = "photo";
+                    if (file.type.includes("video")) type = "video";
+                    else if (file.type.includes("audio")) type = "audio";
+                    handleFileSelect(type, file);
+                  }}
+                />
                 <Film className="w-6 h-6 mb-2 text-[#57CFA4]" />
                 <span className={cn(
-                "text-xs text-center",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+                  "text-xs text-center",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
                   Upload Any File
                 </span>
               </label>
 
               <label className={cn(
-              "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
-              theme === "dark" ?
-              "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10" :
-              "border-slate-200 hover:bg-slate-50"
-            )}>
+                "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
+                theme === "dark"
+                  ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                  : "border-slate-200 hover:bg-slate-50"
+              )}>
                 <input
-                type="file"
-                accept="*/*"
-                className="hidden"
-                onChange={(e) => handleFileSelect("audio", e.target.files[0])} />
-
+                  type="file"
+                  accept="*/*"
+                  className="hidden"
+                  onChange={(e) => handleFileSelect("audio", e.target.files[0])}
+                />
                 <Mic2 className="w-6 h-6 mb-2 text-blue-500" />
                 <span className={cn(
-                "text-xs text-center",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+                  "text-xs text-center",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
                   Upload Audio
                 </span>
               </label>
             </div>
-          </div> :
-
-        <div className="space-y-4">
+          </div>
+        ) : (
+          <div className="space-y-4">
             <div className="rounded-xl overflow-hidden border">
-              {mediaType === "photo" &&
-            <img src={mediaUrl} alt="Preview" className="w-full h-48 object-cover" />
-            }
-              {mediaType === "video" &&
-            <video src={mediaUrl} className="w-full h-48 object-cover" controls />
-            }
-              {mediaType === "audio" &&
-            <div className="p-8 bg-gradient-to-br from-violet-100 to-indigo-100 flex items-center justify-center">
+              {mediaType === "photo" && (
+                <img src={mediaUrl} alt="Preview" className="w-full h-48 object-cover" />
+              )}
+              {mediaType === "video" && (
+                <video src={mediaUrl} className="w-full h-48 object-cover" controls />
+              )}
+              {mediaType === "audio" && (
+                <div className="p-8 bg-gradient-to-br from-violet-100 to-indigo-100 flex items-center justify-center">
                   <audio src={mediaUrl} controls className="w-full" />
                 </div>
-            }
+              )}
             </div>
 
             <div className="flex gap-2">
               <Button
-              variant="outline"
-              onClick={() => {
-                setMediaFile(null);
-                setMediaUrl(null);
-              }}
-              className="flex-1">
-
+                variant="outline"
+                onClick={() => {
+                  setMediaFile(null);
+                  setMediaUrl(null);
+                }}
+                className="flex-1"
+              >
                 Retake
               </Button>
               <Button
-              onClick={handleContinueToDetails}
-              className="flex-1 bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]">
-
+                onClick={handleContinueToDetails}
+                className="flex-1 bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+              >
                 Continue
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </div>
-        }
+        )}
 
         <Button
           variant="ghost"
-          onClick={onCancel} className="text-slate-50 mt-4 px-4 py-2 text-sm font-medium rounded-md inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-full">
-
-
+          onClick={onCancel}
+          className="w-full mt-4"
+        >
           Cancel
         </Button>
-      </div>);
-
+      </div>
+    );
   }
 
   if (step === "details") {
     return (
       <div className={cn(
         "rounded-2xl p-6 border",
-        theme === "dark" ?
-        "bg-[#1A2F42] border-[#57CFA4]/20" :
-        "bg-white border-slate-200"
+        theme === "dark"
+          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+          : "bg-white border-slate-200"
       )}>
         <button
           onClick={() => setStep("upload")}
           className={cn(
             "flex items-center gap-2 mb-4 text-sm",
             theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-          )}>
-
+          )}
+        >
           <ChevronLeft className="w-4 h-4" />
           Back
         </button>
@@ -646,11 +646,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               onChange={(e) => setDescription(e.target.value)}
               className={cn(
                 "min-h-24",
-                theme === "dark" ?
-                "bg-[#0F1E2E] border-[#57CFA4]/30 text-white" :
-                "bg-white border-slate-200"
-              )} />
-
+                theme === "dark"
+                  ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                  : "bg-white border-slate-200"
+              )}
+            />
           </div>
 
           <div>
@@ -665,11 +665,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               className={cn(
-                theme === "dark" ?
-                "bg-[#0F1E2E] border-[#57CFA4]/30 text-white" :
-                "bg-white border-slate-200"
-              )} />
-
+                theme === "dark"
+                  ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                  : "bg-white border-slate-200"
+              )}
+            />
           </div>
 
           <div>
@@ -684,11 +684,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
               className={cn(
-                theme === "dark" ?
-                "bg-[#0F1E2E] border-[#57CFA4]/30 text-white" :
-                "bg-white border-slate-200"
-              )} />
-
+                theme === "dark"
+                  ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                  : "bg-white border-slate-200"
+              )}
+            />
           </div>
 
           <div>
@@ -700,28 +700,28 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
             </Label>
             <RadioGroup value={category} onValueChange={setCategory}>
               <div className="grid grid-cols-2 gap-2">
-                {["plumbing", "electrical", "hvac", "structural", "appliance", "other"].map((cat) =>
-                <div key={cat} className="flex items-center space-x-2">
+                {["plumbing", "electrical", "hvac", "structural", "appliance", "other"].map((cat) => (
+                  <div key={cat} className="flex items-center space-x-2">
                     <RadioGroupItem value={cat} id={cat} />
                     <Label htmlFor={cat} className="cursor-pointer capitalize">{cat}</Label>
                   </div>
-                )}
+                ))}
               </div>
             </RadioGroup>
           </div>
 
-          {isBusinessUser &&
-          <>
+          {isBusinessUser && (
+            <>
               <div className={cn(
-              "border-t pt-4 mt-4",
-              theme === "dark" ? "border-[#57CFA4]/20" : "border-slate-200"
-            )}>
+                "border-t pt-4 mt-4",
+                theme === "dark" ? "border-[#57CFA4]/20" : "border-slate-200"
+              )}>
                 <div className="flex items-center gap-2 mb-3">
                   <Building2 className="w-4 h-4 text-[#F7B600]" />
                   <Label className={cn(
-                  "font-semibold",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>
+                    "font-semibold",
+                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                  )}>
                     Property Details
                   </Label>
                 </div>
@@ -729,108 +729,108 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
 
               <div>
                 <Label className={cn(
-                "mb-2 block",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+                  "mb-2 block",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
                   Property Name/Reference *
                 </Label>
                 <Input
-                placeholder="e.g., 24 Oak Street, Viewing #123"
-                value={propertyName}
-                onChange={(e) => setPropertyName(e.target.value)}
-                className={cn(
-                  theme === "dark" ?
-                  "bg-[#0F1E2E] border-[#57CFA4]/30 text-white" :
-                  "bg-white border-slate-200"
-                )} />
-
+                  placeholder="e.g., 24 Oak Street, Viewing #123"
+                  value={propertyName}
+                  onChange={(e) => setPropertyName(e.target.value)}
+                  className={cn(
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      : "bg-white border-slate-200"
+                  )}
+                />
               </div>
 
               <div>
                 <Label className={cn(
-                "mb-2 block",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+                  "mb-2 block",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
                   Property Address
                 </Label>
                 <Input
-                placeholder="Full property address"
-                value={propertyAddress}
-                onChange={(e) => setPropertyAddress(e.target.value)}
-                className={cn(
-                  theme === "dark" ?
-                  "bg-[#0F1E2E] border-[#57CFA4]/30 text-white" :
-                  "bg-white border-slate-200"
-                )} />
-
+                  placeholder="Full property address"
+                  value={propertyAddress}
+                  onChange={(e) => setPropertyAddress(e.target.value)}
+                  className={cn(
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      : "bg-white border-slate-200"
+                  )}
+                />
               </div>
 
               <div>
                 <Label className={cn(
-                "mb-2 block",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+                  "mb-2 block",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
                   Property Type
                 </Label>
                 <RadioGroup value={propertyCategory} onValueChange={setPropertyCategory}>
                   <div className="grid grid-cols-2 gap-2">
-                    {["residential", "commercial", "rental", "sale_listing", "inspection"].map((cat) =>
-                  <div key={cat} className="flex items-center space-x-2">
+                    {["residential", "commercial", "rental", "sale_listing", "inspection"].map((cat) => (
+                      <div key={cat} className="flex items-center space-x-2">
                         <RadioGroupItem value={cat} id={`prop-${cat}`} />
                         <Label htmlFor={`prop-${cat}`} className="cursor-pointer capitalize">
                           {cat.replace("_", " ")}
                         </Label>
                       </div>
-                  )}
+                    ))}
                   </div>
                 </RadioGroup>
               </div>
             </>
-          }
+          )}
         </div>
 
-        {error &&
-        <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
             <p className="text-sm text-red-800">{error}</p>
           </div>
-        }
+        )}
 
         <Button
           onClick={handleUpload}
-          disabled={!description.trim() || isBusinessUser && !propertyName.trim() || uploading || analyzing}
-          className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]">
-
-          {uploading || analyzing ?
-          <>
+          disabled={!description.trim() || (isBusinessUser && !propertyName.trim()) || uploading || analyzing}
+          className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+        >
+          {uploading || analyzing ? (
+            <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
               Analyzing...
-            </> :
-
-          <>
+            </>
+          ) : (
+            <>
               Analyze Issue
               <ArrowRight className="w-4 h-4 ml-2" />
             </>
-          }
+          )}
         </Button>
-      </div>);
-
+      </div>
+    );
   }
 
   if (step === "questions") {
     return (
       <div className={cn(
         "rounded-2xl p-6 border",
-        theme === "dark" ?
-        "bg-[#1A2F42] border-[#57CFA4]/20" :
-        "bg-white border-slate-200"
+        theme === "dark"
+          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+          : "bg-white border-slate-200"
       )}>
         <button
           onClick={() => setStep("details")}
           className={cn(
             "flex items-center gap-2 mb-4 text-sm",
             theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-          )}>
-
+          )}
+        >
           <ChevronLeft className="w-4 h-4" />
           Back
         </button>
@@ -849,33 +849,33 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
         </p>
 
         <div className="space-y-4 mb-6">
-          {questions.map((q) =>
-          <div key={q.id}>
+          {questions.map((q) => (
+            <div key={q.id}>
               <Label className={cn(
-              "mb-2 block",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
+                "mb-2 block",
+                theme === "dark" ? "text-white" : "text-[#1E3A57]"
+              )}>
                 {q.question}
               </Label>
               
-              {q.type === "text" &&
-            <Input
-              placeholder="Your answer..."
-              value={answers[q.id] || ""}
-              onChange={(e) => setAnswers({ ...answers, [q.id]: e.target.value })}
-              className={cn(
-                theme === "dark" ?
-                "bg-[#0F1E2E] border-[#57CFA4]/30 text-white" :
-                "bg-white border-slate-200"
-              )} />
+              {q.type === "text" && (
+                <Input
+                  placeholder="Your answer..."
+                  value={answers[q.id] || ""}
+                  onChange={(e) => setAnswers({ ...answers, [q.id]: e.target.value })}
+                  className={cn(
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white"
+                      : "bg-white border-slate-200"
+                  )}
+                />
+              )}
 
-            }
-
-              {q.type === "yesno" &&
-            <RadioGroup
-              value={answers[q.id]}
-              onValueChange={(value) => setAnswers({ ...answers, [q.id]: value })}>
-
+              {q.type === "yesno" && (
+                <RadioGroup
+                  value={answers[q.id]}
+                  onValueChange={(value) => setAnswers({ ...answers, [q.id]: value })}
+                >
                   <div className="flex gap-4">
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="yes" id={`${q.id}-yes`} />
@@ -887,61 +887,61 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                     </div>
                   </div>
                 </RadioGroup>
-            }
+              )}
 
-              {q.type === "choice" && q.options &&
-            <RadioGroup
-              value={answers[q.id]}
-              onValueChange={(value) => setAnswers({ ...answers, [q.id]: value })}>
-
+              {q.type === "choice" && q.options && (
+                <RadioGroup
+                  value={answers[q.id]}
+                  onValueChange={(value) => setAnswers({ ...answers, [q.id]: value })}
+                >
                   <div className="space-y-2">
-                    {q.options.map((option, i) =>
-                <div key={i} className="flex items-center space-x-2">
+                    {q.options.map((option, i) => (
+                      <div key={i} className="flex items-center space-x-2">
                         <RadioGroupItem value={option} id={`${q.id}-${i}`} />
                         <Label htmlFor={`${q.id}-${i}`} className="cursor-pointer">{option}</Label>
                       </div>
-                )}
+                    ))}
                   </div>
                 </RadioGroup>
-            }
+              )}
             </div>
-          )}
+          ))}
         </div>
 
-        {error &&
-        <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200">
             <p className="text-sm text-red-800">{error}</p>
           </div>
-        }
+        )}
 
         <Button
           onClick={handleQuestionsSubmit}
           disabled={analyzing}
-          className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]">
-
-          {analyzing ?
-          <>
+          className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+        >
+          {analyzing ? (
+            <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
               Getting suggestions...
-            </> :
-
-          <>
+            </>
+          ) : (
+            <>
               Continue
               <ArrowRight className="w-4 h-4 ml-2" />
             </>
-          }
+          )}
         </Button>
-      </div>);
-
+      </div>
+    );
   }
 
   if (step === "suggestions") {
     return (
       <div className={cn(
         "rounded-2xl p-6 border max-h-[70vh] overflow-y-auto",
-        theme === "dark" ?
-        "bg-[#1A2F42] border-[#57CFA4]/20" :
-        "bg-white border-slate-200"
+        theme === "dark"
+          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+          : "bg-white border-slate-200"
       )}>
         <h3 className={cn(
           "font-semibold mb-2 flex items-center gap-2",
@@ -958,38 +958,38 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
         </p>
 
         {/* Estimated Repair Time */}
-        {suggestions?.estimated_repair_time &&
-        <div className={cn(
-          "mb-6 p-4 rounded-xl border",
-          theme === "dark" ?
-          "bg-[#0F1E2E] border-[#57CFA4]/20" :
-          "bg-blue-50 border-blue-200"
-        )}>
-            <h4 className={cn(
-            "font-semibold mb-2 flex items-center gap-2",
-            theme === "dark" ? "text-[#57CFA4]" : "text-blue-900"
+        {suggestions?.estimated_repair_time && (
+          <div className={cn(
+            "mb-6 p-4 rounded-xl border",
+            theme === "dark"
+              ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+              : "bg-blue-50 border-blue-200"
           )}>
+            <h4 className={cn(
+              "font-semibold mb-2 flex items-center gap-2",
+              theme === "dark" ? "text-[#57CFA4]" : "text-blue-900"
+            )}>
               ⏱️ Estimated Repair Time
             </h4>
             <div className="space-y-1 text-sm">
-              {suggestions.estimated_repair_time.diy_time &&
-            <p className={cn(theme === "dark" ? "text-white" : "text-blue-800")}>
+              {suggestions.estimated_repair_time.diy_time && (
+                <p className={cn(theme === "dark" ? "text-white" : "text-blue-800")}>
                   <strong>DIY:</strong> {suggestions.estimated_repair_time.diy_time}
                 </p>
-            }
-              {suggestions.estimated_repair_time.professional_time &&
-            <p className={cn(theme === "dark" ? "text-white" : "text-blue-800")}>
+              )}
+              {suggestions.estimated_repair_time.professional_time && (
+                <p className={cn(theme === "dark" ? "text-white" : "text-blue-800")}>
                   <strong>Professional:</strong> {suggestions.estimated_repair_time.professional_time}
                 </p>
-            }
-              {suggestions.estimated_repair_time.parts_delivery &&
-            <p className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-blue-700")}>
+              )}
+              {suggestions.estimated_repair_time.parts_delivery && (
+                <p className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-blue-700")}>
                   <strong>Parts delivery:</strong> {suggestions.estimated_repair_time.parts_delivery}
                 </p>
-            }
+              )}
             </div>
           </div>
-        }
+        )}
 
         {/* Likely Causes */}
         <div className="mb-6">
@@ -1000,155 +1000,155 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
             🔍 Root Cause Analysis:
           </h4>
           <div className="space-y-3">
-            {suggestions?.likely_causes?.map((cause, i) =>
-            <div
-              key={i}
-              className={cn(
-                "p-3 rounded-xl border",
-                theme === "dark" ?
-                "bg-[#0F1E2E] border-[#57CFA4]/20" :
-                "bg-slate-50 border-slate-200"
-              )}>
-
+            {suggestions?.likely_causes?.map((cause, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "p-3 rounded-xl border",
+                  theme === "dark"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                    : "bg-slate-50 border-slate-200"
+                )}
+              >
                 <p className={cn(
-                "font-medium text-sm mb-1",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+                  "font-medium text-sm mb-1",
+                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                )}>
                   {cause.cause}
                 </p>
                 <p className={cn(
-                "text-xs mb-2",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+                  "text-xs mb-2",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
                   {cause.details}
                 </p>
-                {cause.confirmation_signs && cause.confirmation_signs.length > 0 &&
-              <div className="text-xs">
+                {cause.confirmation_signs && cause.confirmation_signs.length > 0 && (
+                  <div className="text-xs">
                     <strong className={cn(theme === "dark" ? "text-white" : "text-slate-700")}>
                       Confirmation signs:
                     </strong>
                     <ul className="mt-1 space-y-0.5">
-                      {cause.confirmation_signs.map((sign, j) =>
-                  <li key={j} className={cn(
-                    "flex items-start gap-1",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                  )}>
+                      {cause.confirmation_signs.map((sign, j) => (
+                        <li key={j} className={cn(
+                          "flex items-start gap-1",
+                          theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                        )}>
                           <span>•</span> {sign}
                         </li>
-                  )}
+                      ))}
                     </ul>
                   </div>
-              }
+                )}
               </div>
-            )}
+            ))}
           </div>
         </div>
 
         {/* Diagnostic Steps */}
-        {suggestions?.diagnostic_steps && suggestions.diagnostic_steps.length > 0 &&
-        <div className="mb-6">
+        {suggestions?.diagnostic_steps && suggestions.diagnostic_steps.length > 0 && (
+          <div className="mb-6">
             <h4 className={cn(
-            "font-semibold mb-3",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-          )}>
+              "font-semibold mb-3",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+            )}>
               🔬 Diagnostic Steps:
             </h4>
             <div className="space-y-3">
-              {suggestions.diagnostic_steps.map((step, i) =>
-            <div
-              key={i}
-              className={cn(
-                "p-3 rounded-xl border",
-                theme === "dark" ?
-                "bg-[#0F1E2E] border-[#57CFA4]/20" :
-                "bg-slate-50 border-slate-200"
-              )}>
-
+              {suggestions.diagnostic_steps.map((step, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "p-3 rounded-xl border",
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                      : "bg-slate-50 border-slate-200"
+                  )}
+                >
                   <p className={cn(
-                "font-medium text-sm mb-1",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>
+                    "font-medium text-sm mb-1",
+                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                  )}>
                     Step {step.step_number}: {step.action}
                   </p>
-                  {step.expected_result &&
-              <p className={cn(
-                "text-xs mb-1",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+                  {step.expected_result && (
+                    <p className={cn(
+                      "text-xs mb-1",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                    )}>
                       <strong>Expected:</strong> {step.expected_result}
                     </p>
-              }
-                  {step.safety_note &&
-              <p className="text-xs text-amber-600 mt-1">
+                  )}
+                  {step.safety_note && (
+                    <p className="text-xs text-amber-600 mt-1">
                       ⚠️ {step.safety_note}
                     </p>
-              }
+                  )}
                 </div>
-            )}
+              ))}
             </div>
           </div>
-        }
+        )}
 
         {/* Tools & Materials */}
-        {suggestions?.tools_and_materials && suggestions.tools_and_materials.length > 0 &&
-        <div className="mb-6">
+        {suggestions?.tools_and_materials && suggestions.tools_and_materials.length > 0 && (
+          <div className="mb-6">
             <h4 className={cn(
-            "font-semibold mb-3 flex items-center gap-2",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-          )}>
+              "font-semibold mb-3 flex items-center gap-2",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+            )}>
               🛠️ Tools & Materials Needed:
             </h4>
             <div className="space-y-2">
-              {suggestions.tools_and_materials.map((item, i) =>
-            <div
-              key={i}
-              className={cn(
-                "p-3 rounded-xl border",
-                theme === "dark" ?
-                "bg-[#0F1E2E] border-[#57CFA4]/20" :
-                "bg-slate-50 border-slate-200"
-              )}>
-
+              {suggestions.tools_and_materials.map((item, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "p-3 rounded-xl border",
+                    theme === "dark"
+                      ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                      : "bg-slate-50 border-slate-200"
+                  )}
+                >
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <p className={cn(
-                  "font-medium text-sm flex items-center gap-2",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>
+                      "font-medium text-sm flex items-center gap-2",
+                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                    )}>
                       {item.essential && <span className="text-red-500">*</span>}
                       {item.product_name}
                     </p>
-                    {item.estimated_cost &&
-                <span className={cn(
-                  "text-xs font-semibold",
-                  theme === "dark" ? "text-[#F7B600]" : "text-blue-600"
-                )}>
+                    {item.estimated_cost && (
+                      <span className={cn(
+                        "text-xs font-semibold",
+                        theme === "dark" ? "text-[#F7B600]" : "text-blue-600"
+                      )}>
                         {item.estimated_cost}
                       </span>
-                }
+                    )}
                   </div>
                   <p className={cn(
-                "text-xs mb-2",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+                    "text-xs mb-2",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                  )}>
                     {item.description}
                   </p>
                   <a
-                href={item.amazon_search_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] px-3 py-1 rounded-lg transition-colors">
-
+                    href={item.amazon_search_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] px-3 py-1 rounded-lg transition-colors"
+                  >
                     <ShoppingCart className="w-3 h-3" />
                     Buy on Amazon
                   </a>
                 </div>
-            )}
-              {suggestions.tools_and_materials.some((item) => item.essential) &&
-            <p className="text-xs text-amber-600 mt-2">* Essential items required for repair</p>
-            }
+              ))}
+              {suggestions.tools_and_materials.some(item => item.essential) && (
+                <p className="text-xs text-amber-600 mt-2">* Essential items required for repair</p>
+              )}
             </div>
           </div>
-        }
+        )}
 
         {/* DIY Quick Fixes */}
         <div className="mb-6">
@@ -1160,175 +1160,175 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
             Quick Fixes to Try:
           </h4>
           <div className="space-y-3">
-            {suggestions?.diy_quick_fixes?.map((fix, i) =>
-            <div
-              key={i}
-              className={cn(
-                "p-3 rounded-xl border",
-                theme === "dark" ?
-                "bg-[#0F1E2E] border-[#57CFA4]/20" :
-                "bg-slate-50 border-slate-200"
-              )}>
-
+            {suggestions?.diy_quick_fixes?.map((fix, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "p-3 rounded-xl border",
+                  theme === "dark"
+                    ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                    : "bg-slate-50 border-slate-200"
+                )}
+              >
                 <div className="flex items-start justify-between gap-2 mb-1">
                   <p className={cn(
-                  "font-medium text-sm",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>
+                    "font-medium text-sm",
+                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                  )}>
                     {i + 1}. {fix.action}
                   </p>
                   <div className="flex items-center gap-2">
                     <span className={cn(
-                    "text-xs px-2 py-0.5 rounded",
-                    fix.difficulty === "Easy" ?
-                    "bg-green-100 text-green-700" :
-                    fix.difficulty === "Moderate" ?
-                    "bg-yellow-100 text-yellow-700" :
-                    "bg-red-100 text-red-700"
-                  )}>
+                      "text-xs px-2 py-0.5 rounded",
+                      fix.difficulty === "Easy"
+                        ? "bg-green-100 text-green-700"
+                        : fix.difficulty === "Moderate"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-red-100 text-red-700"
+                    )}>
                       {fix.difficulty}
                     </span>
                     <span className={cn(
-                    "text-xs",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-                  )}>
+                      "text-xs",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
+                    )}>
                       {fix.estimated_time}
                     </span>
                   </div>
                 </div>
                 <p className={cn(
-                "text-xs",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+                  "text-xs",
+                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                )}>
                   {fix.description}
                 </p>
               </div>
-            )}
+            ))}
           </div>
         </div>
 
         {/* Manufacturer Resources */}
-        {suggestions?.manufacturer_resources &&
-        <div className="mb-6">
+        {suggestions?.manufacturer_resources && (
+          <div className="mb-6">
             <h4 className={cn(
-            "font-semibold mb-3 flex items-center gap-2",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-          )}>
+              "font-semibold mb-3 flex items-center gap-2",
+              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
+            )}>
               📚 Manufacturer Resources & Guides:
             </h4>
             <div className={cn(
-            "p-3 rounded-xl border",
-            theme === "dark" ?
-            "bg-[#0F1E2E] border-[#57CFA4]/20" :
-            "bg-slate-50 border-slate-200"
-          )}>
-              {suggestions.manufacturer_resources.brand_identified &&
-            <p className={cn(
-              "text-sm mb-2",
-              theme === "dark" ? "text-white" : "text-slate-700"
+              "p-3 rounded-xl border",
+              theme === "dark"
+                ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                : "bg-slate-50 border-slate-200"
             )}>
+              {suggestions.manufacturer_resources.brand_identified && (
+                <p className={cn(
+                  "text-sm mb-2",
+                  theme === "dark" ? "text-white" : "text-slate-700"
+                )}>
                   <strong>Identified Brand:</strong> {suggestions.manufacturer_resources.brand_identified}
                 </p>
-            }
+              )}
               
-              {suggestions.manufacturer_resources.manual_search_terms && suggestions.manufacturer_resources.manual_search_terms.length > 0 &&
-            <div className="mb-2">
+              {suggestions.manufacturer_resources.manual_search_terms && suggestions.manufacturer_resources.manual_search_terms.length > 0 && (
+                <div className="mb-2">
                   <p className={cn(
-                "text-xs font-semibold mb-1",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-              )}>
+                    "text-xs font-semibold mb-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+                  )}>
                     Manual Search Terms:
                   </p>
                   <div className="flex flex-wrap gap-1">
-                    {suggestions.manufacturer_resources.manual_search_terms.map((term, i) =>
-                <span
-                  key={i}
-                  className={cn(
-                    "text-xs px-2 py-0.5 rounded",
-                    theme === "dark" ?
-                    "bg-[#57CFA4]/20 text-[#57CFA4]" :
-                    "bg-blue-100 text-blue-700"
-                  )}>
-
+                    {suggestions.manufacturer_resources.manual_search_terms.map((term, i) => (
+                      <span
+                        key={i}
+                        className={cn(
+                          "text-xs px-2 py-0.5 rounded",
+                          theme === "dark"
+                            ? "bg-[#57CFA4]/20 text-[#57CFA4]"
+                            : "bg-blue-100 text-blue-700"
+                        )}
+                      >
                         {term}
                       </span>
-                )}
+                    ))}
                   </div>
                 </div>
-            }
+              )}
 
-              {suggestions.manufacturer_resources.youtube_search_terms && suggestions.manufacturer_resources.youtube_search_terms.length > 0 &&
-            <div className="mb-2">
+              {suggestions.manufacturer_resources.youtube_search_terms && suggestions.manufacturer_resources.youtube_search_terms.length > 0 && (
+                <div className="mb-2">
                   <p className={cn(
-                "text-xs font-semibold mb-1",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-              )}>
+                    "text-xs font-semibold mb-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+                  )}>
                     Video Guide Search Terms:
                   </p>
                   <div className="space-y-1">
-                    {suggestions.manufacturer_resources.youtube_search_terms.map((term, i) =>
-                <a
-                  key={i}
-                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(term)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    "text-xs flex items-center gap-1 hover:underline",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
-                  )}>
-
+                    {suggestions.manufacturer_resources.youtube_search_terms.map((term, i) => (
+                      <a
+                        key={i}
+                        href={`https://www.youtube.com/results?search_query=${encodeURIComponent(term)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          "text-xs flex items-center gap-1 hover:underline",
+                          theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
+                        )}
+                      >
                         <ExternalLink className="w-3 h-3" />
                         {term}
                       </a>
-                )}
+                    ))}
                   </div>
                 </div>
-            }
+              )}
 
-              {suggestions.manufacturer_resources.support_website_suggestions && suggestions.manufacturer_resources.support_website_suggestions.length > 0 &&
-            <div className="mb-2">
+              {suggestions.manufacturer_resources.support_website_suggestions && suggestions.manufacturer_resources.support_website_suggestions.length > 0 && (
+                <div className="mb-2">
                   <p className={cn(
-                "text-xs font-semibold mb-1",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-              )}>
+                    "text-xs font-semibold mb-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+                  )}>
                     Support Websites:
                   </p>
                   <ul className="space-y-0.5">
-                    {suggestions.manufacturer_resources.support_website_suggestions.map((site, i) =>
-                <li key={i} className={cn(
-                  "text-xs",
-                  theme === "dark" ? "text-white" : "text-slate-600"
-                )}>
+                    {suggestions.manufacturer_resources.support_website_suggestions.map((site, i) => (
+                      <li key={i} className={cn(
+                        "text-xs",
+                        theme === "dark" ? "text-white" : "text-slate-600"
+                      )}>
                         • {site}
                       </li>
-                )}
+                    ))}
                   </ul>
                 </div>
-            }
+              )}
 
-              {suggestions.manufacturer_resources.common_troubleshooting_topics && suggestions.manufacturer_resources.common_troubleshooting_topics.length > 0 &&
-            <div>
+              {suggestions.manufacturer_resources.common_troubleshooting_topics && suggestions.manufacturer_resources.common_troubleshooting_topics.length > 0 && (
+                <div>
                   <p className={cn(
-                "text-xs font-semibold mb-1",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-              )}>
+                    "text-xs font-semibold mb-1",
+                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+                  )}>
                     Common Troubleshooting Topics:
                   </p>
                   <ul className="space-y-0.5">
-                    {suggestions.manufacturer_resources.common_troubleshooting_topics.map((topic, i) =>
-                <li key={i} className={cn(
-                  "text-xs",
-                  theme === "dark" ? "text-white" : "text-slate-600"
-                )}>
+                    {suggestions.manufacturer_resources.common_troubleshooting_topics.map((topic, i) => (
+                      <li key={i} className={cn(
+                        "text-xs",
+                        theme === "dark" ? "text-white" : "text-slate-600"
+                      )}>
                         • {topic}
                       </li>
-                )}
+                    ))}
                   </ul>
                 </div>
-            }
+              )}
             </div>
           </div>
-        }
+        )}
 
         {/* Warning Signs */}
         <div className={cn(
@@ -1340,36 +1340,36 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
             Call a Professional If:
           </h4>
           <ul className="space-y-1">
-            {suggestions?.call_pro_if?.map((warning, i) =>
-            <li key={i} className="flex items-start gap-2 text-sm text-red-700">
+            {suggestions?.call_pro_if?.map((warning, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-red-700">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
                 {warning}
               </li>
-            )}
+            ))}
           </ul>
         </div>
 
         {/* Action Buttons */}
         <div className="space-y-3">
-          {error &&
-          <div className="p-3 rounded-xl bg-red-50 border border-red-200">
+          {error && (
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200">
               <p className="text-sm text-red-800">{error}</p>
             </div>
-          }
+          )}
 
           <Button
             onClick={handleFullAnalysis}
             disabled={analyzing}
-            className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]">
-
-            {analyzing ?
-            <>
+            className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+          >
+            {analyzing ? (
+              <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                 Getting full analysis...
-              </> :
-
-            "Get Full Professional Analysis"
-            }
+              </>
+            ) : (
+              "Get Full Professional Analysis"
+            )}
           </Button>
 
           <p className={cn(
@@ -1379,8 +1379,8 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
             Get detailed cost estimates, step-by-step guides, and more
           </p>
         </div>
-      </div>);
-
+      </div>
+    );
   }
 
   return null;
