@@ -631,15 +631,15 @@ export default function Home() {
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-orange-400/95 via-orange-300/85 to-blue-900/90 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/85 via-orange-400/80 to-blue-800/85 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-pink-300/60 to-blue-900/85 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-orange-300/95 via-yellow-200/90 to-blue-800/95 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/85 via-orange-400/85 to-blue-900/90 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-700/80 via-orange-300/75 to-white/70 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gradient-to-b from-orange-400/95 via-orange-300/85 to-blue-900/90 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-300/85 via-orange-400/80 to-blue-800/85 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-pink-300/60 to-blue-900/85 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-orange-300/95 via-yellow-200/90 to-blue-800/95 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/85 via-orange-400/85 to-blue-900/90 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-700/80 via-orange-300/75 to-white/70 animate-gradient-shift-reverse blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
@@ -647,33 +647,35 @@ export default function Home() {
       
       <style jsx>{`
         @keyframes gradient-shift {
-          0% { transform: translate(0%, 0%) scale(1.2) rotate(0deg); }
-          25% { transform: translate(20%, 15%) scale(1.4) rotate(8deg); }
-          50% { transform: translate(-15%, 25%) scale(1.3) rotate(-6deg); }
-          75% { transform: translate(-10%, -15%) scale(1.35) rotate(10deg); }
-          100% { transform: translate(0%, 0%) scale(1.2) rotate(0deg); }
-        }
-        @keyframes gradient-shift-slow {
           0% { transform: translate(0%, 0%) scale(1.3) rotate(0deg); }
-          33% { transform: translate(-25%, 20%) scale(1.5) rotate(-10deg); }
-          66% { transform: translate(15%, -20%) scale(1.25) rotate(8deg); }
+          20% { transform: translate(15%, 20%) scale(1.5) rotate(5deg); }
+          40% { transform: translate(-10%, 30%) scale(1.4) rotate(-8deg); }
+          60% { transform: translate(-20%, -10%) scale(1.6) rotate(12deg); }
+          80% { transform: translate(10%, -25%) scale(1.35) rotate(-5deg); }
           100% { transform: translate(0%, 0%) scale(1.3) rotate(0deg); }
         }
+        @keyframes gradient-shift-slow {
+          0% { transform: translate(0%, 0%) scale(1.4) rotate(0deg); }
+          25% { transform: translate(-30%, 25%) scale(1.6) rotate(-12deg); }
+          50% { transform: translate(20%, -15%) scale(1.3) rotate(10deg); }
+          75% { transform: translate(-15%, -30%) scale(1.55) rotate(-7deg); }
+          100% { transform: translate(0%, 0%) scale(1.4) rotate(0deg); }
+        }
         @keyframes gradient-shift-reverse {
-          0% { transform: translate(0%, 0%) scale(1.25) rotate(0deg); }
-          30% { transform: translate(30%, -20%) scale(1.45) rotate(12deg); }
-          60% { transform: translate(-20%, 15%) scale(1.3) rotate(-8deg); }
-          100% { transform: translate(0%, 0%) scale(1.25) rotate(0deg); }
+          0% { transform: translate(0%, 0%) scale(1.35) rotate(0deg); }
+          33% { transform: translate(35%, -25%) scale(1.5) rotate(15deg); }
+          66% { transform: translate(-25%, 20%) scale(1.4) rotate(-10deg); }
+          100% { transform: translate(0%, 0%) scale(1.35) rotate(0deg); }
         }
 
         .animate-gradient-shift {
-          animation: gradient-shift 6s ease-in-out infinite;
+          animation: gradient-shift 8s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 7s ease-in-out infinite;
+          animation: gradient-shift-slow 10s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 5s ease-in-out infinite;
+          animation: gradient-shift-reverse 7s ease-in-out infinite;
         }
       `}</style>
       
