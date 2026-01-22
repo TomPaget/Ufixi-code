@@ -631,27 +631,15 @@ export default function Home() {
       }}>
         {theme === 'dark' ? (
           <>
-            <div className="absolute inset-0 blur-3xl animate-gradient-shift" style={{
-              background: 'linear-gradient(to-bottom, var(--color-1-start), var(--color-1-mid), var(--color-1-end))'
-            }} />
-            <div className="absolute inset-0 blur-3xl animate-gradient-shift-slow" style={{
-              background: 'linear-gradient(to-top-right, var(--color-2-start), var(--color-2-mid), var(--color-2-end))'
-            }} />
-            <div className="absolute inset-0 blur-3xl animate-gradient-shift-reverse" style={{
-              background: 'linear-gradient(to-bottom-left, var(--color-3-start), var(--color-3-end))'
-            }} />
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 blur-3xl animate-gradient-shift" style={{
-              background: 'linear-gradient(to-bottom, var(--color-1-start), var(--color-1-mid), var(--color-1-end))'
-            }} />
-            <div className="absolute inset-0 blur-3xl animate-gradient-shift-slow" style={{
-              background: 'linear-gradient(to-top-right, var(--color-2-start), var(--color-2-mid), var(--color-2-end))'
-            }} />
-            <div className="absolute inset-0 blur-3xl animate-gradient-shift-reverse" style={{
-              background: 'linear-gradient(to-bottom-left, var(--color-3-start), var(--color-3-end))'
-            }} />
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-300 via-cyan-200 via-emerald-600 to-orange-300 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-300 via-pink-200 via-blue-200 to-cyan-200 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-blue-200 via-emerald-500 to-pink-300 animate-gradient-shift-reverse blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
@@ -680,50 +668,14 @@ export default function Home() {
           100% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
         }
 
-        @keyframes color-to-blue-orange {
-          0% {
-            background: linear-gradient(to-bottom, rgb(147, 197, 253), rgb(165, 243, 252), rgb(249, 115, 22));
-          }
-          50% {
-            background: linear-gradient(to-bottom, rgb(59, 130, 246), rgb(191, 219, 254), rgb(249, 115, 22));
-          }
-          100% {
-            background: linear-gradient(to-bottom, rgb(147, 197, 253), rgb(165, 243, 252), rgb(249, 115, 22));
-          }
-        }
-
-        @keyframes pink-to-orange {
-          0% {
-            background: linear-gradient(to-top-right, rgb(249, 115, 22), rgb(251, 146, 60), rgb(6, 182, 212));
-          }
-          50% {
-            background: linear-gradient(to-top-right, rgb(249, 115, 22), rgb(244, 114, 182), rgb(59, 130, 246));
-          }
-          100% {
-            background: linear-gradient(to-top-right, rgb(249, 115, 22), rgb(251, 146, 60), rgb(6, 182, 212));
-          }
-        }
-
-        @keyframes blue-to-orange-transition {
-          0% {
-            background: linear-gradient(to-bottom-left, rgb(191, 219, 254), rgb(244, 114, 182));
-          }
-          50% {
-            background: linear-gradient(to-bottom-left, rgb(59, 130, 246), rgb(249, 115, 22));
-          }
-          100% {
-            background: linear-gradient(to-bottom-left, rgb(191, 219, 254), rgb(244, 114, 182));
-          }
-        }
-
         .animate-gradient-shift {
-          animation: gradient-shift 12s ease-in-out infinite, color-to-blue-orange 24s ease-in-out infinite;
+          animation: gradient-shift 12s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 15s ease-in-out infinite, pink-to-orange 24s ease-in-out infinite;
+          animation: gradient-shift-slow 15s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 10s ease-in-out infinite, blue-to-orange-transition 24s ease-in-out infinite;
+          animation: gradient-shift-reverse 10s ease-in-out infinite;
         }
       `}</style>
       
