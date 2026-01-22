@@ -270,7 +270,7 @@ export default function Support() {
                 "max-w-[80%] rounded-2xl px-4 py-3",
                 msg.role === "user"
                   ? "bg-[#1E3A57] text-white"
-                  : "bg-white/60 backdrop-blur-md border-2 border-[#1E3A57]/20 text-white"
+                  : "bg-white/30 backdrop-blur-md border-2 border-[#1E3A57]/20 text-white"
               )}>
                 {msg.role === "assistant" ? (
                   <ReactMarkdown className="text-sm prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
