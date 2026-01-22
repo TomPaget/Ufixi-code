@@ -226,7 +226,7 @@ export default function Forum() {
                        type="date"
                        value={dateFrom}
                        onChange={(e) => setDateFrom(e.target.value)}
-                       className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-[#1E3A57]"
+                       className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-white"
                      />
                    </div>
                    <div>
@@ -237,7 +237,7 @@ export default function Forum() {
                        type="date"
                        value={dateTo}
                        onChange={(e) => setDateTo(e.target.value)}
-                       className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-[#1E3A57]"
+                       className="border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-white"
                      />
                    </div>
                 </div>
