@@ -101,7 +101,7 @@ export default function Messages() {
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="font-bold text-lg text-[#1E3A57]">Messages</h1>
+          <h1 className="font-bold text-lg" style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}>Messages</h1>
         </div>
       </header>
 
