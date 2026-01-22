@@ -632,14 +632,14 @@ export default function Home() {
         {theme === 'dark' ? (
           <>
             <div className="absolute inset-0 bg-gradient-to-b from-orange-600/95 via-orange-400/90 to-blue-800/95 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/85 via-orange-600/90 to-blue-900/90 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-700/85 via-orange-500/80 to-orange-300/75 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-100/70 via-orange-600/90 to-blue-400/85 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-300/80 via-orange-500/80 to-orange-300/75 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
             <div className="absolute inset-0 bg-gradient-to-b from-orange-600/95 via-orange-400/90 to-blue-800/95 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/85 via-orange-600/90 to-blue-900/90 animate-gradient-shift-slow blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-700/85 via-orange-500/80 to-orange-300/75 animate-gradient-shift-reverse blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-100/70 via-orange-600/90 to-blue-400/85 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-300/80 via-orange-500/80 to-orange-300/75 animate-gradient-shift-reverse blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
@@ -669,13 +669,13 @@ export default function Home() {
         }
 
         .animate-gradient-shift {
-          animation: gradient-shift 8s ease-in-out infinite;
+          animation: gradient-shift 12s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 10s ease-in-out infinite;
+          animation: gradient-shift-slow 15s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 7s ease-in-out infinite;
+          animation: gradient-shift-reverse 10s ease-in-out infinite;
         }
       `}</style>
       
