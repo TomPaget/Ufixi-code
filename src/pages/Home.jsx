@@ -680,83 +680,50 @@ export default function Home() {
           100% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
         }
 
-        @keyframes color-transition-1 {
-          0%, 100% { 
-            --color-1-start: rgb(147, 197, 253);
-            --color-1-mid: rgb(165, 243, 252);
-            --color-1-end: rgb(249, 115, 22);
-          }
-          25% {
-            --color-1-start: rgb(147, 197, 253);
-            --color-1-mid: rgb(191, 219, 254);
-            --color-1-end: rgb(249, 115, 22);
+        @keyframes color-to-blue-orange {
+          0% {
+            background: linear-gradient(to-bottom, rgb(147, 197, 253), rgb(165, 243, 252), rgb(249, 115, 22));
           }
           50% {
-            --color-1-start: rgb(191, 219, 254);
-            --color-1-mid: rgb(207, 250, 254);
-            --color-1-end: rgb(249, 115, 22);
+            background: linear-gradient(to-bottom, rgb(59, 130, 246), rgb(191, 219, 254), rgb(249, 115, 22));
           }
-          75% {
-            --color-1-start: rgb(191, 219, 254);
-            --color-1-mid: rgb(165, 243, 252);
-            --color-1-end: rgb(249, 115, 22);
+          100% {
+            background: linear-gradient(to-bottom, rgb(147, 197, 253), rgb(165, 243, 252), rgb(249, 115, 22));
           }
         }
 
-        @keyframes color-transition-2 {
-          0%, 100% {
-            --color-2-start: rgb(249, 115, 22);
-            --color-2-mid: rgb(251, 146, 60);
-            --color-2-end: rgb(6, 182, 212);
-          }
-          25% {
-            --color-2-start: rgb(249, 115, 22);
-            --color-2-mid: rgb(240, 127, 82);
-            --color-2-end: rgb(6, 182, 212);
+        @keyframes pink-to-orange {
+          0% {
+            background: linear-gradient(to-top-right, rgb(249, 115, 22), rgb(251, 146, 60), rgb(6, 182, 212));
           }
           50% {
-            --color-2-start: rgb(249, 115, 22);
-            --color-2-mid: rgb(244, 114, 182);
-            --color-2-end: rgb(59, 130, 246);
+            background: linear-gradient(to-top-right, rgb(249, 115, 22), rgb(244, 114, 182), rgb(59, 130, 246));
           }
-          75% {
-            --color-2-start: rgb(249, 115, 22);
-            --color-2-mid: rgb(251, 146, 60);
-            --color-2-end: rgb(6, 182, 212);
+          100% {
+            background: linear-gradient(to-top-right, rgb(249, 115, 22), rgb(251, 146, 60), rgb(6, 182, 212));
           }
         }
 
-        @keyframes color-transition-3 {
-          0%, 100% {
-            --color-3-start: rgb(191, 219, 254);
-            --color-3-end: rgb(244, 114, 182);
+        @keyframes blue-to-orange-transition {
+          0% {
+            background: linear-gradient(to-bottom-left, rgb(191, 219, 254), rgb(244, 114, 182));
           }
           50% {
-            --color-3-start: rgb(59, 130, 246);
-            --color-3-end: rgb(249, 115, 22);
+            background: linear-gradient(to-bottom-left, rgb(59, 130, 246), rgb(249, 115, 22));
           }
-        }
-
-        div[style*="--color-1-start"] {
-          animation: color-transition-1 24s ease-in-out infinite;
-        }
-
-        div[style*="--color-2-start"] {
-          animation: color-transition-2 24s ease-in-out infinite;
-        }
-
-        div[style*="--color-3-start"] {
-          animation: color-transition-3 24s ease-in-out infinite;
+          100% {
+            background: linear-gradient(to-bottom-left, rgb(191, 219, 254), rgb(244, 114, 182));
+          }
         }
 
         .animate-gradient-shift {
-          animation: gradient-shift 12s ease-in-out infinite;
+          animation: gradient-shift 12s ease-in-out infinite, color-to-blue-orange 24s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 15s ease-in-out infinite;
+          animation: gradient-shift-slow 15s ease-in-out infinite, pink-to-orange 24s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 10s ease-in-out infinite;
+          animation: gradient-shift-reverse 10s ease-in-out infinite, blue-to-orange-transition 24s ease-in-out infinite;
         }
       `}</style>
       
