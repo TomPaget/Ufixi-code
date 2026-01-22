@@ -96,7 +96,8 @@ export default function Messages() {
           <Button
             variant="ghost"
             size="icon"
-            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
+            className="rounded-xl hover:bg-slate-100"
+            style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}
             onClick={() => navigate(createPageUrl("Home"))}
           >
             <ArrowLeft className="w-5 h-5" />
