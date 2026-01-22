@@ -808,12 +808,12 @@ export default function Home() {
                 WebkitBackdropFilter: getBackdropFilter(),
                 boxShadow: getBoxShadow('main'),
                 borderColor: getBorderColor(theme),
-                opacity: 0.5,
+                backgroundColor: 'rgba(255, 255, 255, 0.4)',
               }}
               >
               <MessageCircle className="w-5 h-5 text-[#63c49f]" />
               <span className="text-sm font-semibold text-white">Forum</span>
-            </div>
+              </div>
           </Link>
         </div>
 
