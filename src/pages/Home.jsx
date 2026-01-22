@@ -867,7 +867,13 @@ export default function Home() {
               }}
             >
               <div className="absolute inset-0 rounded-3xl opacity-40 pointer-events-none" style={{ background: 'inherit' }} />
-              <div className="relative z-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-slate-100">
+              <div className="relative z-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{
+                background: 'rgba(99, 196, 159, 0.15)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(99, 196, 159, 0.3)',
+                boxShadow: '0 4px 16px rgba(99, 196, 159, 0.2)'
+              }}>
                 <Sparkles className="w-8 h-8" style={{ color: '#63c49f' }} />
               </div>
               <p className="relative z-10 text-white font-semibold">No issues scanned yet</p>
