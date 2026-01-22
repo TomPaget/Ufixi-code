@@ -202,11 +202,11 @@ export default function BusinessPricing() {
             variant="ghost"
             size="icon"
             onClick={() => navigate(-1)}
-            className="rounded-xl hover:bg-slate-100 text-[#1E3A57]"
+            className="rounded-xl hover:bg-slate-100 text-white"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="text-lg font-bold text-[#1E3A57]">
+          <h1 className="text-lg font-bold text-white">
             Business Membership
           </h1>
         </div>
