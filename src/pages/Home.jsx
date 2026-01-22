@@ -636,6 +636,8 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-300/65 via-white/75 to-blue-400/65 animate-gradient-shift-reverse blur-3xl" />
             <div className="absolute inset-0 bg-gradient-to-tl from-orange-200/55 via-sky-200/60 to-white/55 animate-gradient-shift blur-3xl" />
             <div className="absolute inset-0 bg-gradient-to-b from-orange-300/50 via-yellow-200/45 to-transparent animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#051a34]/40 via-transparent to-orange-700/35 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-orange-700/45 via-transparent to-[#051a34]/35 animate-gradient-shift-reverse blur-3xl" />
           </>
         ) : (
           <>
@@ -644,6 +646,8 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-300/65 via-white/75 to-blue-400/65 animate-gradient-shift-reverse blur-3xl" />
             <div className="absolute inset-0 bg-gradient-to-tl from-orange-200/55 via-sky-200/60 to-white/55 animate-gradient-shift blur-3xl" />
             <div className="absolute inset-0 bg-gradient-to-b from-orange-300/50 via-yellow-200/45 to-transparent animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#051a34]/40 via-transparent to-orange-700/35 animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-orange-700/45 via-transparent to-[#051a34]/35 animate-gradient-shift-reverse blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
