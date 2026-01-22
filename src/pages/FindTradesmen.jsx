@@ -792,7 +792,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               </p>
             </div>
           ) : filteredTradesmen.length === 0 ? (
-            <div className="text-center py-12 rounded-2xl border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+            <div className="text-center py-12 rounded-2xl border-2 bg-white/30 backdrop-blur-md border-[#1E3A57]/20">
               <MapPin className="w-12 h-12 mx-auto mb-3 text-[#57CFA4]" />
               <p className="text-white">
                 No tradesmen found
