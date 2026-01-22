@@ -632,16 +632,16 @@ export default function Home() {
         {theme === 'dark' ? (
           <>
             <div className="absolute inset-0 bg-gradient-to-b from-blue-500/40 via-slate-400/30 to-slate-200/20 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-400/35 via-orange-300/25 to-transparent animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-400/40 via-orange-300/30 to-transparent animate-gradient-shift-slow blur-3xl" />
             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/30 via-white/40 to-blue-500/25 animate-gradient-shift-reverse blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-[#051a34]/25 via-transparent to-orange-600/20 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-[#051a34]/25 via-transparent to-orange-600/25 animate-gradient-shift blur-3xl" />
           </>
         ) : (
           <>
             <div className="absolute inset-0 bg-gradient-to-b from-blue-500/40 via-slate-400/30 to-slate-200/20 animate-gradient-shift blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-400/35 via-orange-300/25 to-transparent animate-gradient-shift-slow blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-400/40 via-orange-300/30 to-transparent animate-gradient-shift-slow blur-3xl" />
             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/30 via-white/40 to-blue-500/25 animate-gradient-shift-reverse blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-[#051a34]/25 via-transparent to-orange-600/20 animate-gradient-shift blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-[#051a34]/25 via-transparent to-orange-600/25 animate-gradient-shift blur-3xl" />
           </>
         )}
         <div className="absolute inset-0 bg-white/5" />
