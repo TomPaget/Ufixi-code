@@ -200,14 +200,14 @@ export default function TradesSignup() {
         </div>
 
         {/* Social Proof */}
-        <div className="text-center p-8 rounded-2xl border bg-white/60 backdrop-blur-md border-slate-200">
+        <div className="text-center p-8 rounded-2xl border bg-white/08 backdrop-blur-md border-white/20">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Shield className="w-6 h-6 text-[#57CFA4]" />
-            <h3 className="font-semibold text-[#1E3A57]">
+            <h3 className="font-semibold text-white">
               Trusted by Tradespeople Across the UK
             </h3>
           </div>
-          <p className="text-sm text-slate-800 font-medium">
+          <p className="text-sm text-white font-medium">
             Join hundreds of verified professionals growing their business with Fixplain
           </p>
         </div>
