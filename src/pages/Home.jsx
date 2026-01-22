@@ -626,7 +626,7 @@ export default function Home() {
       {/* Animated liquid gradient background */}
       <div className="fixed inset-0 -z-10" style={{
         background: theme === 'dark' 
-          ? 'linear-gradient(135deg, #2a3f5f 0%, #3d5a7a 15%, #D97706 28%, #4a3d6f 40%, #5f4a5a 55%, #E598C0 68%, #3366cc 85%, #1E1B4B 100%)'
+          ? 'linear-gradient(135deg, #2a3f5f 0%, #3d5a7a 15%, #D97706 28%, #4a3d6f 40%, #5f4a5a 55%, #F472B6 72%, #3d2f4a 85%, #1E1B4B 100%)'
           : 'linear-gradient(to-br, #f1f5f9, #f8fafc)'
       }}>
         {theme === 'dark' ? (
@@ -662,43 +662,34 @@ export default function Home() {
         }
         @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
-          12% { transform: translate(42%, -28%) scale(1.75) rotate(22deg); }
-          25% { transform: translate(-38%, 45%) scale(1.6) rotate(-18deg); }
-          37% { transform: translate(28%, -52%) scale(1.8) rotate(35deg); }
-          50% { transform: translate(-52%, -15%) scale(1.55) rotate(-8deg); }
-          62% { transform: translate(35%, 38%) scale(1.7) rotate(12deg); }
-          75% { transform: translate(-45%, -38%) scale(1.65) rotate(-28deg); }
-          88% { transform: translate(22%, 25%) scale(1.72) rotate(16deg); }
+          20% { transform: translate(30%, 35%) scale(1.7) rotate(8deg); }
+          40% { transform: translate(-25%, 40%) scale(1.6) rotate(-12deg); }
+          60% { transform: translate(-35%, -20%) scale(1.8) rotate(15deg); }
+          80% { transform: translate(20%, -40%) scale(1.55) rotate(-10deg); }
           100% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
         }
         @keyframes gradient-shift-slow {
           0% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); }
-          14% { transform: translate(-52%, 32%) scale(1.75) rotate(-22deg); }
-          28% { transform: translate(38%, -48%) scale(1.55) rotate(28deg); }
-          42% { transform: translate(-28%, -42%) scale(1.8) rotate(-12deg); }
-          57% { transform: translate(48%, 28%) scale(1.65) rotate(18deg); }
-          71% { transform: translate(-42%, 52%) scale(1.7) rotate(-35deg); }
-          85% { transform: translate(25%, -35%) scale(1.6) rotate(8deg); }
+          25% { transform: translate(-45%, 40%) scale(1.8) rotate(-15deg); }
+          50% { transform: translate(35%, -30%) scale(1.5) rotate(12deg); }
+          75% { transform: translate(-30%, -45%) scale(1.75) rotate(-10deg); }
           100% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); }
         }
         @keyframes gradient-shift-reverse {
           0% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
-          18% { transform: translate(58%, -42%) scale(1.7) rotate(28deg); }
-          36% { transform: translate(-48%, 38%) scale(1.75) rotate(-20deg); }
-          54% { transform: translate(32%, -52%) scale(1.6) rotate(15deg); }
-          72% { transform: translate(-52%, -28%) scale(1.8) rotate(-32deg); }
-          90% { transform: translate(35%, 45%) scale(1.65) rotate(10deg); }
+          33% { transform: translate(50%, -35%) scale(1.7) rotate(18deg); }
+          66% { transform: translate(-40%, 30%) scale(1.65) rotate(-14deg); }
           100% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
         }
 
         .animate-gradient-shift {
-          animation: gradient-shift 16s ease-in-out infinite;
+          animation: gradient-shift 12s ease-in-out infinite;
         }
         .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 20s ease-in-out infinite;
+          animation: gradient-shift-slow 15s ease-in-out infinite;
         }
         .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 14s ease-in-out infinite;
+          animation: gradient-shift-reverse 10s ease-in-out infinite;
         }
       `}</style>
       
@@ -796,12 +787,13 @@ export default function Home() {
             >
               <div
                 onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
-                className="w-full h-16 rounded-2xl font-semibold text-white cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:scale-[1.02]"
+                className="w-full h-16 rounded-2xl font-semibold text-white cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:shadow-lg hover:scale-[1.02]"
                 style={{
-                  background: `rgba(255, 255, 255, 0.2)`,
+                  background: `linear-gradient(135deg, rgba(99, 196, 159, 0.95) 0%, rgba(99, 196, 159, 0.85) 100%)`,
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
-                  borderColor: 'rgba(255, 255, 255, 0.3)'
+                  borderColor: 'rgba(99, 196, 159, 0.95)',
+                  boxShadow: '0 8px 32px rgba(99, 196, 159, 0.3)'
                 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity" style={{
@@ -855,12 +847,12 @@ export default function Home() {
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold flex items-center gap-1 text-white">
-              <History className="w-5 h-5 text-white" />
+              <History className="w-5 h-5 text-[#63c49f]" />
               Recent Issues
             </h2>
             <Link 
               to={createPageUrl("History")}
-              className="text-sm font-semibold text-white hover:text-white/80"
+              className="text-sm font-semibold text-[#63c49f] hover:text-[#63c49f]/80"
             >
               View All
             </Link>
