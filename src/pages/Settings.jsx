@@ -271,31 +271,34 @@ export default function Settings() {
       
       {/* Header */}
       <header className={cn(
-        "sticky top-0 z-10 backdrop-blur-lg border-b",
+        "sticky top-0 z-30 backdrop-blur-lg border-b",
         theme === "dark" ?
         "bg-slate-900/80 border-slate-700/50" :
         "bg-white border-slate-200"
       )}>
-        <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
+        <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-center relative">
           <Button
             variant="ghost"
             size="icon"
             className={cn(
-              "rounded-xl",
+              "absolute left-5 rounded-xl",
               theme === "dark" ?
               "hover:bg-slate-800 text-slate-400 hover:text-slate-300" :
               "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
             )}
-            onClick={() => navigate(createPageUrl("Home"))}>
+            onClick={() => setMenuOpen(true)}>
 
-            <ArrowLeft className="w-5 h-5" />
+            <Menu className="w-5 h-5" />
           </Button>
-          <h1 className={cn(
-            "font-semibold text-lg",
-            theme === "dark" ? "text-slate-100" : "text-slate-900"
-          )}>Settings</h1>
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"
+            alt="Ufixi Logo"
+            className="h-8 object-contain"
+          />
         </div>
       </header>
+
+      <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <main className="max-w-lg mx-auto px-5 py-6 pb-12">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
