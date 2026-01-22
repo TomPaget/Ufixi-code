@@ -349,9 +349,6 @@ Return the exact coordinates and verify the postcode is valid.`,
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div className="flex items-center gap-3 flex-1">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-lg bg-[#F7B600] text-[#0F1E2E]">
-              Q
-            </div>
             <h1 className="font-bold text-lg text-white">
               Find Local Tradesmen
             </h1>
