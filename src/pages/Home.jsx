@@ -662,23 +662,32 @@ export default function Home() {
         }
         @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
-          20% { transform: translate(30%, 35%) scale(1.7) rotate(8deg); }
-          40% { transform: translate(-25%, 40%) scale(1.6) rotate(-12deg); }
-          60% { transform: translate(-35%, -20%) scale(1.8) rotate(15deg); }
-          80% { transform: translate(20%, -40%) scale(1.55) rotate(-10deg); }
+          12% { transform: translate(42%, -28%) scale(1.75) rotate(22deg); }
+          25% { transform: translate(-38%, 45%) scale(1.6) rotate(-18deg); }
+          37% { transform: translate(28%, -52%) scale(1.8) rotate(35deg); }
+          50% { transform: translate(-52%, -15%) scale(1.55) rotate(-8deg); }
+          62% { transform: translate(35%, 38%) scale(1.7) rotate(12deg); }
+          75% { transform: translate(-45%, -38%) scale(1.65) rotate(-28deg); }
+          88% { transform: translate(22%, 25%) scale(1.72) rotate(16deg); }
           100% { transform: translate(0%, 0%) scale(1.5) rotate(0deg); }
         }
         @keyframes gradient-shift-slow {
           0% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); }
-          25% { transform: translate(-45%, 40%) scale(1.8) rotate(-15deg); }
-          50% { transform: translate(35%, -30%) scale(1.5) rotate(12deg); }
-          75% { transform: translate(-30%, -45%) scale(1.75) rotate(-10deg); }
+          14% { transform: translate(-52%, 32%) scale(1.75) rotate(-22deg); }
+          28% { transform: translate(38%, -48%) scale(1.55) rotate(28deg); }
+          42% { transform: translate(-28%, -42%) scale(1.8) rotate(-12deg); }
+          57% { transform: translate(48%, 28%) scale(1.65) rotate(18deg); }
+          71% { transform: translate(-42%, 52%) scale(1.7) rotate(-35deg); }
+          85% { transform: translate(25%, -35%) scale(1.6) rotate(8deg); }
           100% { transform: translate(0%, 0%) scale(1.6) rotate(0deg); }
         }
         @keyframes gradient-shift-reverse {
           0% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
-          33% { transform: translate(50%, -35%) scale(1.7) rotate(18deg); }
-          66% { transform: translate(-40%, 30%) scale(1.65) rotate(-14deg); }
+          18% { transform: translate(58%, -42%) scale(1.7) rotate(28deg); }
+          36% { transform: translate(-48%, 38%) scale(1.75) rotate(-20deg); }
+          54% { transform: translate(32%, -52%) scale(1.6) rotate(15deg); }
+          72% { transform: translate(-52%, -28%) scale(1.8) rotate(-32deg); }
+          90% { transform: translate(35%, 45%) scale(1.65) rotate(10deg); }
           100% { transform: translate(0%, 0%) scale(1.55) rotate(0deg); }
         }
 
