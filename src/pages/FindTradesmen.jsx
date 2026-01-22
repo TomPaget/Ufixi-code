@@ -45,6 +45,7 @@ export default function FindTradesmen() {
   const [showSavedSearches, setShowSavedSearches] = useState(false);
   const [searchName, setSearchName] = useState("");
   const [minRating, setMinRating] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
