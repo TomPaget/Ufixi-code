@@ -772,7 +772,7 @@ export default function Home() {
                   background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(87,207,164,0.5) 0%, transparent 70%)',
                   pointerEvents: 'none'
                 }} />
-                <Plus className="w-5 h-5 relative z-10" />
+                <Plus className="w-5 h-5 relative z-10 text-white" />
                 <span className="relative z-10 text-white">{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
               </div>
             </motion.div>
