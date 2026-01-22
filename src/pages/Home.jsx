@@ -701,13 +701,14 @@ export default function Home() {
             <span className="whitespace-nowrap font-bold text-white" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
             <span className="font-bold" style={{ 
               fontFamily: "'Fredoka', sans-serif",
-              background: 'linear-gradient(135deg, #63c49f 0%, rgba(255, 255, 255, 0.95) 100%)',
+              background: 'linear-gradient(-135deg, #FF6B35 0%, #FF8C42 25%, #D97706 45%, #F97316 70%, rgba(255, 140, 66, 0.9) 100%)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              backdropFilter: 'blur(10px)',
-              textShadow: '0 0 30px rgba(99, 196, 159, 0.6)',
-              filter: 'drop-shadow(0 0 20px rgba(99, 196, 159, 0.4))'
+              backgroundSize: '200% 200%',
+              animation: 'lavaLamp 8s ease-in-out infinite',
+              textShadow: '0 0 30px rgba(255, 107, 53, 0.8)',
+              filter: 'drop-shadow(0 0 25px rgba(255, 107, 53, 0.6))'
             }}>
               fixing?
             </span>
