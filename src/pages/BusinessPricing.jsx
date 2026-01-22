@@ -352,13 +352,13 @@ export default function BusinessPricing() {
         {/* Company Details Form */}
         {selectedPlan && (
           <div className="max-w-2xl mx-auto rounded-2xl border-2 p-8 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
-            <h2 className="text-2xl font-bold mb-6 text-[#1E3A57]">
+            <h2 className="text-2xl font-bold mb-6 text-white">
               Complete Your Subscription
             </h2>
 
             <div className="space-y-4">
               <div>
-                <Label className="mb-2 block text-[#1E3A57]">
+                <Label className="mb-2 block text-white">
                   Company Name *
                 </Label>
                 <Input
@@ -370,7 +370,7 @@ export default function BusinessPricing() {
               </div>
 
               <div>
-                <Label className="mb-2 block text-[#1E3A57]">
+                <Label className="mb-2 block text-white">
                   Contact Email
                 </Label>
                 <Input
@@ -384,10 +384,10 @@ export default function BusinessPricing() {
               </div>
 
               <div className="p-4 rounded-xl border bg-[#F7B600]/10 border-[#F7B600]/30">
-                <p className="text-sm text-[#1E3A57]">
+                <p className="text-sm text-white">
                   <strong>Selected Plan:</strong> {selectedPlan.name} - £{selectedPlan.price}/month
                 </p>
-                <p className="text-xs mt-2 text-slate-700 font-medium">
+                <p className="text-xs mt-2 text-white/70 font-medium">
                   Cancel anytime. No hidden fees.
                 </p>
               </div>
