@@ -4,7 +4,7 @@ import NotificationBell from "@/components/kora/NotificationBell";
 
 export default function Header({ onMenuClick }) {
   return (
-    <header className="sticky top-0 z-30 border-b bg-[#f9f7e7] backdrop-blur-sm border-slate-300/50">
+    <header className="sticky top-0 z-30 border-b bg-[#f9f7e7]/80 backdrop-blur-md border-slate-300/30">
       <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
         <Button 
           variant="ghost" 
