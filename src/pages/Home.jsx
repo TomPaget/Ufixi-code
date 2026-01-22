@@ -701,7 +701,7 @@ export default function Home() {
               fixing?
             </span>
           </h1>
-          <p className="text-base max-w-2xl mx-auto text-[#1a2f42] font-medium">
+          <p className="text-base max-w-2xl mx-auto text-white font-medium">
             Upload a photo or video of any issue and get an instant professional assessment with repair guidance.
           </p>
         </div>
