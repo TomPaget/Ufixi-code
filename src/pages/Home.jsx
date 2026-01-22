@@ -721,7 +721,7 @@ export default function Home() {
               WebkitTextFillColor: 'transparent',
               backgroundSize: '200% 200%, 200% 200%',
               backgroundPosition: '0% 0%, 0% 50%',
-              animation: 'shine 3s ease-in-out infinite, gradientFlow 2s ease-in-out infinite',
+              animation: 'shine 3s ease-in-out infinite, gradientFlow 4s ease-in-out infinite',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)'
             }}>
