@@ -163,12 +163,7 @@ export default function IssueDetail() {
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <img 
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/b6e7c1091_ufixi_primary_RGB.png"
-            alt="UFixi"
-            className="h-8 w-auto object-contain"
-          />
-          <div className="flex-1 ml-auto">
+          <div className="flex-1">
             <h1 className="font-semibold text-slate-100 truncate">{issue.title}</h1>
             <p className="text-sm text-slate-400">
               {format(new Date(issue.created_date), "MMMM d, yyyy")}
