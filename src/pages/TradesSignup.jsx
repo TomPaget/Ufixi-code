@@ -101,7 +101,7 @@ export default function TradesSignup() {
             variant="ghost"
             size="icon"
             onClick={() => setMenuOpen(true)}
-            className="absolute left-5 rounded-xl hover:bg-slate-100 text-[#1E3A57]"
+            className="absolute left-5 rounded-xl hover:bg-white/20 text-white"
           >
             <Menu className="w-5 h-5" />
           </Button>
