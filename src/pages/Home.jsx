@@ -811,7 +811,7 @@ export default function Home() {
                   pointerEvents: 'none'
                 }} />
                 <Plus className="w-5 h-5 relative z-10 text-white" />
-                <span className="relative z-10 text-white">{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
+                <span className="relative z-10 text-white text-base">{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
               </div>
             </motion.div>
           )}
