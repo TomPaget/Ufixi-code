@@ -14,6 +14,16 @@ Deno.serve(async (req) => {
 
     const { planType, planName, price, accountType } = await req.json();
 
+    // Determine subscription interval
+    let interval = 'month';
+    if (accountType === 'remove_ads') {
+      interval = 'month'; // £3.99/month for ad removal
+    } else if (accountType === 'business') {
+      interval = 'month';
+    } else {
+      interval = 'week'; // Trades plans
+    }
+
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -23,10 +33,12 @@ Deno.serve(async (req) => {
             currency: 'gbp',
             product_data: {
               name: planName,
-              description: `${accountType === 'business' ? 'Business' : 'Trades'} Subscription`,
+              description: accountType === 'remove_ads' 
+                ? 'Remove Ads Forever - Monthly Subscription'
+                : `${accountType === 'business' ? 'Business' : 'Trades'} Subscription`,
             },
             recurring: {
-              interval: accountType === 'business' ? 'month' : 'week',
+              interval: interval,
             },
             unit_amount: Math.round(price * 100), // Convert to pence
           },
@@ -34,8 +46,8 @@ Deno.serve(async (req) => {
         },
       ],
       mode: 'subscription',
-      success_url: `${req.headers.get('origin')}${accountType === 'business' ? '/Home' : '/TradesSuccess'}`,
-      cancel_url: `${req.headers.get('origin')}${accountType === 'business' ? '/BusinessPricing' : '/TradesPayment'}`,
+      success_url: `${req.headers.get('origin')}${accountType === 'remove_ads' ? '/Home' : accountType === 'business' ? '/Home' : '/TradesSuccess'}`,
+      cancel_url: `${req.headers.get('origin')}${accountType === 'remove_ads' ? '/Upgrade' : accountType === 'business' ? '/BusinessPricing' : '/TradesPayment'}`,
       client_reference_id: user.id,
       metadata: {
         user_id: user.id,

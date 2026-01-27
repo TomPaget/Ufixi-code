@@ -56,10 +56,19 @@ export default function Upgrade() {
   });
 
   const upgradeMutation = useMutation({
-    mutationFn: () => base44.auth.updateMe({ subscription_tier: "premium" }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["user"]);
-      navigate(createPageUrl("Home"));
+    mutationFn: async () => {
+      // Create Stripe checkout session for ad removal
+      const { data } = await base44.functions.invoke('createStripeCheckout', {
+        planType: 'remove_ads',
+        planName: 'Remove Ads Forever',
+        price: 3.99,
+        accountType: 'remove_ads'
+      });
+
+      // Redirect to Stripe checkout
+      if (data.url) {
+        window.location.href = data.url;
+      }
     }
   });
 
