@@ -17,17 +17,24 @@ Deno.serve(async (req) => {
 
 Analyze this ${type} content and determine if it contains:
 1. Profanity or offensive language
-2. Personal information (phone numbers, email addresses, physical addresses, full names with context)
-3. Inappropriate or explicit content
-4. Spam or promotional content
-5. Harassment or bullying
+2. Personal information including:
+   - Phone numbers (any format)
+   - Email addresses
+   - Physical addresses or detailed location information
+   - Full postal addresses or postcodes with street names
+3. Website links or URLs (http://, https://, www., .com, .co.uk, etc.)
+4. Inappropriate or explicit content
+5. Spam or promotional content
+6. Harassment or bullying
+
+CRITICAL: Reject content if it contains ANY personal contact details (phone, email, address) or website links.
 
 Content to moderate:
 ${content}
 
 ${image_url ? `Image URL provided: ${image_url}` : ''}
 
-Respond with a moderation decision following eBay's community standards approach.`,
+Respond with a moderation decision. Be strict about personal information and website links.`,
       ...(image_url ? { file_urls: [image_url] } : {}),
       response_json_schema: {
         type: "object",
