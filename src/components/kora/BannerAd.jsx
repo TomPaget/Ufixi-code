@@ -17,8 +17,8 @@ export default function BannerAd() {
     queryFn: () => base44.auth.me()
   });
 
-  // Don't show if user has paid to remove ads
-  if (!isVisible || user?.ads_removed) return null;
+  // Don't show if user has paid to remove ads, is premium, or has business membership
+  if (!isVisible || user?.ads_removed || user?.subscription_tier === 'premium' || user?.account_type === 'business') return null;
 
   return (
     <div 

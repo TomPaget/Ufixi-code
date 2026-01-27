@@ -16,8 +16,8 @@ export default function TimedAdBreak() {
     queryFn: () => base44.auth.me()
   });
 
-  // Check if user has removed ads
-  const hasRemovedAds = user?.ads_removed === true;
+  // Check if user has removed ads or is premium/business member
+  const hasRemovedAds = user?.ads_removed === true || user?.subscription_tier === 'premium' || user?.account_type === 'business';
 
   // Timer to show ads after 35 seconds and 130 seconds
   useEffect(() => {
