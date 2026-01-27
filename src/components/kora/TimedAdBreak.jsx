@@ -32,11 +32,11 @@ export default function TimedAdBreak() {
       }, 35000));
     }
 
-    // Second ad at 130 seconds
+    // Second ad at 115 seconds
     if (adsShown === 1) {
       timers.push(setTimeout(() => {
         setShowAd(true);
-      }, 130000));
+      }, 115000));
     }
 
     return () => timers.forEach(timer => clearTimeout(timer));
