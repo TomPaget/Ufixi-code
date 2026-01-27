@@ -38,7 +38,7 @@ export default function BannerAd() {
           </div>
           <div className="flex-1">
             <p className="text-white text-sm font-bold">Remove Ads Forever</p>
-            <p className="text-white/90 text-xs">Just £3.99 one-time payment</p>
+            <p className="text-white/90 text-xs">Just £3.99/month</p>
           </div>
         </div>
         <button
