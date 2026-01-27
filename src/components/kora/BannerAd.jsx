@@ -1,48 +1,56 @@
-import { X } from "lucide-react";
+import { X, Zap } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
 
 export default function BannerAd() {
   const [isVisible, setIsVisible] = useState(true);
   const { theme } = useTheme();
+  const navigate = useNavigate();
 
-  if (!isVisible) return null;
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => base44.auth.me()
+  });
+
+  // Don't show if user has paid to remove ads
+  if (!isVisible || user?.ads_removed) return null;
 
   return (
-    <div className="bg-[#faffeb]/80 text-slate-800 fixed bottom-0 left-0 right-0 z-50 border-t shadow-lg border-slate-700">
-
-
-
-
-
+    <div 
+      onClick={() => navigate(createPageUrl("Upgrade"))}
+      className="fixed bottom-0 left-0 right-0 z-50 border-t shadow-lg cursor-pointer transition-all hover:shadow-xl"
+      style={{
+        background: 'linear-gradient(135deg, rgba(99,196,159,0.95) 0%, rgba(99,196,159,0.85) 100%)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderColor: 'rgba(99,196,159,0.3)'
+      }}
+    >
       <div className="max-w-lg mx-auto px-5 py-3 flex items-center justify-between gap-3">
-        <div className="flex-1">
-          <p className="text-slate-800 text-xs font-medium">🔧 Need a trusted pro? Find local contractors
-
-
-
-
-          </p>
-          <p className="text-slate-700 mt-0.5 text-xs">Advertisement • Sponsored
-
-
-
-
-          </p>
+        <div className="flex items-center gap-3 flex-1">
+          <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+            <Zap className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1">
+            <p className="text-white text-sm font-bold">Remove Ads Forever</p>
+            <p className="text-white/90 text-xs">Just £2.99 one-time payment</p>
+          </div>
         </div>
         <button
-          onClick={() => setIsVisible(false)}
-          className={cn(
-            "p-1 rounded-lg transition-colors",
-            theme === "dark" ?
-            "hover:bg-slate-700 text-slate-400" :
-            "hover:bg-slate-100 text-slate-500"
-          )}>
-
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsVisible(false);
+          }}
+          className="p-1 rounded-lg transition-colors hover:bg-white/20 text-white"
+        >
           <X className="w-4 h-4" />
         </button>
       </div>
-    </div>);
-
+    </div>
+  );
 }
