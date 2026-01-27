@@ -14,8 +14,8 @@ const customerMenuItems = [
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
   { icon: Building2, label: "Business Membership", page: "BusinessPricing" },
-  { icon: Briefcase, label: "Trades Account", page: "TradesSignup" },
-  { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
+  // { icon: Briefcase, label: "Trades Account", page: "TradesSignup" }, // HIDDEN - Can be re-enabled later
+  // { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" }, // HIDDEN - Can be re-enabled later
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
   { icon: Settings, label: "My Account", page: "Settings", submenu: [
     { icon: HomeIcon, label: "Home Profile", page: "HomeProfile" }
@@ -29,7 +29,7 @@ const tradesMenuItems = [
   { icon: Briefcase, label: "My Profile", page: "TradesProfile" },
   { icon: Mail, label: "Messages", page: "Messages" },
   { icon: MessageCircle, label: "Community Forum", page: "Forum" },
-  { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" },
+  // { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" }, // HIDDEN - Can be re-enabled later
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
   { icon: Settings, label: "My Account", page: "Settings" }
 ];
