@@ -151,21 +151,60 @@ export default function IssueDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
+      </div>
+      
+      <style jsx>{`
+        @keyframes gradient-shift {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-slow {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-reverse {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        .animate-gradient-shift {
+          animation: gradient-shift 8s ease-in-out infinite;
+        }
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 10s ease-in-out infinite;
+        }
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 9s ease-in-out infinite;
+        }
+      `}</style>
+      
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-slate-900/80 backdrop-blur-lg border-b border-slate-700/50">
+      <header className="sticky top-0 z-10 bg-white/10 backdrop-blur-md border-b border-white/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button 
             variant="ghost" 
             size="icon" 
-            className="rounded-xl hover:bg-slate-800 text-slate-400 hover:text-slate-300"
+            className="rounded-xl hover:bg-white/20 text-white"
             onClick={() => navigate(-1)}
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div className="flex-1">
-            <h1 className="font-semibold text-slate-100 truncate">{issue.title}</h1>
-            <p className="text-sm text-slate-400">
+            <h1 className="font-semibold text-white truncate">{issue.title}</h1>
+            <p className="text-sm text-white/80">
               {format(new Date(issue.created_date), "MMMM d, yyyy")}
             </p>
           </div>
@@ -216,9 +255,9 @@ export default function IssueDetail() {
           )}
 
           {issue.priority_reasoning && (
-            <div className="bg-slate-800 rounded-xl p-3 border border-slate-700/50">
-              <p className="text-xs text-slate-400 mb-1">Priority Reasoning:</p>
-              <p className="text-sm text-slate-300">{issue.priority_reasoning}</p>
+            <div className="bg-white/30 backdrop-blur-md rounded-xl p-3 border border-white/20">
+              <p className="text-xs text-white/80 mb-1">Priority Reasoning:</p>
+              <p className="text-sm text-white">{issue.priority_reasoning}</p>
             </div>
           )}
 
@@ -251,19 +290,19 @@ export default function IssueDetail() {
             </div>
 
         {/* Explanation */}
-        <div className="bg-slate-800 rounded-2xl p-5 border border-slate-700/50">
-          <h2 className="font-semibold text-slate-100 mb-3">What's happening?</h2>
-            <p className="text-slate-300 leading-relaxed">{issue.explanation}</p>
+        <div className="bg-white/30 backdrop-blur-md rounded-2xl p-5 border border-white/20">
+          <h2 className="font-semibold text-white mb-3">What's happening?</h2>
+            <p className="text-white leading-relaxed">{issue.explanation}</p>
 
             {/* Historical Insights */}
             {issue.historical_insights?.recommended_approach && (
-              <div className="mt-4 p-4 bg-blue-900/30 rounded-xl border border-blue-500/30">
-                <p className="text-sm font-semibold text-blue-400 mb-2">
+              <div className="mt-4 p-4 bg-white/20 backdrop-blur-md rounded-xl border border-white/30">
+                <p className="text-sm font-semibold text-white mb-2">
                   💡 Based on {issue.historical_insights.similar_cases_count} similar cases:
                 </p>
-                <p className="text-sm text-blue-200">{issue.historical_insights.recommended_approach}</p>
+                <p className="text-sm text-white/90">{issue.historical_insights.recommended_approach}</p>
                 {issue.historical_insights.estimated_success_rate && (
-                  <p className="text-xs text-blue-300 mt-2">
+                  <p className="text-xs text-white/80 mt-2">
                     Estimated DIY success rate: {issue.historical_insights.estimated_success_rate}%
                   </p>
                 )}
@@ -318,21 +357,21 @@ export default function IssueDetail() {
 
         {/* Risks */}
         {issue.risks?.length > 0 && (
-          <div className="bg-slate-800 rounded-2xl border border-slate-700/50 overflow-hidden">
+          <div className="bg-white/30 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden">
             <button
               onClick={() => setShowRisks(!showRisks)}
-              className="w-full p-5 flex items-center justify-between hover:bg-slate-700/50 transition-colors"
+              className="w-full p-5 flex items-center justify-between hover:bg-white/20 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center border border-amber-500/30">
-                  <AlertTriangle className="w-5 h-5 text-amber-400" />
+                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center border border-white/30">
+                  <AlertTriangle className="w-5 h-5 text-white" />
                 </div>
-                <span className="font-semibold text-slate-100">Risks if ignored</span>
+                <span className="font-semibold text-white">Risks if ignored</span>
               </div>
               {showRisks ? (
-                <ChevronUp className="w-5 h-5 text-slate-400" />
+                <ChevronUp className="w-5 h-5 text-white" />
               ) : (
-                <ChevronDown className="w-5 h-5 text-slate-400" />
+                <ChevronDown className="w-5 h-5 text-white" />
               )}
             </button>
             
@@ -344,11 +383,11 @@ export default function IssueDetail() {
                   exit={{ height: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-5 pb-5 border-t border-slate-700/50">
+                  <div className="px-5 pb-5 border-t border-white/20">
                     <ul className="space-y-2 pt-4">
                       {issue.risks.map((risk, i) => (
-                        <li key={i} className="flex items-start gap-2 text-slate-300">
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 flex-shrink-0" />
+                        <li key={i} className="flex items-start gap-2 text-white">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white mt-2 flex-shrink-0" />
                           {risk}
                         </li>
                       ))}
@@ -368,7 +407,7 @@ export default function IssueDetail() {
 
         {/* Cost Estimates */}
         <div>
-          <h2 className="font-semibold text-slate-200 mb-3">Cost Analysis</h2>
+          <h2 className="font-semibold text-white mb-3">Cost Analysis</h2>
           <CostEstimate
             diyMin={issue.diy_cost_min}
             diyMax={issue.diy_cost_max}
@@ -405,14 +444,14 @@ export default function IssueDetail() {
         {/* Dynamic Checklist */}
         {issue.status !== "resolved" && (
           <div>
-            <h2 className="font-semibold text-slate-200 mb-3">Step-by-Step Guidance</h2>
+            <h2 className="font-semibold text-white mb-3">Step-by-Step Guidance</h2>
             <DynamicChecklist issueId={issueId} repairType="diy" />
           </div>
         )}
 
         {/* Action Buttons */}
         <div>
-          <h2 className="font-semibold text-slate-200 mb-3">What do you want to do?</h2>
+          <h2 className="font-semibold text-white mb-3">What do you want to do?</h2>
           <ActionButtons
             onDIY={() => setShowDIY(true)}
             onLandlord={() => setShowLandlord(true)}

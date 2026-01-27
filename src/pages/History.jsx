@@ -117,38 +117,60 @@ export default function History() {
   const tradeTypes = [...new Set(issues.map(i => i.trade_type).filter(Boolean))];
 
   return (
-    <div className={cn(
-      "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
-    )}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
+      </div>
+      
+      <style jsx>{`
+        @keyframes gradient-shift {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-slow {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        @keyframes gradient-shift-reverse {
+          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
+          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+        }
+        .animate-gradient-shift {
+          animation: gradient-shift 8s ease-in-out infinite;
+        }
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 10s ease-in-out infinite;
+        }
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 9s ease-in-out infinite;
+        }
+      `}</style>
+      
       {/* Header */}
-      <header className={cn(
-        "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
-      )}>
+      <header className="sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
           <Button 
             variant="ghost" 
             size="icon" 
-            className={cn(
-              "rounded-xl",
-              theme === "dark"
-                ? "hover:bg-[#57CFA4]/20 text-[#57CFA4]"
-                : "hover:bg-slate-100 text-[#1E3A57]"
-            )}
+            className="rounded-xl hover:bg-white/20 text-white"
             onClick={() => navigate(createPageUrl("Home"))}
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div>
-            <h1 className={cn(
-              "font-bold text-lg",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>Dashboard</h1>
-            <p className={cn(
-              "text-xs",
-              theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-            )}>Track all your issues</p>
+            <h1 className="font-bold text-lg text-white">Dashboard</h1>
+            <p className="text-xs text-white/80">Track all your issues</p>
           </div>
         </div>
       </header>
@@ -156,112 +178,52 @@ export default function History() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
         {/* Statistics Overview */}
         <div className="grid grid-cols-2 gap-3">
-          <div className={cn(
-            "rounded-2xl p-4 border",
-            theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/20"
-              : "bg-white border-slate-200"
-          )}>
-            <TrendingUp className="w-5 h-5 text-[#F7B600] mb-2" />
-            <p className={cn(
-              "text-2xl font-bold",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
+          <div className="rounded-2xl p-4 border bg-white/60 backdrop-blur-md border-slate-200">
+            <TrendingUp className="w-5 h-5 text-[#63c49f] mb-2" />
+            <p className="text-2xl font-bold text-[#1a2f42]">
               {stats.total}
             </p>
-            <p className={cn(
-              "text-xs",
-              theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-            )}>Total Issues</p>
+            <p className="text-xs text-[#1a2f42]/80">Total Issues</p>
           </div>
 
-          <div className={cn(
-            "rounded-2xl p-4 border",
-            theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/20"
-              : "bg-white border-slate-200"
-          )}>
-            <CheckCircle2 className="w-5 h-5 text-green-500 mb-2" />
-            <p className={cn(
-              "text-2xl font-bold",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
+          <div className="rounded-2xl p-4 border bg-white/60 backdrop-blur-md border-slate-200">
+            <CheckCircle2 className="w-5 h-5 text-[#63c49f] mb-2" />
+            <p className="text-2xl font-bold text-[#1a2f42]">
               {stats.resolved}
             </p>
-            <p className={cn(
-              "text-xs",
-              theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-            )}>Resolved</p>
+            <p className="text-xs text-[#1a2f42]/80">Resolved</p>
           </div>
 
-          <div className={cn(
-            "rounded-2xl p-4 border",
-            theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/20"
-              : "bg-white border-slate-200"
-          )}>
-            <Clock className="w-5 h-5 text-blue-500 mb-2" />
-            <p className={cn(
-              "text-2xl font-bold",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
+          <div className="rounded-2xl p-4 border bg-white/60 backdrop-blur-md border-slate-200">
+            <Clock className="w-5 h-5 text-[#63c49f] mb-2" />
+            <p className="text-2xl font-bold text-[#1a2f42]">
               {stats.active + stats.inProgress}
             </p>
-            <p className={cn(
-              "text-xs",
-              theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-            )}>Active/In Progress</p>
+            <p className="text-xs text-[#1a2f42]/80">Active/In Progress</p>
           </div>
 
-          <div className={cn(
-            "rounded-2xl p-4 border",
-            theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/20"
-              : "bg-white border-slate-200"
-          )}>
-            <BarChart3 className="w-5 h-5 text-orange-500 mb-2" />
-            <p className={cn(
-              "text-2xl font-bold",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>
+          <div className="rounded-2xl p-4 border bg-white/60 backdrop-blur-md border-slate-200">
+            <BarChart3 className="w-5 h-5 text-[#63c49f] mb-2" />
+            <p className="text-2xl font-bold text-[#1a2f42]">
               {stats.avgSeverity}
             </p>
-            <p className={cn(
-              "text-xs",
-              theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-            )}>Avg Severity</p>
+            <p className="text-xs text-[#1a2f42]/80">Avg Severity</p>
           </div>
         </div>
 
         {/* Cost Summary */}
         {stats.totalCost > 0 && (
-          <div className={cn(
-            "rounded-2xl p-5 border",
-            theme === "dark"
-              ? "bg-[#1A2F42] border-[#57CFA4]/20"
-              : "bg-white border-slate-200"
-          )}>
+          <div className="rounded-2xl p-5 border bg-white/60 backdrop-blur-md border-slate-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center",
-                  theme === "dark"
-                    ? "bg-[#F7B600]/20"
-                    : "bg-[#F7B600]/10"
-                )}>
-                  <DollarSign className="w-5 h-5 text-[#F7B600]" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#63c49f]/20">
+                  <DollarSign className="w-5 h-5 text-[#63c49f]" />
                 </div>
                 <div>
-                  <p className={cn(
-                    "font-bold text-xl",
-                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                  )}>
+                  <p className="font-bold text-xl text-white">
                     {currencySymbol}{stats.totalCost.toLocaleString()}
                   </p>
-                  <p className={cn(
-                    "text-xs",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                  )}>Estimated Total Repair Costs</p>
+                  <p className="text-xs text-white/80">Estimated Total Repair Costs</p>
                 </div>
               </div>
             </div>
@@ -269,20 +231,12 @@ export default function History() {
         )}
         {/* Search */}
         <div className="relative">
-          <Search className={cn(
-            "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5",
-            theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-          )} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
           <Input
             placeholder="Search issues..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className={cn(
-              "pl-12 h-12 rounded-2xl border-2",
-              theme === "dark"
-                ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white placeholder:text-[#57CFA4]"
-                : "bg-white border-slate-200 text-slate-900 placeholder:text-slate-400"
-            )}
+            className="pl-12 h-12 rounded-2xl border-2 bg-white/30 backdrop-blur-md border-white/20 text-white placeholder:text-white/60"
           />
         </div>
 
@@ -290,105 +244,17 @@ export default function History() {
         <div className="space-y-3">
           <div className="flex gap-3">
             <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-              <SelectTrigger className={cn(
-                "flex-1 h-11 rounded-xl border-2",
-                theme === "dark"
-                  ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                  : "bg-white border-slate-200"
-              )}>
+              <SelectTrigger className="flex-1 h-11 rounded-xl border-2 bg-white/60 backdrop-blur-md border-white/20 text-white">
                 <SelectValue placeholder="Priority" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Priority</SelectItem>
-                <SelectItem value="critical">Critical</SelectItem>
-                <SelectItem value="high">High</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="low">Low</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className={cn(
-                "flex-1 h-11 rounded-xl border-2",
-                theme === "dark"
-                  ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                  : "bg-white border-slate-200"
-              )}>
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="in_progress">In Progress</SelectItem>
-                <SelectItem value="resolved">Resolved</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex gap-3">
-            <Select value={urgencyFilter} onValueChange={setUrgencyFilter}>
-              <SelectTrigger className={cn(
-                "flex-1 h-11 rounded-xl border-2",
-                theme === "dark"
-                  ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                  : "bg-white border-slate-200"
-              )}>
-                <SelectValue placeholder="Urgency" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Urgency</SelectItem>
-                <SelectItem value="fix_now">Fix Now</SelectItem>
-                <SelectItem value="fix_soon">Fix Soon</SelectItem>
-                <SelectItem value="ignore">Can Wait</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={tradeFilter} onValueChange={setTradeFilter}>
-              <SelectTrigger className={cn(
-                "flex-1 h-11 rounded-xl border-2",
-                theme === "dark"
-                  ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                  : "bg-white border-slate-200"
-              )}>
-                <SelectValue placeholder="Trade Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Trades</SelectItem>
-                {tradeTypes.map(trade => (
-                  <SelectItem key={trade} value={trade}>
-                    {trade.charAt(0).toUpperCase() + trade.slice(1)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className={cn(
-                "flex-1 h-11 rounded-xl border-2",
-                theme === "dark"
-                  ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                  : "bg-white border-slate-200"
-              )}>
-                <ArrowUpDown className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="Sort By" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="priority">Priority</SelectItem>
-                <SelectItem value="newest">Newest First</SelectItem>
-                <SelectItem value="oldest">Oldest First</SelectItem>
-                <SelectItem value="severity">Highest Severity</SelectItem>
-                <SelectItem value="cost">Highest Cost</SelectItem>
-              </SelectContent>
+...
             </Select>
           </div>
         </div>
 
         {/* Results Summary */}
         <div className="flex items-center justify-between">
-          <p className={cn(
-            "text-sm",
-            theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-          )}>
+          <p className="text-sm text-white font-medium">
             Showing {((page - 1) * itemsPerPage) + 1}-{Math.min(page * itemsPerPage, sortedIssues.length)} of {sortedIssues.length} issues
           </p>
           {totalPages > 1 && (
@@ -398,19 +264,11 @@ export default function History() {
                 size="sm"
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className={cn(
-                  "rounded-xl",
-                  theme === "dark"
-                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-                    : ""
-                )}
+                className="rounded-xl border-white/20 hover:bg-white/20 text-white"
               >
                 Previous
               </Button>
-              <span className={cn(
-                "text-sm px-3",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-              )}>
+              <span className="text-sm px-3 text-white">
                 {page} / {totalPages}
               </span>
               <Button
@@ -418,12 +276,7 @@ export default function History() {
                 size="sm"
                 onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className={cn(
-                  "rounded-xl",
-                  theme === "dark"
-                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-                    : ""
-                )}
+                className="rounded-xl border-white/20 hover:bg-white/20 text-white"
               >
                 Next
               </Button>
@@ -435,12 +288,7 @@ export default function History() {
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className={cn(
-                "rounded-2xl h-24 animate-pulse border",
-                theme === "dark"
-                  ? "bg-[#1A2F42] border-[#57CFA4]/20"
-                  : "bg-slate-100 border-slate-200"
-              )} />
+              <div key={i} className="rounded-2xl h-24 animate-pulse bg-white/50 backdrop-blur-md" />
             ))}
           </div>
         ) : Object.keys(groupedIssues).length > 0 ? (
@@ -448,20 +296,9 @@ export default function History() {
             {Object.entries(groupedIssues).map(([month, monthIssues]) => (
               <section key={month}>
                 <div className="flex items-center gap-2 mb-3">
-                  <Calendar className={cn(
-                    "w-4 h-4",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
-                  )} />
-                  <h2 className={cn(
-                    "text-sm font-semibold",
-                    theme === "dark" ? "text-white" : "text-slate-900"
-                  )}>{month}</h2>
-                  <span className={cn(
-                    "text-xs px-2 py-1 rounded-lg",
-                    theme === "dark"
-                      ? "bg-[#57CFA4]/20 text-[#57CFA4]"
-                      : "bg-blue-100 text-blue-700"
-                  )}>
+                  <Calendar className="w-4 h-4 text-[#63c49f]" />
+                  <h2 className="text-sm font-semibold text-white">{month}</h2>
+                  <span className="text-xs px-2 py-1 rounded-lg bg-white/30 backdrop-blur-md text-white">
                     {monthIssues.length}
                   </span>
                 </div>
@@ -482,24 +319,11 @@ export default function History() {
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className={cn(
-              "w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4",
-              theme === "dark"
-                ? "bg-[#1A2F42] border border-[#57CFA4]/20"
-                : "bg-slate-100 border border-slate-200"
-            )}>
-              <Filter className={cn(
-                "w-8 h-8",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
-              )} />
+            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-white/30 backdrop-blur-md border border-white/20">
+              <Filter className="w-8 h-8 text-white" />
             </div>
-            <p className={cn(
-              theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-            )}>No issues found</p>
-            <p className={cn(
-              "text-sm mt-1",
-              theme === "dark" ? "text-slate-500" : "text-slate-400"
-            )}>
+            <p className="text-white font-semibold">No issues found</p>
+            <p className="text-sm mt-1 text-white/80">
               Try adjusting your filters
             </p>
           </div>

@@ -312,72 +312,61 @@ Return as array of specialty strings.`,
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden">
       {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-200 to-slate-100">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-rose-600/25 to-orange-700/50 animate-gradient-shift-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-800/45 via-amber-600/20 to-slate-600/45 animate-gradient-shift-slow-slower blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-slate-600/40 via-rose-500/22 to-orange-700/45 animate-gradient-shift-reverse-slower blur-3xl" />
-        <div className="absolute inset-0 bg-white/10" />
+      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
+        <div className="absolute inset-0 bg-white/5" />
       </div>
       
       <style jsx>{`
-        @keyframes gradient-shift-slower {
+        @keyframes gradient-shift {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
-          50% { transform: translate(4%, 16%) scale(1.08) rotate(-2deg); }
-          75% { transform: translate(-8%, 8%) scale(1.12) rotate(3deg); }
+          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
+          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
+          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes gradient-shift-slow-slower {
+        @keyframes gradient-shift-slow {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-8%, 12%) scale(1.25) rotate(-5deg); }
-          66% { transform: translate(8%, -8%) scale(1.08) rotate(4deg); }
+          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
+          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        @keyframes gradient-shift-reverse-slower {
+        @keyframes gradient-shift-reverse {
           0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(16%, -12%) scale(1.2) rotate(6deg); }
-          60% { transform: translate(-12%, 8%) scale(1.12) rotate(-3deg); }
+          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
+          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
           100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
         }
-        .animate-gradient-shift-slower {
-          animation: gradient-shift-slower 18s ease-in-out infinite;
+        .animate-gradient-shift {
+          animation: gradient-shift 8s ease-in-out infinite;
         }
-        .animate-gradient-shift-slow-slower {
-          animation: gradient-shift-slow-slower 22s ease-in-out infinite;
+        .animate-gradient-shift-slow {
+          animation: gradient-shift-slow 10s ease-in-out infinite;
         }
-        .animate-gradient-shift-reverse-slower {
-          animation: gradient-shift-reverse-slower 20s ease-in-out infinite;
+        .animate-gradient-shift-reverse {
+          animation: gradient-shift-reverse 9s ease-in-out infinite;
         }
       `}</style>
       
-      <header className={cn(
-        "sticky top-0 z-30 border-b-2",
-        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
-      )}>
+      <header className="sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20">
         <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
               size="icon"
-              className={cn(
-                "rounded-xl",
-                theme === "dark"
-                  ? "hover:bg-[#57CFA4]/20 text-[#57CFA4]"
-                  : "hover:bg-slate-100 text-[#1E3A57]"
-              )}
+              className="rounded-xl hover:bg-white/20 text-white"
               onClick={() => navigate(createPageUrl("Home"))}
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
-            <h1 className={cn(
-              "font-bold text-lg",
-              theme === "dark" ? "text-white" : "text-[#1E3A57]"
-            )}>My Profile</h1>
+            <h1 className="font-bold text-lg text-white">My Profile</h1>
           </div>
           <Button
             onClick={handleSave}
             disabled={updateMutation.isPending}
-            className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] font-semibold"
+            className="bg-[#63c49f] hover:bg-[#63c49f]/90 text-white font-semibold"
           >
             {updateMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save"}
           </Button>
@@ -385,10 +374,7 @@ Return as array of specialty strings.`,
       </header>
 
       {/* Tabs */}
-      <div className={cn(
-        "sticky top-[73px] z-20 border-b",
-        theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]/30" : "bg-white border-slate-200"
-      )}>
+      <div className="sticky top-[73px] z-20 border-b bg-white/10 backdrop-blur-md border-white/20">
         <div className="max-w-lg mx-auto px-5 flex gap-1">
           {[
             { id: "info", label: "Info", icon: Briefcase },
@@ -402,12 +388,8 @@ Return as array of specialty strings.`,
               className={cn(
                 "flex-1 py-3 flex items-center justify-center gap-2 border-b-2 transition-colors",
                 activeTab === tab.id
-                  ? theme === "dark"
-                    ? "border-[#F7B600] text-[#F7B600]"
-                    : "border-[#1E3A57] text-[#1E3A57]"
-                  : theme === "dark"
-                    ? "border-transparent text-[#57CFA4]"
-                    : "border-transparent text-slate-500"
+                  ? "border-[#63c49f] text-white"
+                  : "border-transparent text-white/60"
               )}
             >
               <tab.icon className="w-4 h-4" />
@@ -423,22 +405,14 @@ Return as array of specialty strings.`,
           <>
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className={cn(
-                  "text-sm font-medium flex items-center gap-2",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
+                <label className="text-sm font-medium flex items-center gap-2 text-white">
                   <Briefcase className="w-4 h-4" />
                   Business Name
                 </label>
                 <button
                   onClick={generateBusinessName}
                   disabled={generatingAI === "business_name"}
-                  className={cn(
-                    "flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors",
-                    theme === "dark"
-                      ? "bg-[#F7B600]/20 text-[#F7B600] hover:bg-[#F7B600]/30"
-                      : "bg-[#F7B600]/10 text-[#F7B600] hover:bg-[#F7B600]/20"
-                  )}
+                  className="flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors bg-[#63c49f]/20 text-[#63c49f] hover:bg-[#63c49f]/30"
                 >
                   {generatingAI === "business_name" ? (
                     <Loader2 className="w-3 h-3 animate-spin" />
@@ -452,32 +426,19 @@ Return as array of specialty strings.`,
                 placeholder="Your business name"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
-                className={cn(
-                  "border-2",
-                  theme === "dark"
-                    ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}
+                className="border-2 bg-white/60 backdrop-blur-md border-white/20 text-white placeholder:text-white/60"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className={cn(
-                  "text-sm font-medium",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
+                <label className="text-sm font-medium text-white">
                   About Your Business
                 </label>
                 <button
                   onClick={generateBio}
                   disabled={generatingAI === "bio"}
-                  className={cn(
-                    "flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors",
-                    theme === "dark"
-                      ? "bg-[#F7B600]/20 text-[#F7B600] hover:bg-[#F7B600]/30"
-                      : "bg-[#F7B600]/10 text-[#F7B600] hover:bg-[#F7B600]/20"
-                  )}
+                  className="flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors bg-[#63c49f]/20 text-[#63c49f] hover:bg-[#63c49f]/30"
                 >
                   {generatingAI === "bio" ? (
                     <Loader2 className="w-3 h-3 animate-spin" />
@@ -491,20 +452,12 @@ Return as array of specialty strings.`,
                 placeholder="Tell customers about your business, experience, and what makes you stand out..."
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className={cn(
-                  "border-2 min-h-32",
-                  theme === "dark"
-                    ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}
+                className="border-2 min-h-32 bg-white/60 backdrop-blur-md border-white/20 text-white placeholder:text-white/60"
               />
             </div>
 
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-2 block flex items-center gap-2",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <label className="text-sm font-medium mb-2 block flex items-center gap-2 text-white">
                 <MapPin className="w-4 h-4" />
                 Service Area
               </label>
@@ -512,20 +465,12 @@ Return as array of specialty strings.`,
                 placeholder="e.g., Greater London, 20 mile radius from Manchester"
                 value={serviceArea}
                 onChange={(e) => setServiceArea(e.target.value)}
-                className={cn(
-                  "border-2",
-                  theme === "dark"
-                    ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}
+                className="border-2 bg-white/60 backdrop-blur-md border-white/20 text-white placeholder:text-white/60"
               />
             </div>
 
             <div>
-              <label className={cn(
-                "text-sm font-medium mb-2 block flex items-center gap-2",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-              )}>
+              <label className="text-sm font-medium mb-2 block flex items-center gap-2 text-white">
                 <Calendar className="w-4 h-4" />
                 Years in Business
               </label>
@@ -534,33 +479,20 @@ Return as array of specialty strings.`,
                 placeholder="e.g., 10"
                 value={yearsOperated}
                 onChange={(e) => setYearsOperated(e.target.value)}
-                className={cn(
-                  "border-2",
-                  theme === "dark"
-                    ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white"
-                    : "bg-white border-[#1E3A57]/20"
-                )}
+                className="border-2 bg-white/60 backdrop-blur-md border-white/20 text-white placeholder:text-white/60"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className={cn(
-                  "text-sm font-medium flex items-center gap-2",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
+                <label className="text-sm font-medium flex items-center gap-2 text-white">
                   <Award className="w-4 h-4" />
                   Specialties
                 </label>
                 <button
                   onClick={suggestSpecialties}
                   disabled={generatingAI === "specialties"}
-                  className={cn(
-                    "flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors",
-                    theme === "dark"
-                      ? "bg-[#F7B600]/20 text-[#F7B600] hover:bg-[#F7B600]/30"
-                      : "bg-[#F7B600]/10 text-[#F7B600] hover:bg-[#F7B600]/20"
-                  )}
+                  className="flex items-center gap-1 text-xs px-2 py-1 rounded-lg transition-colors bg-[#63c49f]/20 text-[#63c49f] hover:bg-[#63c49f]/30"
                 >
                   {generatingAI === "specialties" ? (
                     <Loader2 className="w-3 h-3 animate-spin" />
@@ -578,10 +510,8 @@ Return as array of specialty strings.`,
                     className={cn(
                       "px-4 py-2 rounded-xl border-2 font-medium text-sm capitalize transition-colors",
                       specialties.includes(specialty)
-                        ? "bg-[#F7B600] border-[#F7B600] text-[#0F1E2E]"
-                        : theme === "dark"
-                          ? "border-[#57CFA4]/30 text-[#57CFA4] hover:bg-[#57CFA4]/10"
-                          : "border-slate-200 text-slate-600 hover:bg-slate-50"
+                        ? "bg-[#63c49f] border-[#63c49f] text-white"
+                        : "border-white/30 text-white hover:bg-white/10"
                     )}
                   >
                     {specialty}
@@ -591,20 +521,9 @@ Return as array of specialty strings.`,
             </div>
 
             {/* Account Type Switch */}
-            <div className={cn(
-              "p-4 rounded-xl border",
-              theme === "dark"
-                ? "bg-slate-700/50 border-slate-600/50"
-                : "bg-slate-50 border-slate-200"
-            )}>
-              <h4 className={cn(
-                "font-semibold mb-2",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
-              )}>Account Type</h4>
-              <p className={cn(
-                "text-sm mb-3",
-                theme === "dark" ? "text-slate-400" : "text-slate-600"
-              )}>
+            <div className="p-4 rounded-xl border bg-white/30 backdrop-blur-md border-white/20">
+              <h4 className="font-semibold mb-2 text-white">Account Type</h4>
+              <p className="text-sm mb-3 text-white/80">
                 Switch to a standard customer account if you no longer want to receive job requests.
               </p>
               <Button
@@ -619,12 +538,7 @@ Return as array of specialty strings.`,
                   }
                 }}
                 disabled={updateMutation.isPending}
-                className={cn(
-                  "w-full rounded-xl",
-                  theme === "dark"
-                    ? "border-slate-600 hover:bg-slate-700 text-slate-300"
-                    : "border-slate-300 hover:bg-slate-50"
-                )}
+                className="w-full rounded-xl border-white/30 hover:bg-white/20 text-white"
               >
                 Switch to Standard Account
               </Button>
