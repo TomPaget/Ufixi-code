@@ -9,7 +9,7 @@ export default function TimedAdBreak() {
   const [showAd, setShowAd] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15);
   const [muted, setMuted] = useState(false);
-  const [sessionStartTime] = useState(Date.now());
+  const [adsShown, setAdsShown] = useState(0);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -19,16 +19,28 @@ export default function TimedAdBreak() {
   // Check if user has removed ads
   const hasRemovedAds = user?.ads_removed === true;
 
-  // Timer to show ad after 35 seconds
+  // Timer to show ads after 35 seconds and 130 seconds
   useEffect(() => {
     if (hasRemovedAds) return;
 
-    const timer = setTimeout(() => {
-      setShowAd(true);
-    }, 35000); // 35 seconds
+    const timers = [];
 
-    return () => clearTimeout(timer);
-  }, [hasRemovedAds]);
+    // First ad at 35 seconds
+    if (adsShown === 0) {
+      timers.push(setTimeout(() => {
+        setShowAd(true);
+      }, 35000));
+    }
+
+    // Second ad at 130 seconds
+    if (adsShown === 1) {
+      timers.push(setTimeout(() => {
+        setShowAd(true);
+      }, 130000));
+    }
+
+    return () => timers.forEach(timer => clearTimeout(timer));
+  }, [hasRemovedAds, adsShown]);
 
   // Countdown timer when ad is showing
   useEffect(() => {
@@ -45,6 +57,8 @@ export default function TimedAdBreak() {
   const handleContinue = () => {
     if (timeLeft === 0) {
       setShowAd(false);
+      setAdsShown(prev => prev + 1);
+      setTimeLeft(15);
     }
   };
 
