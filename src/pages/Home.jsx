@@ -10,6 +10,7 @@ import GuidedIssueFlow from "@/components/kora/GuidedIssueFlow";
 import IssueCard from "@/components/kora/IssueCard";
 import Disclaimer from "@/components/kora/Disclaimer";
 import AdBreak from "@/components/kora/AdBreak";
+import BannerAd from "@/components/kora/BannerAd";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import Header from "@/components/kora/Header";
@@ -895,6 +896,8 @@ export default function Home() {
         {/* Disclaimer */}
         <Disclaimer />
         </main>
+
+        <BannerAd />
 
         {/* Payment Dialog */}
         <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>

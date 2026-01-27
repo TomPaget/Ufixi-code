@@ -1,5 +1,4 @@
 import { ThemeProvider } from "@/components/kora/ThemeProvider";
-import BannerAd from "@/components/kora/BannerAd";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 import { useTheme } from "@/components/kora/ThemeProvider";
@@ -10,7 +9,6 @@ function LayoutContent({ children }) {
   return (
     <div className="min-h-screen" style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}>
       {children}
-      <BannerAd />
     </div>
   );
 }
