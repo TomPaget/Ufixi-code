@@ -29,6 +29,7 @@ import { useTheme } from "@/components/kora/ThemeProvider";
 import { validateFile } from "@/components/utils/fileValidation";
 import { aiAnalysisLimiter, fileUploadLimiter, checkRateLimit } from "@/components/utils/rateLimiter";
 import { sanitizeText } from "@/components/utils/sanitize";
+import IssueChatbot from "@/components/kora/IssueChatbot";
 
 export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const { theme } = useTheme();
