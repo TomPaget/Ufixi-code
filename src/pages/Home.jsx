@@ -39,6 +39,7 @@ export default function Home() {
   const [showAdBreak, setShowAdBreak] = useState(false);
   const [pendingIssueData, setPendingIssueData] = useState(null);
   const [showRecentIssues, setShowRecentIssues] = useState(false);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
