@@ -135,7 +135,7 @@ export default function TimedAdBreak() {
                 Remove ads forever for just £3.99/month
               </p>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
