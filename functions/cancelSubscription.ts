@@ -23,10 +23,12 @@ Deno.serve(async (req) => {
       cancel_at_period_end: true
     });
 
-    // Update user record
+    // Update user record - revert to free tier immediately
     await base44.asServiceRole.auth.updateUser(user.id, {
       subscription_cancelled: true,
-      subscription_cancel_at: new Date(subscription.cancel_at * 1000).toISOString()
+      subscription_cancel_at: new Date(subscription.cancel_at * 1000).toISOString(),
+      is_premium: false,
+      subscription_tier: null
     });
 
     return Response.json({ 
