@@ -238,8 +238,9 @@ Provide a COMPREHENSIVE diagnostic analysis in simple language:
    - Estimated time for each fix (e.g., "5-10 minutes")
    - Difficulty level: "Easy", "Moderate", or "Advanced"
 
-4. **Tools & Materials Needed** (4-8 bestselling, universally-available products)
+4. **Tools & Materials Needed** (4-8 bestselling, universally-available products, ranked by priority)
    - ONLY recommend products that are guaranteed bestsellers on Amazon UK
+   - **CRITICAL: Order products from MOST ESSENTIAL/PRIORITY first to LEAST ESSENTIAL last**
    - Examples of SAFE, bestselling products to recommend:
      * Stanley tape measures (any size - always available)
      * Stanley adjustable wrenches (any size - always in stock)
@@ -254,8 +255,10 @@ Provide a COMPREHENSIVE diagnostic analysis in simple language:
      * Simple product name (e.g., "Stanley 8m tape measure")
      * Estimated mid-range cost (£15-£100 typically)
      * A simple search-friendly product name (no ASINs - search by name instead)
+     * Brief reason why it's needed (e.g., "Essential for measuring and marking" or "Optional but helpful for cleanup")
    - Use generic search terms that will always find the product: "stanley tape measure", "adjustable wrench", etc.
    - Focus on household name brands and universally-available items ONLY
+   - **Prioritize essential tools first, then optional nice-to-have items last**
 
 5. **Estimated Repair Time**
    - DIY time estimate (e.g., "30-60 minutes for beginner, 15-30 for experienced")
@@ -1105,16 +1108,39 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                     const affiliateLink = `https://amazon.co.uk/s?k=${searchTerm}&tag=ufixi-21`;
                     return (
                       <div key={i} className={cn(
-                        "p-2 rounded text-sm",
-                        theme === "dark" ? "bg-[#1A2F42]/50" : "bg-blue-50"
+                        "p-2 rounded text-sm border-l-3",
+                        i === 0 
+                          ? "border-red-500 bg-red-50"
+                          : i === 1 
+                            ? "border-amber-500 bg-amber-50"
+                            : "border-slate-300 bg-slate-50",
+                        theme === "dark" && (
+                          i === 0 
+                            ? "bg-red-900/20 border-red-500"
+                            : i === 1 
+                              ? "bg-amber-900/20 border-amber-500"
+                              : "bg-[#1A2F42]/50 border-[#57CFA4]/30"
+                        )
                       )}>
                         <div className="flex justify-between items-start mb-1">
-                          <p className={cn(
-                            "font-medium",
-                            theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                          )}>
-                            {item.product_name}
-                          </p>
+                          <div className="flex items-center gap-2">
+                            <span className={cn(
+                              "text-xs font-bold px-1.5 py-0.5 rounded",
+                              i === 0 
+                                ? "bg-red-500 text-white"
+                                : i === 1 
+                                  ? "bg-amber-500 text-white"
+                                  : theme === "dark" ? "bg-[#57CFA4]/20 text-[#57CFA4]" : "bg-slate-200 text-slate-700"
+                            )}>
+                              {i === 0 ? "Essential" : i === 1 ? "Important" : "Optional"}
+                            </span>
+                            <p className={cn(
+                              "font-medium",
+                              theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                            )}>
+                              {item.product_name}
+                            </p>
+                          </div>
                           {item.estimated_cost && (
                             <span className={cn(
                               "text-xs font-semibold",
