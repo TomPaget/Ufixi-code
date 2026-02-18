@@ -37,6 +37,7 @@ export default function Home() {
   const [processingPayment, setProcessingPayment] = useState(false);
   const [showAdBreak, setShowAdBreak] = useState(false);
   const [pendingIssueData, setPendingIssueData] = useState(null);
+  const [showRecentIssues, setShowRecentIssues] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
