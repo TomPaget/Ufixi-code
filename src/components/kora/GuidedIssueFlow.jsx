@@ -22,7 +22,11 @@ import {
   Mic2,
   Building2,
   ShoppingCart,
-  ExternalLink
+  ExternalLink,
+  Clock,
+  Search,
+  AlertTriangle,
+  MessageCircle
 } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
@@ -914,9 +918,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                 : "bg-slate-50 border-slate-200"
             )}>
               <AccordionTrigger className={cn(
+                "flex items-center gap-3",
                 theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
               )}>
-                ⏱️ How Long Will This Take?
+                <Clock className="w-5 h-5 flex-shrink-0" />
+                How Long Will This Take?
               </AccordionTrigger>
               <AccordionContent>
                 <div className={cn("space-y-2 text-sm", theme === "dark" ? "text-[#57CFA4]" : "text-slate-600")}>
@@ -942,9 +948,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               : "bg-slate-50 border-slate-200"
           )}>
             <AccordionTrigger className={cn(
+              "flex items-center gap-3",
               theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
             )}>
-              🔍 What Caused This?
+              <Search className="w-5 h-5 flex-shrink-0" />
+              What Caused This?
             </AccordionTrigger>
             <AccordionContent>
               <div className="space-y-3">
@@ -982,9 +990,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                 : "bg-slate-50 border-slate-200"
             )}>
               <AccordionTrigger className={cn(
+                "flex items-center gap-3",
                 theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
               )}>
-                🔬 How to Check What's Wrong
+                <Search className="w-5 h-5 flex-shrink-0" />
+                How to Check What's Wrong
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-2">
@@ -1020,9 +1030,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                 : "bg-slate-50 border-slate-200"
             )}>
               <AccordionTrigger className={cn(
+                "flex items-center gap-3",
                 theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
               )}>
-                🛠️ What You'll Need
+                <Wrench className="w-5 h-5 flex-shrink-0" />
+                What You'll Need
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-2">
@@ -1068,9 +1080,10 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               : "bg-slate-50 border-slate-200"
           )}>
             <AccordionTrigger className={cn(
+              "flex items-center gap-3",
               theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
             )}>
-              <Wrench className="w-4 h-4 mr-2" />
+              <Wrench className="w-5 h-5 flex-shrink-0" />
               Quick Fixes to Try
             </AccordionTrigger>
             <AccordionContent>
@@ -1113,8 +1126,9 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               ? "bg-red-900/20"
               : "bg-red-50"
           )}>
-            <AccordionTrigger className="text-red-700 font-semibold">
-              ⚠️ When to Call a Professional
+            <AccordionTrigger className="text-red-700 font-semibold flex items-center gap-3">
+              <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+              When to Call a Professional
             </AccordionTrigger>
             <AccordionContent>
               <ul className="space-y-1">
