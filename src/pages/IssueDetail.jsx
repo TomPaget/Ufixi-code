@@ -196,9 +196,9 @@ export default function IssueDetail() {
           )}
 
           {issue.priority_reasoning && (
-            <div className="bg-white/30 backdrop-blur-md rounded-xl p-3 border border-white/20">
-              <p className="text-xs text-white/80 mb-1">Priority Reasoning:</p>
-              <p className="text-sm text-white">{issue.priority_reasoning}</p>
+            <div className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm">
+              <p className="text-xs mb-1" style={{ color: '#6B7A8D' }}>Priority Reasoning:</p>
+              <p className="text-sm" style={{ color: '#1a2f42' }}>{issue.priority_reasoning}</p>
             </div>
           )}
 
@@ -231,25 +231,23 @@ export default function IssueDetail() {
             </div>
 
         {/* Explanation */}
-        <div className="bg-white/30 backdrop-blur-md rounded-2xl p-5 border border-white/20">
-          <h2 className="font-semibold text-white mb-3">What's happening?</h2>
-            <p className="text-white leading-relaxed">{issue.explanation}</p>
-
-            {/* Historical Insights */}
-            {issue.historical_insights?.recommended_approach && (
-              <div className="mt-4 p-4 bg-white/20 backdrop-blur-md rounded-xl border border-white/30">
-                <p className="text-sm font-semibold text-white mb-2">
-                  💡 Based on {issue.historical_insights.similar_cases_count} similar cases:
+        <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
+          <h2 className="font-semibold mb-3" style={{ color: '#1a2f42' }}>What's happening?</h2>
+          <p className="leading-relaxed" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
+          {issue.historical_insights?.recommended_approach && (
+            <div className="mt-4 p-4 bg-[#4BC896]/5 rounded-xl border border-[#4BC896]/20">
+              <p className="text-sm font-semibold mb-2" style={{ color: '#1a2f42' }}>
+                💡 Based on {issue.historical_insights.similar_cases_count} similar cases:
+              </p>
+              <p className="text-sm" style={{ color: '#1a2f42' }}>{issue.historical_insights.recommended_approach}</p>
+              {issue.historical_insights.estimated_success_rate && (
+                <p className="text-xs mt-2" style={{ color: '#6B7A8D' }}>
+                  Estimated DIY success rate: {issue.historical_insights.estimated_success_rate}%
                 </p>
-                <p className="text-sm text-white/90">{issue.historical_insights.recommended_approach}</p>
-                {issue.historical_insights.estimated_success_rate && (
-                  <p className="text-xs text-white/80 mt-2">
-                    Estimated DIY success rate: {issue.historical_insights.estimated_success_rate}%
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* Safety Warnings */}
         {issue.safety_warnings?.length > 0 && (
@@ -298,37 +296,27 @@ export default function IssueDetail() {
 
         {/* Risks */}
         {issue.risks?.length > 0 && (
-          <div className="bg-white/30 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden">
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
             <button
               onClick={() => setShowRisks(!showRisks)}
-              className="w-full p-5 flex items-center justify-between hover:bg-white/20 transition-colors"
+              className="w-full p-5 flex items-center justify-between hover:bg-slate-50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center border border-white/30">
-                  <AlertTriangle className="w-5 h-5 text-white" />
+                <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center border border-amber-100">
+                  <AlertTriangle className="w-5 h-5 text-amber-500" />
                 </div>
-                <span className="font-semibold text-white">Risks if ignored</span>
+                <span className="font-semibold" style={{ color: '#1a2f42' }}>Risks if ignored</span>
               </div>
-              {showRisks ? (
-                <ChevronUp className="w-5 h-5 text-white" />
-              ) : (
-                <ChevronDown className="w-5 h-5 text-white" />
-              )}
+              {showRisks ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
             </button>
-            
             <AnimatePresence>
               {showRisks && (
-                <motion.div
-                  initial={{ height: 0 }}
-                  animate={{ height: "auto" }}
-                  exit={{ height: 0 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-5 pb-5 border-t border-white/20">
+                <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
+                  <div className="px-5 pb-5 border-t border-slate-100">
                     <ul className="space-y-2 pt-4">
                       {issue.risks.map((risk, i) => (
-                        <li key={i} className="flex items-start gap-2 text-white">
-                          <span className="w-1.5 h-1.5 rounded-full bg-white mt-2 flex-shrink-0" />
+                        <li key={i} className="flex items-start gap-2" style={{ color: '#1a2f42' }}>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#4BC896] mt-2 flex-shrink-0" />
                           {risk}
                         </li>
                       ))}
@@ -348,7 +336,7 @@ export default function IssueDetail() {
 
         {/* Cost Estimates */}
         <div>
-          <h2 className="font-semibold text-white mb-3">Cost Analysis</h2>
+          <h2 className="font-semibold mb-3" style={{ color: '#1a2f42' }}>Cost Analysis</h2>
           <CostEstimate
             diyMin={issue.diy_cost_min}
             diyMax={issue.diy_cost_max}
@@ -385,14 +373,14 @@ export default function IssueDetail() {
         {/* Dynamic Checklist */}
         {issue.status !== "resolved" && (
           <div>
-            <h2 className="font-semibold text-white mb-3">Step-by-Step Guidance</h2>
+            <h2 className="font-semibold mb-3" style={{ color: '#1a2f42' }}>Step-by-Step Guidance</h2>
             <DynamicChecklist issueId={issueId} repairType="diy" />
           </div>
         )}
 
         {/* Action Buttons */}
         <div>
-          <h2 className="font-semibold text-white mb-3">What do you want to do?</h2>
+          <h2 className="font-semibold mb-3" style={{ color: '#1a2f42' }}>What do you want to do?</h2>
           <ActionButtons
             onDIY={() => setShowDIY(true)}
             onLandlord={() => setShowLandlord(true)}
