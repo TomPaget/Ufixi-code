@@ -707,19 +707,18 @@ export default function Home() {
               <div className="flex flex-col items-center gap-3">
                       {/* Large Round Ripple Button */}
                       <RippleButton
-                        onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
-                        className="w-28 h-28 rounded-full flex flex-col items-center justify-center gap-1 border-2 transition-transform active:scale-95"
-                        style={{
-                          background: 'linear-gradient(145deg, rgba(99,196,159,0.9) 0%, rgba(63,174,131,0.95) 100%)',
-                          boxShadow: '0 0 0 12px rgba(99,196,159,0.15), 0 0 0 24px rgba(99,196,159,0.07), 0 8px 32px rgba(99,196,159,0.4)',
-                          borderColor: 'rgba(255,255,255,0.4)',
-                          color: '#fff'
-                        }}
-                      >
-                        <Plus className="w-8 h-8 text-white" />
-                        <span className="text-xs font-semibold text-white">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
-                      </RippleButton>
-                      <p className="text-white/80 text-sm font-medium">{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
+                            onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
+                            className="w-28 h-28 rounded-full flex flex-col items-center justify-center gap-1 border-0 transition-transform active:scale-95"
+                            style={{
+                              background: 'linear-gradient(145deg, #4BC896 0%, #2eaf7d 100%)',
+                              boxShadow: '0 0 0 12px rgba(75,200,150,0.12), 0 0 0 24px rgba(75,200,150,0.06), 0 8px 32px rgba(75,200,150,0.35)',
+                              color: '#fff'
+                            }}
+                          >
+                            <Plus className="w-9 h-9 text-white" strokeWidth={2.5} />
+                            <span className="text-xs font-bold text-white tracking-wide">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
+                          </RippleButton>
+                          <p className="text-sm font-medium mt-1" style={{ color: '#6B7A8D' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
                     </div>
             </motion.div>
           )}
