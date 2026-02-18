@@ -650,7 +650,7 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Poppins', sans-serif", color: '#1a2f42', letterSpacing: '-0.02em' }}>
               What needs <span style={{ color: '#4BC896' }}>fixing?</span>
             </h1>
-            <p className="text-base max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
+            <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
               Upload a photo or video and get an instant AI-powered repair assessment.
             </p>
         </div>
