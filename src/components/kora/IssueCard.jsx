@@ -49,12 +49,20 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
       to={createPageUrl(`IssueDetail?id=${issue.id}`)}
       className="block"
     >
-      <div className={cn(
-        "rounded-2xl p-4 transition-all active:scale-[0.98] border-2",
-        theme === "dark"
-          ? "bg-[#1E3A57]/50 border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-          : "bg-white border-[#1E3A57]/20 hover:border-[#57CFA4]/50"
-      )}>
+      <motion.div
+        whileTap={{ scale: 0.97 }}
+        whileHover={{ scale: 1.01 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        className={cn(
+          "rounded-2xl p-4 border-2 cursor-pointer",
+          "backdrop-blur-md",
+          theme === "dark"
+            ? "bg-[#1E3A57]/50 border-[#57CFA4]/30"
+            : "bg-white/60 border-white/40"
+        )}
+        style={{
+          boxShadow: '0 4px 20px rgba(31,65,100,0.08)',
+        }}>
         <div className="flex gap-4">
           {issue.media_url && issue.media_type === "photo" ? (
             <div className={cn(
@@ -142,7 +150,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 }
