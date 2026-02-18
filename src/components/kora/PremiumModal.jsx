@@ -32,7 +32,7 @@ export default function PremiumModal({ open, onClose }) {
   const perks = [
     "Remove all ads forever",
     "Unlimited AI scans",
-    "2x faster scan & response times",
+    "Faster scan & response times",
     "Priority issue analysis",
     "Advanced repair guides",
     "Cost tracking & history",
