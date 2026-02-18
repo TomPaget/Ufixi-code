@@ -24,6 +24,7 @@ import {
   ShoppingCart,
   ExternalLink
 } from "lucide-react";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { validateFile } from "@/components/utils/fileValidation";
