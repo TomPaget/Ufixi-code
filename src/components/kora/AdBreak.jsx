@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Volume2, VolumeX } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AdBreak({ onAdComplete, issueTitle }) {
   const [timeLeft, setTimeLeft] = useState(15);
@@ -23,8 +23,10 @@ export default function AdBreak({ onAdComplete, issueTitle }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        initial={{ scale: 0.88, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.92, opacity: 0, y: -10 }}
+        transition={{ type: "spring", stiffness: 320, damping: 28 }}
         className="w-full max-w-md mx-4 rounded-3xl overflow-hidden bg-slate-900"
       >
         {/* Video placeholder */}
