@@ -556,19 +556,9 @@ export default function Settings() {
           <TabsContent value="notifications">
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
-                <h2 className={cn(
-                  "text-xl font-bold",
-                  theme === "dark" ? "text-white" : "text-slate-900"
-                )}>Your Notifications</h2>
+                <h2 className="text-xl font-bold" style={{ color: '#1a2f42' }}>Your Notifications</h2>
                 {unreadNotifications.length > 0 &&
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => markAllReadMutation.mutate()}
-                  className={cn(
-                    "text-sm",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
-                  )}>
+                <Button variant="ghost" size="sm" onClick={() => markAllReadMutation.mutate()} className="text-sm text-[#4BC896]">
 
                     Mark all read
                   </Button>
@@ -576,10 +566,7 @@ export default function Settings() {
               </div>
 
               <Tabs defaultValue="unread">
-                <TabsList className={cn(
-                  "w-full grid grid-cols-2 mb-4",
-                  theme === "dark" ? "bg-[#1A2F42]" : "bg-slate-100"
-                )}>
+                <TabsList className="w-full grid grid-cols-2 mb-4 bg-slate-100">
                   <TabsTrigger value="unread">
                     Unread {unreadNotifications.length > 0 &&
                     <Badge className="ml-2 bg-red-500">{unreadNotifications.length}</Badge>
@@ -590,69 +577,25 @@ export default function Settings() {
 
                 <TabsContent value="unread" className="space-y-3">
                   {unreadNotifications.length === 0 ?
-                  <div className={cn(
-                    "text-center py-12 rounded-2xl border",
-                    theme === "dark" ?
-                    "bg-[#1A2F42] border-[#57CFA4]/20" :
-                    "bg-white border-slate-200"
-                  )}>
-                      <Bell className={cn(
-                      "w-12 h-12 mx-auto mb-3",
-                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
-                    )} />
-                      <p className={cn(
-                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                    )}>
-                        No unread notifications
-                      </p>
+                  <div className="text-center py-12 rounded-2xl border bg-white border-slate-100">
+                      <Bell className="w-12 h-12 mx-auto mb-3 text-slate-300" />
+                      <p style={{ color: '#6B7A8D' }}>No unread notifications</p>
                     </div> :
 
                   unreadNotifications.map((notification) => {
                     const Icon = typeIcons[notification.type] || Info;
                     return (
-                      <div
-                        key={notification.id}
-                        onClick={() => handleNotificationClick(notification)}
-                        className={cn(
-                          "rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02]",
-                          theme === "dark" ?
-                          "bg-[#1A2F42] border-[#57CFA4]" :
-                          "bg-blue-50 border-blue-200"
-                        )}>
-
+                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02] bg-[#4BC896]/5 border-[#4BC896]/30">
                           <div className="flex items-start gap-3">
-                            <div className={cn(
-                            "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
-                            theme === "dark" ?
-                            "bg-[#57CFA4]/20" :
-                            "bg-blue-100"
-                          )}>
-                              <Icon className={cn(
-                              "w-5 h-5",
-                              priorityColors[notification.priority]
-                            )} />
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#4BC896]/10">
+                              <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between gap-2 mb-1">
-                                <h3 className={cn(
-                                "font-semibold text-sm",
-                                theme === "dark" ? "text-white" : "text-slate-900"
-                              )}>
-                                  {notification.title}
-                                </h3>
-                                <p className={cn(
-                                "text-xs whitespace-nowrap",
-                                theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-                              )}>
-                                  {format(new Date(notification.created_date), "MMM d")}
-                                </p>
+                                <h3 className="font-semibold text-sm" style={{ color: '#1a2f42' }}>{notification.title}</h3>
+                                <p className="text-xs whitespace-nowrap" style={{ color: '#6B7A8D' }}>{format(new Date(notification.created_date), "MMM d")}</p>
                               </div>
-                              <p className={cn(
-                              "text-sm",
-                              theme === "dark" ? "text-white" : "text-slate-700"
-                            )}>
-                                {notification.message}
-                              </p>
+                              <p className="text-sm" style={{ color: '#1a2f42' }}>{notification.message}</p>
                             </div>
                             <div className="flex flex-col gap-2">
                               <Button
@@ -687,77 +630,25 @@ export default function Settings() {
 
                 <TabsContent value="all" className="space-y-3">
                   {notifications.length === 0 ?
-                  <div className={cn(
-                    "text-center py-12 rounded-2xl border",
-                    theme === "dark" ?
-                    "bg-[#1A2F42] border-[#57CFA4]/20" :
-                    "bg-white border-slate-200"
-                  )}>
-                      <Bell className={cn(
-                      "w-12 h-12 mx-auto mb-3",
-                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-400"
-                    )} />
-                      <p className={cn(
-                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                    )}>
-                        No notifications yet
-                      </p>
+                  <div className="text-center py-12 rounded-2xl border bg-white border-slate-100">
+                      <Bell className="w-12 h-12 mx-auto mb-3 text-slate-300" />
+                      <p style={{ color: '#6B7A8D' }}>No notifications yet</p>
                     </div> :
 
                   notifications.map((notification) => {
                     const Icon = typeIcons[notification.type] || Info;
                     return (
-                      <div
-                        key={notification.id}
-                        onClick={() => handleNotificationClick(notification)}
-                        className={cn(
-                          "rounded-2xl p-4 border cursor-pointer transition-all hover:scale-[1.01]",
-                          notification.read ?
-                          theme === "dark" ?
-                          "bg-[#1A2F42]/50 border-[#57CFA4]/20" :
-                          "bg-white border-slate-200" :
-                          theme === "dark" ?
-                          "bg-[#1A2F42] border-[#57CFA4]" :
-                          "bg-blue-50 border-blue-200"
-                        )}>
-
+                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className={`rounded-2xl p-4 border cursor-pointer transition-all hover:scale-[1.01] ${notification.read ? "bg-white border-slate-100" : "bg-[#4BC896]/5 border-[#4BC896]/30"}`}>
                           <div className="flex items-start gap-3">
-                            <div className={cn(
-                            "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
-                            theme === "dark" ?
-                            "bg-[#57CFA4]/20" :
-                            "bg-blue-100"
-                          )}>
-                              <Icon className={cn(
-                              "w-5 h-5",
-                              priorityColors[notification.priority]
-                            )} />
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#4BC896]/10">
+                              <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between gap-2 mb-1">
-                                <h3 className={cn(
-                                "font-semibold text-sm",
-                                notification.read ?
-                                theme === "dark" ? "text-[#57CFA4]" : "text-slate-600" :
-                                theme === "dark" ? "text-white" : "text-slate-900"
-                              )}>
-                                  {notification.title}
-                                </h3>
-                                <p className={cn(
-                                "text-xs whitespace-nowrap",
-                                theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-                              )}>
-                                  {format(new Date(notification.created_date), "MMM d")}
-                                </p>
+                                <h3 className="font-semibold text-sm" style={{ color: notification.read ? '#6B7A8D' : '#1a2f42' }}>{notification.title}</h3>
+                                <p className="text-xs whitespace-nowrap" style={{ color: '#6B7A8D' }}>{format(new Date(notification.created_date), "MMM d")}</p>
                               </div>
-                              <p className={cn(
-                              "text-sm",
-                              notification.read ?
-                              theme === "dark" ? "text-[#57CFA4]" : "text-slate-600" :
-                              theme === "dark" ? "text-white" : "text-slate-700"
-                            )}>
-                                {notification.message}
-                              </p>
+                              <p className="text-sm" style={{ color: notification.read ? '#6B7A8D' : '#1a2f42' }}>{notification.message}</p>
                             </div>
                             <Button
                             variant="ghost"
@@ -787,17 +678,8 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className={cn(
-                "rounded-2xl p-5 border",
-                theme === "dark" ?
-                "bg-slate-800 border-slate-700/50" :
-                "bg-white border-slate-200"
-              )}>
-
-          <h3 className={cn(
-                "font-semibold mb-4",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
-              )}>Notification Preferences</h3>
+              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
+          <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>Notification Preferences</h3>
           
           <div className="space-y-3">
             {[
@@ -826,33 +708,14 @@ export default function Settings() {
                       }}
                       className={cn(
                         "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left",
-                        isEnabled ?
-                        theme === "dark" ?
-                        "border-[#57CFA4] bg-[#57CFA4]/10" :
-                        "border-[#57CFA4] bg-[#57CFA4]/10" :
-                        theme === "dark" ?
-                        "border-slate-700 bg-slate-800/50" :
-                        "border-slate-200 bg-slate-50"
+                        isEnabled ? "border-[#4BC896] bg-[#4BC896]/5" : "border-slate-200 bg-slate-50"
                       )}>
 
                   <div className="flex-1">
-                    <p className={cn(
-                          "font-medium text-sm",
-                          theme === "dark" ? "text-slate-200" : "text-slate-900"
-                        )}>
-                      {pref.label}
-                    </p>
-                    <p className={cn(
-                          "text-xs mt-0.5",
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        )}>
-                      {pref.description}
-                    </p>
+                    <p className="font-medium text-sm" style={{ color: '#1a2f42' }}>{pref.label}</p>
+                    <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>{pref.description}</p>
                   </div>
-                  <div className={cn(
-                        "w-12 h-6 rounded-full transition-all",
-                        isEnabled ? "bg-[#57CFA4]" : theme === "dark" ? "bg-slate-700" : "bg-slate-300"
-                      )}>
+                  <div className={`w-12 h-6 rounded-full transition-all ${isEnabled ? "bg-[#4BC896]" : "bg-slate-300"}`}>
                     <div className={cn(
                           "w-5 h-5 rounded-full bg-white shadow-lg transition-all mt-0.5",
                           isEnabled ? "ml-6" : "ml-0.5"
@@ -869,33 +732,13 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className={cn(
-                "rounded-2xl p-5 border",
-                theme === "dark" ?
-                "bg-[#1E3A57]/50 border-[#57CFA4]/20" :
-                "bg-white border-slate-200"
-              )}>
-
-          <h3 className={cn(
-                "font-semibold mb-4",
-                theme === "dark" ? "text-white" : "text-[#1E3A57]"
-              )}>Language & Currency</h3>
-          
+              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
+          <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>Language & Currency</h3>
           <div className="space-y-3">
             <div>
-              <Label className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
-                Language
-              </Label>
-              <Select
-                    value={user?.language || "en"}
-                    onValueChange={(val) => updateUserMutation.mutate({ language: val })}>
-
-                <SelectTrigger className={cn(
-                      "mt-1",
-                      theme === "dark" ?
-                      "bg-[#1E3A57] border-[#57CFA4]/30 text-white" :
-                      "bg-white border-slate-200"
-                    )}>
+              <Label style={{ color: '#6B7A8D' }}>Language</Label>
+              <Select value={user?.language || "en"} onValueChange={(val) => updateUserMutation.mutate({ language: val })}>
+                <SelectTrigger className="mt-1 bg-white border-slate-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -908,19 +751,9 @@ export default function Settings() {
             </div>
             
             <div>
-              <Label className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70")}>
-                Currency
-              </Label>
-              <Select
-                    value={user?.currency || "GBP"}
-                    onValueChange={(val) => updateUserMutation.mutate({ currency: val })}>
-
-                <SelectTrigger className={cn(
-                      "mt-1",
-                      theme === "dark" ?
-                      "bg-[#1E3A57] border-[#57CFA4]/30 text-white" :
-                      "bg-white border-slate-200"
-                    )}>
+              <Label style={{ color: '#6B7A8D' }}>Currency</Label>
+              <Select value={user?.currency || "GBP"} onValueChange={(val) => updateUserMutation.mutate({ currency: val })}>
+                <SelectTrigger className="mt-1 bg-white border-slate-200">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -934,7 +767,7 @@ export default function Settings() {
         </motion.section>
 
         {/* App Version */}
-        <p className="text-center text-xs text-[#57CFA4]/50">UFixi v1.0.0
+        <p className="text-center text-xs" style={{ color: '#6B7A8D' }}>UFixi v1.0.0
 
 
 
