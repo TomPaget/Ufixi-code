@@ -729,13 +729,13 @@ export default function Home() {
         {/* Recent Issues */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold flex items-center gap-1 text-white">
-              <History className="w-5 h-5 text-white" />
+            <h2 className="font-bold flex items-center gap-2" style={{ color: '#1a2f42' }}>
+              <History className="w-5 h-5 text-[#4BC896]" />
               Recent Issues
             </h2>
             <Link 
               to={createPageUrl("History")}
-              className="text-sm font-semibold text-white hover:text-white/80"
+              className="text-sm font-semibold text-[#4BC896] hover:text-[#2eaf7d] transition-colors"
             >
               View All
             </Link>
