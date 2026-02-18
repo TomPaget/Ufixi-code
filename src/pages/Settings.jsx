@@ -135,14 +135,16 @@ export default function Settings() {
   };
 
   const handleCancelSubscription = async () => {
-    if (!user?.stripe_subscription_id) return;
-    
     setCancelling(true);
     try {
-      await base44.functions.invoke('cancelSubscription', {
-        subscriptionId: user.stripe_subscription_id
-      });
-      
+      // Only call Stripe if there's a subscription ID
+      if (user?.stripe_subscription_id) {
+        await base44.functions.invoke('cancelSubscription', {
+          subscriptionId: user.stripe_subscription_id
+        });
+      }
+
+      // Always revert user to free tier
       await base44.auth.updateMe({
         is_premium: false,
         subscription_tier: null,
