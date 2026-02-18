@@ -11,6 +11,7 @@ import IssueCard from "@/components/kora/IssueCard";
 import Disclaimer from "@/components/kora/Disclaimer";
 import AdBreak from "@/components/kora/AdBreak";
 import BannerAd from "@/components/kora/BannerAd";
+import RippleButton from "@/components/kora/RippleButton";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import Header from "@/components/kora/Header";
