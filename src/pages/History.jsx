@@ -28,8 +28,7 @@ import {
 } from "@/components/ui/select";
 import { motion } from "framer-motion";
 import IssueCard from "@/components/kora/IssueCard";
-import { useTheme } from "@/components/kora/ThemeProvider";
-import { cn } from "@/lib/utils";
+
 
 export default function History() {
   const navigate = useNavigate();
