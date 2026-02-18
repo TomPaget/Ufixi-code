@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { format } from "date-fns";
 import { 
-  ArrowLeft, 
   Filter, 
   Search, 
   Calendar, 
@@ -17,6 +16,7 @@ import {
   ArrowUpDown,
   BarChart3
 } from "lucide-react";
+import PageHeader from "@/components/kora/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {

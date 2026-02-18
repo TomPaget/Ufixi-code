@@ -3,13 +3,11 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Menu, MessageCircle, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { MessageCircle, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useTheme } from "@/components/kora/ThemeProvider";
-import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
+import PageHeader from "@/components/kora/PageHeader";
 
 export default function Messages() {
   const navigate = useNavigate();
