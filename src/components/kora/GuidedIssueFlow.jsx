@@ -295,10 +295,10 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                   product_name: { type: "string" },
                   description: { type: "string" },
                   estimated_cost: { type: "string" },
-                  amazon_search_url: { type: "string" },
+                  amazon_asin: { type: "string" },
                   essential: { type: "boolean" }
                 },
-                required: ["product_name", "description", "amazon_search_url"]
+                required: ["product_name", "description", "amazon_asin"]
               }
             },
             estimated_repair_time: {
@@ -1038,35 +1038,38 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-2">
-                  {suggestions.tools_and_materials.slice(0, 5).map((item, i) => (
-                    <div key={i} className="text-sm">
-                      <div className="flex justify-between items-start mb-1">
-                        <p className={cn(
-                          "font-medium",
-                          theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                        )}>
-                          {item.product_name}
-                        </p>
-                        {item.estimated_cost && (
-                          <span className={cn(
-                            "text-xs font-semibold",
-                            theme === "dark" ? "text-[#F7B600]" : "text-blue-600"
+                  {suggestions.tools_and_materials.slice(0, 5).map((item, i) => {
+                    const affiliateLink = `https://amazon.co.uk/dp/${item.amazon_asin}?tag=ufixi-21`;
+                    return (
+                      <div key={i} className="text-sm">
+                        <div className="flex justify-between items-start mb-1">
+                          <p className={cn(
+                            "font-medium",
+                            theme === "dark" ? "text-white" : "text-[#1E3A57]"
                           )}>
-                            {item.estimated_cost}
-                          </span>
-                        )}
+                            {item.product_name}
+                          </p>
+                          {item.estimated_cost && (
+                            <span className={cn(
+                              "text-xs font-semibold",
+                              theme === "dark" ? "text-[#F7B600]" : "text-blue-600"
+                            )}>
+                              {item.estimated_cost}
+                            </span>
+                          )}
+                        </div>
+                        <a
+                          href={affiliateLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] px-2 py-1 rounded transition-colors"
+                        >
+                          <ShoppingCart className="w-3 h-3" />
+                          Buy
+                        </a>
                       </div>
-                      <a
-                        href={item.amazon_search_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] px-2 py-1 rounded transition-colors"
-                      >
-                        <ShoppingCart className="w-3 h-3" />
-                        Buy
-                      </a>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </AccordionContent>
             </AccordionItem>
