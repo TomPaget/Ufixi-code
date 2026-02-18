@@ -33,10 +33,9 @@ export default function Header({ onMenuClick }) {
         </button>
         
         <img 
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/6a68f8c56_ufixi_GreenBlue_RGB.png"
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/c6477ab39_ufixi_primary_RGB.png"
           alt="Ufixi Logo"
           className={`object-contain transition-all duration-300 ${isScrolled ? 'h-6' : 'h-8'}`}
-          onError={e => { e.target.src = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"; }}
         />
 
         <NotificationBell />
