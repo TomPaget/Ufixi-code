@@ -206,10 +206,10 @@ Issue: ${issueType.brief_description}
 Customer's answers:
 ${answersText}
 
-Provide a COMPREHENSIVE diagnostic analysis:
+Provide a COMPREHENSIVE diagnostic analysis in simple language:
 
-1. **Likely Root Causes** (2-3 detailed explanations)
-   - Explain each potential cause with technical details
+1. **Likely Root Causes** (2-3 explanations in plain English)
+   - Explain what likely went wrong in simple terms
    - Include what to look for to confirm each cause
 
 2. **Diagnostic Steps** (3-5 specific steps to diagnose the exact problem)
@@ -222,11 +222,15 @@ Provide a COMPREHENSIVE diagnostic analysis:
    - Estimated time for each fix (e.g., "5-10 minutes")
    - Difficulty level: "Easy", "Moderate", or "Advanced"
 
-4. **Tools & Materials Needed** (4-8 specific items for DIY repair)
-   - Provide ACTUAL product names from popular brands (DeWalt, Bosch, Stanley, etc.)
-   - Include estimated cost in local currency
-   - Create accurate Amazon search URLs: https://${amazonDomain}/s?k=[exact product name]
-   - Example: "Stanley FatMax Tape Measure 8m" with URL to search for it
+4. **Tools & Materials Needed** (4-8 mid-range, popular products)
+   - CRITICAL: Include SPECIFIC Amazon ASINs (product IDs) for MID-RANGE, POPULAR products
+   - NOT the cheapest, NOT the most expensive - recommend quality mid-range options
+   - Include estimated cost in local currency (£15-£150 range typically)
+   - MUST provide actual ASINs of real popular products
+   - Examples of good ASIN recommendations:
+     * For wrench set: B08PYCCYSH (Dekton 12-piece combo wrench set) - popular, mid-range
+     * For adjustable wrench: B0DV82RYSN (Stanley adjustable wrench) - trusted brand
+     * For socket set: B0B27ZF5RH (DeWalt 135-piece mechanics set) - quality, value
 
 5. **Estimated Repair Time**
    - DIY time estimate (e.g., "30-60 minutes for beginner, 15-30 for experienced")
@@ -243,7 +247,7 @@ Provide a COMPREHENSIVE diagnostic analysis:
    - Specific conditions requiring immediate professional help
    - Safety hazards to watch for
 
-Be detailed, practical, and safety-conscious. Use real product names and accurate Amazon search terms.`,
+Be practical, safety-conscious, and use simple language. Recommend mid-range products that offer good value and are popular among users.`,
         file_urls: [mediaUrl],
         add_context_from_internet: true,
         response_json_schema: {
