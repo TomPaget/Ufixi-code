@@ -80,10 +80,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
                   {format(new Date(issue.created_date), "MMM d, yyyy")}
                 </p>
               </div>
-              <ChevronRight className={cn(
-                "w-5 h-5 flex-shrink-0",
-                theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/50"
-              )} />
+              <ChevronRight className="w-5 h-5 flex-shrink-0 text-[#4BC896]" />
             </div>
             
             <div className="flex items-center gap-2 mt-3 flex-wrap">
