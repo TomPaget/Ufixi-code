@@ -458,7 +458,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <label className={cn(
                 "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
                 theme === "dark"
@@ -467,7 +467,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               )}>
                 <input
                   type="file"
-                  accept="*/*"
+                  accept="image/*"
                   className="hidden"
                   onChange={(e) => handleFileSelect("photo", e.target.files[0])}
                 />
@@ -488,44 +488,16 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               )}>
                 <input
                   type="file"
-                  accept="*/*"
+                  accept="video/*"
                   className="hidden"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    let type = "photo";
-                    if (file.type.includes("video")) type = "video";
-                    else if (file.type.includes("audio")) type = "audio";
-                    handleFileSelect(type, file);
-                  }}
+                  onChange={(e) => handleFileSelect("video", e.target.files[0])}
                 />
                 <Film className="w-6 h-6 mb-2 text-[#57CFA4]" />
                 <span className={cn(
                   "text-xs text-center",
                   theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
                 )}>
-                  Upload Any File
-                </span>
-              </label>
-
-              <label className={cn(
-                "flex flex-col items-center justify-center p-4 rounded-xl border-2 border-dashed cursor-pointer transition-colors",
-                theme === "dark"
-                  ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-                  : "border-slate-200 hover:bg-slate-50"
-              )}>
-                <input
-                  type="file"
-                  accept="*/*"
-                  className="hidden"
-                  onChange={(e) => handleFileSelect("audio", e.target.files[0])}
-                />
-                <Mic2 className="w-6 h-6 mb-2 text-blue-500" />
-                <span className={cn(
-                  "text-xs text-center",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                )}>
-                  Upload Audio
+                  Upload Video
                 </span>
               </label>
             </div>
