@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 const customerMenuItems = [
   { icon: HomeIcon, label: "Home", page: "Home" },
   { icon: Mail, label: "Messages", page: "Messages" },
-  { icon: MessageCircle, label: "Community Forum", page: "Forum" },
+  // { icon: MessageCircle, label: "Community Forum", page: "Forum" }, // HIDDEN - Will be re-enabled later
   { icon: Building2, label: "Business Membership", page: "BusinessPricing" },
   // { icon: Briefcase, label: "Trades Account", page: "TradesSignup" }, // HIDDEN - Can be re-enabled later
   // { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" }, // HIDDEN - Can be re-enabled later
@@ -28,7 +28,7 @@ const tradesMenuItems = [
   { icon: Settings, label: "Manage Business", page: "ContractorManagement" },
   { icon: Briefcase, label: "My Profile", page: "TradesProfile" },
   { icon: Mail, label: "Messages", page: "Messages" },
-  { icon: MessageCircle, label: "Community Forum", page: "Forum" },
+  // { icon: MessageCircle, label: "Community Forum", page: "Forum" }, // HIDDEN - Will be re-enabled later
   // { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" }, // HIDDEN - Can be re-enabled later
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
   { icon: Settings, label: "My Account", page: "Settings" }
