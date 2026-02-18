@@ -26,7 +26,7 @@ export default function RippleButton({ onClick, children, className, style, disa
       onClick={handleClick}
       disabled={disabled}
       className={cn("relative overflow-hidden select-none", className)}
-      style={style}
+      style={{ ...style, animation: 'breatheShadow 2.8s ease-in-out infinite' }}
     >
       {/* Breathing ring 1 */}
       <span
