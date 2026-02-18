@@ -655,7 +655,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                 {["plumbing", "electrical", "hvac", "structural", "appliance", "other"].map((cat) => (
                   <div key={cat} className="flex items-center space-x-2">
                     <RadioGroupItem value={cat} id={cat} />
-                    <Label htmlFor={cat} className="cursor-pointer capitalize">{cat}</Label>
+                    <Label htmlFor={cat} className="cursor-pointer capitalize text-white">{cat}</Label>
                   </div>
                 ))}
               </div>
