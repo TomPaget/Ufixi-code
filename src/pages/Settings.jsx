@@ -233,10 +233,7 @@ export default function Settings() {
 
       <main className="max-w-lg mx-auto px-5 py-6 pb-12">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className={cn(
-            "w-full grid grid-cols-3 mb-6",
-            theme === "dark" ? "bg-slate-800" : "bg-slate-100"
-          )}>
+          <TabsList className="w-full grid grid-cols-3 mb-6 bg-slate-100">
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="notifications" className="relative">
               Notifications
@@ -252,12 +249,7 @@ export default function Settings() {
         <motion.section
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className={cn(
-                "rounded-2xl p-5 border",
-                theme === "dark" ?
-                "bg-slate-800 border-slate-700/50" :
-                "bg-white border-slate-200"
-              )}>
+              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
 
           <div className="flex items-center gap-4 mb-6">
             <div className="relative">
@@ -268,25 +260,11 @@ export default function Settings() {
                     className="w-14 h-14 rounded-full object-cover shadow-lg" /> :
 
 
-                  <div className={cn(
-                    "w-14 h-14 rounded-full flex items-center justify-center shadow-lg",
-                    theme === "dark" ?
-                    "bg-gradient-to-br from-blue-600 to-blue-700 shadow-blue-600/30 border border-blue-500/30" :
-                    "bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/20 border border-blue-400/30"
-                  )}>
-                  <User className={cn(
-                      "w-7 h-7",
-                      theme === "dark" ? "text-blue-100" : "text-white"
-                    )} />
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg bg-[#4BC896]/10 border border-[#4BC896]/20">
+                  <User className="w-7 h-7 text-[#4BC896]" />
                 </div>
                   }
-              <label className={cn(
-                    "absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg",
-                    uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform",
-                    theme === "dark" ?
-                    "bg-[#57CFA4]" :
-                    "bg-[#57CFA4]"
-                  )}>
+              <label className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg bg-[#4BC896] ${uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform"}`}>
                 <input
                       type="file"
                       accept="image/*"
@@ -302,23 +280,14 @@ export default function Settings() {
               </label>
             </div>
             <div className="flex-1">
-              <h2 className={cn(
-                    "font-semibold",
-                    theme === "dark" ? "text-slate-100" : "text-slate-900"
-                  )}>{user?.display_name || user?.full_name || "User"}</h2>
-              <p className={cn(
-                    "text-sm",
-                    theme === "dark" ? "text-slate-400" : "text-slate-600"
-                  )}>{user?.email}</p>
+              <h2 className="font-semibold" style={{ color: '#1a2f42' }}>{user?.display_name || user?.full_name || "User"}</h2>
+              <p className="text-sm" style={{ color: '#6B7A8D' }}>{user?.email}</p>
             </div>
             <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setEditingProfile(!editingProfile)}
-                  className={cn(
-                    "rounded-xl",
-                    theme === "dark" ? "hover:bg-slate-700" : "hover:bg-slate-100"
-                  )}>
+                  className="rounded-xl hover:bg-slate-100">
 
               <Edit2 className="w-4 h-4" />
             </Button>
@@ -327,63 +296,21 @@ export default function Settings() {
           {editingProfile &&
               <div className="space-y-3 mb-4">
               <div>
-                <Label className={cn(
-                    "text-sm mb-1 block",
-                    theme === "dark" ? "text-slate-300" : "text-slate-700"
-                  )}>
-                  Display Name
-                </Label>
-                <Input
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                    placeholder="Your display name"
-                    className={cn(
-                      theme === "dark" ?
-                      "bg-slate-700 border-slate-600 text-white" :
-                      "bg-white border-slate-200"
-                    )} />
+                <Label className="text-sm mb-1 block" style={{ color: '#1a2f42' }}>Display Name</Label>
+                <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Your display name" className="bg-white border-slate-200" />
 
               </div>
               <div>
-                <Label className={cn(
-                    "text-sm mb-1 block",
-                    theme === "dark" ? "text-slate-300" : "text-slate-700"
-                  )}>
-                  Bio
-                </Label>
-                <Textarea
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    placeholder="Tell others about yourself..."
-                    className={cn(
-                      "h-20",
-                      theme === "dark" ?
-                      "bg-slate-700 border-slate-600 text-white" :
-                      "bg-white border-slate-200"
-                    )} />
+                <Label className="text-sm mb-1 block" style={{ color: '#1a2f42' }}>Bio</Label>
+                <Textarea value={bio} onChange={(e) => setBio(e.target.value)} placeholder="Tell others about yourself..." className="h-20 bg-white border-slate-200" />
 
               </div>
               
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label className={cn(
-                      "text-sm mb-1 block",
-                      theme === "dark" ? "text-slate-300" : "text-slate-700"
-                    )}>
-                    Country
-                  </Label>
-                  <Select
-                      value={user?.country || ""}
-                      onValueChange={(value) => {
-                        base44.auth.updateMe({ country: value });
-                        queryClient.invalidateQueries(["user"]);
-                      }}>
-
-                    <SelectTrigger className={cn(
-                        theme === "dark" ?
-                        "bg-slate-700 border-slate-600 text-white" :
-                        "bg-white border-slate-200"
-                      )}>
+                  <Label className="text-sm mb-1 block" style={{ color: '#1a2f42' }}>Country</Label>
+                  <Select value={user?.country || ""} onValueChange={(value) => { base44.auth.updateMe({ country: value }); queryClient.invalidateQueries(["user"]); }}>
+                    <SelectTrigger className="bg-white border-slate-200">
                       <SelectValue placeholder="Select country" />
                     </SelectTrigger>
                     <SelectContent>
@@ -397,24 +324,8 @@ export default function Settings() {
                 </div>
 
                 <div>
-                  <Label className={cn(
-                      "text-sm mb-1 block",
-                      theme === "dark" ? "text-slate-300" : "text-slate-700"
-                    )}>
-                    Postcode
-                  </Label>
-                  <Input
-                      value={user?.postcode || ""}
-                      onChange={(e) => {
-                        base44.auth.updateMe({ postcode: e.target.value });
-                        queryClient.invalidateQueries(["user"]);
-                      }}
-                      placeholder="e.g., SW1A 1AA"
-                      className={cn(
-                        theme === "dark" ?
-                        "bg-slate-700 border-slate-600 text-white" :
-                        "bg-white border-slate-200"
-                      )} />
+                  <Label className="text-sm mb-1 block" style={{ color: '#1a2f42' }}>Postcode</Label>
+                  <Input value={user?.postcode || ""} onChange={(e) => { base44.auth.updateMe({ postcode: e.target.value }); queryClient.invalidateQueries(["user"]); }} placeholder="e.g., SW1A 1AA" className="bg-white border-slate-200" />
 
                 </div>
               </div>
@@ -438,23 +349,10 @@ export default function Settings() {
               )}>
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3 flex-1">
-                <MapPin className={cn(
-                      "w-5 h-5 mt-0.5",
-                      user?.location_services_enabled ?
-                      "text-[#57CFA4]" :
-                      theme === "dark" ? "text-slate-400" : "text-slate-500"
-                    )} />
+                <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#4BC896]" : "text-slate-400"}`} />
                 <div className="flex-1">
-                  <p className={cn(
-                        "font-medium text-sm",
-                        theme === "dark" ? "text-slate-200" : "text-slate-900"
-                      )}>
-                    Location Services
-                  </p>
-                  <p className={cn(
-                        "text-xs mt-0.5",
-                        theme === "dark" ? "text-slate-400" : "text-slate-600"
-                      )}>
+                  <p className="font-medium text-sm" style={{ color: '#1a2f42' }}>Location Services</p>
+                  <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>
                     {user?.location_services_enabled && user?.approximate_location ?
                         user.approximate_location :
                         "Enable to find local tradespeople"}
@@ -465,12 +363,7 @@ export default function Settings() {
                     size="sm"
                     onClick={handleRequestLocation}
                     disabled={requestingLocation}
-                    className={cn(
-                      "rounded-xl",
-                      user?.location_services_enabled ?
-                      "bg-slate-500 hover:bg-slate-600" :
-                      "bg-[#57CFA4] hover:bg-[#57CFA4]/90"
-                    )}>
+                    className={`rounded-xl text-white ${user?.location_services_enabled ? "bg-slate-400 hover:bg-slate-500" : "bg-[#4BC896] hover:bg-[#2eaf7d]"}`}>
 
                 {requestingLocation ?
                     <Loader2 className="w-4 h-4 animate-spin" /> :
@@ -483,16 +376,7 @@ export default function Settings() {
             </div>
           </div>
 
-          {user?.bio && !editingProfile &&
-              <p className={cn(
-                "text-sm mb-4 p-3 rounded-xl",
-                theme === "dark" ?
-                "bg-slate-700/50 text-slate-300" :
-                "bg-slate-50 text-slate-600"
-              )}>
-              {user.bio}
-            </p>
-              }
+          {user?.bio && !editingProfile && <p className="text-sm mb-4 p-3 rounded-xl bg-slate-50" style={{ color: '#6B7A8D' }}>{user.bio}</p>}
 
 
         </motion.section>
