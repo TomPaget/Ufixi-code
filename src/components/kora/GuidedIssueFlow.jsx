@@ -38,6 +38,7 @@ import { validateFile } from "@/components/utils/fileValidation";
 import { aiAnalysisLimiter, fileUploadLimiter, checkRateLimit } from "@/components/utils/rateLimiter";
 import { sanitizeText } from "@/components/utils/sanitize";
 import IssueChatbot from "@/components/kora/IssueChatbot";
+import TimedAdBreak from "@/components/kora/TimedAdBreak";
 
 export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const { theme } = useTheme();
