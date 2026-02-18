@@ -1040,9 +1040,9 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                 "flex items-center gap-3",
                 theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
               )}>
-                <Tool className="w-5 h-5 flex-shrink-0" />
+                <Wrench className="w-5 h-5 flex-shrink-0" />
                 What You'll Need
-              </AccordionTrigger>
+                </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-2">
                   {suggestions.tools_and_materials.slice(0, 5).map((item, i) => {
