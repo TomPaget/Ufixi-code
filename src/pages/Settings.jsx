@@ -405,17 +405,8 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
-              className={cn(
-                "rounded-2xl p-5 border",
-                theme === "dark" ?
-                "bg-slate-800 border-slate-700/50" :
-                "bg-white border-slate-200"
-              )}>
-
-          <h3 className={cn(
-                "font-semibold mb-4",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
-              )}>I am a...</h3>
+              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
+          <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>I am a...</h3>
           
           <RadioGroup
                 value={user?.user_type || "renter"}
