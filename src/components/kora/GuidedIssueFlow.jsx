@@ -376,7 +376,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
           "text-sm mb-4",
           theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
         )}>
-          Take a photo, video, or audio recording of the problem
+          Take a photo or video of the problem
         </p>
 
         {error && (

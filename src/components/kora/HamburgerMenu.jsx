@@ -27,7 +27,7 @@ const tradesMenuItems = [
   { icon: LayoutDashboard, label: "My Dashboard", page: "TradesDashboard" },
   { icon: Settings, label: "Manage Business", page: "ContractorManagement" },
   { icon: Briefcase, label: "My Profile", page: "TradesProfile" },
-  { icon: Mail, label: "Messages", page: "Messages" },
+  // { icon: Mail, label: "Messages", page: "Messages" }, // HIDDEN - Will be re-enabled later
   // { icon: MessageCircle, label: "Community Forum", page: "Forum" }, // HIDDEN - Will be re-enabled later
   // { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" }, // HIDDEN - Can be re-enabled later
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
