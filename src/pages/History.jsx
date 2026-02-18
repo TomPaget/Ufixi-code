@@ -117,126 +117,57 @@ export default function History() {
   const tradeTypes = [...new Set(issues.map(i => i.trade_type).filter(Boolean))];
 
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
-        <div className="absolute inset-0 bg-white/5" />
-      </div>
-      
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
-          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
-          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-slow {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
-          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-reverse {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
-          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        .animate-gradient-shift {
-          animation: gradient-shift 8s ease-in-out infinite;
-        }
-        .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 10s ease-in-out infinite;
-        }
-        .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 9s ease-in-out infinite;
-        }
-      `}</style>
-      
-      {/* Header */}
-      <header className="sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20">
-        <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="rounded-xl hover:bg-white/20 text-white"
-            onClick={() => navigate(createPageUrl("Home"))}
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          <div>
-            <h1 className="font-bold text-lg text-white">Dashboard</h1>
-            <p className="text-xs text-white/80">Track all your issues</p>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen pb-20 bg-[#F5F7FA]">
+      <PageHeader showBack title="Dashboard" subtitle="Track all your issues" />
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
         {/* Statistics Overview */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-2xl p-4 border bg-white/60 backdrop-blur-md border-slate-200">
-            <TrendingUp className="w-5 h-5 text-[#63c49f] mb-2" />
-            <p className="text-2xl font-bold text-[#1a2f42]">
-              {stats.total}
-            </p>
-            <p className="text-xs text-[#1a2f42]/80">Total Issues</p>
+          <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
+            <TrendingUp className="w-5 h-5 text-[#4BC896] mb-2" />
+            <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.total}</p>
+            <p className="text-xs" style={{ color: '#6B7A8D' }}>Total Issues</p>
           </div>
-
-          <div className="rounded-2xl p-4 border bg-white/60 backdrop-blur-md border-slate-200">
-            <CheckCircle2 className="w-5 h-5 text-[#63c49f] mb-2" />
-            <p className="text-2xl font-bold text-[#1a2f42]">
-              {stats.resolved}
-            </p>
-            <p className="text-xs text-[#1a2f42]/80">Resolved</p>
+          <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
+            <CheckCircle2 className="w-5 h-5 text-[#4BC896] mb-2" />
+            <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.resolved}</p>
+            <p className="text-xs" style={{ color: '#6B7A8D' }}>Resolved</p>
           </div>
-
-          <div className="rounded-2xl p-4 border bg-white/60 backdrop-blur-md border-slate-200">
-            <Clock className="w-5 h-5 text-[#63c49f] mb-2" />
-            <p className="text-2xl font-bold text-[#1a2f42]">
-              {stats.active + stats.inProgress}
-            </p>
-            <p className="text-xs text-[#1a2f42]/80">Active/In Progress</p>
+          <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
+            <Clock className="w-5 h-5 text-[#4BC896] mb-2" />
+            <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.active + stats.inProgress}</p>
+            <p className="text-xs" style={{ color: '#6B7A8D' }}>Active/In Progress</p>
           </div>
-
-          <div className="rounded-2xl p-4 border bg-white/60 backdrop-blur-md border-slate-200">
-            <BarChart3 className="w-5 h-5 text-[#63c49f] mb-2" />
-            <p className="text-2xl font-bold text-[#1a2f42]">
-              {stats.avgSeverity}
-            </p>
-            <p className="text-xs text-[#1a2f42]/80">Avg Severity</p>
+          <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
+            <BarChart3 className="w-5 h-5 text-[#4BC896] mb-2" />
+            <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.avgSeverity}</p>
+            <p className="text-xs" style={{ color: '#6B7A8D' }}>Avg Severity</p>
           </div>
         </div>
 
         {/* Cost Summary */}
         {stats.totalCost > 0 && (
-          <div className="rounded-2xl p-5 border bg-white/60 backdrop-blur-md border-slate-200">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#63c49f]/20">
-                  <DollarSign className="w-5 h-5 text-[#63c49f]" />
-                </div>
-                <div>
-                  <p className="font-bold text-xl text-white">
-                    {currencySymbol}{stats.totalCost.toLocaleString()}
-                  </p>
-                  <p className="text-xs text-white/80">Estimated Total Repair Costs</p>
-                </div>
+          <div className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#4BC896]/10">
+                <DollarSign className="w-5 h-5 text-[#4BC896]" />
+              </div>
+              <div>
+                <p className="font-bold text-xl" style={{ color: '#1a2f42' }}>{currencySymbol}{stats.totalCost.toLocaleString()}</p>
+                <p className="text-xs" style={{ color: '#6B7A8D' }}>Estimated Total Repair Costs</p>
               </div>
             </div>
           </div>
         )}
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
           <Input
             placeholder="Search issues..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-12 h-12 rounded-2xl border-2 bg-white/30 backdrop-blur-md border-white/20 text-white placeholder:text-white/60"
+            className="pl-12 h-12 rounded-2xl border bg-white border-slate-200"
+            style={{ color: '#1a2f42' }}
           />
         </div>
 
@@ -254,32 +185,14 @@ export default function History() {
 
         {/* Results Summary */}
         <div className="flex items-center justify-between">
-          <p className="text-sm text-white font-medium">
+          <p className="text-sm font-medium" style={{ color: '#6B7A8D' }}>
             Showing {((page - 1) * itemsPerPage) + 1}-{Math.min(page * itemsPerPage, sortedIssues.length)} of {sortedIssues.length} issues
           </p>
           {totalPages > 1 && (
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setPage(p => Math.max(1, p - 1))}
-                disabled={page === 1}
-                className="rounded-xl border-white/20 hover:bg-white/20 text-white"
-              >
-                Previous
-              </Button>
-              <span className="text-sm px-3 text-white">
-                {page} / {totalPages}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                disabled={page === totalPages}
-                className="rounded-xl border-white/20 hover:bg-white/20 text-white"
-              >
-                Next
-              </Button>
+              <Button variant="outline" size="sm" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="rounded-xl">Previous</Button>
+              <span className="text-sm px-3" style={{ color: '#1a2f42' }}>{page} / {totalPages}</span>
+              <Button variant="outline" size="sm" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="rounded-xl">Next</Button>
             </div>
           )}
         </div>
@@ -296,9 +209,9 @@ export default function History() {
             {Object.entries(groupedIssues).map(([month, monthIssues]) => (
               <section key={month}>
                 <div className="flex items-center gap-2 mb-3">
-                  <Calendar className="w-4 h-4 text-[#63c49f]" />
-                  <h2 className="text-sm font-semibold text-white">{month}</h2>
-                  <span className="text-xs px-2 py-1 rounded-lg bg-white/30 backdrop-blur-md text-white">
+                  <Calendar className="w-4 h-4 text-[#4BC896]" />
+                  <h2 className="text-sm font-semibold" style={{ color: '#1a2f42' }}>{month}</h2>
+                  <span className="text-xs px-2 py-1 rounded-lg bg-slate-200" style={{ color: '#1a2f42' }}>
                     {monthIssues.length}
                   </span>
                 </div>
@@ -319,13 +232,11 @@ export default function History() {
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-white/30 backdrop-blur-md border border-white/20">
-              <Filter className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-[#4BC896]/10 border border-[#4BC896]/20">
+              <Filter className="w-8 h-8 text-[#4BC896]" />
             </div>
-            <p className="text-white font-semibold">No issues found</p>
-            <p className="text-sm mt-1 text-white/80">
-              Try adjusting your filters
-            </p>
+            <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues found</p>
+            <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>Try adjusting your filters</p>
           </div>
         )}
       </main>
