@@ -642,7 +642,7 @@ export default function Home() {
 
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <Header onMenuClick={() => setMenuOpen(true)} />
+      <Header onMenuClick={() => setMenuOpen(true)} onGoPremium={() => setShowPremiumModal(true)} />
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
