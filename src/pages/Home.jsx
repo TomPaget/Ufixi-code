@@ -718,7 +718,7 @@ export default function Home() {
                             <Plus className="w-12 h-12 text-white" strokeWidth={2.5} />
                             <span className="text-sm font-bold text-white tracking-wide">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
                           </RippleButton>
-                          <p className="text-sm font-medium mt-3" style={{ color: '#6B7A8D' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
+                          <p className="text-sm font-medium mt-6" style={{ color: '#6B7A8D' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
                     </div>
             </motion.div>
           )}
