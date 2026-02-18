@@ -755,28 +755,17 @@ export default function Home() {
             </div>
           ) : (
             <div 
-              className="text-center py-12 rounded-3xl border-2 overflow-hidden relative"
-              style={{
-                background: getGradientStyle(theme, 'accent'),
-                backdropFilter: getBackdropFilter(),
-                WebkitBackdropFilter: getBackdropFilter(),
-                boxShadow: getBoxShadow('accent'),
-                borderColor: getBorderColor(theme),
-                backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              }}
+              className="text-center py-12 rounded-3xl border border-slate-100 bg-white"
+              style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}
             >
-              <div className="absolute inset-0 rounded-3xl opacity-40 pointer-events-none" style={{ background: 'inherit' }} />
-              <div className="relative z-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{
-                background: 'rgba(99, 196, 159, 0.15)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(99, 196, 159, 0.3)',
-                boxShadow: '0 4px 16px rgba(99, 196, 159, 0.2)'
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{
+                background: 'rgba(75, 200, 150, 0.1)',
+                border: '1px solid rgba(75, 200, 150, 0.2)',
               }}>
-                <Sparkles className="w-8 h-8" style={{ color: '#63c49f' }} />
+                <Sparkles className="w-8 h-8 text-[#4BC896]" />
               </div>
-              <p className="relative z-10 text-white font-semibold">No issues scanned yet</p>
-              <p className="relative z-10 text-sm mt-1 text-white font-medium">
+              <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues scanned yet</p>
+              <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>
                 Tap the button above to get started
               </p>
             </div>
