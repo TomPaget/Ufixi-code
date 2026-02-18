@@ -72,7 +72,6 @@ const plans = [
 
 export default function BusinessPricing() {
   const navigate = useNavigate();
-  const { theme } = useTheme();
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
