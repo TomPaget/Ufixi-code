@@ -11,8 +11,6 @@ import {
   ChevronRight,
   User,
   Shield,
-  Moon,
-  Sun,
   Edit2,
   Camera,
   MapPin,
