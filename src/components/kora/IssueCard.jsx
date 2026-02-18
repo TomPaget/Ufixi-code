@@ -73,16 +73,10 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
-                <h3 className={cn(
-                  "font-semibold truncate",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>
+                <h3 className="font-semibold truncate" style={{ color: '#1a2f42' }}>
                   {issue.title}
                 </h3>
-                <p className={cn(
-                  "text-sm mt-0.5",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]/70"
-                )}>
+                <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>
                   {format(new Date(issue.created_date), "MMM d, yyyy")}
                 </p>
               </div>
