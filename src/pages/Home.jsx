@@ -644,26 +644,12 @@ export default function Home() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold mt-8 mb-6">
-            <span className="whitespace-nowrap font-bold text-white" style={{ fontFamily: "'Fredoka', sans-serif" }}>What needs</span>{" "}
-            <span className="font-bold" style={{ 
-              fontFamily: "'Fredoka', sans-serif",
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 25%, transparent 50%, rgba(255, 255, 255, 0.3) 75%, transparent 100%), linear-gradient(135deg, #90EE90 0%, rgba(255, 255, 255, 0.7) 15%, #F0D9E6 28%, #ADD8E6 50%, #F0D9E6 72%, rgba(255, 255, 255, 0.7) 85%, #90EE90 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundSize: '200% 200%, 200% 200%',
-              backgroundPosition: '0% 0%, 0% 50%',
-              animation: 'shine 3s ease-in-out infinite, gradientFlow 4s ease-in-out infinite',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)'
-            }}>
-              fixing?
-            </span>
-          </h1>
-          <p className="text-base max-w-2xl mx-auto text-white font-medium">
-            Upload a photo or video of any issue and get an instant professional assessment with repair guidance.
-          </p>
+          <h1 className="text-4xl md:text-5xl font-bold mt-8 mb-4" style={{ fontFamily: "'Poppins', sans-serif", color: '#1a2f42', letterSpacing: '-0.02em' }}>
+              What needs <span style={{ color: '#4BC896' }}>fixing?</span>
+            </h1>
+            <p className="text-base max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
+              Upload a photo or video and get an instant AI-powered repair assessment.
+            </p>
         </div>
 
         {/* Quick Stats */}
