@@ -143,6 +143,12 @@ export default function Settings() {
         subscriptionId: user.stripe_subscription_id
       });
       
+      await base44.auth.updateMe({
+        is_premium: false,
+        subscription_tier: null,
+        subscription_cancelled: true
+      });
+
       queryClient.invalidateQueries(["user"]);
       setShowCancelDialog(false);
     } catch (error) {
