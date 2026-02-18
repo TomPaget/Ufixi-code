@@ -449,36 +449,16 @@ export default function Settings() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.18 }}
-            className={cn(
-              "rounded-2xl p-5 border",
-              theme === "dark" ?
-              "bg-slate-800 border-slate-700/50" :
-              "bg-white border-slate-200"
-            )}>
-
-            <h3 className={cn(
-              "font-semibold mb-4",
-              theme === "dark" ? "text-slate-200" : "text-slate-900"
-            )}>Business Subscription</h3>
+            className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
+            <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>Business Subscription</h3>
 
             <div className="space-y-4">
-              <div className={cn(
-                "p-4 rounded-xl border",
-                theme === "dark" ?
-                "bg-slate-700/50 border-slate-600/50" :
-                "bg-slate-50 border-slate-200"
-              )}>
+              <div className="p-4 rounded-xl border bg-slate-50 border-slate-200">
                 <div className="flex items-center justify-between mb-2">
-                  <span className={cn(
-                    "font-semibold",
-                    theme === "dark" ? "text-slate-200" : "text-slate-900"
-                  )}>
+                  <span className="font-semibold" style={{ color: '#1a2f42' }}>
                     {user?.business_plan ? `${user.business_plan.charAt(0).toUpperCase() + user.business_plan.slice(1)} Plan` : 'Business Plan'}
                   </span>
-                  <span className={cn(
-                    "text-sm font-bold",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
-                  )}>
+                  <span className="text-sm font-bold text-[#4BC896]">
                     £{user?.business_monthly_price || 0}/month
                   </span>
                 </div>
@@ -494,12 +474,7 @@ export default function Settings() {
                 <Button
                   onClick={() => setShowCancelDialog(true)}
                   variant="outline"
-                  className={cn(
-                    "w-full rounded-xl",
-                    theme === "dark" ?
-                    "border-red-500/30 text-red-400 hover:bg-red-500/10" :
-                    "border-red-200 text-red-600 hover:bg-red-50"
-                  )}
+                  className="w-full rounded-xl border-red-200 text-red-600 hover:bg-red-50"
                 >
                   Cancel Subscription
                 </Button>
@@ -514,21 +489,9 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className={cn(
-                "rounded-2xl p-5 border",
-                theme === "dark" ?
-                "bg-slate-800 border-slate-700/50" :
-                "bg-white border-slate-200"
-              )}>
-
-            <h3 className={cn(
-                "font-semibold mb-2",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
-              )}>Account Type</h3>
-            <p className={cn(
-                "text-sm mb-4",
-                theme === "dark" ? "text-slate-400" : "text-slate-600"
-              )}>
+              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
+            <h3 className="font-semibold mb-2" style={{ color: '#1a2f42' }}>Account Type</h3>
+            <p className="text-sm mb-4" style={{ color: '#6B7A8D' }}>
               You currently have a professional trades account. Switch to a standard account if you no longer want to receive job requests.
             </p>
             
@@ -543,12 +506,7 @@ export default function Settings() {
                   }
                 }}
                 disabled={updateUserMutation.isPending}
-                className={cn(
-                  "w-full rounded-xl",
-                  theme === "dark" ?
-                  "border-slate-600 hover:bg-slate-700" :
-                  "border-slate-300 hover:bg-slate-50"
-                )}>
+                className="w-full rounded-xl border-slate-200 hover:bg-slate-50">
 
               Switch to Standard Account
             </Button>
@@ -560,56 +518,21 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className={cn(
-                "rounded-2xl border overflow-hidden",
-                theme === "dark" ?
-                "bg-slate-800 border-slate-700/50" :
-                "bg-white border-slate-200"
-              )}>
-
-          <button className={cn(
-                "w-full flex items-center justify-between p-4 transition-colors",
-                theme === "dark" ?
-                "hover:bg-slate-700/50" :
-                "hover:bg-slate-50"
-              )}>
+              className="rounded-2xl border overflow-hidden bg-white border-slate-100 shadow-sm">
+          <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-slate-50">
             <div className="flex items-center gap-3">
-              <Shield className={cn(
-                    "w-5 h-5",
-                    theme === "dark" ? "text-slate-400" : "text-slate-500"
-                  )} />
-              <span className={cn(
-                    theme === "dark" ? "text-slate-300" : "text-slate-700"
-                  )}>Privacy Policy</span>
+              <Shield className="w-5 h-5 text-slate-400" />
+              <span style={{ color: '#1a2f42' }}>Privacy Policy</span>
             </div>
-            <ChevronRight className={cn(
-                  "w-5 h-5",
-                  theme === "dark" ? "text-slate-500" : "text-slate-400"
-                )} />
+            <ChevronRight className="w-5 h-5 text-slate-400" />
           </button>
-          <div className={cn(
-                "h-px",
-                theme === "dark" ? "bg-slate-700/50" : "bg-slate-200"
-              )} />
-          <button className={cn(
-                "w-full flex items-center justify-between p-4 transition-colors",
-                theme === "dark" ?
-                "hover:bg-slate-700/50" :
-                "hover:bg-slate-50"
-              )}>
+          <div className="h-px bg-slate-100" />
+          <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-slate-50">
             <div className="flex items-center gap-3">
-              <Shield className={cn(
-                    "w-5 h-5",
-                    theme === "dark" ? "text-slate-400" : "text-slate-500"
-                  )} />
-              <span className={cn(
-                    theme === "dark" ? "text-slate-300" : "text-slate-700"
-                  )}>Terms of Service</span>
+              <Shield className="w-5 h-5 text-slate-400" />
+              <span style={{ color: '#1a2f42' }}>Terms of Service</span>
             </div>
-            <ChevronRight className={cn(
-                  "w-5 h-5",
-                  theme === "dark" ? "text-slate-500" : "text-slate-400"
-                )} />
+            <ChevronRight className="w-5 h-5 text-slate-400" />
           </button>
         </motion.section>
 
@@ -622,12 +545,7 @@ export default function Settings() {
           <Button
                 variant="outline"
                 onClick={handleLogout}
-                className={cn(
-                  "w-full h-12 rounded-xl transition-colors",
-                  theme === "dark" ?
-                  "border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/50" :
-                  "border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700"
-                )}>
+                className="w-full h-12 rounded-xl border-red-200 bg-red-50 text-red-600 hover:bg-red-100">
 
             <LogOut className="w-5 h-5 mr-2" />
             Log Out
