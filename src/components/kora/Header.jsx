@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import NotificationBell from "@/components/kora/NotificationBell";
+import { motion } from "framer-motion";
 
 export default function Header({ onMenuClick }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,16 +17,26 @@ export default function Header({ onMenuClick }) {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
+    <motion.header
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className={`sticky top-0 z-30 border-b transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}
+      style={{
+        background: 'rgba(255,255,255,0.08)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        borderColor: 'rgba(255,255,255,0.15)',
+        boxShadow: isScrolled ? '0 4px 20px rgba(0,0,0,0.1)' : 'none'
+      }}
+    >
       <div className="max-w-lg mx-auto px-5 flex items-center justify-between">
-        <Button 
-          variant="ghost" 
-          size="icon" 
+        <button
           onClick={onMenuClick}
-          className="rounded-xl hover:bg-slate-700 text-white"
+          className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 hover:bg-white/20 text-white transition-all active:scale-90"
         >
           <Menu className="w-5 h-5" />
-        </Button>
+        </button>
         
         <img 
           src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"
@@ -35,6 +46,6 @@ export default function Header({ onMenuClick }) {
 
         <NotificationBell />
       </div>
-    </header>
+    </motion.header>
   );
 }
