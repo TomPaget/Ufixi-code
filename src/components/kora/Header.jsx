@@ -59,7 +59,6 @@ export default function Header({ onMenuClick, onGoPremium }) {
               Go Premium
             </button>
           )}
-          <NotificationBell />
         </div>
       </div>
     </motion.header>
