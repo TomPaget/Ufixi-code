@@ -532,7 +532,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               </Button>
               <Button
                 onClick={handleContinueToDetails}
-                className="flex-1 bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+                className="flex-1 bg-[#4BC896] hover:bg-[#4BC896]/90 text-white"
               >
                 Continue
                 <ArrowRight className="w-4 h-4 ml-2" />
