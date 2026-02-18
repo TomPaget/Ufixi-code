@@ -21,13 +21,9 @@ export default function Header({ onMenuClick }) {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`sticky top-0 z-30 border-b transition-all duration-300 bg-white ${isScrolled ? 'py-2' : 'py-4'}`}
-      style={{
-        borderColor: '#EAECF0',
-        boxShadow: isScrolled ? '0 2px 12px rgba(0,0,0,0.06)' : 'none'
-      }}
+      className={`sticky top-0 z-30 transition-all duration-300 bg-transparent ${isScrolled ? 'py-2' : 'py-3'}`}
     >
-      <div className="max-w-lg mx-auto px-5 flex items-center justify-between">
+      <div className="max-w-lg mx-auto px-4 flex items-center justify-between bg-white rounded-2xl shadow-sm border border-slate-100" style={{ padding: '10px 16px' }}>
         <button
           onClick={onMenuClick}
           className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
