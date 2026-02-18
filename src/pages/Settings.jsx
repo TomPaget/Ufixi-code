@@ -388,47 +388,16 @@ export default function Settings() {
               transition={{ delay: 0.05 }}
               className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
 
-          <h3 className={cn(
-                "font-semibold mb-4",
-                theme === "dark" ? "text-slate-200" : "text-slate-900"
-              )}>Appearance</h3>
-          
-          <button
-                onClick={toggleTheme}
-                className={cn(
-                  "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all",
-                  theme === "dark" ?
-                  "border-blue-500 bg-blue-500/10 hover:bg-blue-500/20" :
-                  "border-blue-500 bg-blue-50 hover:bg-blue-100"
-                )}>
-
-            <div className={cn(
-                  "w-12 h-12 rounded-xl flex items-center justify-center",
-                  theme === "dark" ?
-                  "bg-blue-600/20 border border-blue-500/30" :
-                  "bg-blue-500/20 border border-blue-400/30"
-                )}>
-              {theme === "dark" ?
-                  <Moon className="w-6 h-6 text-blue-400" /> :
-
-                  <Sun className="w-6 h-6 text-blue-600" />
-                  }
+          <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>Appearance</h3>
+          <div className="flex items-center gap-4 p-4 rounded-xl border bg-slate-50 border-slate-200">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#4BC896]/10 border border-[#4BC896]/20">
+              <Sun className="w-6 h-6 text-[#4BC896]" />
             </div>
             <div className="flex-1 text-left">
-              <p className={cn(
-                    "font-medium",
-                    theme === "dark" ? "text-slate-200" : "text-slate-900"
-                  )}>
-                {theme === "dark" ? "Dark Mode" : "Light Mode"}
-              </p>
-              <p className={cn(
-                    "text-sm",
-                    theme === "dark" ? "text-slate-400" : "text-slate-600"
-                  )}>
-                Tap to switch to {theme === "dark" ? "light" : "dark"} mode
-              </p>
+              <p className="font-medium" style={{ color: '#1a2f42' }}>Light Mode</p>
+              <p className="text-sm" style={{ color: '#6B7A8D' }}>Clean white design</p>
             </div>
-          </button>
+          </div>
         </motion.section>
 
         {/* User Type */}
