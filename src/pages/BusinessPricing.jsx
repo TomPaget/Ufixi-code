@@ -167,6 +167,7 @@ export default function BusinessPricing() {
                   isSelected ? "border-[#4BC896] shadow-lg shadow-[#4BC896]/20 scale-105" : "border-slate-100 hover:border-[#4BC896]/40 hover:shadow-md",
                   plan.popular && "md:scale-105 md:z-10"
                 )}
+                style={plan.popular ? { boxShadow: '0 0 0 4px rgba(75,200,150,0.12), 0 0 32px 8px rgba(75,200,150,0.15), 0 4px 24px rgba(0,0,0,0.08)' } : {}}
                 onClick={() => handleSelectPlan(plan)}
               >
                 {plan.popular && (
