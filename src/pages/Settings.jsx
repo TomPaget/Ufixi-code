@@ -377,24 +377,7 @@ export default function Settings() {
 
         </motion.section>
 
-        {/* Theme Toggle */}
-        <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 }}
-              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
 
-          <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>Appearance</h3>
-          <div className="flex items-center gap-4 p-4 rounded-xl border bg-slate-50 border-slate-200">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#4BC896]/10 border border-[#4BC896]/20">
-              <Sun className="w-6 h-6 text-[#4BC896]" />
-            </div>
-            <div className="flex-1 text-left">
-              <p className="font-medium" style={{ color: '#1a2f42' }}>Light Mode</p>
-              <p className="text-sm" style={{ color: '#6B7A8D' }}>Clean white design</p>
-            </div>
-          </div>
-        </motion.section>
 
         {/* User Type */}
         <motion.section
