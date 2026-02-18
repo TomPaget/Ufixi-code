@@ -1301,8 +1301,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
           </ul>
         </div>
 
+        {/* Chatbot */}
+        <IssueChatbot issueType={issueType} suggestions={suggestions} mediaUrl={mediaUrl} />
+
         {/* Action Buttons */}
-        <div className="space-y-3">
+        <div className="space-y-3 mt-4">
           {error && (
             <div className="p-3 rounded-xl bg-red-50 border border-red-200">
               <p className="text-sm text-red-800">{error}</p>
