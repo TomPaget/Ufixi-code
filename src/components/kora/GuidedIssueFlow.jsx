@@ -408,7 +408,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                     className="hidden"
                     onChange={(e) => handleFileSelect("photo", e.target.files[0])}
                   />
-                  <Camera className="w-6 h-6 mb-2 text-[#F7B600]" />
+                  <Camera className="w-6 h-6 mb-2 text-[#4BC896]" />
                   <span className={cn(
                     "text-xs text-center",
                     theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
@@ -471,7 +471,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                   className="hidden"
                   onChange={(e) => handleFileSelect("photo", e.target.files[0])}
                 />
-                <Image className="w-6 h-6 mb-2 text-[#F7B600]" />
+                <Image className="w-6 h-6 mb-2 text-[#4BC896]" />
                 <span className={cn(
                   "text-xs text-center",
                   theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
@@ -541,9 +541,9 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
         )}
 
         <Button
-          variant="ghost"
+          variant="outline"
           onClick={onCancel}
-          className="w-full mt-4"
+          className="w-full mt-4 border-white text-white hover:bg-white/10 hover:text-white"
         >
           Cancel
         </Button>
