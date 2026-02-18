@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 
 const customerMenuItems = [
   { icon: HomeIcon, label: "Home", page: "Home" },
-  { icon: Mail, label: "Messages", page: "Messages" },
+  // { icon: Mail, label: "Messages", page: "Messages" }, // HIDDEN - Will be re-enabled later
   // { icon: MessageCircle, label: "Community Forum", page: "Forum" }, // HIDDEN - Will be re-enabled later
   { icon: Building2, label: "Business Membership", page: "BusinessPricing" },
   // { icon: Briefcase, label: "Trades Account", page: "TradesSignup" }, // HIDDEN - Can be re-enabled later
