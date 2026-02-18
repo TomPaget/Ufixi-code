@@ -793,7 +793,23 @@ export default function Home() {
         </div>
         </main>
 
+        {/* Banner Ad Space */}
+        {!user?.is_premium && (
+          <div
+            className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
+            style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(245,247,250,0.95) 30%)', paddingBottom: '8px', paddingTop: '20px' }}
+          >
+            <div
+              className="mx-4 w-full max-w-lg rounded-2xl flex items-center justify-center"
+              style={{ background: '#e8edf2', border: '1px dashed #c8d0da', height: '60px', maxWidth: '420px' }}
+            >
+              <span className="text-xs font-medium" style={{ color: '#9aa5b4' }}>Advertisement</span>
+            </div>
+          </div>
+        )}
+
         <BannerAd />
+        <PremiumModal open={showPremiumModal} onClose={() => setShowPremiumModal(false)} />
 
         {/* Payment Dialog */}
         <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
