@@ -394,7 +394,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
               )}>
                 Capture Media
               </h4>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <label className={cn(
                   "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
                   theme === "dark"
@@ -403,7 +403,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                 )}>
                   <input
                     type="file"
-                    accept="*/*"
+                    accept="image/*"
                     capture="environment"
                     className="hidden"
                     onChange={(e) => handleFileSelect("photo", e.target.files[0])}
@@ -425,7 +425,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                 )}>
                   <input
                     type="file"
-                    accept="*/*"
+                    accept="video/*"
                     capture="environment"
                     className="hidden"
                     onChange={(e) => handleFileSelect("video", e.target.files[0])}
@@ -436,27 +436,6 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                     theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
                   )}>
                     Record Video
-                  </span>
-                </label>
-
-                <label className={cn(
-                  "flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-colors",
-                  theme === "dark"
-                    ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
-                    : "border-slate-200 hover:bg-slate-50"
-                )}>
-                  <input
-                    type="file"
-                    accept="*/*"
-                    className="hidden"
-                    onChange={(e) => handleFileSelect("audio", e.target.files[0])}
-                  />
-                  <Mic className="w-6 h-6 mb-2 text-blue-500" />
-                  <span className={cn(
-                    "text-xs text-center",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                  )}>
-                    Record Audio
                   </span>
                 </label>
               </div>
