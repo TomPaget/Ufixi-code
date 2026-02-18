@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, Volume2, VolumeX } from "lucide-react";
+import { X, Volume2, VolumeX, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { base44 } from "@/api/base44Client";
@@ -60,6 +60,11 @@ export default function TimedAdBreak() {
       setAdsShown(prev => prev + 1);
       setTimeLeft(15);
     }
+  };
+
+  const handleRemoveAds = async () => {
+    // Redirect to checkout without closing the ad, keeping user context
+    window.location.href = '/upgrade?source=ad_break';
   };
 
   if (hasRemovedAds) return null;
@@ -131,9 +136,13 @@ export default function TimedAdBreak() {
                 {timeLeft > 0 ? `Continue in ${timeLeft}s` : "Continue"}
               </Button>
 
-              <p className="text-xs text-white/50">
-                Remove ads forever for just £3.99/month
-              </p>
+              <Button
+                onClick={handleRemoveAds}
+                className="w-full h-11 rounded-2xl font-semibold bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-900 flex items-center justify-center gap-2"
+              >
+                <Zap className="w-4 h-4" />
+                Remove Ads Forever - £3.99/month
+              </Button>
             </div>
           </motion.div>
         </motion.div>
