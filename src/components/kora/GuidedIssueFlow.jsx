@@ -897,410 +897,237 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
           : "bg-white border-slate-200"
       )}>
         <h3 className={cn(
-          "font-semibold mb-2 flex items-center gap-2",
+          "font-semibold mb-4 flex items-center gap-2",
           theme === "dark" ? "text-white" : "text-[#1E3A57]"
         )}>
           <Lightbulb className="w-5 h-5 text-[#F7B600]" />
-          AI Diagnostic Analysis
+          Analysis Results
         </h3>
-        <p className={cn(
-          "text-sm mb-6",
-          theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-        )}>
-          Comprehensive analysis with diagnostic steps, tools needed, and repair guidance
-        </p>
 
-        {/* Estimated Repair Time */}
-        {suggestions?.estimated_repair_time && (
-          <div className={cn(
-            "mb-6 p-4 rounded-xl border",
-            theme === "dark"
-              ? "bg-[#0F1E2E] border-[#57CFA4]/20"
-              : "bg-blue-50 border-blue-200"
-          )}>
-            <h4 className={cn(
-              "font-semibold mb-2 flex items-center gap-2",
-              theme === "dark" ? "text-[#57CFA4]" : "text-blue-900"
-            )}>
-              ⏱️ Estimated Repair Time
-            </h4>
-            <div className="space-y-1 text-sm">
-              {suggestions.estimated_repair_time.diy_time && (
-                <p className={cn(theme === "dark" ? "text-white" : "text-blue-800")}>
-                  <strong>DIY:</strong> {suggestions.estimated_repair_time.diy_time}
-                </p>
-              )}
-              {suggestions.estimated_repair_time.professional_time && (
-                <p className={cn(theme === "dark" ? "text-white" : "text-blue-800")}>
-                  <strong>Professional:</strong> {suggestions.estimated_repair_time.professional_time}
-                </p>
-              )}
-              {suggestions.estimated_repair_time.parts_delivery && (
-                <p className={cn(theme === "dark" ? "text-[#57CFA4]" : "text-blue-700")}>
-                  <strong>Parts delivery:</strong> {suggestions.estimated_repair_time.parts_delivery}
-                </p>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Likely Causes */}
-        <div className="mb-6">
-          <h4 className={cn(
-            "font-semibold mb-3",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-          )}>
-            🔍 Root Cause Analysis:
-          </h4>
-          <div className="space-y-3">
-            {suggestions?.likely_causes?.map((cause, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "p-3 rounded-xl border",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/20"
-                    : "bg-slate-50 border-slate-200"
-                )}
-              >
-                <p className={cn(
-                  "font-medium text-sm mb-1",
-                  theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                )}>
-                  {cause.cause}
-                </p>
-                <p className={cn(
-                  "text-xs mb-2",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                )}>
-                  {cause.details}
-                </p>
-                {cause.confirmation_signs && cause.confirmation_signs.length > 0 && (
-                  <div className="text-xs">
-                    <strong className={cn(theme === "dark" ? "text-white" : "text-slate-700")}>
-                      Confirmation signs:
-                    </strong>
-                    <ul className="mt-1 space-y-0.5">
-                      {cause.confirmation_signs.map((sign, j) => (
-                        <li key={j} className={cn(
-                          "flex items-start gap-1",
-                          theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                        )}>
-                          <span>•</span> {sign}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Diagnostic Steps */}
-        {suggestions?.diagnostic_steps && suggestions.diagnostic_steps.length > 0 && (
-          <div className="mb-6">
-            <h4 className={cn(
-              "font-semibold mb-3",
-              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-            )}>
-              🔬 Diagnostic Steps:
-            </h4>
-            <div className="space-y-3">
-              {suggestions.diagnostic_steps.map((step, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "p-3 rounded-xl border",
-                    theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/20"
-                      : "bg-slate-50 border-slate-200"
-                  )}
-                >
-                  <p className={cn(
-                    "font-medium text-sm mb-1",
-                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                  )}>
-                    Step {step.step_number}: {step.action}
-                  </p>
-                  {step.expected_result && (
-                    <p className={cn(
-                      "text-xs mb-1",
-                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                    )}>
-                      <strong>Expected:</strong> {step.expected_result}
-                    </p>
-                  )}
-                  {step.safety_note && (
-                    <p className="text-xs text-amber-600 mt-1">
-                      ⚠️ {step.safety_note}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Tools & Materials */}
-        {suggestions?.tools_and_materials && suggestions.tools_and_materials.length > 0 && (
-          <div className="mb-6">
-            <h4 className={cn(
-              "font-semibold mb-3 flex items-center gap-2",
-              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-            )}>
-              🛠️ Tools & Materials Needed:
-            </h4>
-            <div className="space-y-2">
-              {suggestions.tools_and_materials.map((item, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "p-3 rounded-xl border",
-                    theme === "dark"
-                      ? "bg-[#0F1E2E] border-[#57CFA4]/20"
-                      : "bg-slate-50 border-slate-200"
-                  )}
-                >
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <p className={cn(
-                      "font-medium text-sm flex items-center gap-2",
-                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                    )}>
-                      {item.essential && <span className="text-red-500">*</span>}
-                      {item.product_name}
-                    </p>
-                    {item.estimated_cost && (
-                      <span className={cn(
-                        "text-xs font-semibold",
-                        theme === "dark" ? "text-[#F7B600]" : "text-blue-600"
-                      )}>
-                        {item.estimated_cost}
-                      </span>
-                    )}
-                  </div>
-                  <p className={cn(
-                    "text-xs mb-2",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                  )}>
-                    {item.description}
-                  </p>
-                  <a
-                    href={item.amazon_search_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] px-3 py-1 rounded-lg transition-colors"
-                  >
-                    <ShoppingCart className="w-3 h-3" />
-                    Buy on Amazon
-                  </a>
-                </div>
-              ))}
-              {suggestions.tools_and_materials.some(item => item.essential) && (
-                <p className="text-xs text-amber-600 mt-2">* Essential items required for repair</p>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* DIY Quick Fixes */}
-        <div className="mb-6">
-          <h4 className={cn(
-            "font-semibold mb-3 flex items-center gap-2",
-            theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-          )}>
-            <Wrench className="w-4 h-4" />
-            Quick Fixes to Try:
-          </h4>
-          <div className="space-y-3">
-            {suggestions?.diy_quick_fixes?.map((fix, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "p-3 rounded-xl border",
-                  theme === "dark"
-                    ? "bg-[#0F1E2E] border-[#57CFA4]/20"
-                    : "bg-slate-50 border-slate-200"
-                )}
-              >
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <p className={cn(
-                    "font-medium text-sm",
-                    theme === "dark" ? "text-white" : "text-[#1E3A57]"
-                  )}>
-                    {i + 1}. {fix.action}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <span className={cn(
-                      "text-xs px-2 py-0.5 rounded",
-                      fix.difficulty === "Easy"
-                        ? "bg-green-100 text-green-700"
-                        : fix.difficulty === "Moderate"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                    )}>
-                      {fix.difficulty}
-                    </span>
-                    <span className={cn(
-                      "text-xs",
-                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-                    )}>
-                      {fix.estimated_time}
-                    </span>
-                  </div>
-                </div>
-                <p className={cn(
-                  "text-xs",
-                  theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
-                )}>
-                  {fix.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Manufacturer Resources */}
-        {suggestions?.manufacturer_resources && (
-          <div className="mb-6">
-            <h4 className={cn(
-              "font-semibold mb-3 flex items-center gap-2",
-              theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-            )}>
-              📚 Manufacturer Resources & Guides:
-            </h4>
-            <div className={cn(
-              "p-3 rounded-xl border",
+        <Accordion type="single" collapsible className="w-full space-y-2">
+          {/* Estimated Repair Time */}
+          {suggestions?.estimated_repair_time && (
+            <AccordionItem value="time" className={cn(
+              "border rounded-lg px-4",
               theme === "dark"
                 ? "bg-[#0F1E2E] border-[#57CFA4]/20"
                 : "bg-slate-50 border-slate-200"
             )}>
-              {suggestions.manufacturer_resources.brand_identified && (
-                <p className={cn(
-                  "text-sm mb-2",
-                  theme === "dark" ? "text-white" : "text-slate-700"
-                )}>
-                  <strong>Identified Brand:</strong> {suggestions.manufacturer_resources.brand_identified}
-                </p>
-              )}
-              
-              {suggestions.manufacturer_resources.manual_search_terms && suggestions.manufacturer_resources.manual_search_terms.length > 0 && (
-                <div className="mb-2">
-                  <p className={cn(
-                    "text-xs font-semibold mb-1",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-                  )}>
-                    Manual Search Terms:
-                  </p>
-                  <div className="flex flex-wrap gap-1">
-                    {suggestions.manufacturer_resources.manual_search_terms.map((term, i) => (
-                      <span
-                        key={i}
-                        className={cn(
-                          "text-xs px-2 py-0.5 rounded",
-                          theme === "dark"
-                            ? "bg-[#57CFA4]/20 text-[#57CFA4]"
-                            : "bg-blue-100 text-blue-700"
-                        )}
-                      >
-                        {term}
-                      </span>
-                    ))}
-                  </div>
+              <AccordionTrigger className={cn(
+                theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
+              )}>
+                ⏱️ How Long Will This Take?
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className={cn("space-y-2 text-sm", theme === "dark" ? "text-[#57CFA4]" : "text-slate-600")}>
+                  {suggestions.estimated_repair_time.diy_time && (
+                    <p><strong>If you do it yourself:</strong> {suggestions.estimated_repair_time.diy_time}</p>
+                  )}
+                  {suggestions.estimated_repair_time.professional_time && (
+                    <p><strong>If you hire someone:</strong> {suggestions.estimated_repair_time.professional_time}</p>
+                  )}
+                  {suggestions.estimated_repair_time.parts_delivery && (
+                    <p><strong>Getting parts:</strong> {suggestions.estimated_repair_time.parts_delivery}</p>
+                  )}
                 </div>
-              )}
+              </AccordionContent>
+            </AccordionItem>
+          )}
 
-              {suggestions.manufacturer_resources.youtube_search_terms && suggestions.manufacturer_resources.youtube_search_terms.length > 0 && (
-                <div className="mb-2">
-                  <p className={cn(
-                    "text-xs font-semibold mb-1",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
+          {/* Likely Causes */}
+          <AccordionItem value="causes" className={cn(
+            "border rounded-lg px-4",
+            theme === "dark"
+              ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+              : "bg-slate-50 border-slate-200"
+          )}>
+            <AccordionTrigger className={cn(
+              theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
+            )}>
+              🔍 What Caused This?
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-3">
+                {suggestions?.likely_causes?.map((cause, i) => (
+                  <div key={i} className={cn(
+                    "p-2 rounded border-l-2",
+                    theme === "dark"
+                      ? "border-[#57CFA4] bg-[#0F1E2E]/50"
+                      : "border-blue-300 bg-blue-50"
                   )}>
-                    Video Guide Search Terms:
-                  </p>
-                  <div className="space-y-1">
-                    {suggestions.manufacturer_resources.youtube_search_terms.map((term, i) => (
+                    <p className={cn(
+                      "font-medium text-sm",
+                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                    )}>
+                      {cause.cause}
+                    </p>
+                    <p className={cn(
+                      "text-xs mt-1",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                    )}>
+                      {cause.details}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* Diagnostic Steps */}
+          {suggestions?.diagnostic_steps && suggestions.diagnostic_steps.length > 0 && (
+            <AccordionItem value="steps" className={cn(
+              "border rounded-lg px-4",
+              theme === "dark"
+                ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                : "bg-slate-50 border-slate-200"
+            )}>
+              <AccordionTrigger className={cn(
+                theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
+              )}>
+                🔬 How to Check What's Wrong
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2">
+                  {suggestions.diagnostic_steps.map((step, i) => (
+                    <div key={i} className={cn(
+                      "p-2 rounded text-sm",
+                      theme === "dark"
+                        ? "bg-[#0F1E2E]/50"
+                        : "bg-blue-50"
+                    )}>
+                      <p className={cn(
+                        "font-medium",
+                        theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                      )}>
+                        Step {step.step_number}: {step.action}
+                      </p>
+                      {step.safety_note && (
+                        <p className="text-xs text-amber-600 mt-1">⚠️ {step.safety_note}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          )}
+
+          {/* Tools & Materials */}
+          {suggestions?.tools_and_materials && suggestions.tools_and_materials.length > 0 && (
+            <AccordionItem value="tools" className={cn(
+              "border rounded-lg px-4",
+              theme === "dark"
+                ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+                : "bg-slate-50 border-slate-200"
+            )}>
+              <AccordionTrigger className={cn(
+                theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
+              )}>
+                🛠️ What You'll Need
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2">
+                  {suggestions.tools_and_materials.slice(0, 5).map((item, i) => (
+                    <div key={i} className="text-sm">
+                      <div className="flex justify-between items-start mb-1">
+                        <p className={cn(
+                          "font-medium",
+                          theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                        )}>
+                          {item.product_name}
+                        </p>
+                        {item.estimated_cost && (
+                          <span className={cn(
+                            "text-xs font-semibold",
+                            theme === "dark" ? "text-[#F7B600]" : "text-blue-600"
+                          )}>
+                            {item.estimated_cost}
+                          </span>
+                        )}
+                      </div>
                       <a
-                        key={i}
-                        href={`https://www.youtube.com/results?search_query=${encodeURIComponent(term)}`}
+                        href={item.amazon_search_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={cn(
-                          "text-xs flex items-center gap-1 hover:underline",
-                          theme === "dark" ? "text-[#57CFA4]" : "text-blue-600"
-                        )}
+                        className="inline-flex items-center gap-1 text-xs bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] px-2 py-1 rounded transition-colors"
                       >
-                        <ExternalLink className="w-3 h-3" />
-                        {term}
+                        <ShoppingCart className="w-3 h-3" />
+                        Buy
                       </a>
-                    ))}
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          )}
+
+          {/* DIY Quick Fixes */}
+          <AccordionItem value="fixes" className={cn(
+            "border rounded-lg px-4",
+            theme === "dark"
+              ? "bg-[#0F1E2E] border-[#57CFA4]/20"
+              : "bg-slate-50 border-slate-200"
+          )}>
+            <AccordionTrigger className={cn(
+              theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
+            )}>
+              <Wrench className="w-4 h-4 mr-2" />
+              Quick Fixes to Try
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-2">
+                {suggestions?.diy_quick_fixes?.slice(0, 3).map((fix, i) => (
+                  <div key={i} className={cn(
+                    "p-2 rounded text-sm border-l-2",
+                    theme === "dark"
+                      ? "border-[#57CFA4] bg-[#0F1E2E]/50"
+                      : "border-green-300 bg-green-50"
+                  )}>
+                    <p className={cn(
+                      "font-medium",
+                      theme === "dark" ? "text-white" : "text-[#1E3A57]"
+                    )}>
+                      {fix.action}
+                    </p>
+                    <p className={cn(
+                      "text-xs mt-1",
+                      theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                    )}>
+                      {fix.description}
+                    </p>
+                    <p className={cn(
+                      "text-xs mt-1",
+                      fix.difficulty === "Easy" ? "text-green-700" : fix.difficulty === "Moderate" ? "text-amber-700" : "text-red-700"
+                    )}>
+                      {fix.difficulty} • {fix.estimated_time}
+                    </p>
                   </div>
-                </div>
-              )}
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
 
-              {suggestions.manufacturer_resources.support_website_suggestions && suggestions.manufacturer_resources.support_website_suggestions.length > 0 && (
-                <div className="mb-2">
-                  <p className={cn(
-                    "text-xs font-semibold mb-1",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-                  )}>
-                    Support Websites:
-                  </p>
-                  <ul className="space-y-0.5">
-                    {suggestions.manufacturer_resources.support_website_suggestions.map((site, i) => (
-                      <li key={i} className={cn(
-                        "text-xs",
-                        theme === "dark" ? "text-white" : "text-slate-600"
-                      )}>
-                        • {site}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {suggestions.manufacturer_resources.common_troubleshooting_topics && suggestions.manufacturer_resources.common_troubleshooting_topics.length > 0 && (
-                <div>
-                  <p className={cn(
-                    "text-xs font-semibold mb-1",
-                    theme === "dark" ? "text-[#57CFA4]" : "text-slate-700"
-                  )}>
-                    Common Troubleshooting Topics:
-                  </p>
-                  <ul className="space-y-0.5">
-                    {suggestions.manufacturer_resources.common_troubleshooting_topics.map((topic, i) => (
-                      <li key={i} className={cn(
-                        "text-xs",
-                        theme === "dark" ? "text-white" : "text-slate-600"
-                      )}>
-                        • {topic}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Warning Signs */}
-        <div className={cn(
-          "p-4 rounded-xl border-2 mb-6",
-          "bg-red-50 border-red-200"
-        )}>
-          <h4 className="font-semibold mb-2 text-red-800 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4" />
-            Call a Professional If:
-          </h4>
-          <ul className="space-y-1">
-            {suggestions?.call_pro_if?.map((warning, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-red-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
-                {warning}
-              </li>
-            ))}
-          </ul>
-        </div>
+          {/* Warning Signs */}
+          <AccordionItem value="warnings" className={cn(
+            "border rounded-lg px-4 border-red-300",
+            theme === "dark"
+              ? "bg-red-900/20"
+              : "bg-red-50"
+          )}>
+            <AccordionTrigger className="text-red-700 font-semibold">
+              ⚠️ When to Call a Professional
+            </AccordionTrigger>
+            <AccordionContent>
+              <ul className="space-y-1">
+                {suggestions?.call_pro_if?.slice(0, 4).map((warning, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-red-700">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
+                    {warning}
+                  </li>
+                ))}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         {/* Chatbot */}
         <IssueChatbot issueType={issueType} suggestions={suggestions} mediaUrl={mediaUrl} />
