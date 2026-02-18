@@ -22,14 +22,15 @@ export default function BannerAd() {
   if (!isVisible || user?.ads_removed || user?.subscription_tier === 'premium' || user?.account_type === 'business') return null;
 
   return (
-    <div 
+    <RippleButton
       onClick={() => navigate(createPageUrl("Upgrade"))}
-      className="fixed bottom-0 left-0 right-0 z-50 border-t shadow-lg cursor-pointer transition-all hover:shadow-xl"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t shadow-lg w-full text-left"
       style={{
-        background: 'linear-gradient(135deg, rgba(99,196,159,0.95) 0%, rgba(99,196,159,0.85) 100%)',
+        background: 'linear-gradient(135deg, rgba(63,174,131,0.97) 0%, rgba(99,196,159,0.97) 100%)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderColor: 'rgba(99,196,159,0.3)'
+        borderColor: 'rgba(99,196,159,0.3)',
+        boxShadow: '0 -4px 30px rgba(99,196,159,0.3)'
       }}
     >
       <div className="max-w-lg mx-auto px-5 py-3 flex items-center justify-between gap-3">
@@ -39,7 +40,7 @@ export default function BannerAd() {
           </div>
           <div className="flex-1">
             <p className="text-white text-sm font-bold">Remove Ads Forever</p>
-            <p className="text-white/90 text-xs">Just £3.99/month</p>
+            <p className="text-white/90 text-xs">Just £3.99/month · Go Premium</p>
           </div>
         </div>
         <button
@@ -52,6 +53,6 @@ export default function BannerAd() {
           <X className="w-4 h-4" />
         </button>
       </div>
-    </div>
+    </RippleButton>
   );
 }
