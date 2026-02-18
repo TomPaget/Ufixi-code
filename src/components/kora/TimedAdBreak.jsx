@@ -71,9 +71,16 @@ export default function TimedAdBreak() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm"
         >
-          <div className="max-w-lg w-full mx-4">
+          <motion.div
+            initial={{ scale: 0.88, y: 30 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.92, y: -20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 26 }}
+            className="max-w-lg w-full mx-4"
+          >
             {/* Ad Video Placeholder */}
             <div className="relative rounded-3xl overflow-hidden bg-slate-800 mb-6">
               <div className="aspect-video flex items-center justify-center bg-gradient-to-br from-slate-700 to-slate-900">
