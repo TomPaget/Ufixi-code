@@ -143,7 +143,7 @@ export default function HamburgerMenu({ isOpen, onClose }) {
                         ))}
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 ))}
               </nav>
 
