@@ -705,8 +705,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
             >
-              <div className="flex flex-col items-center gap-4">
-                      {/* Large Round Ripple Button */}
+              <div className="flex flex-col items-center gap-4 py-12">
                       <RippleButton
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                             className="w-40 h-40 rounded-full flex flex-col items-center justify-center gap-2 border-0 transition-transform active:scale-95"
@@ -724,8 +723,6 @@ export default function Home() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Quick Actions - Forum hidden, will be re-enabled later */}
 
         {/* Recent Issues */}
         <section>
