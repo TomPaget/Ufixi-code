@@ -225,15 +225,24 @@ Provide a COMPREHENSIVE diagnostic analysis in simple language:
    - Estimated time for each fix (e.g., "5-10 minutes")
    - Difficulty level: "Easy", "Moderate", or "Advanced"
 
-4. **Tools & Materials Needed** (4-8 mid-range, popular products)
-   - CRITICAL: Include SPECIFIC Amazon ASINs (product IDs) for MID-RANGE, POPULAR products
-   - NOT the cheapest, NOT the most expensive - recommend quality mid-range options
-   - Include estimated cost in local currency (£15-£150 range typically)
-   - MUST provide actual ASINs of real popular products
-   - Examples of good ASIN recommendations:
-     * For wrench set: B08PYCCYSH (Dekton 12-piece combo wrench set) - popular, mid-range
-     * For adjustable wrench: B0DV82RYSN (Stanley adjustable wrench) - trusted brand
-     * For socket set: B0B27ZF5RH (DeWalt 135-piece mechanics set) - quality, value
+4. **Tools & Materials Needed** (4-8 bestselling, universally-available products)
+   - ONLY recommend products that are guaranteed bestsellers on Amazon UK
+   - Examples of SAFE, bestselling products to recommend:
+     * Stanley tape measures (any size - always available)
+     * Stanley adjustable wrenches (any size - always in stock)
+     * DeWalt or Bosch drill sets (professional-grade bestsellers)
+     * Socket wrench sets by Stanley, Dekton, or Halfords
+     * Screwdriver sets (any major brand)
+     * Plumbing washers/seals kits (basic, always available)
+     * Caulk and sealants (DAP, Sikaflex - always available)
+     * WD-40 or 3-in-1 oil (household staples)
+     * Basic hand tool kits (any major brand)
+   - For EACH product, provide:
+     * Simple product name (e.g., "Stanley 8m tape measure")
+     * Estimated mid-range cost (£15-£100 typically)
+     * A simple search-friendly product name (no ASINs - search by name instead)
+   - Use generic search terms that will always find the product: "stanley tape measure", "adjustable wrench", etc.
+   - Focus on household name brands and universally-available items ONLY
 
 5. **Estimated Repair Time**
    - DIY time estimate (e.g., "30-60 minutes for beginner, 15-30 for experienced")
@@ -299,13 +308,13 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
               items: {
                 type: "object",
                 properties: {
-                  product_name: { type: "string" },
-                  description: { type: "string" },
-                  estimated_cost: { type: "string" },
-                  amazon_asin: { type: "string" },
-                  essential: { type: "boolean" }
-                },
-                required: ["product_name", "description", "amazon_asin"]
+                   product_name: { type: "string" },
+                   description: { type: "string" },
+                   estimated_cost: { type: "string" },
+                   search_term: { type: "string" },
+                   essential: { type: "boolean" }
+                 },
+                 required: ["product_name", "description", "search_term"]
               }
             },
             estimated_repair_time: {
@@ -1046,7 +1055,8 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
               <AccordionContent>
                 <div className="space-y-2">
                   {suggestions.tools_and_materials.slice(0, 5).map((item, i) => {
-                    const affiliateLink = `https://amazon.co.uk/dp/${item.amazon_asin}?tag=ufixi-21`;
+                    const searchTerm = encodeURIComponent(item.search_term || item.product_name);
+                    const affiliateLink = `https://amazon.co.uk/s?k=${searchTerm}&tag=ufixi-21`;
                     return (
                       <div key={i} className="text-sm">
                         <div className="flex justify-between items-start mb-1">
