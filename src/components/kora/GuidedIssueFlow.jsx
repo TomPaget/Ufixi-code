@@ -831,11 +831,11 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                   <div className="flex gap-4">
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="yes" id={`${q.id}-yes`} />
-                      <Label htmlFor={`${q.id}-yes`} className="cursor-pointer">Yes</Label>
+                      <Label htmlFor={`${q.id}-yes`} className={cn("cursor-pointer", theme === "dark" ? "text-white" : "text-[#1E3A57]")}>Yes</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="no" id={`${q.id}-no`} />
-                      <Label htmlFor={`${q.id}-no`} className="cursor-pointer">No</Label>
+                      <Label htmlFor={`${q.id}-no`} className={cn("cursor-pointer", theme === "dark" ? "text-white" : "text-[#1E3A57]")}>No</Label>
                     </div>
                   </div>
                 </RadioGroup>
