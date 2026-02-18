@@ -26,7 +26,10 @@ import {
   Clock,
   Search,
   AlertTriangle,
-  MessageCircle
+  MessageCircle,
+  Eye,
+  Hammer,
+  Zap
 } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
@@ -997,7 +1000,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                 "flex items-center gap-3",
                 theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
               )}>
-                <Search className="w-5 h-5 flex-shrink-0" />
+                <Eye className="w-5 h-5 flex-shrink-0" />
                 How to Check What's Wrong
               </AccordionTrigger>
               <AccordionContent>
@@ -1037,7 +1040,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                 "flex items-center gap-3",
                 theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
               )}>
-                <Wrench className="w-5 h-5 flex-shrink-0" />
+                <Tool className="w-5 h-5 flex-shrink-0" />
                 What You'll Need
               </AccordionTrigger>
               <AccordionContent>
@@ -1090,7 +1093,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
               "flex items-center gap-3",
               theme === "dark" ? "text-white hover:text-[#57CFA4]" : "text-[#1E3A57]"
             )}>
-              <Wrench className="w-5 h-5 flex-shrink-0" />
+              <Zap className="w-5 h-5 flex-shrink-0" />
               Quick Fixes to Try
             </AccordionTrigger>
             <AccordionContent>
