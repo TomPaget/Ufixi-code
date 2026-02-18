@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Plus, History, Menu, Sparkles, Users, Calendar, TrendingUp, Loader2, MessageCircle } from "lucide-react";
+import { Plus, History, Sparkles, Calendar, TrendingUp, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,7 @@ import OnboardingTour from "@/components/kora/OnboardingTour";
 import FeatureTooltip from "@/components/kora/FeatureTooltip";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { getGradientStyle, getBackdropFilter, getBoxShadow, getBorderColor } from "@/components/kora/gradientThemes";
+
 
 const FREE_SCAN_LIMIT = 2;
 
