@@ -543,7 +543,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
         <Button
           variant="outline"
           onClick={onCancel}
-          className="w-full mt-4 border-white text-white hover:bg-white/10 hover:text-white"
+          className="w-full mt-4 border-white text-white bg-[#1a2f42] hover:bg-[#1a2f42]/90 hover:text-white"
         >
           Cancel
         </Button>
