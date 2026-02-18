@@ -850,7 +850,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
                     {q.options.map((option, i) => (
                       <div key={i} className="flex items-center space-x-2">
                         <RadioGroupItem value={option} id={`${q.id}-${i}`} />
-                        <Label htmlFor={`${q.id}-${i}`} className="cursor-pointer">{option}</Label>
+                        <Label htmlFor={`${q.id}-${i}`} className={cn("cursor-pointer", theme === "dark" ? "text-white" : "text-[#1E3A57]")}>{option}</Label>
                       </div>
                     ))}
                   </div>
