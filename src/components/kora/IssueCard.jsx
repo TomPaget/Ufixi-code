@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { ChevronRight, Image, Video, Mic, DollarSign, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { createPageUrl } from "@/utils";
 import UrgencyBadge from "./UrgencyBadge";
 import SeverityBadge from "./SeverityBadge";

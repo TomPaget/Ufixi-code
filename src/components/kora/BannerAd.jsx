@@ -1,4 +1,5 @@
 import { X, Zap } from "lucide-react";
+import RippleButton from "./RippleButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
