@@ -659,27 +659,27 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="grid grid-cols-3 gap-3"
           >
-            <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
-              <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
-              <p className="text-xl font-bold text-[#1a2f42]">
-                {issues.filter(i => i.status === "active").length}
-              </p>
-              <p className="text-xs text-[#1a2f42]/80 font-semibold">Active</p>
-            </div>
-            <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
-              <Calendar className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
-              <p className="text-xl font-bold text-[#1a2f42]">
-                {issues.filter(i => i.urgency === "fix_soon").length}
-              </p>
-              <p className="text-xs text-[#1a2f42]/80 font-semibold">Fix Soon</p>
-            </div>
-            <div className="rounded-2xl p-4 text-center border bg-white/60 backdrop-blur-md border-slate-200">
-              <History className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
-              <p className="text-xl font-bold text-[#1a2f42]">
-                {issues.filter(i => i.status === "resolved").length}
-              </p>
-              <p className="text-xs text-[#1a2f42]/80 font-semibold">Resolved</p>
-            </div>
+            <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
+                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#4BC896]" />
+                <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
+                  {issues.filter(i => i.status === "active").length}
+                </p>
+                <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Active</p>
+              </div>
+              <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
+                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#4BC896]" />
+                <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
+                  {issues.filter(i => i.urgency === "fix_soon").length}
+                </p>
+                <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Fix Soon</p>
+              </div>
+              <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
+                <History className="w-5 h-5 mx-auto mb-1 text-[#4BC896]" />
+                <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
+                  {issues.filter(i => i.status === "resolved").length}
+                </p>
+                <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Resolved</p>
+              </div>
           </motion.div>
         )}
 
