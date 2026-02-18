@@ -30,15 +30,17 @@ export default function Header({ onMenuClick }) {
       <div className="max-w-lg mx-auto px-5 flex items-center justify-between">
         <button
           onClick={onMenuClick}
-          className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10 hover:bg-white/20 text-white transition-all active:scale-90"
+          className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
+          style={{ color: '#1a2f42' }}
         >
           <Menu className="w-5 h-5" />
         </button>
         
         <img 
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/6a68f8c56_ufixi_GreenBlue_RGB.png"
           alt="Ufixi Logo"
           className={`object-contain transition-all duration-300 ${isScrolled ? 'h-6' : 'h-8'}`}
+          onError={e => { e.target.src = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"; }}
         />
 
         <NotificationBell />
