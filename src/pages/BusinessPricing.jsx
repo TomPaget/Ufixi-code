@@ -6,10 +6,9 @@ import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
+import PageHeader from "@/components/kora/PageHeader";
 import {
-  Menu,
   Building2,
   CheckCircle2,
   Sparkles,
