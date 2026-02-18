@@ -25,13 +25,14 @@ import HamburgerMenu from "@/components/kora/HamburgerMenu";
 const plans = [
   {
     name: "Starter",
-    price: 9.99,
+    price: 12.99,
     icon: Building2,
     color: "from-slate-900 to-slate-950",
     features: [
       "Up to 5 team members",
       "No ads on app",
       "Unlimited property scans",
+      "2x faster scans than free",
       "Instant AI diagnostics",
       "Cost estimates for repairs",
       "Mobile app access"
@@ -46,6 +47,7 @@ const plans = [
     features: [
       "Everything in Starter",
       "Up to 10 team members",
+      "3x faster scans than free",
       "Priority support",
       "Priority AI analysis",
       "Detailed repair reports",
@@ -61,6 +63,7 @@ const plans = [
     features: [
       "Everything in Professional",
       "Up to 25 team members",
+      "5x faster scans than free",
       "No ads on app",
       "Advanced analytics dashboard",
       "Priority support",
