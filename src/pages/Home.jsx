@@ -705,21 +705,21 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
             >
-              <div className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center gap-4">
                       {/* Large Round Ripple Button */}
                       <RippleButton
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
-                            className="w-28 h-28 rounded-full flex flex-col items-center justify-center gap-1 border-0 transition-transform active:scale-95"
+                            className="w-40 h-40 rounded-full flex flex-col items-center justify-center gap-2 border-0 transition-transform active:scale-95"
                             style={{
                               background: 'linear-gradient(145deg, #4BC896 0%, #2eaf7d 100%)',
-                              boxShadow: '0 0 0 12px rgba(75,200,150,0.12), 0 0 0 24px rgba(75,200,150,0.06), 0 8px 32px rgba(75,200,150,0.35)',
+                              boxShadow: '0 0 0 16px rgba(75,200,150,0.12), 0 0 0 32px rgba(75,200,150,0.06), 0 8px 40px rgba(75,200,150,0.4)',
                               color: '#fff'
                             }}
                           >
-                            <Plus className="w-9 h-9 text-white" strokeWidth={2.5} />
-                            <span className="text-xs font-bold text-white tracking-wide">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
+                            <Plus className="w-12 h-12 text-white" strokeWidth={2.5} />
+                            <span className="text-sm font-bold text-white tracking-wide">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
                           </RippleButton>
-                          <p className="text-sm font-medium mt-1" style={{ color: '#6B7A8D' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
+                          <p className="text-sm font-medium" style={{ color: '#6B7A8D' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
                     </div>
             </motion.div>
           )}
