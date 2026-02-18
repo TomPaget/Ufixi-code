@@ -756,33 +756,23 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
             >
-              <div
-                onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
-                className="w-full h-16 rounded-2xl font-semibold cursor-pointer flex items-center justify-center gap-2 border-2 relative overflow-hidden group transition-all hover:scale-[1.02]"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(99,196,159,0.25) 0%, rgba(99,196,159,0.15) 40%, rgba(99,196,159,0.08) 100%)',
-                  backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-                  WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-                  boxShadow: 'inset -1px -1px 3px rgba(0,0,0,0.1), inset 1px 1px 4px rgba(255,255,255,0.9), 0 10px 40px rgba(31,65,100,0.15)',
-                  borderColor: 'rgba(99,196,159,0.5)',
-                  color: '#63c49f'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(99,196,159,0.35) 0%, rgba(99,196,159,0.25) 40%, rgba(99,196,159,0.15) 100%)';
-                  e.currentTarget.style.borderColor = 'rgba(99,196,159,0.7)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(99,196,159,0.25) 0%, rgba(99,196,159,0.15) 40%, rgba(99,196,159,0.08) 100%)';
-                  e.currentTarget.style.borderColor = 'rgba(99,196,159,0.5)';
-                }}
-              >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity" style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%)',
-                  pointerEvents: 'none'
-                }} />
-                <Plus className="w-5 h-5 relative z-10" style={{ color: '#63c49f' }} />
-                <span className="relative z-10 text-base" style={{ color: '#63c49f' }}>{needsPayment ? 'Pay £0.99 to Scan' : 'Scan New Issue'}</span>
-              </div>
+              <div className="flex flex-col items-center gap-3">
+                      {/* Large Round Ripple Button */}
+                      <RippleButton
+                        onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
+                        className="w-28 h-28 rounded-full flex flex-col items-center justify-center gap-1 border-2 transition-transform active:scale-95"
+                        style={{
+                          background: 'linear-gradient(145deg, rgba(99,196,159,0.9) 0%, rgba(63,174,131,0.95) 100%)',
+                          boxShadow: '0 0 0 12px rgba(99,196,159,0.15), 0 0 0 24px rgba(99,196,159,0.07), 0 8px 32px rgba(99,196,159,0.4)',
+                          borderColor: 'rgba(255,255,255,0.4)',
+                          color: '#fff'
+                        }}
+                      >
+                        <Plus className="w-8 h-8 text-white" />
+                        <span className="text-xs font-semibold text-white">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
+                      </RippleButton>
+                      <p className="text-white/80 text-sm font-medium">{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
+                    </div>
             </motion.div>
           )}
         </AnimatePresence>
