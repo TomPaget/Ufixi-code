@@ -724,32 +724,7 @@ export default function Home() {
           )}
         </AnimatePresence>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 gap-3">
-          {/* HIDDEN - Can be re-enabled later
-          <Link to={createPageUrl("FindTradesmen")}>
-            <div className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center hover:shadow-lg transition-all cursor-pointer group">
-              <Users className="w-5 h-5 text-[#63c49f]" />
-              <span className="text-sm font-semibold text-white">Contractors</span>
-            </div>
-          </Link>
-          */}
-          <Link to={createPageUrl("Forum")} className="block">
-              <RippleButton
-                className="w-full h-20 rounded-2xl flex flex-col gap-2 border-2 items-center justify-center transition-transform active:scale-95"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.12) 100%)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  boxShadow: '0 4px 24px rgba(31,65,100,0.12)',
-                  borderColor: 'rgba(255,255,255,0.35)',
-                }}
-              >
-                <MessageCircle className="w-5 h-5 text-[#63c49f]" />
-                <span className="text-sm font-semibold text-white">Forum</span>
-              </RippleButton>
-            </Link>
-        </div>
+        {/* Quick Actions - Forum hidden, will be re-enabled later */}
 
         {/* Recent Issues */}
         <section>
