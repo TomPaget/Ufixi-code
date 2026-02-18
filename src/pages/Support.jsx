@@ -208,12 +208,7 @@ export default function Support() {
                   <Bot className="w-5 h-5 text-white" />
                 </div>
               )}
-              <div className={cn(
-                "max-w-[80%] rounded-2xl px-4 py-3",
-                msg.role === "user"
-                  ? "bg-[#1E3A57] text-white"
-                  : "bg-white/30 backdrop-blur-md border-2 border-[#1E3A57]/20 text-white"
-              )}>
+              <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${msg.role === "user" ? "bg-[#1a2f42] text-white" : "bg-white border border-slate-100 shadow-sm"}`} style={msg.role === "assistant" ? { color: '#1a2f42' } : {}}>
                 {msg.role === "assistant" ? (
                   <ReactMarkdown className="text-sm prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
                     {msg.content}
@@ -262,8 +257,8 @@ export default function Support() {
 
         {/* Rating Widget */}
         {showRating && !hasRated && messages.length > 2 && (
-          <div className="mt-4 p-4 rounded-2xl border-2 mx-4 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
-            <p className="text-sm font-semibold mb-3 text-white">
+          <div className="mt-4 p-4 rounded-2xl border mx-4 bg-white border-slate-100 shadow-sm">
+            <p className="text-sm font-semibold mb-3" style={{ color: '#1a2f42' }}>
               💬 How helpful was this interaction?
             </p>
             <div className="flex gap-2">
@@ -288,7 +283,7 @@ export default function Support() {
         )}
       </main>
 
-      <div className="sticky bottom-0 border-t-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
+      <div className="sticky bottom-0 border-t bg-white border-slate-100 shadow-md">
         <div className="max-w-lg mx-auto px-5 py-4">
           {/* Attachments Preview */}
           {attachments.length > 0 && (
@@ -296,7 +291,8 @@ export default function Support() {
               {attachments.map((file, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm border bg-slate-50 border-slate-200 text-white"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm border bg-slate-50 border-slate-200"
+                  style={{ color: '#1a2f42' }}
                 >
                   {file.type === "image" ? (
                     <ImageIcon className="w-4 h-4 text-[#57CFA4]" />
@@ -329,7 +325,8 @@ export default function Support() {
               size="icon"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading || sending}
-              className="rounded-xl border-slate-200 text-white hover:bg-slate-50"
+              className="rounded-xl border-slate-200 hover:bg-slate-50"
+              style={{ color: '#1a2f42' }}
             >
               {uploading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -343,12 +340,12 @@ export default function Support() {
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
               disabled={sending}
-              className="flex-1 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/30 text-white"
+              className="flex-1 border border-slate-200"
             />
             <Button
               onClick={handleSend}
               disabled={(!input.trim() && attachments.length === 0) || sending}
-              className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] rounded-xl px-6"
+              className="bg-[#4BC896] hover:bg-[#2eaf7d] text-white rounded-xl px-6"
             >
               {sending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
