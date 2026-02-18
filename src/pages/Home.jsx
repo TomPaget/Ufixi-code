@@ -786,7 +786,9 @@ export default function Home() {
         </section>
 
         {/* Disclaimer */}
-        <Disclaimer />
+        <div className="mt-auto pt-4">
+          <Disclaimer />
+        </div>
         </main>
 
         <BannerAd />
