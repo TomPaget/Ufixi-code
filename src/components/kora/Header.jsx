@@ -44,7 +44,19 @@ export default function Header({ onMenuClick, onGoPremium }) {
           className={`object-contain transition-all duration-300 ${isScrolled ? 'h-6' : 'h-8'}`}
         />
 
-        <NotificationBell />
+        <div className="flex items-center gap-2">
+          {!user?.is_premium && (
+            <button
+              onClick={onGoPremium}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95"
+              style={{ background: 'linear-gradient(135deg, #4BC896, #2eaf7d)', color: '#fff', boxShadow: '0 2px 8px rgba(75,200,150,0.35)' }}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Go Premium
+            </button>
+          )}
+          <NotificationBell />
+        </div>
       </div>
     </motion.header>
   );
