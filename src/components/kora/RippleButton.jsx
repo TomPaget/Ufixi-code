@@ -70,6 +70,10 @@ export default function RippleButton({ onClick, children, className, style, disa
           0%, 100% { transform: scale(0.85); opacity: 0.1; }
           50% { transform: scale(1.12); opacity: 0.4; }
         }
+        @keyframes breatheShadow {
+          0%, 100% { box-shadow: 0 0 0 16px rgba(75,200,150,0.12), 0 0 0 32px rgba(75,200,150,0.06), 0 8px 40px rgba(75,200,150,0.4); }
+          50% { box-shadow: 0 0 0 24px rgba(75,200,150,0.18), 0 0 0 48px rgba(75,200,150,0.09), 0 12px 60px rgba(75,200,150,0.6); }
+        }
       `}</style>
       {ripples.map(ripple => (
         <span
