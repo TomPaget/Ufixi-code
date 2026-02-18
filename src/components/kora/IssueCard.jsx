@@ -57,12 +57,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
         style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
         <div className="flex gap-4">
           {issue.media_url && issue.media_type === "photo" ? (
-            <div className={cn(
-              "w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border-2",
-              theme === "dark"
-                ? "bg-[#1E3A57] border-[#57CFA4]/30"
-                : "bg-slate-100 border-slate-300"
-            )}>
+            <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100">
               <img 
                 src={issue.media_url} 
                 alt={issue.title}
@@ -70,16 +65,8 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
               />
             </div>
           ) : (
-            <div className={cn(
-              "w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 border-2",
-              theme === "dark"
-                ? "bg-[#1E3A57] border-[#57CFA4]/30"
-                : "bg-slate-100 border-slate-300"
-            )}>
-              <MediaIcon className={cn(
-                "w-6 h-6",
-                theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-              )} />
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#4BC896]/10">
+              <MediaIcon className="w-6 h-6 text-[#4BC896]" />
             </div>
           )}
           
