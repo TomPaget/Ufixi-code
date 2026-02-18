@@ -39,7 +39,7 @@ const businessMenuItems = [
   { icon: LayoutDashboard, label: "Property Issues", page: "PropertyIssues" },
   { icon: Users, label: "Team Management", page: "TeamManagement" },
   { icon: Settings, label: "Integrations", page: "Integrations" },
-  { icon: Mail, label: "Messages", page: "Messages" },
+  // { icon: Mail, label: "Messages", page: "Messages" }, // HIDDEN - Will be re-enabled later
   { icon: Settings, label: "My Account", page: "Settings" }
 ];
 
