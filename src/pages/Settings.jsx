@@ -386,12 +386,7 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 }}
-              className={cn(
-                "rounded-2xl p-5 border",
-                theme === "dark" ?
-                "bg-slate-800 border-slate-700/50" :
-                "bg-white border-slate-200"
-              )}>
+              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
 
           <h3 className={cn(
                 "font-semibold mb-4",
