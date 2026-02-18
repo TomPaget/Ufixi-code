@@ -192,64 +192,8 @@ export default function Support() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
-        <div className="absolute inset-0 bg-white/5" />
-      </div>
-      
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
-          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
-          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-slow {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
-          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-reverse {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
-          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        .animate-gradient-shift {
-          animation: gradient-shift 12s ease-in-out infinite;
-        }
-        .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 15s ease-in-out infinite;
-        }
-        .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 13s ease-in-out infinite;
-        }
-      `}</style>
-      
-      <header className="sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20">
-        <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-center relative">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute left-5 rounded-xl hover:bg-white/20 text-white"
-            onClick={() => setMenuOpen(true)}
-          >
-            <Menu className="w-5 h-5" />
-          </Button>
-          <img 
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"
-            alt="Ufixi Logo"
-            className="h-8 object-contain"
-          />
-        </div>
-      </header>
-
+    <div className="min-h-screen flex flex-col bg-[#F5F7FA]">
+      <PageHeader onMenuClick={() => setMenuOpen(true)} />
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <main className="flex-1 max-w-lg mx-auto w-full px-5 py-6 overflow-y-auto">
