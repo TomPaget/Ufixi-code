@@ -729,48 +729,63 @@ export default function Home() {
 
         {/* Recent Issues */}
         <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold flex items-center gap-2" style={{ color: '#1a2f42' }}>
+          <button
+            onClick={() => setShowRecentIssues(!showRecentIssues)}
+            className="w-full flex items-center justify-between p-4 rounded-2xl bg-white border border-slate-100 shadow-sm transition-all hover:shadow-md active:scale-[0.99]"
+          >
+            <span className="font-bold flex items-center gap-2" style={{ color: '#1a2f42' }}>
               <History className="w-5 h-5 text-[#4BC896]" />
               Recent Issues
-            </h2>
-            <Link 
-              to={createPageUrl("History")}
-              className="text-sm font-semibold text-[#4BC896] hover:text-[#2eaf7d] transition-colors"
-            >
-              View All
-            </Link>
-          </div>
+              {issues.length > 0 && (
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#4BC896]/10 text-[#4BC896]">{issues.length}</span>
+              )}
+            </span>
+            {showRecentIssues ? (
+              <ChevronUp className="w-5 h-5 text-slate-400" />
+            ) : (
+              <ChevronDown className="w-5 h-5 text-slate-400" />
+            )}
+          </button>
 
-          {issuesLoading ? (
-            <div className="space-y-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="rounded-2xl h-24 animate-pulse bg-white/50 backdrop-blur-md" />
-              ))}
-            </div>
-          ) : issues.length > 0 ? (
-            <div className="space-y-3">
-              {issues.map((issue) => (
-                <IssueCard key={issue.id} issue={issue} />
-              ))}
-            </div>
-          ) : (
-            <div 
-              className="text-center py-12 rounded-3xl border border-slate-100 bg-white"
-              style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}
-            >
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{
-                background: 'rgba(75, 200, 150, 0.1)',
-                border: '1px solid rgba(75, 200, 150, 0.2)',
-              }}>
-                <Sparkles className="w-8 h-8 text-[#4BC896]" />
-              </div>
-              <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues scanned yet</p>
-              <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>
-                Tap the button above to get started
-              </p>
-            </div>
-          )}
+          <AnimatePresence>
+            {showRecentIssues && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="pt-3 space-y-3">
+                  {issuesLoading ? (
+                    [1, 2, 3].map((i) => (
+                      <div key={i} className="rounded-2xl h-24 animate-pulse bg-white/50" />
+                    ))
+                  ) : issues.length > 0 ? (
+                    <>
+                      {issues.map((issue) => (
+                        <IssueCard key={issue.id} issue={issue} />
+                      ))}
+                      <Link
+                        to={createPageUrl("History")}
+                        className="block text-center text-sm font-semibold text-[#4BC896] hover:text-[#2eaf7d] py-2 transition-colors"
+                      >
+                        View All Issues →
+                      </Link>
+                    </>
+                  ) : (
+                    <div className="text-center py-12 rounded-3xl border border-slate-100 bg-white" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(75, 200, 150, 0.1)', border: '1px solid rgba(75, 200, 150, 0.2)' }}>
+                        <Sparkles className="w-8 h-8 text-[#4BC896]" />
+                      </div>
+                      <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues scanned yet</p>
+                      <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>Tap the button above to get started</p>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
 
         {/* Disclaimer */}
