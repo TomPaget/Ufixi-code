@@ -129,118 +129,22 @@ export default function BusinessPricing() {
   };
 
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
-        <div className="absolute inset-0 bg-white/1" />
-      </div>
-      
-      <style jsx>{`
-        @keyframes shine {
-          0%, 100% { background-position: 0% 0%, 0% 50%; }
-          50% { background-position: 100% 100%, 100% 50%; }
-        }
-        @keyframes gradientFlow {
-          0%, 100% { background-position: 0% 0%, 0% 0%; }
-          50% { background-position: 100% 100%, 100% 100%; }
-        }
-        @keyframes gradient-shift {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
-          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
-          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-slow {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
-          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-reverse {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
-          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes liquidBorder {
-          0% { 
-            border-color: #57CFA4;
-            box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), 
-                       inset 1px 1px 4px rgba(255,255,255,0.9),
-                       0 0 0 3px rgba(87,207,164,0.4),
-                       0 0 20px rgba(87,207,164,0.6),
-                       0 10px 40px rgba(31,65,100,0.15);
-          }
-          50% { 
-            border-color: #4ADE80;
-            box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), 
-                       inset 1px 1px 4px rgba(255,255,255,0.9),
-                       0 0 0 4px rgba(74,222,128,0.5),
-                       0 0 30px rgba(74,222,128,0.8),
-                       0 10px 40px rgba(31,65,100,0.15);
-          }
-          100% { 
-            border-color: #57CFA4;
-            box-shadow: inset -1px -1px 3px rgba(0,0,0,0.1), 
-                       inset 1px 1px 4px rgba(255,255,255,0.9),
-                       0 0 0 3px rgba(87,207,164,0.4),
-                       0 0 20px rgba(87,207,164,0.6),
-                       0 10px 40px rgba(31,65,100,0.15);
-          }
-        }
-        .animate-gradient-shift {
-          animation: gradient-shift 8s ease-in-out infinite;
-        }
-        .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 10s ease-in-out infinite;
-        }
-        .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 9s ease-in-out infinite;
-        }
-      `}</style>
-      
-      {/* Header */}
-      <header className="sticky top-0 z-30 border-b bg-white/10 backdrop-blur-md border-white/20">
-        <div className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-center relative">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setMenuOpen(true)}
-            className="absolute left-5 rounded-xl hover:bg-slate-100 text-white"
-          >
-            <Menu className="w-5 h-5" />
-          </Button>
-          <img 
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/8a320ec2d_ufixi_White_RGB.png"
-            alt="Ufixi Logo"
-            className="h-8 object-contain"
-          />
-        </div>
-      </header>
-
+    <div className="min-h-screen pb-20 bg-[#F5F7FA]">
+      <PageHeader onMenuClick={() => setMenuOpen(true)} />
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-gradient-to-r from-green-300/10 to-yellow-400/10 border-yellow-400/30 text-white">
-            <Building2 className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-[#4BC896]/10 border-[#4BC896]/20" style={{ color: '#1a2f42' }}>
+            <Building2 className="w-4 h-4 text-[#4BC896]" />
             <span className="text-sm font-semibold">For Estate Agents & Businesses</span>
           </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-[#1E3A57]" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
-            <span style={{ fontWeight: "normal", fontFamily: "'Coolvetica', sans-serif", color: "white" }}>Property Issues?</span>
-            <br />
-            <span style={{ fontFamily: "'Coolvetica', sans-serif", background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 25%, transparent 50%, rgba(255, 255, 255, 0.3) 75%, transparent 100%), linear-gradient(135deg, #90EE90 0%, rgba(255, 255, 255, 0.7) 15%, #F0D9E6 28%, #ADD8E6 50%, #F0D9E6 72%, rgba(255, 255, 255, 0.7) 85%, #90EE90 100%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundSize: '200% 200%, 200% 200%', backgroundPosition: '0% 0%, 0% 50%', animation: 'shine 3s ease-in-out infinite, gradientFlow 4s ease-in-out infinite', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-              Instant Answers.
-            </span>
+          <h1 className="text-4xl md:text-5xl font-bold" style={{ color: '#1a2f42' }}>
+            Property Issues?<br />
+            <span style={{ color: '#4BC896' }}>Instant Answers.</span>
           </h1>
-          
-          <p className="text-lg max-w-2xl mx-auto text-white font-medium">
+          <p className="text-lg max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
             See a problem during a viewing? Need a quick explanation for your client? 
             UFixi gives you instant, professional property diagnostics on the spot.
           </p>
@@ -248,91 +152,48 @@ export default function BusinessPricing() {
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-16 items-center">
-           {plans.map((plan) => {
+          {plans.map((plan) => {
             const Icon = plan.icon;
             const isSelected = selectedPlan?.name === plan.name;
-
             return (
               <div
                 key={plan.name}
                 className={cn(
-                  "relative rounded-3xl border-2 transition-all cursor-pointer group",
-                  plan.popular ? "p-6 pt-12" : "p-6",
-                  "bg-gradient-to-br from-white/40 via-white/20 to-white/10",
-                  "backdrop-blur-xl backdrop-saturate-200",
-                  "shadow-lg shadow-white/20",
-                  isSelected
-                    ? "border-[#57CFA4]/60 shadow-2xl shadow-[#57CFA4]/30 scale-105"
-                    : "border-white/30 hover:border-white/50 hover:shadow-xl hover:shadow-white/20",
-                  plan.popular && "md:scale-105 md:z-10 shadow-2xl"
+                  "relative rounded-3xl border-2 transition-all cursor-pointer p-6 bg-white shadow-sm",
+                  plan.popular ? "pt-12" : "",
+                  isSelected ? "border-[#4BC896] shadow-lg shadow-[#4BC896]/20 scale-105" : "border-slate-100 hover:border-[#4BC896]/40 hover:shadow-md",
+                  plan.popular && "md:scale-105 md:z-10"
                 )}
                 onClick={() => handleSelectPlan(plan)}
-                style={{
-                  background: `linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.2) 100%), 
-                               radial-gradient(circle at 25% 25%, rgba(255,255,255,0.9) 0%, transparent 40%),
-                               radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 0%, transparent 50%)`,
-                  backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-                  WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-                  boxShadow: plan.popular 
-                    ? `inset -1px -1px 3px rgba(0,0,0,0.1), 
-                       inset 1px 1px 4px rgba(255,255,255,0.9),
-                       0 0 0 3px rgba(87,207,164,0.4),
-                       0 0 20px rgba(87,207,164,0.6),
-                       0 10px 40px rgba(31,65,100,0.15),
-                       0 1px 3px rgba(255,255,255,0.4),
-                       inset 0 -1px 0px rgba(0,0,0,0.08)`
-                    : `inset -1px -1px 3px rgba(0,0,0,0.1), 
-                       inset 1px 1px 4px rgba(255,255,255,0.9),
-                       0 10px 40px rgba(31,65,100,0.15),
-                       0 1px 3px rgba(255,255,255,0.4),
-                       inset 0 -1px 0px rgba(0,0,0,0.08)`,
-                  border: plan.popular ? '3px solid #57CFA4' : '1px solid rgba(255,255,255,0.5)',
-                  animation: plan.popular ? 'liquidBorder 3s ease-in-out infinite' : 'none'
-                }}
               >
                 {plan.popular && (
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 w-full flex justify-center px-4">
-                    <span className="bg-gradient-to-r from-[#F7B600] to-[#57CFA4] text-[#0F1E2E] px-4 py-1.5 rounded-full text-sm font-bold shadow-lg border border-white whitespace-nowrap">
+                    <span className="bg-[#4BC896] text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap">
                       Most Popular
                     </span>
                   </div>
                 )}
-
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6" style={{ color: '#63c49f' }} />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[#4BC896]/10">
+                  <Icon className="w-6 h-6 text-[#4BC896]" />
                 </div>
-
-                <h3 className="text-xl font-bold mb-2" style={{ color: '#1a2f42' }}>
-                  {plan.name}
-                </h3>
-
+                <h3 className="text-xl font-bold mb-2" style={{ color: '#1a2f42' }}>{plan.name}</h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold" style={{ color: '#1a2f42' }}>
-                    £{plan.price}
-                  </span>
-                  <span className="text-sm font-medium" style={{ color: '#1a2f42' }}>
-                    /month
-                  </span>
+                  <span className="text-4xl font-bold" style={{ color: '#1a2f42' }}>£{plan.price}</span>
+                  <span className="text-sm font-medium" style={{ color: '#6B7A8D' }}>/month</span>
                 </div>
-
                 <ul className="space-y-3 mb-6">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#63c49f' }} />
-                      <span className="text-sm font-medium" style={{ color: '#1a2f42' }}>
-                        {feature}
-                      </span>
+                      <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#4BC896]" />
+                      <span className="text-sm font-medium" style={{ color: '#1a2f42' }}>{feature}</span>
                     </li>
                   ))}
                 </ul>
-
                 <Button
                   onClick={() => handleSelectPlan(plan)}
                   className={cn(
                     "w-full font-semibold",
-                    isSelected
-                      ? "bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E]"
-                      : "bg-[#1E3A57] hover:bg-[#1E3A57]/90 text-white"
+                    isSelected ? "bg-[#4BC896] hover:bg-[#2eaf7d] text-white" : "bg-[#1a2f42] hover:bg-[#1a2f42]/90 text-white"
                   )}
                 >
                   {isSelected ? "Selected" : "Select Plan"}
@@ -349,66 +210,33 @@ export default function BusinessPricing() {
             { icon: Clock, text: "Get instant cost estimates" },
             { icon: BarChart3, text: "Build trust with clients" }
           ].map((item, i) => (
-            <div
-              key={i}
-              className="p-4 rounded-xl border-2 bg-white/30 backdrop-blur-md border-[#1E3A57]/20"
-            >
-              <item.icon className="w-8 h-8 mx-auto mb-2 text-white" />
-              <p className="text-sm font-semibold text-white">
-                {item.text}
-              </p>
+            <div key={i} className="p-5 rounded-2xl border bg-white border-slate-100 shadow-sm text-center">
+              <item.icon className="w-8 h-8 mx-auto mb-2 text-[#4BC896]" />
+              <p className="text-sm font-semibold" style={{ color: '#1a2f42' }}>{item.text}</p>
             </div>
           ))}
         </div>
 
         {/* Company Details Form */}
         {selectedPlan && (
-          <div className="max-w-2xl mx-auto rounded-2xl border-2 p-8 bg-white/60 backdrop-blur-md border-[#1E3A57]/20">
-            <h2 className="text-2xl font-bold mb-6 text-white">
-              Complete Your Subscription
-            </h2>
-
+          <div className="max-w-2xl mx-auto rounded-2xl border p-8 bg-white border-slate-100 shadow-sm">
+            <h2 className="text-2xl font-bold mb-6" style={{ color: '#1a2f42' }}>Complete Your Subscription</h2>
             <div className="space-y-4">
               <div>
-                <Label className="mb-2 block text-white">
-                  Company Name *
-                </Label>
-                <Input
-                  placeholder="e.g., Smith & Co Estate Agents"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  className="bg-white/60 backdrop-blur-sm border-2 border-[#1E3A57]/20"
-                />
+                <Label className="mb-2 block" style={{ color: '#1a2f42' }}>Company Name *</Label>
+                <Input placeholder="e.g., Smith & Co Estate Agents" value={companyName} onChange={(e) => setCompanyName(e.target.value)} className="border-slate-200" />
               </div>
-
               <div>
-                <Label className="mb-2 block text-white">
-                  Contact Email
-                </Label>
-                <Input
-                  type="email"
-                  placeholder="your.email@company.com"
-                  value={contactEmail}
-                  onChange={(e) => setContactEmail(e.target.value)}
-                  defaultValue={user?.email}
-                  className="bg-white/60 backdrop-blur-sm border-2 border-[#1E3A57]/20"
-                />
+                <Label className="mb-2 block" style={{ color: '#1a2f42' }}>Contact Email</Label>
+                <Input type="email" placeholder="your.email@company.com" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} defaultValue={user?.email} className="border-slate-200" />
               </div>
-
-              <div className="p-4 rounded-xl border bg-[#F7B600]/10 border-[#F7B600]/30">
-                <p className="text-sm text-white">
+              <div className="p-4 rounded-xl border bg-[#4BC896]/5 border-[#4BC896]/20">
+                <p className="text-sm" style={{ color: '#1a2f42' }}>
                   <strong>Selected Plan:</strong> {selectedPlan.name} - £{selectedPlan.price}/month
                 </p>
-                <p className="text-xs mt-2 text-white/70 font-medium">
-                  Cancel anytime. No hidden fees.
-                </p>
+                <p className="text-xs mt-2" style={{ color: '#6B7A8D' }}>Cancel anytime. No hidden fees.</p>
               </div>
-
-              <Button
-                onClick={handleSubscribe}
-                disabled={!companyName}
-                className="w-full bg-[#57CFA4] hover:bg-[#57CFA4]/90 text-[#0F1E2E] h-12 font-semibold"
-              >
+              <Button onClick={handleSubscribe} disabled={!companyName} className="w-full bg-[#4BC896] hover:bg-[#2eaf7d] text-white h-12 font-semibold">
                 <Sparkles className="w-5 h-5 mr-2" />
                 Continue to Payment
               </Button>
@@ -417,17 +245,15 @@ export default function BusinessPricing() {
         )}
 
         {/* Social Proof */}
-         <div className="text-center p-8 rounded-2xl border-2 bg-white/30 backdrop-blur-md border-[#1E3A57]/20">
-           <div className="flex items-center justify-center gap-2 mb-4">
-             <Shield className="w-6 h-6 text-white" />
-             <h3 className="font-semibold text-white">
-               Trusted by Estate Agents Across the UK
-             </h3>
-           </div>
-           <p className="text-sm text-white font-medium">
-             Join hundreds of property professionals using UFixi to provide better service to their clients
-           </p>
-         </div>
+        <div className="text-center p-8 rounded-2xl border bg-white border-slate-100 shadow-sm">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Shield className="w-6 h-6 text-[#4BC896]" />
+            <h3 className="font-semibold" style={{ color: '#1a2f42' }}>Trusted by Estate Agents Across the UK</h3>
+          </div>
+          <p className="text-sm" style={{ color: '#6B7A8D' }}>
+            Join hundreds of property professionals using UFixi to provide better service to their clients
+          </p>
+        </div>
       </main>
     </div>
   );
