@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MessageCircle, Send, Loader2, X, ChevronDown } from "lucide-react";
+import { MessageCircle, Send, Loader2, X, ChevronDown, Maximize2, Minimize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function IssueChatbot({ issueType, suggestions, mediaUrl }) {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -115,16 +116,63 @@ Respond as the assistant. Be concise, helpful, and specific to this issue.`,
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden"
+            className={cn(
+              "overflow-hidden",
+              isFullscreen && "fixed inset-0 z-50 w-screen h-screen p-4"
+            )}
           >
             <div className={cn(
               "mt-2 rounded-xl border flex flex-col",
+              isFullscreen && "mt-0 h-full",
               theme === "dark"
                 ? "bg-[#0F1E2E] border-[#57CFA4]/20"
                 : "bg-white border-slate-200"
             )}>
+              {/* Header with close and fullscreen buttons */}
+              <div className={cn(
+                "flex items-center justify-between gap-2 p-3 border-b",
+                theme === "dark" ? "border-[#57CFA4]/20" : "border-slate-200"
+              )}>
+                <div className="flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4 text-[#4BC896]" />
+                  <span className="text-sm font-medium">Ask a follow-up question</span>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setIsFullscreen(!isFullscreen)}
+                    className={cn(
+                      "p-1.5 rounded-lg transition-colors",
+                      theme === "dark"
+                        ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
+                        : "hover:bg-slate-100 text-slate-600"
+                    )}
+                    title={isFullscreen ? "Minimize" : "Fullscreen"}
+                  >
+                    {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsOpen(false);
+                      setIsFullscreen(false);
+                    }}
+                    className={cn(
+                      "p-1.5 rounded-lg transition-colors",
+                      theme === "dark"
+                        ? "hover:bg-red-900/20 text-red-400"
+                        : "hover:bg-red-100 text-red-600"
+                    )}
+                    title="Close"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
               {/* Messages */}
-              <div className="flex flex-col gap-3 p-4 max-h-72 overflow-y-auto">
+              <div className={cn(
+                "flex flex-col gap-3 p-4 overflow-y-auto",
+                isFullscreen ? "flex-1" : "max-h-72"
+              )}>
                 {messages.map((msg, i) => (
                   <div
                     key={i}
