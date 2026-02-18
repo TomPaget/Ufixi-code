@@ -1,0 +1,72 @@
+import { useState, useEffect } from "react";
+import { Menu, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import NotificationBell from "@/components/kora/NotificationBell";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
+/**
+ * Shared header used across all pages.
+ * - If onMenuClick is provided: shows hamburger + logo + bell (Home-style)
+ * - If showBack is true: shows back arrow + title + optional bell
+ */
+export default function PageHeader({ onMenuClick, showBack, title, subtitle, showBell = true }) {
+  const navigate = useNavigate();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <motion.header
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className={`sticky top-0 z-30 transition-all duration-300 bg-transparent ${isScrolled ? 'py-2' : 'py-3'}`}
+    >
+      <div
+        className="max-w-lg mx-auto bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between"
+        style={{ margin: '0 auto', padding: '10px 16px', maxWidth: '32rem' }}
+      >
+        {/* Left: hamburger or back */}
+        {onMenuClick ? (
+          <button
+            onClick={onMenuClick}
+            className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
+            style={{ color: '#1a2f42' }}
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        ) : showBack ? (
+          <button
+            onClick={() => navigate(-1)}
+            className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
+            style={{ color: '#1a2f42' }}
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+        ) : <div className="w-10" />}
+
+        {/* Centre: logo or title */}
+        {title ? (
+          <div className="flex-1 text-center px-2">
+            <p className="font-bold text-base truncate" style={{ color: '#1a2f42' }}>{title}</p>
+            {subtitle && <p className="text-xs" style={{ color: '#6B7A8D' }}>{subtitle}</p>}
+          </div>
+        ) : (
+          <img
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/c6477ab39_ufixi_primary_RGB.png"
+            alt="Ufixi Logo"
+            className={`object-contain transition-all duration-300 ${isScrolled ? 'h-6' : 'h-8'}`}
+          />
+        )}
+
+        {/* Right: bell or spacer */}
+        {showBell ? <NotificationBell /> : <div className="w-10" />}
+      </div>
+    </motion.header>
+  );
+}
