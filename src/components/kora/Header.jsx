@@ -49,7 +49,7 @@ export default function Header({ onMenuClick, onGoPremium }) {
         </div>
 
         {/* Right: Go Premium + Bell */}
-        <div className="flex items-center gap-2 ml-auto flex-shrink-0">
+        <div className="flex items-center gap-2 ml-auto flex-shrink-0 pr-1">
           {!user?.is_premium && (
             <button
               onClick={onGoPremium}
