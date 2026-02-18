@@ -68,7 +68,6 @@ const priorityColors = {
 export default function Settings() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { theme, toggleTheme } = useTheme();
   const [activeTab, setActiveTab] = useState("account");
   const [editingProfile, setEditingProfile] = useState(false);
   const [displayName, setDisplayName] = useState("");
