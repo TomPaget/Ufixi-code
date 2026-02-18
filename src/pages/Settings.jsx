@@ -413,101 +413,31 @@ export default function Settings() {
                 onValueChange={handleUserTypeChange}
                 className="space-y-3">
 
-            <Label
-                  htmlFor="renter"
-                  className={cn(
-                    "flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:border-blue-500/50 data-[state=checked]:border-blue-500",
-                    theme === "dark" ?
-                    "data-[state=checked]:bg-blue-500/10" :
-                    "data-[state=checked]:bg-blue-50"
-                  )}
-                  data-state={user?.user_type === "renter" ? "checked" : "unchecked"}>
-
+            <Label htmlFor="renter" className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${user?.user_type === "renter" ? "border-[#4BC896] bg-[#4BC896]/5" : "border-slate-200 hover:border-[#4BC896]/40"}`}>
               <RadioGroupItem value="renter" id="renter" className="sr-only" />
-              <div className={cn(
-                    "w-12 h-12 rounded-xl flex items-center justify-center border",
-                    theme === "dark" ?
-                    "bg-teal-500/20 border-teal-500/30" :
-                    "bg-teal-100 border-teal-200"
-                  )}>
-                <Building2 className={cn(
-                      "w-6 h-6",
-                      theme === "dark" ? "text-teal-400" : "text-teal-600"
-                    )} />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-teal-50 border border-teal-200">
+                <Building2 className="w-6 h-6 text-teal-600" />
               </div>
               <div className="flex-1">
-                <p className={cn(
-                      "font-medium",
-                      theme === "dark" ? "text-slate-200" : "text-slate-900"
-                    )}>Renter</p>
-                <p className={cn(
-                      "text-sm",
-                      theme === "dark" ? "text-slate-400" : "text-slate-600"
-                    )}>I rent my home</p>
+                <p className="font-medium" style={{ color: '#1a2f42' }}>Renter</p>
+                <p className="text-sm" style={{ color: '#6B7A8D' }}>I rent my home</p>
               </div>
-              <div className={cn(
-                    "w-5 h-5 rounded-full border-2",
-                    user?.user_type === "renter" ?
-                    "border-blue-500 bg-blue-500" :
-                    theme === "dark" ? "border-slate-600" : "border-slate-300"
-                  )}>
-                {user?.user_type === "renter" &&
-                    <div className="w-full h-full flex items-center justify-center">
-                    <div className={cn(
-                        "w-2 h-2 rounded-full",
-                        theme === "dark" ? "bg-slate-900" : "bg-white"
-                      )} />
-                  </div>
-                    }
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${user?.user_type === "renter" ? "border-[#4BC896] bg-[#4BC896]" : "border-slate-300"}`}>
+                {user?.user_type === "renter" && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </Label>
 
-            <Label
-                  htmlFor="homeowner"
-                  className={cn(
-                    "flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:border-blue-500/50 data-[state=checked]:border-blue-500",
-                    theme === "dark" ?
-                    "data-[state=checked]:bg-blue-500/10" :
-                    "data-[state=checked]:bg-blue-50"
-                  )}
-                  data-state={user?.user_type === "homeowner" ? "checked" : "unchecked"}>
-
+            <Label htmlFor="homeowner" className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${user?.user_type === "homeowner" ? "border-[#4BC896] bg-[#4BC896]/5" : "border-slate-200 hover:border-[#4BC896]/40"}`}>
               <RadioGroupItem value="homeowner" id="homeowner" className="sr-only" />
-              <div className={cn(
-                    "w-12 h-12 rounded-xl flex items-center justify-center border",
-                    theme === "dark" ?
-                    "bg-violet-500/20 border-violet-500/30" :
-                    "bg-violet-100 border-violet-200"
-                  )}>
-                <Home className={cn(
-                      "w-6 h-6",
-                      theme === "dark" ? "text-violet-400" : "text-violet-600"
-                    )} />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-violet-50 border border-violet-200">
+                <Home className="w-6 h-6 text-violet-600" />
               </div>
               <div className="flex-1">
-                <p className={cn(
-                      "font-medium",
-                      theme === "dark" ? "text-slate-200" : "text-slate-900"
-                    )}>Homeowner</p>
-                <p className={cn(
-                      "text-sm",
-                      theme === "dark" ? "text-slate-400" : "text-slate-600"
-                    )}>I own my home</p>
+                <p className="font-medium" style={{ color: '#1a2f42' }}>Homeowner</p>
+                <p className="text-sm" style={{ color: '#6B7A8D' }}>I own my home</p>
               </div>
-              <div className={cn(
-                    "w-5 h-5 rounded-full border-2",
-                    user?.user_type === "homeowner" ?
-                    "border-blue-500 bg-blue-500" :
-                    theme === "dark" ? "border-slate-600" : "border-slate-300"
-                  )}>
-                {user?.user_type === "homeowner" &&
-                    <div className="w-full h-full flex items-center justify-center">
-                    <div className={cn(
-                        "w-2 h-2 rounded-full",
-                        theme === "dark" ? "bg-slate-900" : "bg-white"
-                      )} />
-                  </div>
-                    }
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${user?.user_type === "homeowner" ? "border-[#4BC896] bg-[#4BC896]" : "border-slate-300"}`}>
+                {user?.user_type === "homeowner" && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </Label>
           </RadioGroup>
