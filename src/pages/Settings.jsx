@@ -45,6 +45,7 @@ import {
 "@/components/ui/select";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+// cn is still used in notification preferences button
 import { format } from "date-fns";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import PageHeader from "@/components/kora/PageHeader";
