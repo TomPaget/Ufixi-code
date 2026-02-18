@@ -15,6 +15,7 @@ import RippleButton from "@/components/kora/RippleButton";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import Header from "@/components/kora/Header";
+import PremiumModal from "@/components/kora/PremiumModal";
 import NotificationBell from "@/components/kora/NotificationBell";
 import OnboardingTour from "@/components/kora/OnboardingTour";
 import FeatureTooltip from "@/components/kora/FeatureTooltip";
