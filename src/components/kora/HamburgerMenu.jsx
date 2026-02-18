@@ -91,62 +91,53 @@ export default function HamburgerMenu({ isOpen, onClose }) {
             className="fixed inset-0 bg-black/50 z-40"
           />
           <motion.div
-            initial={{ x: -300 }}
-            animate={{ x: 0 }}
-            exit={{ x: -300 }}
-            transition={{ type: "spring", damping: 25 }}
-            className={cn(
-              "fixed left-0 top-0 bottom-0 w-72 z-50",
-              theme === "dark" ? "bg-[#1E3A57]" : "bg-white"
-            )}
+            initial={{ x: -320, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -320, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 320, damping: 30 }}
+            className="fixed left-0 top-0 bottom-0 w-72 z-50"
+            style={{
+              background: 'linear-gradient(160deg, rgba(26,47,66,0.97) 0%, rgba(30,58,87,0.99) 100%)',
+              backdropFilter: 'blur(30px)',
+              boxShadow: '4px 0 40px rgba(0,0,0,0.25)'
+            }}
           >
             <div className="p-5">
               <button
                 onClick={onClose}
-                className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center mb-8",
-                  theme === "dark"
-                    ? "bg-[#57CFA4]/20 text-[#57CFA4]"
-                    : "bg-slate-100 text-slate-700"
-                )}
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-8 bg-white/10 text-white hover:bg-white/20 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <nav className="space-y-2">
-                {menuItems.map((item) => (
-                  <div key={item.page}>
+              <nav className="space-y-1">
+                {menuItems.map((item, i) => (
+                  <motion.div
+                    key={item.page}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04, type: "spring", stiffness: 300, damping: 25 }}
+                  >
                     <Link
                       to={createPageUrl(item.page)}
                       onClick={onClose}
-                      className={cn(
-                        "flex items-center gap-3 p-3 rounded-xl transition-colors",
-                        theme === "dark"
-                          ? "hover:bg-[#57CFA4]/10 text-white"
-                          : "hover:bg-slate-100 text-slate-900"
-                      )}
+                      className="flex items-center gap-3 p-3 rounded-xl transition-all active:scale-95 hover:bg-white/10 text-white"
                     >
-                      <item.icon className={cn(
-                        "w-5 h-5",
-                        theme === "dark" ? "text-[#57CFA4]" : "text-[#1E3A57]"
-                      )} />
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/10">
+                        <item.icon className="w-5 h-5 text-[#63c49f]" />
+                      </div>
                       <span className="font-medium">{item.label}</span>
                     </Link>
                     {item.submenu && (
-                      <div className="ml-8 mt-1 space-y-1">
+                      <div className="ml-12 mt-1 space-y-1">
                         {item.submenu.map((subitem) => (
                           <Link
                             key={subitem.page}
                             to={createPageUrl(subitem.page)}
                             onClick={onClose}
-                            className={cn(
-                              "flex items-center gap-3 p-2 rounded-xl transition-colors text-sm",
-                              theme === "dark"
-                                ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
-                                : "hover:bg-slate-100 text-slate-700"
-                            )}
+                            className="flex items-center gap-3 p-2 rounded-xl transition-all text-sm hover:bg-white/10 text-white/70"
                           >
-                            <subitem.icon className="w-4 h-4" />
+                            <subitem.icon className="w-4 h-4 text-[#63c49f]" />
                             <span>{subitem.label}</span>
                           </Link>
                         ))}
@@ -157,16 +148,11 @@ export default function HamburgerMenu({ isOpen, onClose }) {
               </nav>
 
               {user?.account_type !== "trades" && (isBusinessAccount || canSwitchToBusiness) && (
-                <div className="mt-6 pt-6 border-t border-slate-200/20">
+                <div className="mt-6 pt-6 border-t border-white/10">
                   <Button
                     onClick={handleSwitchAccount}
                     disabled={switchAccountMutation.isPending}
-                    className={cn(
-                      "w-full flex items-center justify-center gap-2 rounded-xl font-medium",
-                      theme === "dark"
-                        ? "bg-[#57CFA4]/20 text-[#57CFA4] hover:bg-[#57CFA4]/30"
-                        : "bg-slate-100 text-slate-900 hover:bg-slate-200"
-                    )}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl font-medium bg-white/10 text-white hover:bg-white/20"
                   >
                     <ArrowLeftRight className="w-4 h-4" />
                     {isBusinessAccount ? "Switch to Standard Account" : "Switch to Business Account"}
