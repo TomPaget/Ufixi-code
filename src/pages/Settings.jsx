@@ -341,12 +341,7 @@ export default function Settings() {
               }
 
           {/* Location Section */}
-          <div className={cn(
-                "rounded-xl p-4 border",
-                theme === "dark" ?
-                "bg-slate-700/50 border-slate-600/50" :
-                "bg-slate-50 border-slate-200"
-              )}>
+          <div className="rounded-xl p-4 border bg-slate-50 border-slate-200">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3 flex-1">
                 <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#4BC896]" : "text-slate-400"}`} />
@@ -779,17 +774,10 @@ export default function Settings() {
 
       {/* Cancel Subscription Dialog */}
       <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
-        <DialogContent className={cn(
-          "max-w-md",
-          theme === "dark" ? "bg-slate-800 border-slate-700" : "bg-white"
-        )}>
+        <DialogContent className="max-w-md bg-white">
           <DialogHeader>
-            <DialogTitle className={cn(
-              theme === "dark" ? "text-white" : "text-slate-900"
-            )}>Cancel Subscription?</DialogTitle>
-            <DialogDescription className={cn(
-              theme === "dark" ? "text-slate-400" : "text-slate-600"
-            )}>
+            <DialogTitle style={{ color: '#1a2f42' }}>Cancel Subscription?</DialogTitle>
+            <DialogDescription style={{ color: '#6B7A8D' }}>
               Your subscription will remain active until the end of your current billing period. 
               You'll lose access to business features after that.
             </DialogDescription>
@@ -799,9 +787,7 @@ export default function Settings() {
               variant="outline"
               onClick={() => setShowCancelDialog(false)}
               disabled={cancelling}
-              className={cn(
-                theme === "dark" ? "border-slate-600 hover:bg-slate-700" : ""
-              )}
+              className=""
             >
               Keep Subscription
             </Button>
