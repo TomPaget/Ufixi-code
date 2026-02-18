@@ -1315,7 +1315,7 @@ Be detailed, practical, and safety-conscious. Use real product names and accurat
           <Button
             onClick={handleFullAnalysis}
             disabled={analyzing}
-            className="w-full bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+            className="w-full bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E]"
           >
             {analyzing ? (
               <>
