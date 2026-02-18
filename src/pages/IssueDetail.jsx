@@ -131,85 +131,26 @@ export default function IssueDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#4BC896] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (!issue) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-slate-400 mb-4">Issue not found</p>
-          <Button onClick={() => navigate(createPageUrl("Home"))} className="bg-blue-600 hover:bg-blue-700">
-            Go Home
-          </Button>
+          <p className="mb-4" style={{ color: '#6B7A8D' }}>Issue not found</p>
+          <Button onClick={() => navigate(createPageUrl("Home"))}>Go Home</Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-600/80 animate-gradient-shift-slow blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-600/75 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
-        <div className="absolute inset-0 bg-white/5" />
-      </div>
-      
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
-          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
-          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-slow {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
-          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-reverse {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
-          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        .animate-gradient-shift {
-          animation: gradient-shift 8s ease-in-out infinite;
-        }
-        .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 10s ease-in-out infinite;
-        }
-        .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 9s ease-in-out infinite;
-        }
-      `}</style>
-      
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-white/10 backdrop-blur-md border-b border-white/20">
-        <div className="max-w-lg mx-auto px-5 py-4 flex items-center gap-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="rounded-xl hover:bg-white/20 text-white"
-            onClick={() => navigate(-1)}
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          <div className="flex-1">
-            <h1 className="font-semibold text-white truncate">{issue.title}</h1>
-            <p className="text-sm text-white/80">
-              {format(new Date(issue.created_date), "MMMM d, yyyy")}
-            </p>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen pb-20 bg-[#F5F7FA]">
+      <PageHeader showBack title={issue.title} subtitle={format(new Date(issue.created_date), "MMMM d, yyyy")} />
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
         {/* Media Preview */}

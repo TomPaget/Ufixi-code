@@ -49,6 +49,7 @@ import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
+import PageHeader from "@/components/kora/PageHeader";
 
 const typeIcons = {
   issue_update: AlertTriangle,
