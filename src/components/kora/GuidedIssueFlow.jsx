@@ -1230,5 +1230,68 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
     );
   }
 
+  if (showStoragePrompt) {
+    return (
+      <div className={cn(
+        "rounded-2xl p-6 border",
+        theme === "dark"
+          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+          : "bg-white border-slate-200"
+      )}>
+        <h3 className={cn(
+          "font-semibold mb-4 text-lg",
+          theme === "dark" ? "text-white" : "text-[#1E3A57]"
+        )}>
+          Save This Scan?
+        </h3>
+
+        <p className={cn(
+          "mb-6",
+          theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+        )}>
+          Would you like to save this issue to your recent issues? You can track your progress and review the analysis anytime during the next 45 days.
+        </p>
+
+        <div className="space-y-3">
+          <Button
+            onClick={handleStoreIssue}
+            disabled={analyzing}
+            className="w-full bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E]"
+          >
+            {analyzing ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Yes, Save This Issue"
+            )}
+          </Button>
+
+          <Button
+            onClick={() => setShowStoragePrompt(false)}
+            variant="outline"
+            className={cn(
+              "w-full",
+              theme === "dark"
+                ? "border-[#57CFA4]/30 text-white hover:bg-[#57CFA4]/10"
+                : "border-slate-200"
+            )}
+          >
+            No, Delete This Scan
+          </Button>
+        </div>
+
+        {showStoragePrompt && !analyzing && (
+          <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200">
+            <p className="text-xs text-red-800">
+              <strong>Note:</strong> If you delete this scan now, you won't be able to view it later or track any fixes you make. Are you sure?
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return null;
-}
+  }
