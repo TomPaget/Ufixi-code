@@ -52,6 +52,7 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [suggestions, setSuggestions] = useState(null);
+  const [showStoragePrompt, setShowStoragePrompt] = useState(false);
   
   // User-provided details
   const [description, setDescription] = useState("");
@@ -357,16 +358,43 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
 
       setSuggestions(suggestionsResult);
       setStep("suggestions");
-    } catch (error) {
+      } catch (error) {
       console.error("Suggestions failed:", error);
       setError(error.message || "Failed to get suggestions. Please try again.");
-    } finally {
+      } finally {
       setAnalyzing(false);
-    }
-  };
+      }
+      };
 
-  // Step 3: Full analysis
-  const handleFullAnalysis = async () => {
+      // Show ad during analysis
+      if (analyzing && step === "questions") {
+      return (
+      <div className={cn(
+        "rounded-2xl p-6 border flex flex-col items-center justify-center min-h-[400px]",
+        theme === "dark"
+          ? "bg-[#1A2F42] border-[#57CFA4]/20"
+          : "bg-white border-slate-200"
+      )}>
+        <Loader2 className="w-12 h-12 animate-spin text-[#4BC896] mb-4" />
+        <p className={cn(
+          "text-center font-semibold mb-2",
+          theme === "dark" ? "text-white" : "text-[#1E3A57]"
+        )}>
+          Analyzing your issue...
+        </p>
+        <p className={cn(
+          "text-center text-sm",
+          theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+        )}>
+          Please enjoy this brief advertisement
+        </p>
+        <TimedAdBreak />
+      </div>
+      );
+      }
+
+  // Handle storing the issue
+  const handleStoreIssue = async () => {
     setAnalyzing(true);
     setError(null);
     try {
@@ -385,10 +413,15 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
         propertyCategory: isBusinessUser ? propertyCategory : undefined
       });
     } catch (error) {
-      console.error("Full analysis failed:", error);
-      setError(error.message || "Failed to complete analysis. Please try again.");
+      console.error("Failed to store issue:", error);
+      setError(error.message || "Failed to store issue. Please try again.");
       setAnalyzing(false);
     }
+  };
+
+  // Handle closing without storing
+  const handleCloseScan = () => {
+    setShowStoragePrompt(true);
   };
 
   if (step === "upload") {
@@ -1186,26 +1219,12 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
           )}
 
           <Button
-            onClick={handleFullAnalysis}
+            onClick={handleCloseScan}
             disabled={analyzing}
-            className="w-full bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E]"
+            className="w-full bg-slate-600 hover:bg-slate-700 text-white"
           >
-            {analyzing ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Getting full analysis...
-              </>
-            ) : (
-              "Get Full Professional Analysis"
-            )}
+            Close Scan
           </Button>
-
-          <p className={cn(
-            "text-center text-xs",
-            theme === "dark" ? "text-[#57CFA4]" : "text-slate-500"
-          )}>
-            Get detailed cost estimates, step-by-step guides, and more
-          </p>
         </div>
       </div>
     );
