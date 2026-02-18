@@ -325,6 +325,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                    description: { type: "string" },
                    estimated_cost: { type: "string" },
                    search_term: { type: "string" },
+                   reason_needed: { type: "string" },
                    essential: { type: "boolean" }
                  },
                  required: ["product_name", "description", "search_term"]
@@ -1098,12 +1099,15 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                 What You'll Need
                 </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {suggestions.tools_and_materials.slice(0, 5).map((item, i) => {
                     const searchTerm = encodeURIComponent(item.search_term || item.product_name);
                     const affiliateLink = `https://amazon.co.uk/s?k=${searchTerm}&tag=ufixi-21`;
                     return (
-                      <div key={i} className="text-sm">
+                      <div key={i} className={cn(
+                        "p-2 rounded text-sm",
+                        theme === "dark" ? "bg-[#1A2F42]/50" : "bg-blue-50"
+                      )}>
                         <div className="flex justify-between items-start mb-1">
                           <p className={cn(
                             "font-medium",
@@ -1120,6 +1124,14 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                             </span>
                           )}
                         </div>
+                        {item.reason_needed && (
+                          <p className={cn(
+                            "text-xs mb-2",
+                            theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
+                          )}>
+                            {item.reason_needed}
+                          </p>
+                        )}
                         <a
                           href={affiliateLink}
                           target="_blank"
