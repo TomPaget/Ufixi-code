@@ -178,7 +178,18 @@ Examples:
         }
       });
 
-      setQuestions(questionsResult.questions);
+      // Ensure each question has a unique ID
+      const uniqueQuestions = questionsResult.questions.map((q, idx) => ({
+        ...q,
+        id: q.id || `q-${idx}-${Date.now()}`
+      }));
+      setQuestions(uniqueQuestions);
+      // Initialize answers object with empty strings for each question
+      const initialAnswers = {};
+      uniqueQuestions.forEach(q => {
+        initialAnswers[q.id] = '';
+      });
+      setAnswers(initialAnswers);
       setStep("questions");
     } catch (error) {
       console.error("Upload/analysis failed:", error);
@@ -845,10 +856,10 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
               )}
 
               {q.type === "yesno" && (
-                <RadioGroup
-                  value={answers[q.id]}
-                  onValueChange={(value) => setAnswers({ ...answers, [q.id]: value })}
-                >
+                    <RadioGroup
+                      value={answers[q.id] || ""}
+                      onValueChange={(value) => setAnswers({ ...answers, [q.id]: value })}
+                    >
                   <div className="flex gap-4">
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="yes" id={`${q.id}-yes`} />
@@ -864,7 +875,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
 
               {q.type === "choice" && q.options && (
                 <RadioGroup
-                  value={answers[q.id]}
+                  value={answers[q.id] || ""}
                   onValueChange={(value) => setAnswers({ ...answers, [q.id]: value })}
                 >
                   <div className="space-y-2">
