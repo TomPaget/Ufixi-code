@@ -21,6 +21,7 @@ import OnboardingTour from "@/components/kora/OnboardingTour";
 import FeatureTooltip from "@/components/kora/FeatureTooltip";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 
 const FREE_SCAN_LIMIT = 2;
