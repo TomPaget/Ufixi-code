@@ -70,7 +70,8 @@ export default function AdBreak({ onAdComplete, issueTitle }) {
           <Button
             onClick={onAdComplete}
             disabled={timeLeft > 0}
-            className="w-full bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-slate-900 font-semibold h-11 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full font-semibold h-11 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ background: 'linear-gradient(135deg, #6ECBA6, #4faf8a)', color: '#1E2D40' }}
           >
             {timeLeft > 0 ? `Wait ${timeLeft}s to continue` : 'View My Diagnosis'}
           </Button>
