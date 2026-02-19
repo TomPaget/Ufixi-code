@@ -231,6 +231,9 @@ export default function IssueDetail() {
             </div>
             </div>
 
+        {/* Tenant Rights Alert */}
+        <TenantRightsAlert userType={userType} />
+
         {/* Explanation */}
         <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
           <h2 className="font-semibold mb-3" style={{ color: '#1a2f42' }}>What's happening?</h2>
