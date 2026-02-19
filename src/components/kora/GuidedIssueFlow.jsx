@@ -1258,12 +1258,17 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
           )}
 
           <Button
-            onClick={handleCloseScan}
-            disabled={analyzing}
-            className="w-full bg-slate-600 hover:bg-slate-700 text-white"
-          >
-            Close Scan
-          </Button>
+                    onClick={handleCloseScan}
+                    disabled={analyzing}
+                    className="w-full bg-slate-600 hover:bg-slate-700 text-white"
+                  >
+                    {analyzing ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Saving...
+                      </>
+                    ) : "Close Scan"}
+                  </Button>
         </div>
       </div>
     );
