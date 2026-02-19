@@ -142,6 +142,16 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
             </div>
           </div>
         </div>
+
+        {/* Delete button */}
+        {onDelete && (
+          <button
+            onClick={handleDelete}
+            className="absolute top-3 right-3 p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        )}
       </motion.div>
     </Link>
   );
