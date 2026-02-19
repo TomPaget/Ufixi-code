@@ -17,9 +17,8 @@ const customerMenuItems = [
   // { icon: Briefcase, label: "Trades Account", page: "TradesSignup" }, // HIDDEN - Can be re-enabled later
   // { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" }, // HIDDEN - Can be re-enabled later
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
-  { icon: Settings, label: "My Account", page: "Settings", submenu: [
-    { icon: HomeIcon, label: "Home Profile", page: "HomeProfile" }
-  ]}
+  { icon: Settings, label: "My Account", page: "Settings" }
+  // { icon: HomeIcon, label: "Home Profile", page: "HomeProfile" } // HIDDEN - Will be re-enabled later
 ];
 
 const tradesMenuItems = [
