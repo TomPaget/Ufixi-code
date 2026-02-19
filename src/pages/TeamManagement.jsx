@@ -169,7 +169,7 @@ export default function TeamManagement() {
           </div>
           <Button
             onClick={() => setShowInviteDialog(true)}
-            className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
+            className="bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E]"
           >
             <Plus className="w-4 h-4 mr-2" />
             Invite Member
