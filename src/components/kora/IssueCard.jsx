@@ -104,6 +104,17 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
               )}>
                 {issue.status?.replace("_", " ")}
               </span>
+              {daysRemaining !== null && (
+                <span className={cn(
+                  "text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1",
+                  daysRemaining <= 7
+                    ? "bg-red-100 text-red-600"
+                    : "bg-slate-100 text-slate-500"
+                )}>
+                  <Clock className="w-3 h-3" />
+                  {daysRemaining}d left
+                </span>
+              )}
               
               {showCost && (issue.pro_cost_min || issue.pro_cost_max) && (
                 <span className={cn(
