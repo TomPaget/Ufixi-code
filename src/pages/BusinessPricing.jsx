@@ -143,7 +143,7 @@ export default function BusinessPricing() {
             <Building2 className="w-4 h-4 text-[#4BC896]" />
             <span className="text-sm font-semibold">For Estate Agents & Businesses</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold" style={{ color: '#1a2f42' }}>
+          <h1 className="text-3xl md:text-4xl font-bold" style={{ color: '#1a2f42' }}>
             Property Issues?<br />
             <span style={{ color: '#4BC896' }}>Instant Answers.</span>
           </h1>
