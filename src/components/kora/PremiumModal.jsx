@@ -56,7 +56,7 @@ export default function PremiumModal({ open, onClose }) {
             transition={{ type: "spring", stiffness: 340, damping: 30 }}
             className="fixed bottom-0 left-0 right-0 z-50 mx-auto max-w-lg"
           >
-            <div className="rounded-t-3xl overflow-hidden" style={{ background: 'linear-gradient(160deg, #0f2236 0%, #1a3a5c 100%)' }}>
+            <div className="rounded-t-3xl overflow-hidden" style={{ background: 'linear-gradient(160deg, #1E2D40 0%, #162438 100%)' }}>
               {/* Header */}
               <div className="relative px-6 pt-6 pb-4 text-center">
                 <button
@@ -73,7 +73,7 @@ export default function PremiumModal({ open, onClose }) {
               </div>
 
               {/* Price */}
-              <div className="mx-6 rounded-2xl p-4 text-center mb-4" style={{ background: 'rgba(75,200,150,0.12)', border: '1px solid rgba(75,200,150,0.25)' }}>
+              <div className="mx-6 rounded-2xl p-4 text-center mb-4" style={{ background: 'rgba(110,203,166,0.12)', border: '1px solid rgba(110,203,166,0.25)' }}>
                 <div className="flex items-end justify-center gap-1">
                   <span className="text-5xl font-bold text-white">£3.99</span>
                   <span className="text-white/50 mb-2">/month</span>

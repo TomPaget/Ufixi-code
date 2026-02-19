@@ -132,7 +132,7 @@ export default function IssueDetail() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#4BC896] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#6ECBA6] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -235,7 +235,7 @@ export default function IssueDetail() {
           <h2 className="font-semibold mb-3" style={{ color: '#1a2f42' }}>What's happening?</h2>
           <p className="leading-relaxed" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
           {issue.historical_insights?.recommended_approach && (
-            <div className="mt-4 p-4 bg-[#4BC896]/5 rounded-xl border border-[#4BC896]/20">
+            <div className="mt-4 p-4 bg-[#6ECBA6]/5 rounded-xl border border-[#6ECBA6]/20">
               <p className="text-sm font-semibold mb-2" style={{ color: '#1a2f42' }}>
                 💡 Based on {issue.historical_insights.similar_cases_count} similar cases:
               </p>
@@ -316,7 +316,7 @@ export default function IssueDetail() {
                     <ul className="space-y-2 pt-4">
                       {issue.risks.map((risk, i) => (
                         <li key={i} className="flex items-start gap-2" style={{ color: '#1a2f42' }}>
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#4BC896] mt-2 flex-shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#6ECBA6] mt-2 flex-shrink-0" />
                           {risk}
                         </li>
                       ))}
