@@ -1330,7 +1330,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
           <Button
                     onClick={handleCloseScan}
                     disabled={analyzing}
-                    className="w-full bg-slate-600 hover:bg-slate-700 text-white"
+                    className="w-full bg-red-500/15 hover:bg-red-500/25 text-red-600 border border-red-400/30"
                   >
                     {analyzing ? (
                       <>
