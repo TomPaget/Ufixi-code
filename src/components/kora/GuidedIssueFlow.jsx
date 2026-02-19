@@ -326,8 +326,12 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
       const expiresAt = new Date();
       expiresAt.setDate(expiresAt.getDate() + 45);
 
+      const friendlyTitle = issueType?.category
+        ? `${issueType.category.charAt(0).toUpperCase() + issueType.category.slice(1)} issue`
+        : issueType?.brief_description || description || "Issue scan";
+
       const issueData = {
-        title: sanitizeText(description || issueType?.brief_description || "Issue scan"),
+        title: sanitizeText(friendlyTitle),
         explanation: sanitizeText(issueType?.brief_description || description || ""),
         urgency: "fix_soon",
         severity_score: 5,
