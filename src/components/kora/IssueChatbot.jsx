@@ -94,12 +94,7 @@ Respond as the assistant. Be concise, helpful, and specific to this issue.`,
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(o => !o)}
-        className={cn(
-          "w-full flex items-center justify-between gap-2 p-3 rounded-xl border transition-colors",
-          theme === "dark"
-            ? "bg-[#0F1E2E] border-[#57CFA4]/30 text-white hover:bg-[#57CFA4]/10"
-            : "bg-slate-50 border-slate-200 text-[#1E3A57] hover:bg-slate-100"
-        )}
+        className="w-full flex items-center justify-between gap-2 px-4 py-4 rounded-2xl border bg-white border-slate-200 text-[#1E2D40] hover:bg-slate-50 transition-all shadow-sm"
       >
         <div className="flex items-center gap-2">
           <MessageCircle className="w-4 h-4 text-[#4BC896]" />
