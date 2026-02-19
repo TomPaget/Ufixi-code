@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
     }
 
     await resend.emails.send({
-      from: 'support@ufixi.co.uk',
+      from: 'onboarding@resend.dev',
       to: 'info@ufixi.co.uk',
       subject: 'Support Request from Ufixi User',
       html: `<p><strong>User Email:</strong> ${email}</p><p><strong>Issue Summary:</strong></p><p>${issueSummary.replace(/\n/g, '<br>')}</p>`
