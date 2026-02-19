@@ -182,27 +182,20 @@ Respond as the assistant. Be concise, helpful, and specific to this issue.`,
               </div>
 
               {/* Input */}
-              <div className={cn(
-                "flex gap-2 p-3 border-t",
-                theme === "dark" ? "border-[#57CFA4]/20" : "border-slate-100"
-              )}>
+              <div className="flex gap-2 p-3 border-t border-slate-100">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask anything about your issue..."
-                  className={cn(
-                    "text-sm",
-                    theme === "dark"
-                      ? "bg-[#1A2F42] border-[#57CFA4]/30 text-white placeholder:text-white/40"
-                      : "border-slate-200"
-                  )}
+                  className="text-sm border-slate-200 rounded-xl text-[#1E2D40]"
                 />
                 <Button
                   onClick={handleSend}
                   disabled={!input.trim() || loading}
                   size="icon"
-                  className="bg-[#4BC896] hover:bg-[#4BC896]/90 text-white shrink-0"
+                  className="shrink-0 text-white border-0"
+                  style={{ background: "linear-gradient(135deg, #6ECBA6 0%, #1E2D40 100%)" }}
                 >
                   <Send className="w-4 h-4" />
                 </Button>
