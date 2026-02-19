@@ -578,7 +578,13 @@ export default function Home() {
       }
     };
 
-    const handleAdComplete = async () => {
+    const handleDeleteIssue = async (issueId) => {
+    if (!window.confirm("Remove this issue from Recent Issues?")) return;
+    await base44.entities.Issue.delete(issueId);
+    queryClient.invalidateQueries(["issues"]);
+  };
+
+  const handleAdComplete = async () => {
       setShowAdBreak(false);
 
       if (!pendingIssueData) return;
