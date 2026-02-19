@@ -721,6 +721,7 @@ export default function Home() {
             >
               <GuidedIssueFlow 
                 onComplete={handleIssueComplete}
+                onSaveIssue={handleSaveIssue}
                 onCancel={() => setShowScanner(false)}
               />
             </motion.div>
