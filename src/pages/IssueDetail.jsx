@@ -42,6 +42,7 @@ import DIYProgressTracker from "@/components/kora/DIYProgressTracker";
 import IssueComments from "@/components/kora/IssueComments";
 import AIResolutionAssistant from "@/components/kora/AIResolutionAssistant";
 import DynamicChecklist from "@/components/kora/DynamicChecklist";
+import TenantRightsAlert from "@/components/kora/TenantRightsAlert";
 
 const mediaIcons = {
   photo: Image,
