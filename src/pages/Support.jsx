@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import ReactMarkdown from "react-markdown";
 import PageHeader from "@/components/kora/PageHeader";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
+import SupportContactForm from "@/components/kora/SupportContactForm";
 
 export default function Support() {
   const navigate = useNavigate();
