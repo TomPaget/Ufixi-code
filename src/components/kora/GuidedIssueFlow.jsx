@@ -406,6 +406,14 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
             />
           </div>
 
+          {/* Hidden file inputs */}
+          <input ref={photoInputRef} type="file" accept="image/*" capture="environment" className="hidden"
+            onChange={(e) => handleFileSelect("photo", e.target.files[0])} />
+          <input ref={videoInputRef} type="file" accept="video/*" capture="environment" className="hidden"
+            onChange={(e) => handleFileSelect("video", e.target.files[0])} />
+          <input ref={uploadInputRef} type="file" accept="image/*,video/*" className="hidden"
+            onChange={(e) => { const f = e.target.files[0]; handleFileSelect(f?.type.startsWith("video") ? "video" : "photo", f); }} />
+
           <GradientButton onClick={handleMethodContinue} disabled={!uploadMethod}>
             Continue
           </GradientButton>
