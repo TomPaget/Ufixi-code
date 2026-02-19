@@ -44,12 +44,16 @@ export default function Home() {
 
   const { data: user } = useQuery({
     queryKey: ["user"],
-    queryFn: () => base44.auth.me()
+    queryFn: () => base44.auth.me(),
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10
   });
 
   const { data: issues = [], isLoading: issuesLoading } = useQuery({
     queryKey: ["issues"],
-    queryFn: () => base44.entities.Issue.list("-created_date", 5)
+    queryFn: () => base44.entities.Issue.list("-created_date", 5),
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60 * 5
   });
 
   // Check if user has completed onboarding
