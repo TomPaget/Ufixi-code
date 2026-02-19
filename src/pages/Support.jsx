@@ -72,7 +72,7 @@ export default function Support() {
       }]);
     };
 
-    if (!conversationId) {
+    if (!conversationId && user) {
       initConversation();
     }
   }, [conversationId, user]);
