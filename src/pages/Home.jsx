@@ -715,8 +715,8 @@ export default function Home() {
                 </p>
                 <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Resolved</p>
               </div>
-          </motion.div>
-        )}
+              </div>
+              )}
 
         {/* Scanner Section */}
         <AnimatePresence mode="wait">
