@@ -719,27 +719,21 @@ export default function Home() {
               )}
 
         {/* Scanner Section */}
-        <AnimatePresence mode="wait">
-          {showScanner ? (
-            <motion.div
-              key="scanner"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-            >
-              <GuidedIssueFlow 
-                onComplete={handleIssueComplete}
-                onSaveIssue={handleSaveIssue}
-                onCancel={() => setShowScanner(false)}
-              />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="button"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-            >
+         <AnimatePresence mode="wait">
+           {showScanner ? (
+             <div
+               key="scanner"
+             >
+               <GuidedIssueFlow 
+                 onComplete={handleIssueComplete}
+                 onSaveIssue={handleSaveIssue}
+                 onCancel={() => setShowScanner(false)}
+               />
+             </div>
+           ) : (
+             <div
+               key="button"
+             >
               <div className="flex flex-col items-center gap-4 py-12">
                       <RippleButton
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
