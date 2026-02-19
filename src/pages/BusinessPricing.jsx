@@ -154,7 +154,7 @@ export default function BusinessPricing() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-3 gap-2 mb-16 items-center">
+        <div className="grid grid-cols-3 gap-1.5 mb-16 items-start">
           {plans.map((plan) => {
             const Icon = plan.icon;
             const isSelected = selectedPlan?.name === plan.name;
