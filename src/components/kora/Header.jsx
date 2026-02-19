@@ -51,9 +51,9 @@ export default function Header({ onMenuClick, onGoPremium }) {
               onClick={onGoPremium}
               animate={{ 
                 boxShadow: [
-                  '0 0 0 16px rgba(110,203,166,0.12), 0 0 0 32px rgba(110,203,166,0.06)',
-                  '0 0 0 20px rgba(110,203,166,0.08), 0 0 0 40px rgba(110,203,166,0.04)',
-                  '0 0 0 16px rgba(110,203,166,0.12), 0 0 0 32px rgba(110,203,166,0.06)'
+                  '0 0 0 16px rgba(110,203,166,0.12)',
+                  '0 0 0 20px rgba(110,203,166,0.08)',
+                  '0 0 0 16px rgba(110,203,166,0.12)'
                 ]
               }}
               transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
