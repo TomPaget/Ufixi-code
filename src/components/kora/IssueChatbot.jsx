@@ -123,38 +123,22 @@ Respond as the assistant. Be concise, helpful, and specific to this issue.`,
               isFullscreen && "mt-0 h-full",
             )}>
               {/* Header with close and fullscreen buttons */}
-              <div className={cn(
-                "flex items-center justify-between gap-2 p-3 border-b",
-                theme === "dark" ? "border-[#57CFA4]/20" : "border-slate-200"
-              )}>
+              <div className="flex items-center justify-between gap-2 p-3 border-b border-slate-100">
                 <div className="flex items-center gap-2">
-                  <MessageCircle className="w-4 h-4 text-[#4BC896]" />
-                  <span className="text-sm font-medium">Ask a follow-up question</span>
+                  <MessageCircle className="w-4 h-4 text-[#6ECBA6]" />
+                  <span className="text-sm font-semibold text-[#1E2D40]">Follow-up Chat</span>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-1">
                   <button
                     onClick={() => setIsFullscreen(!isFullscreen)}
-                    className={cn(
-                      "p-1.5 rounded-lg transition-colors",
-                      theme === "dark"
-                        ? "hover:bg-[#57CFA4]/10 text-[#57CFA4]"
-                        : "hover:bg-slate-100 text-slate-600"
-                    )}
+                    className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 transition-colors"
                     title={isFullscreen ? "Minimize" : "Fullscreen"}
                   >
                     {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
                   </button>
                   <button
-                    onClick={() => {
-                      setIsOpen(false);
-                      setIsFullscreen(false);
-                    }}
-                    className={cn(
-                      "p-1.5 rounded-lg transition-colors",
-                      theme === "dark"
-                        ? "hover:bg-red-900/20 text-red-400"
-                        : "hover:bg-red-100 text-red-600"
-                    )}
+                    onClick={() => { setIsOpen(false); setIsFullscreen(false); }}
+                    className="p-1.5 rounded-lg hover:bg-red-50 text-red-400 transition-colors"
                     title="Close"
                   >
                     <X className="w-4 h-4" />
