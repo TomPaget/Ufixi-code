@@ -875,8 +875,8 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
             </AccordionItem>
 
             <AccordionItem value="warnings" className="border rounded-2xl px-4 border-red-200 bg-red-50 shadow-sm">
-              <AccordionTrigger className="text-red-700 font-semibold flex items-center gap-3">
-                <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+              <AccordionTrigger className="text-red-700 font-semibold flex items-center gap-3 [&>svg:first-child]:rotate-0">
+                <AlertTriangle className="w-5 h-5 flex-shrink-0 !rotate-0" />
                 When to Call a Professional
               </AccordionTrigger>
               <AccordionContent>
