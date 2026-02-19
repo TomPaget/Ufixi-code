@@ -252,6 +252,21 @@ export default function Support() {
           <div ref={messagesEndRef} />
         </div>
 
+        {/* Contact Form */}
+        {showContactForm && escalated && (
+          <SupportContactForm
+            userEmail={user?.email}
+            onSubmit={(data) => {
+              setMessages(prev => [...prev, {
+                role: "assistant",
+                content: "Thank you. Your details have been sent to info@ufixi.co.uk. You can also send additional information directly to that email address."
+              }]);
+              setShowContactForm(false);
+            }}
+            onClose={() => setShowContactForm(false)}
+          />
+        )}
+
         {/* Rating Widget */}
         {showRating && !hasRated && messages.length > 2 && (
           <div className="mt-4 p-4 rounded-2xl border mx-4 bg-white border-slate-100 shadow-sm">
