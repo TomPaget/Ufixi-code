@@ -96,11 +96,13 @@ Respond as the assistant. Be concise, helpful, and specific to this issue.`,
         onClick={() => setIsOpen(o => !o)}
         className="w-full flex items-center justify-between gap-2 px-4 py-4 rounded-2xl border bg-white border-slate-200 text-[#1E2D40] hover:bg-slate-50 transition-all shadow-sm"
       >
-        <div className="flex items-center gap-2">
-          <MessageCircle className="w-4 h-4 text-[#4BC896]" />
-          <span className="text-sm font-medium">Ask a follow-up question</span>
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#6ECBA6]/20">
+            <MessageCircle className="w-5 h-5 text-[#6ECBA6]" />
+          </div>
+          <span className="font-semibold text-[#1E2D40]">Ask a follow-up question</span>
         </div>
-        <ChevronDown className={cn("w-4 h-4 transition-transform text-[#4BC896]", isOpen && "rotate-180")} />
+        <ChevronDown className={cn("w-5 h-5 transition-transform text-slate-400", isOpen && "rotate-180")} />
       </button>
 
       {/* Chat Panel */}
