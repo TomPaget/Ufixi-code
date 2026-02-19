@@ -11,26 +11,11 @@ export default function Header({ onMenuClick, onGoPremium }) {
     queryFn: () => base44.auth.me()
   });
   const [isScrolled, setIsScrolled] = useState(false);
-  const [shake, setShake] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const scheduleShake = () => {
-      const delay = 2500 + Math.random() * 2500;
-      return setTimeout(() => {
-        setShake(true);
-        setTimeout(() => setShake(false), 800);
-        timerRef.current = scheduleShake();
-      }, delay);
-    };
-    const timerRef = { current: null };
-    timerRef.current = scheduleShake();
-    return () => clearTimeout(timerRef.current);
   }, []);
 
   return (
