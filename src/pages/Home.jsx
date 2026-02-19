@@ -547,11 +547,15 @@ export default function Home() {
               });
 
       // Store issue data and show ad break instead of navigating immediately
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 45);
+
       setPendingIssueData({
         ...analysis,
         media_url: fileUrl,
         media_type: mediaType,
         status: "active",
+        expires_at: expiresAt.toISOString(),
         sentiment_analysis: sentimentData,
         historical_insights: historicalInsights ? {
           similar_cases_count: historicalInsights.similar_issue_ids?.length || 0,
