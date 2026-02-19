@@ -260,18 +260,25 @@ export default function Support() {
         {showRating && !hasRated && messages.length > 2 && (
           <div className="mt-4 p-4 rounded-2xl border mx-4 bg-white border-slate-100 shadow-sm">
             <p className="text-sm font-semibold mb-3" style={{ color: '#1a2f42' }}>
-              💬 How helpful was this interaction?
+              How helpful was this interaction?
             </p>
-            <div className="flex gap-2">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Button
-                  key={star}
-                  onClick={() => handleRating(star)}
-                  variant="outline"
-                  className="flex-1 py-2 border-2 transition-all hover:scale-105 border-[#F7B600] text-[#F7B600] hover:bg-[#F7B600]/10"
+            <div className="grid grid-cols-5 gap-2">
+              {[
+                { value: 1, label: "Very Dissatisfied" },
+                { value: 2, label: "Dissatisfied" },
+                { value: 3, label: "Neutral" },
+                { value: 4, label: "Satisfied" },
+                { value: 5, label: "Very Satisfied" }
+              ].map(({ value, label }) => (
+                <button
+                  key={value}
+                  onClick={() => handleRating(value)}
+                  className="flex flex-col items-center gap-1 py-3 px-2 rounded-lg border-2 transition-all hover:scale-105 border-slate-200 hover:border-[#6ECBA6] hover:bg-[#6ECBA6]/5"
+                  style={{ color: '#1a2f42' }}
                 >
-                  {"⭐".repeat(star)}
-                </Button>
+                  <span className="text-lg font-bold">{value}</span>
+                  <span className="text-xs text-center leading-tight">{label}</span>
+                </button>
               ))}
             </div>
             <button
