@@ -1,4 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
+import { Resend } from 'npm:resend@3.4.0';
+
+const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
 
 Deno.serve(async (req) => {
   try {
@@ -15,10 +18,11 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    await base44.integrations.Core.SendEmail({
+    await resend.emails.send({
+      from: 'support@ufixi.co.uk',
       to: 'info@ufixi.co.uk',
       subject: 'Support Request from Ufixi User',
-      body: `User Email: ${email}\n\nIssue Summary:\n${issueSummary}`
+      html: `<p><strong>User Email:</strong> ${email}</p><p><strong>Issue Summary:</strong></p><p>${issueSummary.replace(/\n/g, '<br>')}</p>`
     });
 
     return Response.json({ success: true });
