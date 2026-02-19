@@ -628,7 +628,8 @@ export default function Home() {
     };
 
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden bg-[#F5F7FA]">
+    <div className="min-h-screen pb-20 relative overflow-hidden bg-white">
+      <LavaLampBackground />
       
       {showOnboarding && (
         <OnboardingTour onComplete={() => setShowOnboarding(false)} />
