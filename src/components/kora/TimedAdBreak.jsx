@@ -19,28 +19,16 @@ export default function TimedAdBreak() {
   // Check if user has removed ads or is premium/business member
   const hasRemovedAds = user?.ads_removed === true || user?.subscription_tier === 'premium' || user?.account_type === 'business';
 
-  // Timer to show ads after 35 seconds and 130 seconds
+  // Timer to show ads every 2 minutes
   useEffect(() => {
     if (hasRemovedAds) return;
 
-    const timers = [];
+    const timer = setInterval(() => {
+      setShowAd(true);
+    }, 120000); // 2 minutes
 
-    // First ad at 35 seconds
-    if (adsShown === 0) {
-      timers.push(setTimeout(() => {
-        setShowAd(true);
-      }, 35000));
-    }
-
-    // Second ad at 115 seconds
-    if (adsShown === 1) {
-      timers.push(setTimeout(() => {
-        setShowAd(true);
-      }, 115000));
-    }
-
-    return () => timers.forEach(timer => clearTimeout(timer));
-  }, [hasRemovedAds, adsShown]);
+    return () => clearInterval(timer);
+  }, [hasRemovedAds]);
 
   // Countdown timer when ad is showing
   useEffect(() => {
