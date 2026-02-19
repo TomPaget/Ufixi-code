@@ -141,7 +141,7 @@ const CATEGORY_OPTIONS = [
 // Map question index to a unique icon (no repeats)
 const QUESTION_ICONS = [CalendarDays, TrendingUp, CircleHelp, Timer, Eye, Tag];
 
-export default function GuidedIssueFlow({ onComplete, onCancel }) {
+export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
   const [step, setStep] = useState("upload");
   const [uploadMethod, setUploadMethod] = useState(null);
   const [mediaType, setMediaType] = useState(null);
