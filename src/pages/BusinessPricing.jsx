@@ -147,7 +147,7 @@ export default function BusinessPricing() {
             Property Issues?<br />
             <span style={{ color: '#4BC896' }}>Instant Answers.</span>
           </h1>
-          <p className="text-lg max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
+          <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
             See a problem during a viewing? Need a quick explanation for your client? 
             UFixi gives you instant, professional property diagnostics on the spot.
           </p>
