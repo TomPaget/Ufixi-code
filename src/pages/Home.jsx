@@ -749,9 +749,9 @@ export default function Home() {
                           </RippleButton>
                           <p className="text-sm font-medium mt-6" style={{ color: '#6B7A8D' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
                     </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    </div>
+                    )}
+                    </AnimatePresence>
 
         {/* Recent Issues */}
         <section>
