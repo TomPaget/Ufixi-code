@@ -162,45 +162,44 @@ export default function BusinessPricing() {
               <div
                 key={plan.name}
                 className={cn(
-                  "relative rounded-2xl border-2 transition-all cursor-pointer p-3 bg-white shadow-sm",
-                  plan.popular ? "pt-8" : "",
-                  isSelected ? "border-[#4BC896] shadow-lg shadow-[#4BC896]/20" : "border-slate-100 hover:border-[#4BC896]/40 hover:shadow-md",
+                  "relative rounded-xl border-2 transition-all cursor-pointer bg-white shadow-sm overflow-hidden",
+                  plan.popular ? "pt-6" : "pt-3",
+                  "px-2 pb-3",
+                  isSelected ? "border-[#4BC896] shadow-[#4BC896]/20 shadow-md" : "border-slate-100 hover:border-[#4BC896]/40",
                   plan.popular && "z-10"
                 )}
-                style={plan.popular ? { boxShadow: '0 0 0 3px rgba(75,200,150,0.12), 0 0 20px 4px rgba(75,200,150,0.15), 0 4px 16px rgba(0,0,0,0.08)' } : {}}
+                style={plan.popular ? { boxShadow: '0 0 0 2px rgba(75,200,150,0.2), 0 4px 16px rgba(0,0,0,0.08)' } : {}}
                 onClick={() => handleSelectPlan(plan)}
               >
                 {plan.popular && (
-                  <div className="absolute top-2 left-1/2 -translate-x-1/2 z-30 w-full flex justify-center px-1">
-                    <span className="bg-[#4BC896] text-white px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap">
-                      Popular
-                    </span>
+                  <div className="absolute top-0 left-0 right-0 bg-[#4BC896] py-1 flex justify-center">
+                    <span className="text-white text-[9px] font-bold tracking-wide uppercase">Popular</span>
                   </div>
                 )}
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2 bg-[#4BC896]/10">
-                  <Icon className="w-4 h-4 text-[#4BC896]" />
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5 bg-[#4BC896]/10">
+                  <Icon className="w-3.5 h-3.5 text-[#4BC896]" />
                 </div>
-                <h3 className="text-sm font-bold mb-1" style={{ color: '#1a2f42' }}>{plan.name}</h3>
-                <div className="mb-3">
-                  <span className="text-xl font-bold" style={{ color: '#1a2f42' }}>£{plan.price}</span>
-                  <span className="text-[10px] font-medium block" style={{ color: '#6B7A8D' }}>/month</span>
+                <h3 className="text-[11px] font-bold mb-1 leading-none" style={{ color: '#1a2f42' }}>{plan.name}</h3>
+                <div className="mb-2">
+                  <span className="text-base font-bold" style={{ color: '#1a2f42' }}>£{plan.price}</span>
+                  <span className="text-[9px] font-medium block leading-none" style={{ color: '#6B7A8D' }}>/month</span>
                 </div>
-                <ul className="space-y-1.5 mb-3">
+                <ul className="space-y-1 mb-2.5">
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-1">
-                      <CheckCircle2 className="w-3 h-3 flex-shrink-0 mt-0.5 text-[#4BC896]" />
-                      <span className="text-[10px] font-medium leading-tight" style={{ color: '#1a2f42' }}>{feature}</span>
+                    <li key={i} className="flex items-center gap-1">
+                      <CheckCircle2 className="w-2.5 h-2.5 flex-shrink-0 text-[#4BC896]" />
+                      <span className="text-[9px] font-medium whitespace-nowrap" style={{ color: '#1a2f42' }}>{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <button
-                  onClick={() => handleSelectPlan(plan)}
+                  onClick={(e) => { e.stopPropagation(); handleSelectPlan(plan); }}
                   className={cn(
-                    "w-full text-[11px] font-semibold py-1.5 rounded-lg transition-colors",
+                    "w-full text-[10px] font-semibold py-1.5 rounded-lg transition-colors",
                     isSelected ? "bg-[#4BC896] text-white" : "bg-[#1a2f42] text-white"
                   )}
                 >
-                  {isSelected ? "Selected" : "Select"}
+                  {isSelected ? "✓ Selected" : "Select"}
                 </button>
               </div>
             );
