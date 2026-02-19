@@ -574,7 +574,6 @@ export default function Home() {
         console.error("Analysis failed:", error);
       } finally {
         setAnalyzing(false);
-        setShowScanner(false);
       }
     };
 
