@@ -173,10 +173,7 @@ Respond as the assistant. Be concise, helpful, and specific to this issue.`,
                 ))}
                 {loading && (
                   <div className="flex justify-start">
-                    <div className={cn(
-                      "rounded-2xl rounded-bl-sm px-3 py-2",
-                      theme === "dark" ? "bg-[#1A2F42]" : "bg-slate-100"
-                    )}>
+                    <div className="rounded-2xl rounded-bl-sm px-3 py-2 bg-slate-100">
                       <Loader2 className="w-4 h-4 animate-spin text-[#4BC896]" />
                     </div>
                   </div>
