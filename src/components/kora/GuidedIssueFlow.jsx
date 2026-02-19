@@ -323,18 +323,36 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
     setAnalyzing(true);
     setError(null);
     try {
-      const answersText = questions.map(q =>
-        `${q.question}: ${answers[q.id] || "Not answered"}`
-      ).join("\n");
-      await onComplete(mediaUrl, mediaType, {
-        description: sanitizeText(description || issueType?.brief_description || ""),
-        category: sanitizeText(category || issueType?.category || ""),
-        location: sanitizeText(location),
-        questionsAndAnswers: answersText,
-        propertyName: isBusinessUser ? sanitizeText(propertyName) : undefined,
-        propertyAddress: isBusinessUser ? sanitizeText(propertyAddress) : undefined,
-        propertyCategory: isBusinessUser ? propertyCategory : undefined
-      });
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 45);
+
+      const issueData = {
+        title: sanitizeText(description || issueType?.brief_description || "Issue scan"),
+        explanation: sanitizeText(issueType?.brief_description || description || ""),
+        urgency: "fix_soon",
+        severity_score: 5,
+        media_url: mediaUrl,
+        media_type: mediaType,
+        status: "active",
+        expires_at: expiresAt.toISOString(),
+        property_name: isBusinessUser ? sanitizeText(propertyName) : undefined,
+        property_address: isBusinessUser ? sanitizeText(propertyAddress) : undefined,
+        property_category: isBusinessUser ? propertyCategory : undefined,
+        scanned_by_name: user?.full_name,
+      };
+
+      if (onSaveIssue) {
+        await onSaveIssue(issueData);
+      } else {
+        await onComplete(mediaUrl, mediaType, {
+          description: sanitizeText(description || issueType?.brief_description || ""),
+          category: sanitizeText(category || issueType?.category || ""),
+          location: sanitizeText(location),
+          propertyName: isBusinessUser ? sanitizeText(propertyName) : undefined,
+          propertyAddress: isBusinessUser ? sanitizeText(propertyAddress) : undefined,
+          propertyCategory: isBusinessUser ? propertyCategory : undefined,
+        });
+      }
     } catch (err) {
       setError(err.message || "Failed to store issue. Please try again.");
       setAnalyzing(false);
