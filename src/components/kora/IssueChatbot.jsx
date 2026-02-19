@@ -119,11 +119,8 @@ Respond as the assistant. Be concise, helpful, and specific to this issue.`,
             )}
           >
             <div className={cn(
-              "mt-2 rounded-xl border flex flex-col",
+              "mt-2 rounded-2xl border flex flex-col bg-white border-slate-200 shadow-sm",
               isFullscreen && "mt-0 h-full",
-              theme === "dark"
-                ? "bg-[#0F1E2E] border-[#57CFA4]/20"
-                : "bg-white border-slate-200"
             )}>
               {/* Header with close and fullscreen buttons */}
               <div className={cn(
