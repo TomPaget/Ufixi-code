@@ -659,7 +659,7 @@ export default function Home() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Poppins', sans-serif", color: '#1a2f42', letterSpacing: '-0.02em' }}>
+          <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Poppins', sans-serif", color: '#1E2D40', letterSpacing: '-0.02em' }}>
               What needs <span style={{ color: '#4BC896' }}>fixing?</span>
             </h1>
             <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
