@@ -653,7 +653,7 @@ export default function Home() {
               What needs <span style={{ color: '#4BC896' }}>fixing?</span>
             </h1>
             <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
-              Upload a photo or video and get an instant AI-powered repair assessment.
+              Upload a photo or video and get instant AI-powered repair assessments.
             </p>
         </div>
 
