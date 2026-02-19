@@ -380,7 +380,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
           ? "bg-[#1A2F42] border-[#57CFA4]/20"
           : "bg-white border-slate-200"
       )}>
-        <Loader2 className="w-12 h-12 animate-spin text-[#4BC896] mb-4" />
+        <Loader2 className="w-12 h-12 animate-spin text-[#6ECBA6] mb-4" />
         <p className={cn(
           "text-center font-semibold mb-2",
           theme === "dark" ? "text-white" : "text-[#1E3A57]"
@@ -479,7 +479,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                     className="hidden"
                     onChange={(e) => handleFileSelect("photo", e.target.files[0])}
                   />
-                  <Camera className="w-6 h-6 mb-2 text-[#4BC896]" />
+                  <Camera className="w-6 h-6 mb-2 text-[#6ECBA6]" />
                   <span className={cn(
                     "text-xs text-center",
                     theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
@@ -501,7 +501,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                     className="hidden"
                     onChange={(e) => handleFileSelect("video", e.target.files[0])}
                   />
-                  <Video className="w-6 h-6 mb-2 text-[#57CFA4]" />
+                  <Video className="w-6 h-6 mb-2 text-[#6ECBA6]" />
                   <span className={cn(
                     "text-xs text-center",
                     theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
@@ -542,7 +542,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                   className="hidden"
                   onChange={(e) => handleFileSelect("photo", e.target.files[0])}
                 />
-                <Image className="w-6 h-6 mb-2 text-[#4BC896]" />
+                <Image className="w-6 h-6 mb-2 text-[#6ECBA6]" />
                 <span className={cn(
                   "text-xs text-center",
                   theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
@@ -563,7 +563,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                   className="hidden"
                   onChange={(e) => handleFileSelect("video", e.target.files[0])}
                 />
-                <Film className="w-6 h-6 mb-2 text-[#57CFA4]" />
+                <Film className="w-6 h-6 mb-2 text-[#6ECBA6]" />
                 <span className={cn(
                   "text-xs text-center",
                   theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
@@ -602,7 +602,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
               </Button>
               <Button
                 onClick={handleContinueToDetails}
-                className="flex-1 bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E]"
+                className="flex-1 bg-[#6ECBA6] hover:bg-[#6ECBA6]/90 text-[#1E2D40]"
               >
                 Continue
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -614,7 +614,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
         <Button
           variant="outline"
           onClick={onCancel}
-          className="w-full mt-4 border-white text-white bg-[#1a2f42] hover:bg-[#1a2f42]/90 hover:text-white"
+          className="w-full mt-4 border-white text-white bg-[#1E2D40] hover:bg-[#1E2D40]/90 hover:text-white"
         >
           Cancel
         </Button>
@@ -820,7 +820,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
         <Button
           onClick={handleUpload}
           disabled={!description.trim() || (isBusinessUser && !propertyName.trim()) || uploading || analyzing}
-          className="w-full bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E]"
+          className="w-full bg-[#6ECBA6] hover:bg-[#6ECBA6]/90 text-[#1E2D40]"
         >
           {uploading || analyzing ? (
             <>
@@ -939,7 +939,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
         <Button
           onClick={handleQuestionsSubmit}
           disabled={analyzing}
-          className="w-full bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E]"
+          className="w-full bg-[#6ECBA6] hover:bg-[#6ECBA6]/90 text-[#1E2D40]"
         >
           {analyzing ? (
             <>
@@ -998,7 +998,7 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
           <Button
             onClick={handleStoreIssue}
             disabled={analyzing}
-            className="w-full bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E] font-semibold"
+            className="w-full bg-[#6ECBA6] hover:bg-[#6ECBA6]/90 text-[#1E2D40] font-semibold"
           >
             {analyzing ? (
               <>
