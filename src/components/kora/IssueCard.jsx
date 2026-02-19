@@ -32,7 +32,7 @@ const getStatusStyle = (status, theme) => {
   return styles[status] || styles.active;
 };
 
-export default function IssueCard({ issue, showCost = false, showResolutionDate = false }) {
+export default function IssueCard({ issue, showCost = false, showResolutionDate = false, onDelete }) {
   const { theme } = useTheme();
   const MediaIcon = mediaIcons[issue.media_type] || Image;
   
@@ -43,6 +43,17 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
   
   const currency = user?.currency || "GBP";
   const currencySymbol = { GBP: "£", USD: "$", EUR: "€" }[currency];
+
+  // Calculate days remaining until expiry
+  const daysRemaining = issue.expires_at
+    ? Math.max(0, differenceInDays(new Date(issue.expires_at), new Date()))
+    : null;
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onDelete) onDelete(issue.id);
+  };
 
   return (
     <Link 
