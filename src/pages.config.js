@@ -69,6 +69,7 @@ import MyJobs from './pages/MyJobs';
 import Notifications from './pages/Notifications';
 import PostJob from './pages/PostJob';
 import PropertyDetail from './pages/PropertyDetail';
+import PropertyIssues from './pages/PropertyIssues';
 import Settings from './pages/Settings';
 import Support from './pages/Support';
 import TeamManagement from './pages/TeamManagement';
@@ -81,7 +82,6 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
-import PropertyIssues from './pages/PropertyIssues';
 import __Layout from './Layout.jsx';
 
 
@@ -108,6 +108,7 @@ export const PAGES = {
     "Notifications": Notifications,
     "PostJob": PostJob,
     "PropertyDetail": PropertyDetail,
+    "PropertyIssues": PropertyIssues,
     "Settings": Settings,
     "Support": Support,
     "TeamManagement": TeamManagement,
@@ -120,7 +121,6 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
-    "PropertyIssues": PropertyIssues,
 }
 
 export const pagesConfig = {

@@ -31,11 +31,15 @@ export default function Layout({ children, currentPageName }) {
     <ThemeProvider>
       <ErrorBoundary>
         <style>{`
-          :root {
-            --dark-bg: #ffffff;
-            --dark-card: #ffffff;
-          }
-        `}</style>
+                :root {
+                  --dark-bg: #ffffff;
+                  --dark-card: #ffffff;
+                }
+                body {
+                  background: linear-gradient(160deg, #B8D8D8 0%, #C8D8E8 40%, #D0D8E8 70%, #C8D0E0 100%);
+                  min-height: 100vh;
+                }
+              `}</style>
         <LayoutContent currentPageName={currentPageName}>{children}</LayoutContent>
       </ErrorBoundary>
     </ThemeProvider>
