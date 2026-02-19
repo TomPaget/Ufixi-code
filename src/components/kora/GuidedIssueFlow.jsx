@@ -191,12 +191,13 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   };
 
   const triggerFileInput = (type, capture) => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = type === "video" ? "video/*" : "image/*";
-    if (capture) input.capture = "environment";
-    input.onchange = (e) => handleFileSelect(type, e.target.files[0]);
-    input.click();
+    if (type === "video") {
+      if (videoInputRef.current) { videoInputRef.current.value = ""; videoInputRef.current.click(); }
+    } else if (capture) {
+      if (photoInputRef.current) { photoInputRef.current.value = ""; photoInputRef.current.click(); }
+    } else {
+      if (uploadInputRef.current) { uploadInputRef.current.value = ""; uploadInputRef.current.click(); }
+    }
   };
 
   const handleMethodContinue = () => {
