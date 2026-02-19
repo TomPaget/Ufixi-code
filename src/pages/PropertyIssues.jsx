@@ -163,10 +163,10 @@ export default function PropertyIssues() {
                 className={cn(
                   "whitespace-nowrap capitalize",
                   selectedCategory === cat
-                    ? "bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#1E3A57] border-[#4BC896]"
+                    ? "bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E]"
                     : theme === "dark"
-                      ? "border-[#57CFA4]/30 text-white hover:bg-[#57CFA4]/10"
-                      : "bg-white text-[#1E3A57] border-slate-200"
+                      ? "border-[#57CFA4]/30 hover:bg-[#57CFA4]/10"
+                      : ""
                 )}
               >
                 {cat.replace("_", " ")}
