@@ -775,7 +775,7 @@ export default function Home() {
                   ) : issues.length > 0 ? (
                     <>
                       {issues.map((issue) => (
-                        <IssueCard key={issue.id} issue={issue} />
+                        <IssueCard key={issue.id} issue={issue} onDelete={handleDeleteIssue} />
                       ))}
                       <Link
                         to={createPageUrl("History")}
