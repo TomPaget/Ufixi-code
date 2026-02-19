@@ -64,8 +64,8 @@ export default function Header({ onMenuClick, onGoPremium }) {
           {!user?.is_premium && (
             <motion.button
               onClick={onGoPremium}
-              animate={shake ? { x: [0, -3, 3, 2, -2, 3, -3, 0], y: [0, -3, -2, 3, 2, -3, 2, 0] } : {}}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              animate={shake ? { x: [0, -2, 2, -1, 0], y: [0, -2, 1, -2, 0] } : {}}
+              transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95"
               style={{ background: 'linear-gradient(135deg, #6ECBA6, #4faf8a)', color: '#fff', boxShadow: '0 2px 8px rgba(110,203,166,0.35)' }}
             >
