@@ -172,16 +172,16 @@ export default function Support() {
     // Send feedback
     await base44.integrations.Core.SendEmail({
       to: "feedback@ufixi.com",
-      subject: `⭐ AI Support Rating: ${rating}/5`,
-      body: `User ${user?.email} rated AI support: ${rating}/5 stars\nConversation ID: ${conversationId}\nAttempts: ${attemptCount}`
+      subject: `Support Rating: ${rating}/5`,
+      body: `User ${user?.email} rated support: ${rating}/5\nConversation ID: ${conversationId}\nAttempts: ${attemptCount}`
     }).catch(console.error);
     
     // Show thank you
     setMessages(prev => [...prev, {
       role: "assistant",
       content: rating >= 4 
-        ? "✨ Thank you for the feedback! I'm glad I could help. Is there anything else I can assist you with?" 
-        : "Thank you for your feedback. I'm sorry I couldn't help better. A human agent will be notified and follow up with you soon. 💙"
+        ? "Thank you for the feedback! I'm glad I could help. Is there anything else I can assist you with?" 
+        : "Thank you for your feedback. We appreciate your input."
     }]);
   };
 
