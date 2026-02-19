@@ -162,11 +162,11 @@ Respond as the assistant. Be concise, helpful, and specific to this issue.`,
                     <div className={cn(
                       "max-w-[85%] rounded-2xl px-3 py-2 text-sm",
                       msg.role === "user"
-                        ? "bg-[#4BC896] text-white rounded-br-sm"
-                        : theme === "dark"
-                          ? "bg-[#1A2F42] text-white rounded-bl-sm"
-                          : "bg-slate-100 text-[#1E3A57] rounded-bl-sm"
-                    )}>
+                        ? "text-white rounded-br-sm"
+                        : "bg-slate-100 text-[#1E2D40] rounded-bl-sm"
+                    )}
+                    style={msg.role === "user" ? { background: "linear-gradient(135deg, #6ECBA6 0%, #1E2D40 100%)" } : {}}
+                    >
                       {msg.content}
                     </div>
                   </div>
