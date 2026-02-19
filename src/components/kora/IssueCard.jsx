@@ -64,7 +64,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
         whileTap={{ scale: 0.97 }}
         whileHover={{ y: -2 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
-        className="rounded-2xl p-4 border border-slate-100 bg-white cursor-pointer"
+        className="relative rounded-2xl p-4 border border-slate-100 bg-white cursor-pointer"
         style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
         <div className="flex gap-4">
           {issue.media_url && issue.media_type === "photo" ? (
