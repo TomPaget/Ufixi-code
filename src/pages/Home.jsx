@@ -759,7 +759,7 @@ export default function Home() {
           >
             <span className="font-bold flex items-center gap-2" style={{ color: '#1a2f42' }}>
               <History className="w-5 h-5 text-[#6ECBA6]" />
-              Recent Issues
+              Recent Scans
               {issues.length > 0 && (
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#6ECBA6]/10 text-[#6ECBA6]">{issues.length}</span>
               )}
