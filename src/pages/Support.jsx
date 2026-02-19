@@ -63,8 +63,8 @@ export default function Support() {
       
       const accountType = user?.account_type === "trades" ? "tradesperson" : "customer";
       const greeting = accountType === "trades"
-        ? "👋 Hi! I'm your Fixplain support assistant for tradespeople.\n\n**I can help you with:**\n• Profile setup and verification\n• Job management\n• Payment processing\n• Customer communication\n• Document uploads\n\n**Need to:**\n• Upload screenshots? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team\n\nWhat can I help you with today?"
-        : `👋 Hi! I'm your Fixplain support assistant.\n\n**I can help you with:**\n• Getting started with the app\n• Scanning and understanding issues\n• Finding tradespeople\n• Managing subscriptions\n• Troubleshooting problems\n\n**Need to:**\n• Upload screenshots? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team${proactiveTips}\n\nWhat can I help you with today?`;
+        ? "👋 Hi! I'm your Ufixi support assistant for tradespeople.\n\n**I can help you with:**\n• Profile setup and verification\n• Job management\n• Payment processing\n• Customer communication\n• Document uploads\n\n**Need to:**\n• Upload screenshots? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team\n\nWhat can I help you with today?"
+        : `👋 Hi! I'm your Ufixi support assistant.\n\n**I can help you with:**\n• Getting started with the app\n• Scanning and understanding issues\n• Finding tradespeople\n• Managing subscriptions\n• Troubleshooting problems\n\n**Need to:**\n• Upload screenshots? Use the 📎 attachment button\n• Report a bug? I'll route you to technical support\n• Have billing questions? I'll connect you with our team${proactiveTips}\n\nWhat can I help you with today?`;
       
       setMessages([{
         role: "assistant",
@@ -159,7 +159,7 @@ export default function Support() {
         
         // Notify support team
         base44.integrations.Core.SendEmail({
-          to: "support@fixplain.com",
+          to: "support@ufixi.com",
           subject: `🔔 Support Escalation - ${user?.full_name || 'User'}`,
           body: `User requires human support assistance.\n\nUser: ${user?.full_name}\nEmail: ${user?.email}\nConversation ID: ${conversationId}\nAttempts: ${newAttemptCount}\n\nPlease reach out within 1 hour.`
         }).catch(console.error);
@@ -178,7 +178,7 @@ export default function Support() {
     
     // Send feedback
     await base44.integrations.Core.SendEmail({
-      to: "feedback@fixplain.com",
+      to: "feedback@ufixi.com",
       subject: `⭐ AI Support Rating: ${rating}/5`,
       body: `User ${user?.email} rated AI support: ${rating}/5 stars\nConversation ID: ${conversationId}\nAttempts: ${attemptCount}`
     }).catch(console.error);
@@ -205,7 +205,7 @@ export default function Support() {
               msg.role === "user" ? "justify-end" : "justify-start"
             )}>
               {msg.role === "assistant" && (
-                <div className="w-8 h-8 rounded-full bg-[#57CFA4] flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#6ECBA6] flex items-center justify-center flex-shrink-0">
                   <Bot className="w-5 h-5 text-white" />
                 </div>
               )}
@@ -296,9 +296,9 @@ export default function Support() {
                   style={{ color: '#1a2f42' }}
                 >
                   {file.type === "image" ? (
-                    <ImageIcon className="w-4 h-4 text-[#57CFA4]" />
+                    <ImageIcon className="w-4 h-4 text-[#6ECBA6]" />
                   ) : (
-                    <FileText className="w-4 h-4 text-[#57CFA4]" />
+                    <FileText className="w-4 h-4 text-[#6ECBA6]" />
                   )}
                   <span className="truncate max-w-32">{file.name}</span>
                   <button
@@ -346,7 +346,7 @@ export default function Support() {
             <Button
               onClick={handleSend}
               disabled={(!input.trim() && attachments.length === 0) || sending}
-              className="bg-[#4BC896] hover:bg-[#2eaf7d] text-white rounded-xl px-6"
+              className="bg-[#6ECBA6] hover:bg-[#4faf8a] text-[#1E2D40] rounded-xl px-6"
             >
               {sending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
