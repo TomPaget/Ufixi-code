@@ -90,6 +90,19 @@ export default function Home() {
     }
   };
 
+  const handleSaveIssue = async (issueData) => {
+    try {
+      const newIssue = await createIssueMutation.mutateAsync(issueData);
+      await base44.auth.updateMe({ total_scans_used: totalScansUsed + 1 });
+      try { await base44.functions.invoke('calculateIssuePriority', { issueId: newIssue.id }); } catch {}
+      try { await base44.functions.invoke('createIssueNotification', { issueId: newIssue.id, userId: user.id, notificationType: 'issue_created' }); } catch {}
+      setShowScanner(false);
+      navigate(createPageUrl(`IssueDetail?id=${newIssue.id}`));
+    } catch (error) {
+      console.error("Failed to save issue:", error);
+    }
+  };
+
   const handleIssueComplete = async (fileUrl, mediaType, additionalInfo = {}) => {
     setAnalyzing(true);
 
