@@ -13,7 +13,8 @@ css
   body {
     color: #1E2D40;
     font-family: 'Poppins', sans-serif;
-    background-color: #F5F7FA;
+    background: linear-gradient(160deg, #B8D8D8 0%, #C8D8E8 40%, #D0D8E8 70%, #C8D0E0 100%);
+    min-height: 100vh;
   }
 
   * {
