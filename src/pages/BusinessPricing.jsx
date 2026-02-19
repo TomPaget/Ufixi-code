@@ -29,30 +29,30 @@ const plans = [
     icon: Building2,
     color: "from-slate-900 to-slate-950",
     features: [
-      "Up to 5 team members",
-      "No ads on app",
-      "Unlimited property scans",
-      "2x faster scans than free",
-      "Instant AI diagnostics",
-      "Cost estimates for repairs",
-      "Mobile app access"
+      "5 team members",
+      "No ads",
+      "Unlimited scans",
+      "2x faster scans",
+      "AI diagnostics",
+      "Cost estimates",
+      "Mobile access"
     ]
   },
   {
-    name: "Professional",
+    name: "Pro",
     price: 14.99,
     icon: Zap,
     color: "from-slate-700 to-slate-900",
     popular: true,
     features: [
-      "Everything in Starter",
-      "Up to 10 team members",
-      "3x faster scans than free",
+      "All Starter +",
+      "10 team members",
+      "3x faster scans",
       "Priority support",
-      "Priority AI analysis",
-      "Detailed repair reports",
-      "Export & share functionality",
-      "Advanced cost breakdowns"
+      "Priority AI",
+      "Repair reports",
+      "Export & share",
+      "Cost breakdowns"
     ]
   },
   {
@@ -61,14 +61,14 @@ const plans = [
     icon: TrendingUp,
     color: "from-slate-800 to-slate-950",
     features: [
-      "Everything in Professional",
-      "Up to 25 team members",
-      "5x faster scans than free",
-      "No ads on app",
-      "Advanced analytics dashboard",
+      "All Pro +",
+      "25 team members",
+      "5x faster scans",
+      "No ads",
+      "Analytics dash",
       "Priority support",
-      "Custom integrations",
-      "Dedicated account manager"
+      "Integrations",
+      "Account manager"
     ]
   }
 ];
