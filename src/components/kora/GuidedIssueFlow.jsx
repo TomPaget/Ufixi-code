@@ -1283,24 +1283,39 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
           : "bg-white border-slate-200"
       )}>
         <h3 className={cn(
-          "font-semibold mb-4 text-lg",
+          "font-semibold mb-2 text-lg",
           theme === "dark" ? "text-white" : "text-[#1E3A57]"
         )}>
-          Save This Scan?
+          Close this scan?
         </h3>
 
         <p className={cn(
-          "mb-6",
+          "text-sm mb-5",
           theme === "dark" ? "text-[#57CFA4]" : "text-slate-600"
         )}>
-          Would you like to save this issue to your recent issues? You can track your progress and review the analysis anytime during the next 45 days.
+          This scan and its full analysis will be saved to your <strong>Recent Issues</strong> for <strong>45 days</strong> so you can refer back anytime.
         </p>
+
+        <div className={cn(
+          "rounded-xl p-3 mb-5 flex items-start gap-3",
+          theme === "dark" ? "bg-[#0F1E2E] border border-[#57CFA4]/20" : "bg-slate-50 border border-slate-200"
+        )}>
+          <CheckCircle2 className="w-5 h-5 text-[#4BC896] flex-shrink-0 mt-0.5" />
+          <div>
+            <p className={cn("text-sm font-medium", theme === "dark" ? "text-white" : "text-[#1E3A57]")}>
+              {issueType?.brief_description || "Issue scan"}
+            </p>
+            <p className={cn("text-xs mt-0.5", theme === "dark" ? "text-[#57CFA4]" : "text-slate-500")}>
+              Saved for 45 days · Viewable in Recent Issues
+            </p>
+          </div>
+        </div>
 
         <div className="space-y-3">
           <Button
             onClick={handleStoreIssue}
             disabled={analyzing}
-            className="w-full bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E]"
+            className="w-full bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#0F1E2E] font-semibold"
           >
             {analyzing ? (
               <>
@@ -1308,31 +1323,23 @@ Be practical, safety-conscious, and use simple language. Recommend mid-range pro
                 Saving...
               </>
             ) : (
-              "Yes, Save This Issue"
+              "Yes, save & close"
             )}
           </Button>
 
           <Button
-            onClick={() => setShowStoragePrompt(false)}
+            onClick={onCancel}
             variant="outline"
             className={cn(
               "w-full",
               theme === "dark"
-                ? "border-[#57CFA4]/30 text-white hover:bg-[#57CFA4]/10"
-                : "border-slate-200"
+                ? "border-[#57CFA4]/30 text-white hover:bg-red-900/20 hover:border-red-500"
+                : "border-slate-200 hover:bg-red-50 hover:border-red-300 hover:text-red-700"
             )}
           >
-            No, Delete This Scan
+            Discard & close
           </Button>
         </div>
-
-        {showStoragePrompt && !analyzing && (
-          <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200">
-            <p className="text-xs text-red-800">
-              <strong>Note:</strong> If you delete this scan now, you won't be able to view it later or track any fixes you make. Are you sure?
-            </p>
-          </div>
-        )}
       </div>
     );
   }
