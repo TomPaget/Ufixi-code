@@ -65,7 +65,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
         whileHover={{ y: -2 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className="relative rounded-2xl p-4 border border-slate-100 bg-white cursor-pointer"
-        style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+        style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }} >
         <div className="flex gap-4">
           {issue.media_url && issue.media_type === "photo" ? (
             <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100">
@@ -76,8 +76,8 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
               />
             </div>
           ) : (
-            <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#4BC896]/10">
-              <MediaIcon className="w-6 h-6 text-[#4BC896]" />
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#6ECBA6]/10">
+                        <MediaIcon className="w-6 h-6 text-[#6ECBA6]" />
             </div>
           )}
           
@@ -91,7 +91,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
                   {format(new Date(issue.created_date), "MMM d, yyyy")}
                 </p>
               </div>
-              <ChevronRight className="w-5 h-5 flex-shrink-0 text-[#4BC896]" />
+              <ChevronRight className="w-5 h-5 flex-shrink-0 text-[#6ECBA6]" />
             </div>
             
             <div className="flex items-center gap-2 mt-3 flex-wrap">
