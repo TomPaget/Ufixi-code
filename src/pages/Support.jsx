@@ -155,8 +155,9 @@ export default function Support() {
       setTimeout(() => {
         setMessages(prev => [...prev, {
           role: "assistant",
-          content: "I notice you might need more specialized help. Would you like to contact our support team?\n\nYou can reach us at **info@ufixi.co.uk** with details about your issue."
+          content: "I've tried to help, but your issue might need more specialized attention. You can reach our support team at info@ufixi.co.uk with details about what you need."
         }]);
+        setShowContactForm(true);
         setEscalated(true);
       }, 2000);
     }
