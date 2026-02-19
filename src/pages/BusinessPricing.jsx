@@ -154,7 +154,7 @@ export default function BusinessPricing() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16 items-center">
+        <div className="grid grid-cols-3 gap-2 mb-16 items-center">
           {plans.map((plan) => {
             const Icon = plan.icon;
             const isSelected = selectedPlan?.name === plan.name;
@@ -162,46 +162,49 @@ export default function BusinessPricing() {
               <div
                 key={plan.name}
                 className={cn(
-                  "relative rounded-3xl border-2 transition-all cursor-pointer p-6 bg-white shadow-sm",
-                  plan.popular ? "pt-12" : "",
-                  isSelected ? "border-[#4BC896] shadow-lg shadow-[#4BC896]/20 scale-105" : "border-slate-100 hover:border-[#4BC896]/40 hover:shadow-md",
+                  "relative rounded-2xl border-2 transition-all cursor-pointer p-3 bg-white shadow-sm flex flex-col",
+                  plan.popular ? "pt-8" : "",
+                  isSelected ? "border-[#4BC896] shadow-lg shadow-[#4BC896]/20" : "border-slate-100 hover:border-[#4BC896]/40",
                   plan.popular && "md:scale-105 md:z-10"
                 )}
-                style={plan.popular ? { boxShadow: '0 0 0 4px rgba(75,200,150,0.12), 0 0 32px 8px rgba(75,200,150,0.15), 0 4px 24px rgba(0,0,0,0.08)' } : {}}
+                style={plan.popular ? { boxShadow: '0 0 0 3px rgba(75,200,150,0.15), 0 4px 16px rgba(0,0,0,0.08)' } : {}}
                 onClick={() => handleSelectPlan(plan)}
               >
                 {plan.popular && (
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 w-full flex justify-center px-4">
-                    <span className="bg-[#4BC896] text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap">
-                      Most Popular
+                  <div className="absolute top-2 left-1/2 -translate-x-1/2 z-30 w-full flex justify-center px-1">
+                    <span className="bg-[#4BC896] text-white px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap">
+                      Popular
                     </span>
                   </div>
                 )}
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[#4BC896]/10">
-                  <Icon className="w-6 h-6 text-[#4BC896]" />
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2 bg-[#4BC896]/10">
+                  <Icon className="w-4 h-4 text-[#4BC896]" />
                 </div>
-                <h3 className="text-xl font-bold mb-2" style={{ color: '#1a2f42' }}>{plan.name}</h3>
-                <div className="mb-6">
-                  <span className="text-4xl font-bold" style={{ color: '#1a2f42' }}>£{plan.price}</span>
-                  <span className="text-sm font-medium" style={{ color: '#6B7A8D' }}>/month</span>
+                <h3 className="text-sm font-bold mb-1" style={{ color: '#1a2f42' }}>{plan.name}</h3>
+                <div className="mb-3">
+                  <span className="text-xl font-bold" style={{ color: '#1a2f42' }}>£{plan.price}</span>
+                  <span className="text-[10px] font-medium block" style={{ color: '#6B7A8D' }}>/month</span>
                 </div>
-                <ul className="space-y-3 mb-6">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#4BC896]" />
-                      <span className="text-sm font-medium" style={{ color: '#1a2f42' }}>{feature}</span>
+                <ul className="space-y-1.5 mb-3 flex-1">
+                  {plan.features.slice(0, 4).map((feature, i) => (
+                    <li key={i} className="flex items-start gap-1">
+                      <CheckCircle2 className="w-3 h-3 flex-shrink-0 mt-0.5 text-[#4BC896]" />
+                      <span className="text-[10px] font-medium leading-tight" style={{ color: '#1a2f42' }}>{feature}</span>
                     </li>
                   ))}
+                  {plan.features.length > 4 && (
+                    <li className="text-[10px] text-slate-400 pl-4">+{plan.features.length - 4} more</li>
+                  )}
                 </ul>
-                <Button
-                  onClick={() => handleSelectPlan(plan)}
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleSelectPlan(plan); }}
                   className={cn(
-                    "w-full font-semibold",
-                    isSelected ? "bg-[#4BC896] hover:bg-[#2eaf7d] text-white" : "bg-[#1a2f42] hover:bg-[#1a2f42]/90 text-white"
+                    "w-full py-1.5 rounded-lg text-xs font-semibold transition-colors",
+                    isSelected ? "bg-[#4BC896] text-white" : "bg-[#1a2f42] text-white hover:bg-[#1a2f42]/90"
                   )}
                 >
-                  {isSelected ? "Selected" : "Select Plan"}
-                </Button>
+                  {isSelected ? "Selected" : "Select"}
+                </button>
               </div>
             );
           })}
