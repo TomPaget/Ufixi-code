@@ -597,57 +597,63 @@ export default function Home() {
   };
 
   const handleAdComplete = async () => {
-      setShowAdBreak(false);
+     if (!pendingIssueData) {
+       setShowAdBreak(false);
+       return;
+     }
 
-      if (!pendingIssueData) return;
+     try {
+       // Create the issue with stored data
+       const newIssue = await base44.entities.Issue.create(pendingIssueData);
 
-      try {
-        // Create the issue with stored data
-        const newIssue = await createIssueMutation.mutateAsync(pendingIssueData);
+       // Update scan count
+       await base44.auth.updateMe({
+         total_scans_used: totalScansUsed + 1
+       });
 
-        // Update scan count
-        await base44.auth.updateMe({
-          total_scans_used: totalScansUsed + 1
-        });
+       queryClient.invalidateQueries(["issues"]);
 
-        // Calculate AI-powered priority
-        try {
-          await base44.functions.invoke('calculateIssuePriority', {
-            issueId: newIssue.id
-          });
-        } catch (error) {
-          console.error('Failed to calculate priority:', error);
-        }
+       // Calculate AI-powered priority
+       try {
+         await base44.functions.invoke('calculateIssuePriority', {
+           issueId: newIssue.id
+         });
+       } catch (error) {
+         console.error('Failed to calculate priority:', error);
+       }
 
-        // Trigger notification
-        if (pendingIssueData.severity_score >= 8 || pendingIssueData.urgency === 'fix_now') {
-          try {
-            await base44.functions.invoke('createIssueNotification', {
-              issueId: newIssue.id,
-              userId: user.id,
-              notificationType: pendingIssueData.urgency === 'fix_now' ? 'fix_now_urgency' : 'critical_issue'
-            });
-          } catch (error) {
-            console.error('Failed to send notification:', error);
-          }
-        } else {
-          try {
-            await base44.functions.invoke('createIssueNotification', {
-              issueId: newIssue.id,
-              userId: user.id,
-              notificationType: 'issue_created'
-            });
-          } catch (error) {
-            console.error('Failed to send notification:', error);
-          }
-        }
+       // Trigger notification
+       if (pendingIssueData.severity_score >= 8 || pendingIssueData.urgency === 'fix_now') {
+         try {
+           await base44.functions.invoke('createIssueNotification', {
+             issueId: newIssue.id,
+             userId: user.id,
+             notificationType: pendingIssueData.urgency === 'fix_now' ? 'fix_now_urgency' : 'critical_issue'
+           });
+         } catch (error) {
+           console.error('Failed to send notification:', error);
+         }
+       } else {
+         try {
+           await base44.functions.invoke('createIssueNotification', {
+             issueId: newIssue.id,
+             userId: user.id,
+             notificationType: 'issue_created'
+           });
+         } catch (error) {
+           console.error('Failed to send notification:', error);
+         }
+       }
 
-        navigate(createPageUrl(`IssueDetail?id=${newIssue.id}`));
-        setPendingIssueData(null);
-      } catch (error) {
-        console.error("Failed to create issue:", error);
-      }
-    };
+       setShowAdBreak(false);
+       setPendingIssueData(null);
+       navigate(createPageUrl(`IssueDetail?id=${newIssue.id}`));
+     } catch (error) {
+       console.error("Failed to create issue:", error);
+       setShowAdBreak(false);
+       setPendingIssueData(null);
+     }
+   };
 
   return (
     <div className="min-h-screen pb-20 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #B8D8D8 0%, #C8D8E8 40%, #D0D8E8 70%, #C8D0E0 100%)' }}>
