@@ -147,6 +147,10 @@ export default function GuidedIssueFlow({ onComplete, onCancel }) {
   const [mediaType, setMediaType] = useState(null);
   const [mediaFile, setMediaFile] = useState(null);
   const [mediaUrl, setMediaUrl] = useState(null);
+
+  const photoInputRef = useRef(null);
+  const videoInputRef = useRef(null);
+  const uploadInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState(null);
