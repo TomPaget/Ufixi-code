@@ -752,6 +752,13 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
   // ─────────────────────────────────────────────
   // STEP: Suggestions / results
   // ─────────────────────────────────────────────
+  // Generate a short friendly header from the issue type
+  const issueShortLabel = issueType?.category
+    ? `Looks like a ${issueType.category} issue`
+    : issueType?.brief_description
+    ? issueType.brief_description.split(" ").slice(0, 4).join(" ")
+    : "Here's your diagnosis";
+
   if (step === "suggestions") {
     return (
       <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto">
@@ -763,10 +770,17 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
             >
               <ArrowLeft className="w-5 h-5 text-[#1E2D40]" />
             </button>
-            <h3 className="font-bold text-lg text-[#1E2D40] flex items-center gap-2">
-              <Lightbulb className="w-5 h-5 text-[#6ECBA6]" />
-              Analysis Results
-            </h3>
+            <h3 className="font-bold text-lg text-[#1E2D40]">Diagnosis</h3>
+          </div>
+
+          {/* Friendly issue header card */}
+          <div className="bg-white rounded-2xl p-5 shadow-sm">
+            <p className="text-2xl font-bold text-[#1E2D40] leading-tight capitalize">
+              {issueShortLabel}
+            </p>
+            {issueType?.brief_description && (
+              <p className="text-sm text-slate-500 mt-1 line-clamp-2">{issueType.brief_description}</p>
+            )}
           </div>
 
           <Accordion type="single" collapsible className="w-full space-y-2">
