@@ -62,14 +62,16 @@ export default function Header({ onMenuClick, onGoPremium }) {
         {/* Right: Go Premium + Bell */}
         <div className="flex items-center gap-2 ml-auto flex-shrink-0 pr-3">
           {!user?.is_premium && (
-            <button
+            <motion.button
               onClick={onGoPremium}
+              animate={shake ? { x: [0, -4, 4, -4, 4, 0] } : {}}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95"
               style={{ background: 'linear-gradient(135deg, #6ECBA6, #4faf8a)', color: '#fff', boxShadow: '0 2px 8px rgba(110,203,166,0.35)' }}
             >
               <Sparkles className="w-3.5 h-3.5" />
               Go Premium
-            </button>
+            </motion.button>
           )}
         </div>
       </div>
