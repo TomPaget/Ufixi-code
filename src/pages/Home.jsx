@@ -691,9 +691,7 @@ export default function Home() {
 
         {/* Quick Stats */}
         {issues.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div
             className="grid grid-cols-3 gap-3"
           >
             <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
