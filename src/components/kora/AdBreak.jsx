@@ -18,7 +18,7 @@ export default function AdBreak({ onAdComplete, issueTitle }) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, onAdComplete]);
+  }, [timeLeft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
