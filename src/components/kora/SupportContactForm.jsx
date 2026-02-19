@@ -19,10 +19,9 @@ export default function SupportContactForm({ userEmail, onSubmit, onClose }) {
     setError(null);
 
     try {
-      await base44.integrations.Core.SendEmail({
-        to: "info@ufixi.co.uk",
-        subject: "Support Request from Ufixi User",
-        body: `User Email: ${email}\n\nIssue Summary:\n${issueSummary}`
+      const { data } = await base44.functions.invoke('sendContactFormEmail', {
+        email,
+        issueSummary
       });
 
       onSubmit({
