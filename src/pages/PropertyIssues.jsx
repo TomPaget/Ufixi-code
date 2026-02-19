@@ -166,7 +166,7 @@ export default function PropertyIssues() {
                     ? "bg-[#4BC896] hover:bg-[#4BC896]/90 text-[#1E3A57] border-[#4BC896]"
                     : theme === "dark"
                       ? "border-[#57CFA4]/30 text-white hover:bg-[#57CFA4]/10"
-                      : "bg-white text-[#1E3A57] border-slate-200"
+                      : "bg-white text-[#1E3A57] border-slate-200 hover:bg-slate-50"
                 )}
               >
                 {cat.replace("_", " ")}
