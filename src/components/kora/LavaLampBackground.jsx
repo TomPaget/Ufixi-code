@@ -38,15 +38,15 @@ export default function LavaLampBackground() {
     >
       {/* Blobs */}
       <div className="blob absolute w-[420px] h-[420px] rounded-full opacity-30"
-        style={{ background: "radial-gradient(circle, #a8f0d4 0%, #4BC896 60%, transparent 100%)", filter: "blur(60px)", top: 0, left: 0 }} />
+        style={{ background: "radial-gradient(circle, #b8e8d4 0%, #6ECBA6 60%, transparent 100%)", filter: "blur(60px)", top: 0, left: 0 }} />
       <div className="blob absolute w-[320px] h-[320px] rounded-full opacity-20"
-        style={{ background: "radial-gradient(circle, #c7f4e4 0%, #57CFA4 60%, transparent 100%)", filter: "blur(50px)", top: 0, left: 0 }} />
+        style={{ background: "radial-gradient(circle, #c8edd8 0%, #6ECBA6 60%, transparent 100%)", filter: "blur(50px)", top: 0, left: 0 }} />
       <div className="blob absolute w-[500px] h-[500px] rounded-full opacity-15"
-        style={{ background: "radial-gradient(circle, #d4f7ea 0%, #4BC896 50%, transparent 100%)", filter: "blur(80px)", top: 0, left: 0 }} />
+        style={{ background: "radial-gradient(circle, #d4f0e6 0%, #6ECBA6 50%, transparent 100%)", filter: "blur(80px)", top: 0, left: 0 }} />
       <div className="blob absolute w-[280px] h-[280px] rounded-full opacity-25"
-        style={{ background: "radial-gradient(circle, #e0faf0 0%, #2eaf7d 60%, transparent 100%)", filter: "blur(45px)", top: 0, left: 0 }} />
+        style={{ background: "radial-gradient(circle, #e0f5ec 0%, #4faf8a 60%, transparent 100%)", filter: "blur(45px)", top: 0, left: 0 }} />
       <div className="blob absolute w-[360px] h-[360px] rounded-full opacity-20"
-        style={{ background: "radial-gradient(circle, #b8f0d8 0%, #57CFA4 55%, transparent 100%)", filter: "blur(65px)", top: 0, left: 0 }} />
+        style={{ background: "radial-gradient(circle, #c0e8d4 0%, #6ECBA6 55%, transparent 100%)", filter: "blur(65px)", top: 0, left: 0 }} />
     </div>
   );
 }
