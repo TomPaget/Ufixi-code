@@ -21,10 +21,10 @@ export default function Header({ onMenuClick, onGoPremium }) {
 
   useEffect(() => {
     const scheduleShake = () => {
-      const delay = 3000 + Math.random() * 4000;
+      const delay = 1500 + Math.random() * 2000;
       return setTimeout(() => {
         setShake(true);
-        setTimeout(() => setShake(false), 500);
+        setTimeout(() => setShake(false), 600);
         timerRef.current = scheduleShake();
       }, delay);
     };
