@@ -153,16 +153,9 @@ export default function Support() {
       setTimeout(() => {
         setMessages(prev => [...prev, {
           role: "assistant",
-          content: "🤝 I notice you might need more specialized help. Would you like me to connect you with a human support agent?\n\nOur team will reach out to you at **" + (user?.email || "your email") + "** within 1 hour to provide personalized assistance.\n\n✅ Click the button below if you'd like human support."
+          content: "I notice you might need more specialized help. Would you like to contact our support team?\n\nYou can reach us at **info@ufixi.co.uk** with details about your issue."
         }]);
         setEscalated(true);
-        
-        // Notify support team
-        base44.integrations.Core.SendEmail({
-          to: "support@ufixi.com",
-          subject: `🔔 Support Escalation - ${user?.full_name || 'User'}`,
-          body: `User requires human support assistance.\n\nUser: ${user?.full_name}\nEmail: ${user?.email}\nConversation ID: ${conversationId}\nAttempts: ${newAttemptCount}\n\nPlease reach out within 1 hour.`
-        }).catch(console.error);
       }, 2000);
     }
 
