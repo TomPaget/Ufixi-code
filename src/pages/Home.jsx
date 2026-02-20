@@ -681,7 +681,7 @@ export default function Home() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Poppins', sans-serif", color: '#1E2D40', letterSpacing: '-0.02em' }}>
+          <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Poppins', sans-serif", color: '#1a2f42', letterSpacing: '-0.02em' }}>
               What needs <span style={{ color: '#63c49f' }}>fixing?</span>
             </h1>
             <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
@@ -801,7 +801,7 @@ export default function Home() {
                     </>
                   ) : (
                     <div className="text-center py-12 rounded-3xl border border-slate-100 bg-white" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
-                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(110, 203, 166, 0.1)', border: '1px solid rgba(110, 203, 166, 0.2)' }}>
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(99,196,159,0.1)', border: '1px solid rgba(99,196,159,0.2)' }}>
                       <Sparkles className="w-8 h-8 text-[#63c49f]" />
                       </div>
                       <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues scanned yet</p>
@@ -869,7 +869,7 @@ export default function Home() {
             <Button
               onClick={handlePayAndScan}
               disabled={processingPayment}
-              className="w-full bg-[#63c49f] hover:bg-[#63c49f]/90 text-[#1E2D40] h-12 rounded-xl font-semibold"
+              className="w-full bg-[#63c49f] hover:bg-[#63c49f]/90 text-[#1a2f42] h-12 rounded-xl font-semibold"
             >
               {processingPayment ? (
                 <>
