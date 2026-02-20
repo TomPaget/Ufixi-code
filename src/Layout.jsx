@@ -8,7 +8,7 @@ function LayoutContent({ children, currentPageName }) {
     const { theme } = useTheme();
 
     return (
-      <div className="min-h-screen" style={{ color: theme === 'light' ? '#ffffff' : '#1E2D40' }}>
+      <div className="min-h-screen" style={{ color: theme === 'light' ? '#ffffff' : '#1a2f42' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPageName}
