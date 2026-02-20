@@ -101,34 +101,7 @@ export default function BusinessPricing() {
   });
 
   const handleSelectPlan = (plan) => {
-    setSelectedPlan(plan);
-  };
-
-  const handleSubscribe = async () => {
-    if (selectedPlan && companyName) {
-      try {
-        // Save company name first
-        await base44.auth.updateMe({
-          company_name: companyName,
-          account_type: "business"
-        });
-
-        // Create Stripe checkout session
-        const { data } = await base44.functions.invoke('createStripeCheckout', {
-          planType: selectedPlan.name.toLowerCase(),
-          planName: `${selectedPlan.name} Plan`,
-          price: selectedPlan.price,
-          accountType: 'business'
-        });
-
-        // Redirect to Stripe checkout
-        if (data.url) {
-          window.location.href = data.url;
-        }
-      } catch (error) {
-        console.error('Checkout error:', error);
-      }
-    }
+    navigate(createPageUrl(`BusinessSignup?plan=${plan.name.toLowerCase()}`));
   };
 
   return (
