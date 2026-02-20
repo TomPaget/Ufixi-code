@@ -101,7 +101,7 @@ export default function BusinessSignup() {
 
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Building2 className="w-4 h-4 text-[#4BC896]" />
+              <Building2 className="w-4 h-4 text-[#6ECBA6]" />
               Company Name *
             </Label>
             <Input
@@ -114,7 +114,7 @@ export default function BusinessSignup() {
 
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Briefcase className="w-4 h-4 text-[#4BC896]" />
+              <Briefcase className="w-4 h-4 text-[#6ECBA6]" />
               Business Type *
             </Label>
             <div className="grid grid-cols-2 gap-2">
@@ -138,7 +138,7 @@ export default function BusinessSignup() {
 
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Users className="w-4 h-4 text-[#4BC896]" />
+              <Users className="w-4 h-4 text-[#6ECBA6]" />
               Team Size *
             </Label>
             <div className="grid grid-cols-2 gap-2">
@@ -162,7 +162,7 @@ export default function BusinessSignup() {
 
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <MapPin className="w-4 h-4 text-[#4BC896]" />
+              <MapPin className="w-4 h-4 text-[#6ECBA6]" />
               Location <span className="font-normal text-xs" style={{ color: "#6B7A8D" }}>(optional)</span>
             </Label>
             <Input
