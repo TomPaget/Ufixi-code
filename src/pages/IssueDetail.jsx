@@ -203,9 +203,7 @@ export default function IssueDetail() {
             </div>
           )}
 
-          <div className="flex items-center justify-between">
-            <UrgencyBadge urgency={issue.urgency} showDescription />
-
+          <div className="flex items-center justify-end">
           {issue.status !== "resolved" && (
             <div className="flex gap-2">
               {issue.status === "active" && (
