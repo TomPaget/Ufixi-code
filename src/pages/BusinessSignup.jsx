@@ -141,18 +141,23 @@ export default function BusinessSignup() {
               <Users className="w-4 h-4 text-[#4BC896]" />
               Team Size *
             </Label>
-            <select
-              value={form.teamSize}
-              onChange={(e) => setForm({ ...form, teamSize: e.target.value })}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4BC896]/40"
-              style={{ color: form.teamSize ? "#1a2f42" : "#9aa5b4" }}
-            >
-              <option value="" disabled>How many people in your team?</option>
-              <option value="1-5">1–5 people</option>
-              <option value="6-10">6–10 people</option>
-              <option value="11-25">11–25 people</option>
-              <option value="25+">25+ people</option>
-            </select>
+            <div className="grid grid-cols-2 gap-2">
+              {["1–5 people", "6–10 people", "11–25 people", "25+ people"].map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => setForm({ ...form, teamSize: size })}
+                  className="text-left px-3 py-2.5 rounded-xl border text-sm font-medium transition-all"
+                  style={{
+                    borderColor: form.teamSize === size ? "#4BC896" : "#e2e8f0",
+                    background: form.teamSize === size ? "rgba(75,200,150,0.08)" : "#fff",
+                    color: form.teamSize === size ? "#1a2f42" : "#6B7A8D"
+                  }}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="space-y-1.5">
