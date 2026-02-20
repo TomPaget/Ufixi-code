@@ -236,7 +236,31 @@ export default function IssueDetail() {
 
         {/* Explanation */}
         <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
-          <h2 className="font-semibold mb-3" style={{ color: '#1a2f42' }}>What's happening?</h2>
+          <div className="flex items-start justify-between mb-3">
+            <h2 className="font-semibold" style={{ color: '#1a2f42' }}>What's happening?</h2>
+            {issue.severity_score != null && (
+              <div className="flex flex-col items-end ml-3 flex-shrink-0">
+                <span className="text-xs mb-1" style={{ color: '#6B7A8D' }}>Confidence</span>
+                <div className="flex items-end gap-0.5">
+                  {[1, 2, 3, 4, 5].map((bar) => {
+                    const confidence = Math.round((issue.severity_score / 10) * 5);
+                    const filled = bar <= confidence;
+                    return (
+                      <div
+                        key={bar}
+                        className="rounded-sm transition-all"
+                        style={{
+                          width: '6px',
+                          height: `${8 + bar * 3}px`,
+                          backgroundColor: filled ? '#63c49f' : '#E2E8F0'
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
           <p className="leading-relaxed" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
           {issue.historical_insights?.recommended_approach && (
             <div className="mt-4 p-4 bg-[#63c49f]/5 rounded-xl border border-[#63c49f]/20">
