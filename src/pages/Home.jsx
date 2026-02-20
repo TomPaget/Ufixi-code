@@ -682,7 +682,7 @@ export default function Home() {
         {/* Welcome Section */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Poppins', sans-serif", color: '#1E2D40', letterSpacing: '-0.02em' }}>
-              What needs <span style={{ color: '#4BC896' }}>fixing?</span>
+              What needs <span style={{ color: '#63c49f' }}>fixing?</span>
             </h1>
             <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
               Upload a photo or video and get instant AI-powered repair assessments.
@@ -695,21 +695,21 @@ export default function Home() {
             className="grid grid-cols-3 gap-3"
           >
             <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
-                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#6ECBA6]" />
+                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
                 <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
                   {issues.filter(i => i.status === "active").length}
                 </p>
                 <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Active</p>
               </div>
               <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
-                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#6ECBA6]" />
+                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
                 <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
                   {issues.filter(i => i.urgency === "fix_soon").length}
                 </p>
                 <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Fix Soon</p>
               </div>
               <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
-                <History className="w-5 h-5 mx-auto mb-1 text-[#6ECBA6]" />
+                <History className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
                 <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
                   {issues.filter(i => i.status === "resolved").length}
                 </p>
@@ -739,8 +739,8 @@ export default function Home() {
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                             className="w-40 h-40 rounded-full flex flex-col items-center justify-center gap-2 border-0 transition-transform active:scale-95"
                             style={{
-                              background: 'linear-gradient(145deg, #6ECBA6 0%, #4faf8a 100%)',
-                              boxShadow: '0 0 0 16px rgba(110,203,166,0.12), 0 0 0 32px rgba(110,203,166,0.06), 0 8px 40px rgba(110,203,166,0.4)',
+                              background: 'linear-gradient(145deg, #63c49f 0%, #4faf8a 100%)',
+                              boxShadow: '0 0 0 16px rgba(99,196,159,0.12), 0 0 0 32px rgba(99,196,159,0.06), 0 8px 40px rgba(99,196,159,0.4)',
                               color: '#fff'
                             }}
                           >
@@ -760,10 +760,10 @@ export default function Home() {
             className="w-full flex items-center justify-between p-4 rounded-2xl bg-white border border-slate-100 shadow-sm transition-all hover:shadow-md active:scale-[0.99]"
           >
             <span className="font-bold flex items-center gap-2" style={{ color: '#1a2f42' }}>
-              <History className="w-5 h-5 text-[#6ECBA6]" />
+              <History className="w-5 h-5 text-[#63c49f]" />
               Recent Scans
               {issues.length > 0 && (
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#6ECBA6]/10 text-[#6ECBA6]">{issues.length}</span>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#63c49f]/10 text-[#63c49f]">{issues.length}</span>
               )}
             </span>
             {showRecentIssues ? (
@@ -794,7 +794,7 @@ export default function Home() {
                       ))}
                       <Link
                         to={createPageUrl("History")}
-                        className="block text-center text-sm font-semibold text-[#6ECBA6] hover:text-[#4faf8a] py-2 transition-colors"
+                        className="block text-center text-sm font-semibold text-[#63c49f] hover:text-[#4faf8a] py-2 transition-colors"
                       >
                         View All Issues →
                       </Link>
@@ -802,7 +802,7 @@ export default function Home() {
                   ) : (
                     <div className="text-center py-12 rounded-3xl border border-slate-100 bg-white" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
                       <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(110, 203, 166, 0.1)', border: '1px solid rgba(110, 203, 166, 0.2)' }}>
-                      <Sparkles className="w-8 h-8 text-[#6ECBA6]" />
+                      <Sparkles className="w-8 h-8 text-[#63c49f]" />
                       </div>
                       <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues scanned yet</p>
                       <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>Tap the button above to get started</p>
@@ -869,7 +869,7 @@ export default function Home() {
             <Button
               onClick={handlePayAndScan}
               disabled={processingPayment}
-              className="w-full bg-[#6ECBA6] hover:bg-[#6ECBA6]/90 text-[#1E2D40] h-12 rounded-xl font-semibold"
+              className="w-full bg-[#63c49f] hover:bg-[#63c49f]/90 text-[#1E2D40] h-12 rounded-xl font-semibold"
             >
               {processingPayment ? (
                 <>

@@ -123,22 +123,22 @@ export default function History() {
         {/* Statistics Overview */}
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
-            <TrendingUp className="w-5 h-5 text-[#4BC896] mb-2" />
+            <TrendingUp className="w-5 h-5 text-[#63c49f] mb-2" />
             <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.total}</p>
             <p className="text-xs" style={{ color: '#6B7A8D' }}>Total Issues</p>
           </div>
           <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
-            <CheckCircle2 className="w-5 h-5 text-[#4BC896] mb-2" />
+            <CheckCircle2 className="w-5 h-5 text-[#63c49f] mb-2" />
             <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.resolved}</p>
             <p className="text-xs" style={{ color: '#6B7A8D' }}>Resolved</p>
           </div>
           <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
-            <Clock className="w-5 h-5 text-[#4BC896] mb-2" />
+            <Clock className="w-5 h-5 text-[#63c49f] mb-2" />
             <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.active + stats.inProgress}</p>
             <p className="text-xs" style={{ color: '#6B7A8D' }}>Active/In Progress</p>
           </div>
           <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
-            <BarChart3 className="w-5 h-5 text-[#4BC896] mb-2" />
+            <BarChart3 className="w-5 h-5 text-[#63c49f] mb-2" />
             <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.avgSeverity}</p>
             <p className="text-xs" style={{ color: '#6B7A8D' }}>Avg Severity</p>
           </div>
@@ -148,8 +148,8 @@ export default function History() {
         {stats.totalCost > 0 && (
           <div className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#4BC896]/10">
-                <DollarSign className="w-5 h-5 text-[#4BC896]" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#63c49f]/10">
+                <DollarSign className="w-5 h-5 text-[#63c49f]" />
               </div>
               <div>
                 <p className="font-bold text-xl" style={{ color: '#1a2f42' }}>{currencySymbol}{stats.totalCost.toLocaleString()}</p>
@@ -208,7 +208,7 @@ export default function History() {
             {Object.entries(groupedIssues).map(([month, monthIssues]) => (
               <section key={month}>
                 <div className="flex items-center gap-2 mb-3">
-                  <Calendar className="w-4 h-4 text-[#4BC896]" />
+                  <Calendar className="w-4 h-4 text-[#63c49f]" />
                   <h2 className="text-sm font-semibold" style={{ color: '#1a2f42' }}>{month}</h2>
                   <span className="text-xs px-2 py-1 rounded-lg bg-slate-200" style={{ color: '#1a2f42' }}>
                     {monthIssues.length}
@@ -231,8 +231,8 @@ export default function History() {
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-[#4BC896]/10 border border-[#4BC896]/20">
-              <Filter className="w-8 h-8 text-[#4BC896]" />
+            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-[#63c49f]/10 border border-[#63c49f]/20">
+              <Filter className="w-8 h-8 text-[#63c49f]" />
             </div>
             <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues found</p>
             <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>Try adjusting your filters</p>
