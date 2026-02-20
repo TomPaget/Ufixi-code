@@ -237,38 +237,48 @@ export default function IssueDetail() {
           {/* Title row with confidence */}
           <div className="flex items-start justify-between gap-3 mb-2">
             <h2 className="font-bold text-xl leading-tight" style={{ color: '#1a2f42' }}>{issue.title}</h2>
-            {issue.severity_score != null && (
-              <div className="flex flex-col items-end flex-shrink-0">
-                <span className="text-xs mb-1.5" style={{ color: '#6B7A8D' }}>Confidence</span>
-                <div className="flex items-end gap-1">
-                  {[1, 2, 3, 4, 5].map((bar) => {
-                    const confidence = Math.round((issue.severity_score / 10) * 5);
-                    const filled = bar <= confidence;
-                    return (
-                      <div
-                        key={bar}
-                        className="rounded-sm transition-all"
-                        style={{
-                          width: '7px',
-                          height: `${8 + bar * 4}px`,
-                          backgroundColor: filled ? '#63c49f' : '#E2E8F0'
-                        }}
-                      />
-                    );
-                  })}
-                </div>
+            <div className="flex flex-col items-end flex-shrink-0">
+              <span className="text-xs mb-1.5" style={{ color: '#6B7A8D' }}>Confidence</span>
+              <div className="flex items-end gap-1">
+                {(() => {
+                  // Compute confidence from data richness
+                  let score = 0;
+                  if (issue.explanation?.length > 100) score++;
+                  if (issue.risks?.length >= 2) score++;
+                  if (issue.diy_steps?.length >= 3) score++;
+                  if (issue.products_needed?.length >= 1) score++;
+                  if (issue.pro_cost_min != null && issue.diy_cost_min != null) score++;
+                  const confidenceBars = Math.max(3, score); // at least 3 bars if we have any data
+                  return [1, 2, 3, 4, 5].map((bar) => (
+                    <div
+                      key={bar}
+                      className="rounded-sm transition-all"
+                      style={{
+                        width: '7px',
+                        height: `${8 + bar * 4}px`,
+                        backgroundColor: bar <= confidenceBars ? '#63c49f' : '#E2E8F0'
+                      }}
+                    />
+                  ));
+                })()}
               </div>
-            )}
+            </div>
           </div>
 
           {/* Confidence label */}
-          {issue.severity_score != null && (
-            <p className="text-sm mb-3" style={{ color: '#6B7A8D' }}>
-              {issue.severity_score >= 8 ? "We're very confident about this diagnosis" :
-               issue.severity_score >= 5 ? "We're fairly confident about this diagnosis" :
-               "This is our best estimate — consider professional advice"}
-            </p>
-          )}
+          <p className="text-sm mb-3" style={{ color: '#6B7A8D' }}>
+            {(() => {
+              let score = 0;
+              if (issue.explanation?.length > 100) score++;
+              if (issue.risks?.length >= 2) score++;
+              if (issue.diy_steps?.length >= 3) score++;
+              if (issue.products_needed?.length >= 1) score++;
+              if (issue.pro_cost_min != null && issue.diy_cost_min != null) score++;
+              return score >= 4 ? "We're very confident about this diagnosis" :
+                     score >= 2 ? "We're fairly confident about this diagnosis" :
+                     "This is our best estimate — consider professional advice";
+            })()}
+          </p>
 
           {/* Urgency badge */}
           <div className="mb-4">
