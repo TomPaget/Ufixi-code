@@ -234,28 +234,27 @@ export default function IssueDetail() {
 
         {/* Diagnosis Hero Card */}
         <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
-          {/* Title row with confidence */}
-          <div className="flex items-start justify-between gap-3 mb-2">
-            <h2 className="font-bold text-xl leading-tight" style={{ color: '#1a2f42' }}>{issue.title}</h2>
-            <div className="flex flex-col items-end flex-shrink-0">
-              <span className="text-xs mb-1.5" style={{ color: '#6B7A8D' }}>Confidence</span>
-              <div className="flex items-end gap-1">
+          {/* Title row with confidence bars */}
+          <div className="flex items-start justify-between gap-3 mb-1">
+            <h2 className="font-bold text-2xl leading-tight" style={{ color: '#1a2f42' }}>{issue.title}</h2>
+            <div className="flex flex-col items-center flex-shrink-0 pt-1">
+              <span className="text-xs mb-1.5 font-medium" style={{ color: '#6B7A8D' }}>Confidence</span>
+              <div className="flex items-end gap-[3px]">
                 {(() => {
-                  // Compute confidence from data richness
                   let score = 0;
                   if (issue.explanation?.length > 100) score++;
                   if (issue.risks?.length >= 2) score++;
                   if (issue.diy_steps?.length >= 3) score++;
                   if (issue.products_needed?.length >= 1) score++;
                   if (issue.pro_cost_min != null && issue.diy_cost_min != null) score++;
-                  const confidenceBars = Math.max(3, score); // at least 3 bars if we have any data
+                  const confidenceBars = Math.max(3, score);
                   return [1, 2, 3, 4, 5].map((bar) => (
                     <div
                       key={bar}
-                      className="rounded-sm transition-all"
+                      className="rounded-sm"
                       style={{
-                        width: '7px',
-                        height: `${8 + bar * 4}px`,
+                        width: '6px',
+                        height: `${10 + bar * 4}px`,
                         backgroundColor: bar <= confidenceBars ? '#63c49f' : '#E2E8F0'
                       }}
                     />
@@ -265,8 +264,8 @@ export default function IssueDetail() {
             </div>
           </div>
 
-          {/* Confidence label */}
-          <p className="text-sm mb-3" style={{ color: '#6B7A8D' }}>
+          {/* Confidence description */}
+          <p className="text-sm mb-4" style={{ color: '#6B7A8D' }}>
             {(() => {
               let score = 0;
               if (issue.explanation?.length > 100) score++;
@@ -281,10 +280,11 @@ export default function IssueDetail() {
           </p>
 
           {/* Urgency badge */}
-          <div className="mb-4">
-            <UrgencyBadge urgency={issue.urgency} showDescription />
-          </div>
+          <UrgencyBadge urgency={issue.urgency} showDescription />
+        </div>
 
+        {/* Explanation card */}
+        <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
           <p className="leading-relaxed" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
           {issue.historical_insights?.recommended_approach && (
             <div className="mt-4 p-4 bg-[#63c49f]/5 rounded-xl border border-[#63c49f]/20">
