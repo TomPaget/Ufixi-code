@@ -234,11 +234,11 @@ export default function IssueDetail() {
 
         {/* Diagnosis Hero Card */}
         <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
-          {/* Title row with confidence bars */}
-          <div className="flex items-start justify-between gap-3 mb-1">
-            <h2 className="font-bold text-2xl leading-tight" style={{ color: '#1a2f42' }}>{issue.title}</h2>
-            <div className="flex flex-col items-center flex-shrink-0 pt-1">
-              <span className="text-xs mb-1.5 font-medium" style={{ color: '#6B7A8D' }}>Confidence</span>
+          {/* Title row with confidence bars - exactly like screenshot */}
+          <div className="flex items-start justify-between gap-4 mb-1">
+            <h2 className="font-bold text-2xl leading-tight flex-1" style={{ color: '#1a2f42' }}>{issue.title}</h2>
+            <div className="flex flex-col items-center flex-shrink-0">
+              <span className="text-xs font-medium mb-1" style={{ color: '#6B7A8D' }}>Confidence</span>
               <div className="flex items-end gap-[3px]">
                 {(() => {
                   let score = 0;
@@ -247,15 +247,15 @@ export default function IssueDetail() {
                   if (issue.diy_steps?.length >= 3) score++;
                   if (issue.products_needed?.length >= 1) score++;
                   if (issue.pro_cost_min != null && issue.diy_cost_min != null) score++;
-                  const confidenceBars = Math.max(3, score);
+                  const filled = Math.max(3, score);
                   return [1, 2, 3, 4, 5].map((bar) => (
                     <div
                       key={bar}
-                      className="rounded-sm"
                       style={{
-                        width: '6px',
-                        height: `${10 + bar * 4}px`,
-                        backgroundColor: bar <= confidenceBars ? '#63c49f' : '#E2E8F0'
+                        width: '7px',
+                        height: `${12 + bar * 5}px`,
+                        borderRadius: '3px',
+                        backgroundColor: bar <= filled ? '#63c49f' : '#D1D5DB'
                       }}
                     />
                   ));
@@ -280,12 +280,10 @@ export default function IssueDetail() {
           </p>
 
           {/* Urgency badge */}
-          <UrgencyBadge urgency={issue.urgency} showDescription />
-        </div>
+          <UrgencyBadge urgency={issue.urgency} />
 
-        {/* Explanation card */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
-          <p className="leading-relaxed" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
+          {/* Explanation */}
+          <p className="leading-relaxed mt-4" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
           {issue.historical_insights?.recommended_approach && (
             <div className="mt-4 p-4 bg-[#63c49f]/5 rounded-xl border border-[#63c49f]/20">
               <p className="text-sm font-semibold mb-2" style={{ color: '#1a2f42' }}>
