@@ -117,17 +117,23 @@ export default function BusinessSignup() {
               <Briefcase className="w-4 h-4 text-[#4BC896]" />
               Business Type *
             </Label>
-            <select
-              value={form.businessType}
-              onChange={(e) => setForm({ ...form, businessType: e.target.value })}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4BC896]/40"
-              style={{ color: form.businessType ? "#1a2f42" : "#9aa5b4" }}
-            >
-              <option value="" disabled>Select your business type</option>
+            <div className="grid grid-cols-2 gap-2">
               {BUSINESS_TYPES.map((t) => (
-                <option key={t.value} value={t.value}>{t.label}</option>
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => setForm({ ...form, businessType: t.value })}
+                  className="text-left px-3 py-2.5 rounded-xl border text-sm font-medium transition-all"
+                  style={{
+                    borderColor: form.businessType === t.value ? "#4BC896" : "#e2e8f0",
+                    background: form.businessType === t.value ? "rgba(75,200,150,0.08)" : "#fff",
+                    color: form.businessType === t.value ? "#1a2f42" : "#6B7A8D"
+                  }}
+                >
+                  {t.label}
+                </button>
               ))}
-            </select>
+            </div>
           </div>
 
           <div className="space-y-1.5">
