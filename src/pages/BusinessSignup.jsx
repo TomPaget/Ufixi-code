@@ -125,8 +125,8 @@ export default function BusinessSignup() {
                   onClick={() => setForm({ ...form, businessType: t.value })}
                   className="text-left px-3 py-2.5 rounded-xl border text-sm font-medium transition-all"
                   style={{
-                    borderColor: form.businessType === t.value ? "#4BC896" : "#e2e8f0",
-                    background: form.businessType === t.value ? "rgba(75,200,150,0.08)" : "#fff",
+                    borderColor: form.businessType === t.value ? "#6ECBA6" : "#e2e8f0",
+                    background: form.businessType === t.value ? "rgba(110,203,166,0.08)" : "#fff",
                     color: form.businessType === t.value ? "#1a2f42" : "#6B7A8D"
                   }}
                 >
