@@ -84,7 +84,7 @@ export default function BusinessSignup() {
 
       <main className="max-w-lg mx-auto px-5 py-8 space-y-6">
         {/* Selected Plan Badge */}
-        <div className="flex items-center justify-between rounded-2xl px-5 py-4" style={{ background: "linear-gradient(135deg, #6ECBA6 0%, #4BA8C8 100%)", boxShadow: "0 4px 20px rgba(110,203,166,0.3)" }}>
+        <div className="flex items-center justify-between rounded-2xl px-5 py-4" style={{ background: "linear-gradient(135deg, #63c49f 0%, #4BA8C8 100%)", boxShadow: "0 4px 20px rgba(99,196,159,0.3)" }}>
           <div>
             <p className="text-xs font-semibold text-white/70">Selected Plan</p>
             <p className="text-xl font-bold text-white">{plan.name}</p>
@@ -101,7 +101,7 @@ export default function BusinessSignup() {
 
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Building2 className="w-4 h-4 text-[#6ECBA6]" />
+              <Building2 className="w-4 h-4 text-[#63c49f]" />
               Company Name *
             </Label>
             <Input
@@ -114,7 +114,7 @@ export default function BusinessSignup() {
 
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Briefcase className="w-4 h-4 text-[#6ECBA6]" />
+              <Briefcase className="w-4 h-4 text-[#63c49f]" />
               Business Type *
             </Label>
             <div className="grid grid-cols-2 gap-2">
@@ -125,8 +125,8 @@ export default function BusinessSignup() {
                   onClick={() => setForm({ ...form, businessType: t.value })}
                   className="text-left px-3 py-2.5 rounded-xl border text-sm font-medium transition-all"
                   style={{
-                    borderColor: form.businessType === t.value ? "#6ECBA6" : "#e2e8f0",
-                    background: form.businessType === t.value ? "rgba(110,203,166,0.08)" : "#fff",
+                    borderColor: form.businessType === t.value ? "#63c49f" : "#e2e8f0",
+                    background: form.businessType === t.value ? "rgba(99,196,159,0.08)" : "#fff",
                     color: form.businessType === t.value ? "#1a2f42" : "#6B7A8D"
                   }}
                 >
@@ -138,7 +138,7 @@ export default function BusinessSignup() {
 
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Users className="w-4 h-4 text-[#6ECBA6]" />
+              <Users className="w-4 h-4 text-[#63c49f]" />
               Team Size *
             </Label>
             <div className="grid grid-cols-2 gap-2">
@@ -149,8 +149,8 @@ export default function BusinessSignup() {
                   onClick={() => setForm({ ...form, teamSize: size })}
                   className="text-left px-3 py-2.5 rounded-xl border text-sm font-medium transition-all"
                   style={{
-                    borderColor: form.teamSize === size ? "#6ECBA6" : "#e2e8f0",
-                    background: form.teamSize === size ? "rgba(110,203,166,0.08)" : "#fff",
+                    borderColor: form.teamSize === size ? "#63c49f" : "#e2e8f0",
+                    background: form.teamSize === size ? "rgba(99,196,159,0.08)" : "#fff",
                     color: form.teamSize === size ? "#1a2f42" : "#6B7A8D"
                   }}
                 >
@@ -162,7 +162,7 @@ export default function BusinessSignup() {
 
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <MapPin className="w-4 h-4 text-[#6ECBA6]" />
+              <MapPin className="w-4 h-4 text-[#63c49f]" />
               Location <span className="font-normal text-xs" style={{ color: "#6B7A8D" }}>(optional)</span>
             </Label>
             <Input
@@ -183,7 +183,7 @@ export default function BusinessSignup() {
             onClick={handleSubmit}
             disabled={!isValid || isSubmitting}
             className="w-full h-12 rounded-2xl font-semibold text-white flex items-center justify-center gap-2"
-            style={{ background: isValid ? "#6ECBA6" : "#c8d0da" }}
+            style={{ background: isValid ? "#63c49f" : "#c8d0da" }}
           >
             {isSubmitting ? (
               <span>Processing...</span>

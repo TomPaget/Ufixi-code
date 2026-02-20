@@ -267,11 +267,11 @@ export default function Settings() {
                     className="w-14 h-14 rounded-full object-cover shadow-lg" /> :
 
 
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg bg-[#4BC896]/10 border border-[#4BC896]/20">
-                  <User className="w-7 h-7 text-[#4BC896]" />
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg bg-[#63c49f]/10 border border-[#63c49f]/20">
+                  <User className="w-7 h-7 text-[#63c49f]" />
                 </div>
                   }
-              <label className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg bg-[#4BC896] ${uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform"}`}>
+              <label className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg bg-[#63c49f] ${uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform"}`}>
                 <input
                       type="file"
                       accept="image/*"
@@ -340,7 +340,7 @@ export default function Settings() {
               <Button
                   onClick={handleSaveProfile}
                   disabled={updateUserMutation.isPending}
-                  className="w-full bg-blue-600 hover:bg-blue-700">
+                  className="w-full" style={{ background: '#63c49f', color: '#fff' }}>
 
                 {updateUserMutation.isPending ? "Saving..." : "Save Changes"}
               </Button>
@@ -351,7 +351,7 @@ export default function Settings() {
           <div className="rounded-xl p-4 border bg-slate-50 border-slate-200">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3 flex-1">
-                <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#4BC896]" : "text-slate-400"}`} />
+                <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#63c49f]" : "text-slate-400"}`} />
                 <div className="flex-1">
                   <p className="font-medium text-sm" style={{ color: '#1a2f42' }}>Location Services</p>
                   <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>
@@ -365,7 +365,7 @@ export default function Settings() {
                     size="sm"
                     onClick={handleRequestLocation}
                     disabled={requestingLocation}
-                    className={`rounded-xl text-white ${user?.location_services_enabled ? "bg-slate-400 hover:bg-slate-500" : "bg-[#4BC896] hover:bg-[#2eaf7d]"}`}>
+                    className={`rounded-xl text-white ${user?.location_services_enabled ? "bg-slate-400 hover:bg-slate-500" : "bg-[#63c49f] hover:bg-[#4faf8a]"}`}>
 
                 {requestingLocation ?
                     <Loader2 className="w-4 h-4 animate-spin" /> :
@@ -398,7 +398,7 @@ export default function Settings() {
                 onValueChange={handleUserTypeChange}
                 className="space-y-3">
 
-            <Label htmlFor="renter" className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${user?.user_type === "renter" ? "border-[#4BC896] bg-[#4BC896]/5" : "border-slate-200 hover:border-[#4BC896]/40"}`}>
+            <Label htmlFor="renter" className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${user?.user_type === "renter" ? "border-[#63c49f] bg-[#63c49f]/5" : "border-slate-200 hover:border-[#63c49f]/40"}`}>
               <RadioGroupItem value="renter" id="renter" className="sr-only" />
               <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-teal-50 border border-teal-200">
                 <Building2 className="w-6 h-6 text-teal-600" />
@@ -407,12 +407,12 @@ export default function Settings() {
                 <p className="font-medium" style={{ color: '#1a2f42' }}>Renter</p>
                 <p className="text-sm" style={{ color: '#6B7A8D' }}>I rent my home</p>
               </div>
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${user?.user_type === "renter" ? "border-[#4BC896] bg-[#4BC896]" : "border-slate-300"}`}>
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${user?.user_type === "renter" ? "border-[#63c49f] bg-[#63c49f]" : "border-slate-300"}`}>
                 {user?.user_type === "renter" && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </Label>
 
-            <Label htmlFor="homeowner" className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${user?.user_type === "homeowner" ? "border-[#4BC896] bg-[#4BC896]/5" : "border-slate-200 hover:border-[#4BC896]/40"}`}>
+            <Label htmlFor="homeowner" className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${user?.user_type === "homeowner" ? "border-[#63c49f] bg-[#63c49f]/5" : "border-slate-200 hover:border-[#63c49f]/40"}`}>
               <RadioGroupItem value="homeowner" id="homeowner" className="sr-only" />
               <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-violet-50 border border-violet-200">
                 <Home className="w-6 h-6 text-violet-600" />
@@ -421,7 +421,7 @@ export default function Settings() {
                 <p className="font-medium" style={{ color: '#1a2f42' }}>Homeowner</p>
                 <p className="text-sm" style={{ color: '#6B7A8D' }}>I own my home</p>
               </div>
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${user?.user_type === "homeowner" ? "border-[#4BC896] bg-[#4BC896]" : "border-slate-300"}`}>
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${user?.user_type === "homeowner" ? "border-[#63c49f] bg-[#63c49f]" : "border-slate-300"}`}>
                 {user?.user_type === "homeowner" && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </Label>
@@ -443,7 +443,7 @@ export default function Settings() {
                   <span className="font-semibold" style={{ color: '#1a2f42' }}>
                     {user?.business_plan ? `${user.business_plan.charAt(0).toUpperCase() + user.business_plan.slice(1)} Plan` : 'Business Plan'}
                   </span>
-                  <span className="text-sm font-bold text-[#4BC896]">
+                  <span className="text-sm font-bold text-[#63c49f]">
                     £{user?.business_monthly_price || 0}/month
                   </span>
                 </div>
@@ -554,7 +554,7 @@ export default function Settings() {
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold" style={{ color: '#1a2f42' }}>Your Notifications</h2>
                 {unreadNotifications.length > 0 &&
-                <Button variant="ghost" size="sm" onClick={() => markAllReadMutation.mutate()} className="text-sm text-[#4BC896]">
+                <Button variant="ghost" size="sm" onClick={() => markAllReadMutation.mutate()} className="text-sm text-[#63c49f]">
 
                     Mark all read
                   </Button>
@@ -581,9 +581,9 @@ export default function Settings() {
                   unreadNotifications.map((notification) => {
                     const Icon = typeIcons[notification.type] || Info;
                     return (
-                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02] bg-[#4BC896]/5 border-[#4BC896]/30">
+                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02] bg-[#63c49f]/5 border-[#63c49f]/30">
                           <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#4BC896]/10">
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#63c49f]/10">
                               <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -634,9 +634,9 @@ export default function Settings() {
                   notifications.map((notification) => {
                     const Icon = typeIcons[notification.type] || Info;
                     return (
-                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className={`rounded-2xl p-4 border cursor-pointer transition-all hover:scale-[1.01] ${notification.read ? "bg-white border-slate-100" : "bg-[#4BC896]/5 border-[#4BC896]/30"}`}>
+                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className={`rounded-2xl p-4 border cursor-pointer transition-all hover:scale-[1.01] ${notification.read ? "bg-white border-slate-100" : "bg-[#63c49f]/5 border-[#63c49f]/30"}`}>
                           <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#4BC896]/10">
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#63c49f]/10">
                               <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -704,14 +704,14 @@ export default function Settings() {
                       }}
                       className={cn(
                         "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left",
-                        isEnabled ? "border-[#4BC896] bg-[#4BC896]/5" : "border-slate-200 bg-slate-50"
+                        isEnabled ? "border-[#63c49f] bg-[#63c49f]/5" : "border-slate-200 bg-slate-50"
                       )}>
 
                   <div className="flex-1">
                     <p className="font-medium text-sm" style={{ color: '#1a2f42' }}>{pref.label}</p>
                     <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>{pref.description}</p>
                   </div>
-                  <div className={`w-12 h-6 rounded-full transition-all ${isEnabled ? "bg-[#4BC896]" : "bg-slate-300"}`}>
+                  <div className={`w-12 h-6 rounded-full transition-all ${isEnabled ? "bg-[#63c49f]" : "bg-slate-300"}`}>
                     <div className={cn(
                           "w-5 h-5 rounded-full bg-white shadow-lg transition-all mt-0.5",
                           isEnabled ? "ml-6" : "ml-0.5"
