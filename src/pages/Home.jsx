@@ -323,11 +323,18 @@ export default function Home() {
          - Health risks (mold, asbestos in older properties)
 
       📝 DIAGNOSTIC TITLE:
-      Create a PRECISE, TECHNICAL title using proper terminology:
-      ✓ GOOD: "Failed Ceramic Disc Cartridge in Kitchen Mixer Tap with Limescale Buildup"
+      Create a SHORT (3-7 words), DESCRIPTIVE title that clearly names the specific problem.
+      RULES:
+      - NEVER start with "Looks like", "It appears", "A", "An", "The issue is"
+      - NEVER use vague words like "Other Issue", "Some Problem", "Unknown"
+      - Always name the SPECIFIC defect/material/location
+      - Be concise - this is a card title, not a sentence
+      ✓ GOOD: "Damp Patch on Wall"
+      ✓ GOOD: "Leaking Kitchen Tap Cartridge"
+      ✓ GOOD: "Cracked Render on External Wall"
       ✗ BAD: "Leaking Tap"
-      ✓ GOOD: "Vertical Stress Crack in Load-Bearing Wall Above Door Frame"
-      ✗ BAD: "Cracked Wall"
+      ✗ BAD: "Looks like a wall issue"
+      ✗ BAD: "Other Issue"
 
       ┌─────────────────────────────────────────────┐
       │ 2. ROOT CAUSE & FAILURE ANALYSIS            │
