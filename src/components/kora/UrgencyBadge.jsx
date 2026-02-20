@@ -3,7 +3,7 @@ import { AlertCircle, Clock, CheckCircle } from "lucide-react";
 
 const urgencyConfig = {
   ignore: {
-    label: "Can Wait",
+    label: "Low Urgency",
     description: "No immediate action needed",
     icon: CheckCircle,
     bgColor: "bg-emerald-50",
@@ -12,16 +12,16 @@ const urgencyConfig = {
     iconColor: "text-emerald-500"
   },
   fix_soon: {
-    label: "Fix Soon",
+    label: "Medium Urgency",
     description: "Address within a few weeks",
-    icon: Clock,
-    bgColor: "bg-amber-50",
-    textColor: "text-amber-700",
-    borderColor: "border-amber-200",
-    iconColor: "text-amber-500"
+    icon: AlertCircle,
+    bgColor: "bg-orange-50",
+    textColor: "text-orange-600",
+    borderColor: "border-orange-200",
+    iconColor: "text-orange-500"
   },
   fix_now: {
-    label: "Fix Now",
+    label: "High Urgency",
     description: "Requires immediate attention",
     icon: AlertCircle,
     bgColor: "bg-rose-50",
