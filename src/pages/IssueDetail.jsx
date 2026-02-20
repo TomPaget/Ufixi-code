@@ -151,7 +151,7 @@ export default function IssueDetail() {
 
   return (
     <div className="min-h-screen pb-20 bg-[#F5F7FA]">
-      <PageHeader showBack title={issue.title} />
+      <PageHeader showBack title="Diagnosis" />
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
         {/* Media Preview */}
