@@ -25,7 +25,7 @@ export default function Header({ onMenuClick, onGoPremium }) {
       transition={{ duration: 0.3, ease: "easeOut" }}
       className={`sticky top-0 z-30 transition-all duration-300 bg-transparent ${isScrolled ? 'py-2' : 'py-3'}`}
     >
-      <div className="max-w-lg mx-auto px-4 flex items-center relative" style={{ padding: '10px 16px', border: '2px solid #64c39f', borderRadius: '9999px' }}>
+      <div className="max-w-lg mx-auto px-4 flex items-center bg-white rounded-2xl shadow-sm border border-slate-100 relative" style={{ padding: '10px 16px' }}>
         {/* Left: Menu */}
         <button
           onClick={onMenuClick}
