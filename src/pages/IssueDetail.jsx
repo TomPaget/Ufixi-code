@@ -234,14 +234,15 @@ export default function IssueDetail() {
         {/* Tenant Rights Alert */}
         <TenantRightsAlert userType={userType} />
 
-        {/* Explanation */}
+        {/* Diagnosis Hero Card */}
         <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
-          <div className="flex items-start justify-between mb-3">
-            <h2 className="font-semibold" style={{ color: '#1a2f42' }}>What's happening?</h2>
+          {/* Title row with confidence */}
+          <div className="flex items-start justify-between gap-3 mb-2">
+            <h2 className="font-bold text-xl leading-tight" style={{ color: '#1a2f42' }}>{issue.title}</h2>
             {issue.severity_score != null && (
-              <div className="flex flex-col items-end ml-3 flex-shrink-0">
-                <span className="text-xs mb-1" style={{ color: '#6B7A8D' }}>Confidence</span>
-                <div className="flex items-end gap-0.5">
+              <div className="flex flex-col items-end flex-shrink-0">
+                <span className="text-xs mb-1.5" style={{ color: '#6B7A8D' }}>Confidence</span>
+                <div className="flex items-end gap-1">
                   {[1, 2, 3, 4, 5].map((bar) => {
                     const confidence = Math.round((issue.severity_score / 10) * 5);
                     const filled = bar <= confidence;
@@ -250,8 +251,8 @@ export default function IssueDetail() {
                         key={bar}
                         className="rounded-sm transition-all"
                         style={{
-                          width: '6px',
-                          height: `${8 + bar * 3}px`,
+                          width: '7px',
+                          height: `${8 + bar * 4}px`,
                           backgroundColor: filled ? '#63c49f' : '#E2E8F0'
                         }}
                       />
@@ -261,6 +262,21 @@ export default function IssueDetail() {
               </div>
             )}
           </div>
+
+          {/* Confidence label */}
+          {issue.severity_score != null && (
+            <p className="text-sm mb-3" style={{ color: '#6B7A8D' }}>
+              {issue.severity_score >= 8 ? "We're very confident about this diagnosis" :
+               issue.severity_score >= 5 ? "We're fairly confident about this diagnosis" :
+               "This is our best estimate — consider professional advice"}
+            </p>
+          )}
+
+          {/* Urgency badge */}
+          <div className="mb-4">
+            <UrgencyBadge urgency={issue.urgency} showDescription />
+          </div>
+
           <p className="leading-relaxed" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
           {issue.historical_insights?.recommended_approach && (
             <div className="mt-4 p-4 bg-[#63c49f]/5 rounded-xl border border-[#63c49f]/20">
