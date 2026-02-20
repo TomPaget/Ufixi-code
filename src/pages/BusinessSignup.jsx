@@ -183,7 +183,7 @@ export default function BusinessSignup() {
             onClick={handleSubmit}
             disabled={!isValid || isSubmitting}
             className="w-full h-12 rounded-2xl font-semibold text-white flex items-center justify-center gap-2"
-            style={{ background: isValid ? "#4BC896" : "#c8d0da" }}
+            style={{ background: isValid ? "#6ECBA6" : "#c8d0da" }}
           >
             {isSubmitting ? (
               <span>Processing...</span>
