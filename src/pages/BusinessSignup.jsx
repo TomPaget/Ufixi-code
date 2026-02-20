@@ -149,8 +149,8 @@ export default function BusinessSignup() {
                   onClick={() => setForm({ ...form, teamSize: size })}
                   className="text-left px-3 py-2.5 rounded-xl border text-sm font-medium transition-all"
                   style={{
-                    borderColor: form.teamSize === size ? "#4BC896" : "#e2e8f0",
-                    background: form.teamSize === size ? "rgba(75,200,150,0.08)" : "#fff",
+                    borderColor: form.teamSize === size ? "#6ECBA6" : "#e2e8f0",
+                    background: form.teamSize === size ? "rgba(110,203,166,0.08)" : "#fff",
                     color: form.teamSize === size ? "#1a2f42" : "#6B7A8D"
                   }}
                 >
