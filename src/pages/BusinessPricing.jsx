@@ -188,33 +188,6 @@ export default function BusinessPricing() {
           ))}
         </div>
 
-        {/* Company Details Form */}
-        {selectedPlan && (
-          <div className="max-w-2xl mx-auto rounded-2xl border p-8 bg-white border-slate-100 shadow-sm">
-            <h2 className="text-2xl font-bold mb-6" style={{ color: '#1a2f42' }}>Complete Your Subscription</h2>
-            <div className="space-y-4">
-              <div>
-                <Label className="mb-2 block" style={{ color: '#1a2f42' }}>Company Name *</Label>
-                <Input placeholder="e.g., Smith & Co Estate Agents" value={companyName} onChange={(e) => setCompanyName(e.target.value)} className="border-slate-200" />
-              </div>
-              <div>
-                <Label className="mb-2 block" style={{ color: '#1a2f42' }}>Contact Email</Label>
-                <Input type="email" placeholder="your.email@company.com" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} defaultValue={user?.email} className="border-slate-200" />
-              </div>
-              <div className="p-4 rounded-xl border bg-[#4BC896]/5 border-[#4BC896]/20">
-                <p className="text-sm" style={{ color: '#1a2f42' }}>
-                  <strong>Selected Plan:</strong> {selectedPlan.name} - £{selectedPlan.price}/month
-                </p>
-                <p className="text-xs mt-2" style={{ color: '#6B7A8D' }}>Cancel anytime. No hidden fees.</p>
-              </div>
-              <Button onClick={handleSubscribe} disabled={!companyName} className="w-full bg-[#4BC896] hover:bg-[#2eaf7d] text-white h-12 font-semibold">
-                <Sparkles className="w-5 h-5 mr-2" />
-                Continue to Payment
-              </Button>
-            </div>
-          </div>
-        )}
-
         {/* Social Proof */}
         <div className="text-center p-8 rounded-2xl border bg-white border-slate-100 shadow-sm">
           <div className="flex items-center justify-center gap-2 mb-4">
