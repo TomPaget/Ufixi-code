@@ -26,7 +26,7 @@ export default function BannerAd() {
       onClick={() => navigate(createPageUrl("Upgrade"))}
       className="fixed bottom-0 left-0 right-0 z-50 border-t shadow-lg w-full text-left"
       style={{
-        background: 'linear-gradient(135deg, rgba(63,174,131,0.97) 0%, rgba(99,196,159,0.97) 100%)',
+        background: 'linear-gradient(135deg, rgba(79,175,138,0.97) 0%, rgba(99,196,159,0.97) 100%)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         borderColor: 'rgba(99,196,159,0.3)',

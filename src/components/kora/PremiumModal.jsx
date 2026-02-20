@@ -65,7 +65,7 @@ export default function PremiumModal({ open, onClose }) {
                 >
                   <X className="w-4 h-4" />
                 </button>
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3" style={{ background: 'linear-gradient(135deg, #6ECBA6, #4faf8a)' }}>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3" style={{ background: 'linear-gradient(135deg, #63c49f, #4faf8a)' }}>
                   <Star className="w-7 h-7 text-white fill-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-1">Go Premium</h2>
@@ -73,7 +73,7 @@ export default function PremiumModal({ open, onClose }) {
               </div>
 
               {/* Price */}
-              <div className="mx-6 rounded-2xl p-4 text-center mb-4" style={{ background: 'rgba(110,203,166,0.12)', border: '1px solid rgba(110,203,166,0.25)' }}>
+              <div className="mx-6 rounded-2xl p-4 text-center mb-4" style={{ background: 'rgba(99,196,159,0.12)', border: '1px solid rgba(99,196,159,0.25)' }}>
                 <div className="flex items-end justify-center gap-1">
                   <span className="text-5xl font-bold text-white">£3.99</span>
                   <span className="text-white/50 mb-2">/month</span>
@@ -85,8 +85,8 @@ export default function PremiumModal({ open, onClose }) {
               <div className="mx-6 space-y-2.5 mb-6">
                 {perks.map((perk) => (
                   <div key={perk} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(110,203,166,0.2)' }}>
-                      <Check className="w-3 h-3 text-[#6ECBA6]" />
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(99,196,159,0.2)' }}>
+                      <Check className="w-3 h-3 text-[#63c49f]" />
                     </div>
                     <span className="text-sm text-white/80">{perk}</span>
                   </div>
@@ -96,7 +96,7 @@ export default function PremiumModal({ open, onClose }) {
               {/* CTA */}
               <div className="px-6 pb-8 space-y-3">
                 {success ? (
-                  <div className="w-full h-12 rounded-2xl flex items-center justify-center gap-2" style={{ background: 'linear-gradient(135deg, #6ECBA6, #4faf8a)' }}>
+                  <div className="w-full h-12 rounded-2xl flex items-center justify-center gap-2" style={{ background: 'linear-gradient(135deg, #63c49f, #4faf8a)' }}>
                     <Check className="w-5 h-5 text-white" />
                     <span className="text-white font-semibold">Welcome to Premium!</span>
                   </div>
@@ -105,7 +105,7 @@ export default function PremiumModal({ open, onClose }) {
                     onClick={handleSubscribe}
                     disabled={processing}
                     className="w-full h-12 rounded-2xl font-semibold text-base border-0"
-                    style={{ background: 'linear-gradient(135deg, #6ECBA6, #4faf8a)', color: '#fff' }}
+                    style={{ background: 'linear-gradient(135deg, #63c49f, #4faf8a)', color: '#fff' }}
                   >
                     {processing ? (
                       <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...</>

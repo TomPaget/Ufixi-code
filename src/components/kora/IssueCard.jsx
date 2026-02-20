@@ -76,8 +76,8 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
               />
             </div>
           ) : (
-            <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#6ECBA6]/10">
-                        <MediaIcon className="w-6 h-6 text-[#6ECBA6]" />
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#63c49f]/10">
+                        <MediaIcon className="w-6 h-6 text-[#63c49f]" />
             </div>
           )}
           
@@ -91,7 +91,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
                   {format(new Date(issue.created_date), "MMM d, yyyy")}
                 </p>
               </div>
-              <ChevronRight className="w-5 h-5 flex-shrink-0 text-[#6ECBA6]" />
+              <ChevronRight className="w-5 h-5 flex-shrink-0 text-[#63c49f]" />
             </div>
             
             <div className="flex items-center gap-2 mt-3 flex-wrap">

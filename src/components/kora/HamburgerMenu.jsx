@@ -122,7 +122,7 @@ export default function HamburgerMenu({ isOpen, onClose }) {
                       className="flex items-center gap-3 p-3 rounded-xl transition-all active:scale-95 hover:bg-white/10 text-white"
                     >
                       <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/10">
-                        <item.icon className="w-5 h-5 text-[#6ECBA6]" />
+                        <item.icon className="w-5 h-5 text-[#63c49f]" />
                       </div>
                       <span className="font-medium">{item.label}</span>
                     </Link>
@@ -135,7 +135,7 @@ export default function HamburgerMenu({ isOpen, onClose }) {
                             onClick={onClose}
                             className="flex items-center gap-3 p-2 rounded-xl transition-all text-sm hover:bg-white/10 text-white/70"
                           >
-                            <subitem.icon className="w-4 h-4 text-[#6ECBA6]" />
+                            <subitem.icon className="w-4 h-4 text-[#63c49f]" />
                             <span>{subitem.label}</span>
                           </Link>
                         ))}

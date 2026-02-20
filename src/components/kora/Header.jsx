@@ -51,14 +51,14 @@ export default function Header({ onMenuClick, onGoPremium }) {
               onClick={onGoPremium}
               animate={{ 
                 boxShadow: [
-                  '0 0 0 16px rgba(110,203,166,0.12)',
-                  '0 0 0 20px rgba(110,203,166,0.08)',
-                  '0 0 0 16px rgba(110,203,166,0.12)'
+                  '0 0 0 16px rgba(99,196,159,0.12)',
+                              '0 0 0 20px rgba(99,196,159,0.08)',
+                              '0 0 0 16px rgba(99,196,159,0.12)'
                 ]
               }}
               transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95"
-              style={{ background: 'linear-gradient(135deg, #6ECBA6, #4faf8a)', color: '#fff' }}
+              style={{ background: 'linear-gradient(135deg, #63c49f, #4faf8a)', color: '#fff' }}
             >
               <Sparkles className="w-3.5 h-3.5" />
               Go Premium
