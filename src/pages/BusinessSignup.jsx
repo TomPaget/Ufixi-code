@@ -84,7 +84,7 @@ export default function BusinessSignup() {
 
       <main className="max-w-lg mx-auto px-5 py-8 space-y-6">
         {/* Selected Plan Badge */}
-        <div className="flex items-center justify-between rounded-2xl bg-white border border-[#4BC896]/30 shadow-sm px-5 py-4">
+        <div className="flex items-center justify-between rounded-2xl px-5 py-4" style={{ background: "linear-gradient(135deg, #4BC896 0%, #4BA8C8 100%)", boxShadow: "0 4px 20px rgba(75,200,150,0.3)" }}>
           <div>
             <p className="text-xs font-semibold" style={{ color: "#6B7A8D" }}>Selected Plan</p>
             <p className="text-lg font-bold" style={{ color: "#1a2f42" }}>{plan.name}</p>
