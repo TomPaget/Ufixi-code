@@ -44,10 +44,11 @@ import { cn } from "@/lib/utils";
 import { aiAnalysisLimiter, fileUploadLimiter, checkRateLimit } from "@/components/utils/rateLimiter";
 import { sanitizeText } from "@/components/utils/sanitize";
 import IssueChatbot from "@/components/kora/IssueChatbot";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 // Brand colours
-const GREEN = "#6ECBA6";
-const NAVY = "#1E2D40";
+const GREEN = "#7C6FE0";
+const NAVY = "#151528";
 
 function GradientButton({ children, onClick, disabled, className = "" }) {
   return (

@@ -17,6 +17,7 @@ import {
   BarChart3
 } from "lucide-react";
 import PageHeader from "@/components/kora/PageHeader";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
