@@ -33,7 +33,6 @@ import IssueCard from "@/components/kora/IssueCard";
 
 export default function History() {
   const navigate = useNavigate();
-  const { theme } = useTheme();
   const [statusFilter, setStatusFilter] = useState("all");
   const [urgencyFilter, setUrgencyFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -124,38 +123,38 @@ export default function History() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12 relative z-10">
         {/* Statistics Overview */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
-            <TrendingUp className="w-5 h-5 text-[#63c49f] mb-2" />
-            <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.total}</p>
-            <p className="text-xs" style={{ color: '#6B7A8D' }}>Total Issues</p>
+          <div className="rounded-2xl p-4 shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,110,50,0.15)' }}>
+            <TrendingUp className="w-5 h-5 text-[#FF6E32] mb-2" />
+            <p className="text-2xl font-bold" style={{ color: '#151528' }}>{stats.total}</p>
+            <p className="text-xs" style={{ color: '#6B6A8E' }}>Total Issues</p>
           </div>
-          <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
-            <CheckCircle2 className="w-5 h-5 text-[#63c49f] mb-2" />
-            <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.resolved}</p>
-            <p className="text-xs" style={{ color: '#6B7A8D' }}>Resolved</p>
+          <div className="rounded-2xl p-4 shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(29,158,117,0.15)' }}>
+            <CheckCircle2 className="w-5 h-5 text-[#1D9E75] mb-2" />
+            <p className="text-2xl font-bold" style={{ color: '#151528' }}>{stats.resolved}</p>
+            <p className="text-xs" style={{ color: '#6B6A8E' }}>Resolved</p>
           </div>
-          <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
-            <Clock className="w-5 h-5 text-[#63c49f] mb-2" />
-            <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.active + stats.inProgress}</p>
-            <p className="text-xs" style={{ color: '#6B7A8D' }}>Active/In Progress</p>
+          <div className="rounded-2xl p-4 shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(226,100,171,0.15)' }}>
+            <Clock className="w-5 h-5 text-[#E264AB] mb-2" />
+            <p className="text-2xl font-bold" style={{ color: '#151528' }}>{stats.active + stats.inProgress}</p>
+            <p className="text-xs" style={{ color: '#6B6A8E' }}>Active/In Progress</p>
           </div>
-          <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">
-            <BarChart3 className="w-5 h-5 text-[#63c49f] mb-2" />
-            <p className="text-2xl font-bold" style={{ color: '#1a2f42' }}>{stats.avgSeverity}</p>
-            <p className="text-xs" style={{ color: '#6B7A8D' }}>Avg Severity</p>
+          <div className="rounded-2xl p-4 shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+            <BarChart3 className="w-5 h-5 text-[#7C6FE0] mb-2" />
+            <p className="text-2xl font-bold" style={{ color: '#151528' }}>{stats.avgSeverity}</p>
+            <p className="text-xs" style={{ color: '#6B6A8E' }}>Avg Severity</p>
           </div>
         </div>
 
         {/* Cost Summary */}
         {stats.totalCost > 0 && (
-          <div className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
+          <div className="rounded-2xl p-5 shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#63c49f]/10">
-                <DollarSign className="w-5 h-5 text-[#63c49f]" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(124,111,224,0.1)' }}>
+                <DollarSign className="w-5 h-5 text-[#7C6FE0]" />
               </div>
               <div>
-                <p className="font-bold text-xl" style={{ color: '#1a2f42' }}>{currencySymbol}{stats.totalCost.toLocaleString()}</p>
-                <p className="text-xs" style={{ color: '#6B7A8D' }}>Estimated Total Repair Costs</p>
+                <p className="font-bold text-xl" style={{ color: '#151528' }}>{currencySymbol}{stats.totalCost.toLocaleString()}</p>
+                <p className="text-xs" style={{ color: '#6B6A8E' }}>Estimated Total Repair Costs</p>
               </div>
             </div>
           </div>
@@ -210,7 +209,7 @@ export default function History() {
             {Object.entries(groupedIssues).map(([month, monthIssues]) => (
               <section key={month}>
                 <div className="flex items-center gap-2 mb-3">
-                  <Calendar className="w-4 h-4 text-[#63c49f]" />
+                  <Calendar className="w-4 h-4 text-[#7C6FE0]" />
                   <h2 className="text-sm font-semibold" style={{ color: '#1a2f42' }}>{month}</h2>
                   <span className="text-xs px-2 py-1 rounded-lg bg-slate-200" style={{ color: '#1a2f42' }}>
                     {monthIssues.length}
@@ -233,8 +232,8 @@ export default function History() {
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-[#63c49f]/10 border border-[#63c49f]/20">
-              <Filter className="w-8 h-8 text-[#63c49f]" />
+            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(124,111,224,0.1)', border: '1px solid rgba(124,111,224,0.2)' }}>
+              <Filter className="w-8 h-8 text-[#7C6FE0]" />
             </div>
             <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues found</p>
             <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>Try adjusting your filters</p>
