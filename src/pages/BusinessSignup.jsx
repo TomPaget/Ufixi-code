@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import PageHeader from "@/components/kora/PageHeader";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import { Building2, Users, MapPin, Briefcase, Sparkles, ChevronRight } from "lucide-react";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 const PLAN_DETAILS = {
   starter: { name: "Starter", price: 12.99 },
