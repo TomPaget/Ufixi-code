@@ -667,7 +667,7 @@ export default function Home() {
    };
 
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden" style={{ background: '#F5F4FF' }}>
+    <div className="min-h-screen pb-20 relative overflow-hidden" style={{ background: 'transparent' }}>
       <LavaLampBackground />
       
       {showOnboarding && (
@@ -689,7 +689,7 @@ export default function Home() {
         {/* Welcome Section */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>
-              What needs <span style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>fixing?</span>
+              What needs <span style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>fixing?</span>
             </h1>
             <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B6A8E' }}>
               Upload a photo or video and get instant AI-powered repair assessments.
@@ -701,26 +701,26 @@ export default function Home() {
           <div
             className="grid grid-cols-3 gap-3"
           >
-            <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
-                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#7C6FE0]" />
-                <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
+            <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,110,50,0.15)' }}>
+                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#FF6E32]" />
+                <p className="text-xl font-bold" style={{ color: '#151528' }}>
                   {issues.filter(i => i.status === "active").length}
                 </p>
-                <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Active</p>
+                <p className="text-xs font-semibold" style={{ color: '#6B6A8E' }}>Active</p>
               </div>
-              <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
-                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#7C6FE0]" />
-                <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
+              <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(226,100,171,0.15)' }}>
+                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#E264AB]" />
+                <p className="text-xl font-bold" style={{ color: '#151528' }}>
                   {issues.filter(i => i.urgency === "fix_soon").length}
                 </p>
-                <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Fix Soon</p>
+                <p className="text-xs font-semibold" style={{ color: '#6B6A8E' }}>Fix Soon</p>
               </div>
-              <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
+              <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
                 <History className="w-5 h-5 mx-auto mb-1 text-[#7C6FE0]" />
-                <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
+                <p className="text-xl font-bold" style={{ color: '#151528' }}>
                   {issues.filter(i => i.status === "resolved").length}
                 </p>
-                <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Resolved</p>
+                <p className="text-xs font-semibold" style={{ color: '#6B6A8E' }}>Resolved</p>
               </div>
           </div>
               )}
@@ -746,9 +746,9 @@ export default function Home() {
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                             className="w-40 h-40 rounded-full flex flex-col items-center justify-center gap-2 border-0 transition-transform active:scale-95"
                             style={{
-                              background: 'linear-gradient(135deg, #7C6FE0 0%, #E264AB 100%)',
-                              boxShadow: '0 0 0 16px rgba(124,111,224,0.12), 0 0 0 32px rgba(124,111,224,0.06), 0 8px 40px rgba(124,111,224,0.4)',
-                              color: '#fff'
+                             background: 'linear-gradient(135deg, #FF6E32 0%, #E264AB 50%, #7C6FE0 100%)',
+                             boxShadow: '0 0 0 16px rgba(255,110,50,0.1), 0 0 0 32px rgba(226,100,171,0.06), 0 8px 48px rgba(255,110,50,0.45)',
+                             color: '#fff'
                             }}
                           >
                             <Plus className="w-12 h-12 text-white" strokeWidth={2.5} />
@@ -764,9 +764,10 @@ export default function Home() {
         <section>
           <button
             onClick={() => setShowRecentIssues(!showRecentIssues)}
-            className="w-full flex items-center justify-between p-4 rounded-2xl bg-white border border-slate-100 shadow-sm transition-all hover:shadow-md active:scale-[0.99]"
+            className="w-full flex items-center justify-between p-4 rounded-2xl transition-all hover:shadow-md active:scale-[0.99]"
+            style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}
           >
-            <span className="font-bold flex items-center gap-2" style={{ color: '#1a2f42' }}>
+            <span className="font-bold flex items-center gap-2" style={{ color: '#151528' }}>
               <History className="w-5 h-5 text-[#7C6FE0]" />
               Recent Scans
               {issues.length > 0 && (
@@ -807,12 +808,12 @@ export default function Home() {
                       </Link>
                     </>
                   ) : (
-                    <div className="text-center py-12 rounded-3xl border border-slate-100 bg-white" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
-                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(124,111,224,0.1)', border: '1px solid rgba(124,111,224,0.2)' }}>
-                      <Sparkles className="w-8 h-8 text-[#7C6FE0]" />
+                    <div className="text-center py-12 rounded-3xl" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.12)' }}>
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'linear-gradient(135deg, rgba(255,110,50,0.1), rgba(226,100,171,0.1))', border: '1px solid rgba(226,100,171,0.2)' }}>
+                      <Sparkles className="w-8 h-8 text-[#E264AB]" />
                       </div>
-                      <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues scanned yet</p>
-                      <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>Tap the button above to get started</p>
+                      <p className="font-semibold" style={{ color: '#151528' }}>No issues scanned yet</p>
+                      <p className="text-sm mt-1" style={{ color: '#6B6A8E' }}>Tap the button above to get started</p>
                     </div>
                   )}
                 </div>
@@ -831,11 +832,11 @@ export default function Home() {
         {!user?.is_premium && (
           <div
             className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center"
-            style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(245,247,250,0.95) 30%)', paddingBottom: '8px', paddingTop: '20px' }}
+            style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(253,246,255,0.97) 30%)', paddingBottom: '8px', paddingTop: '20px' }}
           >
             <div
               className="mx-4 w-full max-w-lg rounded-2xl flex items-center justify-center"
-              style={{ background: '#e8edf2', border: '1px dashed #c8d0da', height: '60px', maxWidth: '420px' }}
+              style={{ background: 'rgba(255,255,255,0.6)', border: '1px dashed rgba(124,111,224,0.3)', height: '60px', maxWidth: '420px', backdropFilter: 'blur(8px)' }}
             >
               <span className="text-xs font-medium" style={{ color: '#9aa5b4' }}>Advertisement</span>
             </div>
@@ -876,7 +877,7 @@ export default function Home() {
             <Button
               onClick={handlePayAndScan}
               disabled={processingPayment}
-              className="w-full h-12 rounded-xl font-semibold text-white" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
+              className="w-full h-12 rounded-xl font-semibold text-white" style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)' }}
             >
               {processingPayment ? (
                 <>
