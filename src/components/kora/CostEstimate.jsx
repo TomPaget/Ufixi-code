@@ -27,8 +27,8 @@ export default function CostEstimate({
     <div className="grid grid-cols-2 gap-3">
       <div className="bg-slate-800 rounded-2xl p-4 border border-slate-700/50">
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
-            <Wrench className="w-4 h-4 text-emerald-400" />
+          <div className="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center border border-orange-500/30">
+            <Wrench className="w-4 h-4 text-orange-400" />
           </div>
           <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">DIY</span>
         </div>

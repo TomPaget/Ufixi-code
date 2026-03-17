@@ -14,9 +14,9 @@ const config = {
     label: "Landlord's Responsibility",
     sublabel: "Contact your landlord",
     icon: Building2,
-    bgColor: "bg-teal-50",
-    textColor: "text-teal-700",
-    iconColor: "text-teal-500"
+    bgColor: "bg-pink-50",
+    textColor: "text-pink-700",
+    iconColor: "text-pink-500"
   },
   homeowner: {
     label: "Your Responsibility",
