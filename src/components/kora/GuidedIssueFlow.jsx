@@ -368,8 +368,9 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
   // ─────────────────────────────────────────────
   if (step === "upload") {
     return (
-      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto">
-        <div className="max-w-lg mx-auto px-5 py-6 space-y-5">
+      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto relative overflow-hidden">
+        <LavaLampBackground />
+        <div className="max-w-lg mx-auto px-5 py-6 space-y-5 relative z-10">
           <div className="flex items-center gap-3 mb-2">
             <button
               onClick={onCancel}
@@ -449,8 +450,9 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
   // ─────────────────────────────────────────────
   if (step === "details") {
     return (
-      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto">
-        <div className="max-w-lg mx-auto px-5 py-6 space-y-5 pb-12">
+      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto relative overflow-hidden">
+        <LavaLampBackground />
+        <div className="max-w-lg mx-auto px-5 py-6 space-y-5 pb-12 relative z-10">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setStep("upload")}
@@ -578,8 +580,9 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
     const optionIcons = [CalendarDays, TrendingUp, TrendingDown, CircleHelp, Timer, ArrowRight, Wrench, Eye];
 
     return (
-      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto">
-        <div className="max-w-lg mx-auto px-5 py-6 flex flex-col min-h-screen">
+      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto relative overflow-hidden">
+        <LavaLampBackground />
+        <div className="max-w-lg mx-auto px-5 py-6 flex flex-col min-h-screen relative z-10">
           {/* Header */}
           <div className="flex items-center gap-4 mb-6">
             <button
@@ -683,7 +686,8 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
   // ─────────────────────────────────────────────
   if (step === "ad") {
     return (
-      <div style={pageStyle} className="fixed inset-0 z-50 flex items-center justify-center px-6">
+      <div style={pageStyle} className="fixed inset-0 z-50 flex items-center justify-center px-6 relative overflow-hidden">
+        <LavaLampBackground />
         <div className="bg-white rounded-3xl p-8 shadow-xl w-full max-w-sm text-center space-y-5">
           <div
             className="w-16 h-16 rounded-full flex items-center justify-center mx-auto shadow-lg"
@@ -711,8 +715,9 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
   // ─────────────────────────────────────────────
   if (showStoragePrompt) {
     return (
-      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto">
-        <div className="max-w-lg mx-auto px-5 py-6 space-y-5">
+      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto relative overflow-hidden">
+        <LavaLampBackground />
+        <div className="max-w-lg mx-auto px-5 py-6 space-y-5 relative z-10">
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <h3 className="font-bold text-lg text-[#1E2D40] mb-2">Save this scan?</h3>
             <p className="text-sm text-slate-500 mb-5">
@@ -765,8 +770,9 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
 
   if (step === "suggestions") {
     return (
-      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto">
-        <div className="max-w-lg mx-auto px-5 py-6 space-y-4 pb-12">
+      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto relative overflow-hidden">
+        <LavaLampBackground />
+        <div className="max-w-lg mx-auto px-5 py-6 space-y-4 pb-12 relative z-10">
           <div className="flex items-center gap-3">
             <button
               onClick={onCancel}
