@@ -63,7 +63,7 @@ export default function RippleButton({ onClick, children, className, style, disa
         style={{
           inset: 0,
           borderRadius: '50%',
-          background: 'rgba(75,200,150,0.18)',
+          background: 'rgba(255,110,50,0.18)',
           animation: 'wave1 3.2s ease-out infinite',
         }}
       />
@@ -73,7 +73,7 @@ export default function RippleButton({ onClick, children, className, style, disa
         style={{
           inset: 0,
           borderRadius: '50%',
-          background: 'rgba(75,200,150,0.12)',
+          background: 'rgba(226,100,171,0.12)',
           animation: 'wave1 3.2s ease-out infinite 1.6s',
         }}
       />
@@ -91,8 +91,8 @@ export default function RippleButton({ onClick, children, className, style, disa
           50% { transform: scale(1.06); opacity: 0.35; }
         }
         @keyframes breatheShadow {
-          0%, 100% { box-shadow: 0 0 0 14px rgba(75,200,150,0.1), 0 0 0 26px rgba(75,200,150,0.05), 0 8px 40px rgba(75,200,150,0.35); }
-          50% { box-shadow: 0 0 0 20px rgba(75,200,150,0.15), 0 0 0 36px rgba(75,200,150,0.07), 0 10px 50px rgba(75,200,150,0.5); }
+          0%, 100% { box-shadow: 0 0 0 14px rgba(255,110,50,0.1), 0 0 0 26px rgba(226,100,171,0.07), 0 8px 40px rgba(255,110,50,0.35); }
+          50% { box-shadow: 0 0 0 20px rgba(255,110,50,0.15), 0 0 0 36px rgba(226,100,171,0.1), 0 10px 50px rgba(255,110,50,0.5); }
         }
         @keyframes wave1 {
           0% { transform: scale(1); opacity: 0.5; }
