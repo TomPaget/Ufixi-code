@@ -242,7 +242,7 @@ export default function Settings() {
 
       <main className="max-w-lg mx-auto px-5 py-6 pb-12 relative z-10">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="w-full grid grid-cols-3 mb-6 bg-slate-100">
+          <TabsList className="w-full grid grid-cols-3 mb-6" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="notifications" className="relative">
               Notifications
@@ -258,7 +258,8 @@ export default function Settings() {
         <motion.section
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
+              className="rounded-2xl p-5"
+              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
 
           <div className="flex items-center gap-4 mb-6">
             <div className="relative">
@@ -269,11 +270,11 @@ export default function Settings() {
                     className="w-14 h-14 rounded-full object-cover shadow-lg" /> :
 
 
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg bg-[#63c49f]/10 border border-[#63c49f]/20">
-                  <User className="w-7 h-7 text-[#63c49f]" />
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg" style={{ background: 'rgba(124,111,224,0.12)', border: '1px solid rgba(124,111,224,0.25)' }}>
+                  <User className="w-7 h-7 text-[#7C6FE0]" />
                 </div>
                   }
-              <label className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg bg-[#63c49f] ${uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform"}`}>
+              <label className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg ${uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform"}`} style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
                 <input
                       type="file"
                       accept="image/*"
@@ -289,8 +290,8 @@ export default function Settings() {
               </label>
             </div>
             <div className="flex-1">
-              <h2 className="font-semibold" style={{ color: '#1a2f42' }}>{user?.display_name || user?.full_name || "User"}</h2>
-              <p className="text-sm" style={{ color: '#6B7A8D' }}>{user?.email}</p>
+              <h2 className="font-semibold" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>{user?.display_name || user?.full_name || "User"}</h2>
+              <p className="text-sm" style={{ color: '#6B6A8E' }}>{user?.email}</p>
             </div>
             <Button
                   variant="ghost"
@@ -350,10 +351,10 @@ export default function Settings() {
               }
 
           {/* Location Section */}
-          <div className="rounded-xl p-4 border bg-slate-50 border-slate-200">
+          <div className="rounded-xl p-4" style={{ background: 'rgba(124,111,224,0.07)', border: '1px solid rgba(124,111,224,0.18)' }}>
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3 flex-1">
-                <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#63c49f]" : "text-slate-400"}`} />
+                <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#7C6FE0]" : "text-slate-400"}`} />
                 <div className="flex-1">
                   <p className="font-medium text-sm" style={{ color: '#1a2f42' }}>Location Services</p>
                   <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>
@@ -367,7 +368,8 @@ export default function Settings() {
                     size="sm"
                     onClick={handleRequestLocation}
                     disabled={requestingLocation}
-                    className={`rounded-xl text-white ${user?.location_services_enabled ? "bg-slate-400 hover:bg-slate-500" : "bg-[#63c49f] hover:bg-[#4faf8a]"}`}>
+                    className="rounded-xl text-white border-0"
+                    style={{ background: user?.location_services_enabled ? 'rgba(100,100,120,0.5)' : 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
 
                 {requestingLocation ?
                     <Loader2 className="w-4 h-4 animate-spin" /> :
@@ -392,38 +394,39 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
-              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
-          <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>I am a...</h3>
+              className="rounded-2xl p-5"
+              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+          <h3 className="font-semibold mb-4" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>I am a...</h3>
           
           <RadioGroup
                 value={user?.user_type || "renter"}
                 onValueChange={handleUserTypeChange}
                 className="space-y-3">
 
-            <Label htmlFor="renter" className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${user?.user_type === "renter" ? "border-[#63c49f] bg-[#63c49f]/5" : "border-slate-200 hover:border-[#63c49f]/40"}`}>
+            <Label htmlFor="renter" className="flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all" style={{ borderColor: user?.user_type === "renter" ? "#7C6FE0" : "rgba(124,111,224,0.2)", background: user?.user_type === "renter" ? "rgba(124,111,224,0.08)" : "rgba(255,255,255,0.5)" }}>
               <RadioGroupItem value="renter" id="renter" className="sr-only" />
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-teal-50 border border-teal-200">
-                <Building2 className="w-6 h-6 text-teal-600" />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(124,111,224,0.1)', border: '1px solid rgba(124,111,224,0.2)' }}>
+                <Building2 className="w-6 h-6 text-[#7C6FE0]" />
               </div>
               <div className="flex-1">
-                <p className="font-medium" style={{ color: '#1a2f42' }}>Renter</p>
-                <p className="text-sm" style={{ color: '#6B7A8D' }}>I rent my home</p>
+                <p className="font-medium" style={{ color: '#151528' }}>Renter</p>
+                <p className="text-sm" style={{ color: '#6B6A8E' }}>I rent my home</p>
               </div>
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${user?.user_type === "renter" ? "border-[#63c49f] bg-[#63c49f]" : "border-slate-300"}`}>
+              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center" style={{ borderColor: user?.user_type === "renter" ? "#7C6FE0" : "#cbd5e1", background: user?.user_type === "renter" ? "#7C6FE0" : "transparent" }}>
                 {user?.user_type === "renter" && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </Label>
 
-            <Label htmlFor="homeowner" className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${user?.user_type === "homeowner" ? "border-[#63c49f] bg-[#63c49f]/5" : "border-slate-200 hover:border-[#63c49f]/40"}`}>
+            <Label htmlFor="homeowner" className="flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all" style={{ borderColor: user?.user_type === "homeowner" ? "#E264AB" : "rgba(226,100,171,0.2)", background: user?.user_type === "homeowner" ? "rgba(226,100,171,0.08)" : "rgba(255,255,255,0.5)" }}>
               <RadioGroupItem value="homeowner" id="homeowner" className="sr-only" />
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-violet-50 border border-violet-200">
-                <Home className="w-6 h-6 text-violet-600" />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(226,100,171,0.1)', border: '1px solid rgba(226,100,171,0.2)' }}>
+                <Home className="w-6 h-6 text-[#E264AB]" />
               </div>
               <div className="flex-1">
-                <p className="font-medium" style={{ color: '#1a2f42' }}>Homeowner</p>
-                <p className="text-sm" style={{ color: '#6B7A8D' }}>I own my home</p>
+                <p className="font-medium" style={{ color: '#151528' }}>Homeowner</p>
+                <p className="text-sm" style={{ color: '#6B6A8E' }}>I own my home</p>
               </div>
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${user?.user_type === "homeowner" ? "border-[#63c49f] bg-[#63c49f]" : "border-slate-300"}`}>
+              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center" style={{ borderColor: user?.user_type === "homeowner" ? "#E264AB" : "#cbd5e1", background: user?.user_type === "homeowner" ? "#E264AB" : "transparent" }}>
                 {user?.user_type === "homeowner" && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </Label>
@@ -436,16 +439,17 @@ export default function Settings() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.18 }}
-            className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
-            <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>Business Subscription</h3>
+            className="rounded-2xl p-5"
+            style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+            <h3 className="font-semibold mb-4" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>Business Subscription</h3>
 
             <div className="space-y-4">
-              <div className="p-4 rounded-xl border bg-slate-50 border-slate-200">
+              <div className="p-4 rounded-xl" style={{ background: 'rgba(124,111,224,0.07)', border: '1px solid rgba(124,111,224,0.18)' }}>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-semibold" style={{ color: '#1a2f42' }}>
+                  <span className="font-semibold" style={{ color: '#151528' }}>
                     {user?.business_plan ? `${user.business_plan.charAt(0).toUpperCase() + user.business_plan.slice(1)} Plan` : 'Business Plan'}
                   </span>
-                  <span className="text-sm font-bold text-[#63c49f]">
+                  <span className="text-sm font-bold text-[#7C6FE0]">
                     £{user?.business_monthly_price || 0}/month
                   </span>
                 </div>
@@ -476,8 +480,9 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
-            <h3 className="font-semibold mb-2" style={{ color: '#1a2f42' }}>Account Type</h3>
+              className="rounded-2xl p-5"
+              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+            <h3 className="font-semibold mb-2" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>Account Type</h3>
             <p className="text-sm mb-4" style={{ color: '#6B7A8D' }}>
               You currently have a professional trades account. Switch to a standard account if you no longer want to receive job requests.
             </p>
@@ -505,19 +510,20 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className="rounded-2xl border overflow-hidden bg-white border-slate-100 shadow-sm">
-          <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-slate-50">
+              className="rounded-2xl overflow-hidden"
+              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+          <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-white/40">
             <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 text-slate-400" />
-              <span style={{ color: '#1a2f42' }}>Privacy Policy</span>
+              <Shield className="w-5 h-5 text-[#7C6FE0]" />
+              <span style={{ color: '#151528' }}>Privacy Policy</span>
             </div>
             <ChevronRight className="w-5 h-5 text-slate-400" />
           </button>
-          <div className="h-px bg-slate-100" />
-          <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-slate-50">
+          <div className="h-px" style={{ background: 'rgba(124,111,224,0.12)' }} />
+          <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-white/40">
             <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 text-slate-400" />
-              <span style={{ color: '#1a2f42' }}>Terms of Service</span>
+              <Shield className="w-5 h-5 text-[#E264AB]" />
+              <span style={{ color: '#151528' }}>Terms of Service</span>
             </div>
             <ChevronRight className="w-5 h-5 text-slate-400" />
           </button>
@@ -556,7 +562,7 @@ export default function Settings() {
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold" style={{ color: '#1a2f42' }}>Your Notifications</h2>
                 {unreadNotifications.length > 0 &&
-                <Button variant="ghost" size="sm" onClick={() => markAllReadMutation.mutate()} className="text-sm text-[#63c49f]">
+                <Button variant="ghost" size="sm" onClick={() => markAllReadMutation.mutate()} className="text-sm text-[#7C6FE0]">
 
                     Mark all read
                   </Button>
@@ -564,7 +570,7 @@ export default function Settings() {
               </div>
 
               <Tabs defaultValue="unread">
-                <TabsList className="w-full grid grid-cols-2 mb-4 bg-slate-100">
+                <TabsList className="w-full grid grid-cols-2 mb-4" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
                   <TabsTrigger value="unread">
                     Unread {unreadNotifications.length > 0 &&
                     <Badge className="ml-2 bg-red-500">{unreadNotifications.length}</Badge>
@@ -575,7 +581,7 @@ export default function Settings() {
 
                 <TabsContent value="unread" className="space-y-3">
                   {unreadNotifications.length === 0 ?
-                  <div className="text-center py-12 rounded-2xl border bg-white border-slate-100">
+                  <div className="text-center py-12 rounded-2xl" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(124,111,224,0.12)' }}>
                       <Bell className="w-12 h-12 mx-auto mb-3 text-slate-300" />
                       <p style={{ color: '#6B7A8D' }}>No unread notifications</p>
                     </div> :
@@ -583,9 +589,9 @@ export default function Settings() {
                   unreadNotifications.map((notification) => {
                     const Icon = typeIcons[notification.type] || Info;
                     return (
-                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02] bg-[#63c49f]/5 border-[#63c49f]/30">
+                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.02]" style={{ background: 'rgba(124,111,224,0.07)', border: '2px solid rgba(124,111,224,0.25)', backdropFilter: 'blur(8px)' }}>
                           <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#63c49f]/10">
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(124,111,224,0.12)' }}>
                               <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -628,7 +634,7 @@ export default function Settings() {
 
                 <TabsContent value="all" className="space-y-3">
                   {notifications.length === 0 ?
-                  <div className="text-center py-12 rounded-2xl border bg-white border-slate-100">
+                  <div className="text-center py-12 rounded-2xl" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(124,111,224,0.12)' }}>
                       <Bell className="w-12 h-12 mx-auto mb-3 text-slate-300" />
                       <p style={{ color: '#6B7A8D' }}>No notifications yet</p>
                     </div> :
@@ -636,9 +642,9 @@ export default function Settings() {
                   notifications.map((notification) => {
                     const Icon = typeIcons[notification.type] || Info;
                     return (
-                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className={`rounded-2xl p-4 border cursor-pointer transition-all hover:scale-[1.01] ${notification.read ? "bg-white border-slate-100" : "bg-[#63c49f]/5 border-[#63c49f]/30"}`}>
+                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.01]" style={{ background: notification.read ? 'rgba(255,255,255,0.5)' : 'rgba(124,111,224,0.07)', border: notification.read ? '1px solid rgba(124,111,224,0.1)' : '1px solid rgba(124,111,224,0.25)', backdropFilter: 'blur(8px)' }}>
                           <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#63c49f]/10">
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(124,111,224,0.1)' }}>
                               <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -676,8 +682,9 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
-          <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>Notification Preferences</h3>
+              className="rounded-2xl p-5"
+              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+          <h3 className="font-semibold mb-4" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>Notification Preferences</h3>
           
           <div className="space-y-3">
             {[
@@ -704,16 +711,14 @@ export default function Settings() {
                           }
                         });
                       }}
-                      className={cn(
-                        "w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left",
-                        isEnabled ? "border-[#63c49f] bg-[#63c49f]/5" : "border-slate-200 bg-slate-50"
-                      )}>
+                      className="w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left"
+                      style={{ borderColor: isEnabled ? '#7C6FE0' : 'rgba(124,111,224,0.2)', background: isEnabled ? 'rgba(124,111,224,0.08)' : 'rgba(255,255,255,0.4)' }}>
 
                   <div className="flex-1">
                     <p className="font-medium text-sm" style={{ color: '#1a2f42' }}>{pref.label}</p>
                     <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>{pref.description}</p>
                   </div>
-                  <div className={`w-12 h-6 rounded-full transition-all ${isEnabled ? "bg-[#63c49f]" : "bg-slate-300"}`}>
+                  <div className="w-12 h-6 rounded-full transition-all" style={{ background: isEnabled ? 'linear-gradient(135deg, #7C6FE0, #E264AB)' : '#cbd5e1' }}>
                     <div className={cn(
                           "w-5 h-5 rounded-full bg-white shadow-lg transition-all mt-0.5",
                           isEnabled ? "ml-6" : "ml-0.5"
@@ -730,8 +735,9 @@ export default function Settings() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className="rounded-2xl p-5 border bg-white border-slate-100 shadow-sm">
-          <h3 className="font-semibold mb-4" style={{ color: '#1a2f42' }}>Language & Currency</h3>
+              className="rounded-2xl p-5"
+              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+          <h3 className="font-semibold mb-4" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>Language & Currency</h3>
           <div className="space-y-3">
             <div>
               <Label style={{ color: '#6B7A8D' }}>Language</Label>
