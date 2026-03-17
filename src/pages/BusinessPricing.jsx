@@ -132,13 +132,18 @@ export default function BusinessPricing() {
               <div
                 key={plan.name}
                 className={cn(
-                  "relative rounded-xl border-2 transition-all cursor-pointer bg-white shadow-sm overflow-hidden",
+                  "relative rounded-xl border-2 transition-all cursor-pointer shadow-sm overflow-hidden",
                   plan.popular ? "pt-6" : "pt-3",
                   "px-2 pb-3",
-                  isSelected ? "border-[#7C6FE0] shadow-[#7C6FE0]/20 shadow-md" : "border-slate-100 hover:border-[#7C6FE0]/40",
+                  isSelected ? "border-[#7C6FE0]" : "border-white/60 hover:border-[#7C6FE0]/40",
                   plan.popular && "z-10"
                 )}
-                style={plan.popular ? { boxShadow: '0 0 0 2px rgba(124,111,224,0.2), 0 4px 16px rgba(0,0,0,0.08)' } : {}}
+                style={{
+                  background: 'rgba(255,255,255,0.72)',
+                  backdropFilter: 'blur(14px)',
+                  ...(plan.popular ? { boxShadow: '0 0 0 2px rgba(124,111,224,0.3), 0 8px 32px rgba(226,100,171,0.15)' } : {}),
+                  ...(isSelected ? { boxShadow: '0 0 0 2px rgba(124,111,224,0.5), 0 4px 20px rgba(124,111,224,0.15)' } : {})
+                }}
                 onClick={() => handleSelectPlan(plan)}
               >
                 {plan.popular && (
@@ -164,11 +169,17 @@ export default function BusinessPricing() {
                 </ul>
                 <button
                   onClick={(e) => { e.stopPropagation(); handleSelectPlan(plan); }}
-                  className={cn(
-                    "w-full text-[10px] font-semibold py-1.5 rounded-lg transition-colors",
-                    isSelected ? "text-white" : "text-white"
-                  )}
-                  style={{ background: isSelected ? 'linear-gradient(135deg, #7C6FE0, #E264AB)' : '#151528' }}
+                  className="w-full text-[10px] font-semibold py-1.5 rounded-lg transition-all text-white"
+                  style={{
+                    background: plan.popular
+                      ? 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)'
+                      : isSelected
+                        ? 'linear-gradient(135deg, #7C6FE0, #E264AB)'
+                        : 'rgba(21,21,40,0.75)',
+                    backdropFilter: !plan.popular && !isSelected ? 'blur(8px)' : undefined,
+                    border: !plan.popular && !isSelected ? '1px solid rgba(255,255,255,0.15)' : undefined,
+                    boxShadow: plan.popular ? '0 4px 16px rgba(226,100,171,0.35)' : undefined
+                  }}
                 >
                   {isSelected ? "✓ Selected" : "Select"}
                 </button>
@@ -180,24 +191,26 @@ export default function BusinessPricing() {
         {/* Use Cases */}
         <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
           {[
-            { icon: Home, text: "Spot issues during viewings" },
-            { icon: Clock, text: "Get instant cost estimates" },
-            { icon: BarChart3, text: "Build trust with clients" }
+            { icon: Home, text: "Spot issues during viewings", color: '#FF6E32', border: 'rgba(255,110,50,0.15)' },
+            { icon: Clock, text: "Get instant cost estimates", color: '#E264AB', border: 'rgba(226,100,171,0.15)' },
+            { icon: BarChart3, text: "Build trust with clients", color: '#7C6FE0', border: 'rgba(124,111,224,0.15)' }
           ].map((item, i) => (
-            <div key={i} className="p-5 rounded-2xl border bg-white border-slate-100 shadow-sm text-center">
-              <item.icon className="w-8 h-8 mx-auto mb-2 text-[#63c49f]" />
-              <p className="text-sm font-semibold" style={{ color: '#1a2f42' }}>{item.text}</p>
+            <div key={i} className="p-5 rounded-2xl text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: `1px solid ${item.border}` }}>
+              <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: `${item.color}18` }}>
+                <item.icon className="w-6 h-6" style={{ color: item.color }} />
+              </div>
+              <p className="text-sm font-semibold" style={{ color: '#151528' }}>{item.text}</p>
             </div>
           ))}
         </div>
 
         {/* Social Proof */}
-        <div className="text-center p-8 rounded-2xl border bg-white border-slate-100 shadow-sm">
+        <div className="text-center p-8 rounded-2xl shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Shield className="w-6 h-6 text-[#63c49f]" />
-            <h3 className="font-semibold" style={{ color: '#1a2f42' }}>Trusted by Estate Agents Across the UK</h3>
+            <Shield className="w-6 h-6" style={{ color: '#7C6FE0' }} />
+            <h3 className="font-semibold" style={{ color: '#151528' }}>Trusted by Estate Agents Across the UK</h3>
           </div>
-          <p className="text-sm" style={{ color: '#6B7A8D' }}>
+          <p className="text-sm" style={{ color: '#6B6A8E' }}>
             Join hundreds of property professionals using UFixi to provide better service to their clients
           </p>
         </div>
