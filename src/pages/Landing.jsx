@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Zap, DollarSign, BookOpen } from "lucide-react";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -27,112 +28,70 @@ export default function Landing() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #fdf6ff 0%, #fff5f0 50%, #fef0fa 100%)' }}>
+        <div className="w-8 h-8 border-2 border-[#7C6FE0] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
-      {/* Animated gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/85 via-pink-300/45 to-orange-500/85 animate-gradient-shift blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/75 via-yellow-300/35 to-blue-500/75 animate-gradient-shift-slow blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/65 via-pink-200/40 to-orange-500/70 animate-gradient-shift-reverse blur-3xl" />
-        <div className="absolute inset-0 bg-white/5" />
-      </div>
-      
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          25% { transform: translate(15%, 10%) scale(1.2) rotate(5deg); }
-          50% { transform: translate(5%, 20%) scale(1.1) rotate(-3deg); }
-          75% { transform: translate(-10%, 10%) scale(1.15) rotate(4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-slow {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          33% { transform: translate(-10%, 15%) scale(1.3) rotate(-6deg); }
-          66% { transform: translate(10%, -10%) scale(1.1) rotate(5deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        @keyframes gradient-shift-reverse {
-          0% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-          30% { transform: translate(20%, -15%) scale(1.25) rotate(7deg); }
-          60% { transform: translate(-15%, 10%) scale(1.15) rotate(-4deg); }
-          100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
-        }
-        .animate-gradient-shift {
-          animation: gradient-shift 12s ease-in-out infinite;
-        }
-        .animate-gradient-shift-slow {
-          animation: gradient-shift-slow 15s ease-in-out infinite;
-        }
-        .animate-gradient-shift-reverse {
-          animation: gradient-shift-reverse 13s ease-in-out infinite;
-        }
-      `}</style>
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center pb-12 pt-8">
+      <LavaLampBackground />
 
-      <div className="max-w-2xl mx-auto px-6 text-center">
+      <div className="max-w-lg mx-auto px-6 text-center space-y-8 relative z-10">
         {/* Logo */}
-        <div className="w-20 h-20 rounded-3xl flex items-center justify-center font-bold text-3xl bg-[#1E3A57] text-white mx-auto mb-8 shadow-2xl">
-          F
+        <div>
+          <img
+            src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/7950a6a3d_ufixi_White_RGB.png"
+            alt="Ufixi Logo"
+            className="h-10 mx-auto object-contain"
+            style={{ filter: 'drop-shadow(0 2px 8px rgba(124,111,224,0.3))' }}
+          />
         </div>
 
         {/* Heading */}
-        <h1 className="text-5xl md:text-6xl font-bold text-[#0F1E2E] mb-6">
-          <span className="whitespace-nowrap font-normal" style={{ fontFamily: "'Coolvetica', sans-serif" }}>What needs</span>{" "}
-          <span className="bg-gradient-to-r from-green-300 to-yellow-400 bg-clip-text text-transparent font-normal" style={{ fontFamily: "'Coolvetica', sans-serif" }}>
-            fixing?
-          </span>
-        </h1>
-
-        <p className="text-xl text-slate-700 mb-12 max-w-xl mx-auto font-medium">
-          Upload a photo or video of any issue and get an instant professional assessment with repair guidance.
-        </p>
+        <div className="space-y-3">
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>
+            What needs{" "}
+            <span style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              fixing?
+            </span>
+          </h1>
+          <p className="text-base font-medium max-w-sm mx-auto" style={{ color: '#6B6A8E', fontFamily: "'DM Sans', sans-serif" }}>
+            Upload a photo or video of any home issue and get an instant AI-powered repair assessment.
+          </p>
+        </div>
 
         {/* CTA Button */}
-        <Button
+        <button
           onClick={handleLogin}
-          className="h-16 px-8 text-lg font-semibold text-[#0F1E2E] rounded-2xl shadow-2xl hover:scale-105 transition-all"
+          className="w-full h-16 px-8 text-lg font-bold rounded-2xl text-white transition-all active:scale-95 hover:scale-[1.02] flex items-center justify-center gap-3 mx-auto"
           style={{
-            background: `linear-gradient(135deg, rgba(74,222,128,0.85) 0%, rgba(74,222,128,0.65) 40%, rgba(74,222,128,0.5) 100%), 
-                         radial-gradient(circle at 25% 25%, rgba(255,255,255,0.9) 0%, transparent 40%),
-                         radial-gradient(circle at 80% 80%, rgba(74,222,128,0.6) 0%, transparent 50%)`,
-            backdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-            WebkitBackdropFilter: 'blur(30px) saturate(220%) brightness(1.15) contrast(1.1)',
-            boxShadow: `inset -1px -1px 3px rgba(0,0,0,0.1), 
-                        inset 1px 1px 4px rgba(255,255,255,0.8),
-                        0 10px 60px rgba(74,222,128,0.5),
-                        0 1px 3px rgba(255,255,255,0.5),
-                        inset 0 -1px 0px rgba(0,0,0,0.06)`,
+            background: 'linear-gradient(135deg, #FF6E32 0%, #E264AB 50%, #7C6FE0 100%)',
+            boxShadow: '0 8px 40px rgba(255,110,50,0.4), 0 2px 12px rgba(226,100,171,0.3)',
+            fontFamily: "'DM Sans', sans-serif"
           }}
         >
-          <Sparkles className="w-6 h-6 mr-3" />
-          Create An Account or Sign In and scan your problem
-        </Button>
+          <Sparkles className="w-5 h-5" />
+          Sign in to scan your issue
+        </button>
 
-        {/* Features */}
-        <div className="grid grid-cols-3 gap-6 mt-16 max-w-2xl mx-auto">
-          <div className="text-center">
-            <div className="w-12 h-12 rounded-xl bg-white/60 backdrop-blur-md flex items-center justify-center mx-auto mb-3 border border-slate-200">
-              <Sparkles className="w-6 h-6 text-[#57CFA4]" />
+        {/* Feature cards */}
+        <div className="grid grid-cols-3 gap-3 pt-2">
+          {[
+            { icon: Zap, label: "AI Analysis", color: '#FF6E32' },
+            { icon: DollarSign, label: "Cost Estimates", color: '#E264AB' },
+            { icon: BookOpen, label: "Repair Guides", color: '#7C6FE0' },
+          ].map(({ icon: Icon, label, color }) => (
+            <div
+              key={label}
+              className="rounded-2xl p-4 text-center"
+              style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: `1px solid ${color}26` }}
+            >
+              <Icon className="w-5 h-5 mx-auto mb-2" style={{ color }} />
+              <p className="text-xs font-semibold" style={{ color: '#151528', fontFamily: "'DM Sans', sans-serif" }}>{label}</p>
             </div>
-            <p className="text-sm font-semibold text-[#0F1E2E]">AI-Powered Analysis</p>
-          </div>
-          <div className="text-center">
-            <div className="w-12 h-12 rounded-xl bg-white/60 backdrop-blur-md flex items-center justify-center mx-auto mb-3 border border-slate-200">
-              <Sparkles className="w-6 h-6 text-[#57CFA4]" />
-            </div>
-            <p className="text-sm font-semibold text-[#0F1E2E]">Instant Estimates</p>
-          </div>
-          <div className="text-center">
-            <div className="w-12 h-12 rounded-xl bg-white/60 backdrop-blur-md flex items-center justify-center mx-auto mb-3 border border-slate-200">
-              <Sparkles className="w-6 h-6 text-[#57CFA4]" />
-            </div>
-            <p className="text-sm font-semibold text-[#0F1E2E]">Expert Guidance</p>
-          </div>
+          ))}
         </div>
       </div>
     </div>
