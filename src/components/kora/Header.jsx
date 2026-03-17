@@ -38,7 +38,7 @@ export default function Header({ onMenuClick, onGoPremium }) {
         {/* Centre: Logo - absolutely centred */}
         <div className="absolute left-0 right-0 flex justify-center pointer-events-none">
           <img 
-            src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/7950a6a3d_ufixi_White_RGB.png"
+            src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/bd830d923_ufixi_navy_RGBi.png"
             alt="Ufixi Logo"
             className="object-contain h-8"
           />
