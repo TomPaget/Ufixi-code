@@ -6,10 +6,10 @@ const urgencyConfig = {
     label: "Low Urgency",
     description: "No immediate action needed",
     icon: CheckCircle,
-    bgColor: "bg-emerald-50",
-    textColor: "text-emerald-700",
-    borderColor: "border-emerald-200",
-    iconColor: "text-emerald-500"
+    bgColor: "bg-violet-50",
+    textColor: "text-violet-700",
+    borderColor: "border-violet-200",
+    iconColor: "text-violet-500"
   },
   fix_soon: {
     label: "Medium Urgency",
