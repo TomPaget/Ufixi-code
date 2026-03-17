@@ -135,19 +135,19 @@ export default function BusinessPricing() {
                   "relative rounded-xl border-2 transition-all cursor-pointer bg-white shadow-sm overflow-hidden",
                   plan.popular ? "pt-6" : "pt-3",
                   "px-2 pb-3",
-                  isSelected ? "border-[#63c49f] shadow-[#63c49f]/20 shadow-md" : "border-slate-100 hover:border-[#63c49f]/40",
+                  isSelected ? "border-[#7C6FE0] shadow-[#7C6FE0]/20 shadow-md" : "border-slate-100 hover:border-[#7C6FE0]/40",
                   plan.popular && "z-10"
                 )}
-                style={plan.popular ? { boxShadow: '0 0 0 2px rgba(99,196,159,0.2), 0 4px 16px rgba(0,0,0,0.08)' } : {}}
+                style={plan.popular ? { boxShadow: '0 0 0 2px rgba(124,111,224,0.2), 0 4px 16px rgba(0,0,0,0.08)' } : {}}
                 onClick={() => handleSelectPlan(plan)}
               >
                 {plan.popular && (
-                  <div className="absolute top-0 left-0 right-0 bg-[#63c49f] py-1 flex justify-center">
+                  <div className="absolute top-0 left-0 right-0 py-1 flex justify-center" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
                     <span className="text-white text-[9px] font-bold tracking-wide uppercase">Popular</span>
                   </div>
                 )}
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5 bg-[#63c49f]/10">
-                  <Icon className="w-3.5 h-3.5 text-[#63c49f]" />
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center mb-1.5" style={{ background: 'rgba(124,111,224,0.1)' }}>
+                  <Icon className="w-3.5 h-3.5" style={{ color: '#7C6FE0' }} />
                 </div>
                 <h3 className="text-[11px] font-bold mb-1 leading-none" style={{ color: '#1a2f42' }}>{plan.name}</h3>
                 <div className="mb-2">
@@ -157,7 +157,7 @@ export default function BusinessPricing() {
                 <ul className="space-y-1 mb-2.5">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-1">
-                      <CheckCircle2 className="w-2.5 h-2.5 flex-shrink-0 text-[#63c49f]" />
+                      <CheckCircle2 className="w-2.5 h-2.5 flex-shrink-0" style={{ color: '#7C6FE0' }} />
                       <span className="text-[9px] font-medium whitespace-nowrap" style={{ color: '#1a2f42' }}>{feature}</span>
                     </li>
                   ))}
@@ -166,10 +166,11 @@ export default function BusinessPricing() {
                   onClick={(e) => { e.stopPropagation(); handleSelectPlan(plan); }}
                   className={cn(
                     "w-full text-[10px] font-semibold py-1.5 rounded-lg transition-colors",
-                    isSelected ? "bg-[#63c49f] text-white" : "bg-[#1a2f42] text-white"
+                    isSelected ? "text-white" : "text-white"
                   )}
                 >
                   {isSelected ? "✓ Selected" : "Select"}
+                </button>
                 </button>
               </div>
             );
