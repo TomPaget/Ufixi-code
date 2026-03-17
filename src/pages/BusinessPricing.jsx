@@ -168,9 +168,9 @@ export default function BusinessPricing() {
                     "w-full text-[10px] font-semibold py-1.5 rounded-lg transition-colors",
                     isSelected ? "text-white" : "text-white"
                   )}
+                  style={{ background: isSelected ? 'linear-gradient(135deg, #7C6FE0, #E264AB)' : '#151528' }}
                 >
                   {isSelected ? "✓ Selected" : "Select"}
-                </button>
                 </button>
               </div>
             );
