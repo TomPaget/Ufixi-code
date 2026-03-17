@@ -60,7 +60,7 @@ export default function PageHeader({ onMenuClick, showBack, title, subtitle, sho
           </div>
         ) : (
           <img
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6943ddc3165afcd16ccf0414/c6477ab39_ufixi_primary_RGB.png"
+            src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/7950a6a3d_ufixi_White_RGB.png"
             alt="Ufixi Logo"
             className={`object-contain transition-all duration-300 ${isScrolled ? 'h-6' : 'h-8'}`}
           />
