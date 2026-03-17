@@ -32,12 +32,19 @@ export default function Layout({ children, currentPageName }) {
       <ErrorBoundary>
         <style>{`
                 :root {
-                  --dark-bg: #ffffff;
-                  --dark-card: #ffffff;
+                  --color-primary: #7C6FE0;
+                  --color-primary-hover: #6B5FD0;
+                  --color-accent: #E264AB;
+                  --color-success: #1D9E75;
+                  --color-text-primary: #151528;
+                  --color-text-secondary: #6B6A8E;
+                  --color-bg: #F5F4FF;
+                  --color-surface: #FFFFFF;
                 }
                 body {
-                  background: linear-gradient(160deg, #B8D8D8 0%, #C8D8E8 40%, #D0D8E8 70%, #C8D0E0 100%);
+                  background: #F5F4FF;
                   min-height: 100vh;
+                  font-family: 'DM Sans', sans-serif;
                 }
               `}</style>
         <LayoutContent currentPageName={currentPageName}>{children}</LayoutContent>

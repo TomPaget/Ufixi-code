@@ -34,19 +34,19 @@ export default function LavaLampBackground() {
     <div
       ref={containerRef}
       className="fixed inset-0 -z-10 overflow-hidden"
-      style={{ background: "#ffffff" }}
+      style={{ background: "#F5F4FF" }}
     >
       {/* Blobs */}
-      <div className="blob absolute w-[420px] h-[420px] rounded-full opacity-30"
-        style={{ background: "radial-gradient(circle, #b8e8d4 0%, #6ECBA6 60%, transparent 100%)", filter: "blur(60px)", top: 0, left: 0 }} />
-      <div className="blob absolute w-[320px] h-[320px] rounded-full opacity-20"
-        style={{ background: "radial-gradient(circle, #c8edd8 0%, #6ECBA6 60%, transparent 100%)", filter: "blur(50px)", top: 0, left: 0 }} />
-      <div className="blob absolute w-[500px] h-[500px] rounded-full opacity-15"
-        style={{ background: "radial-gradient(circle, #d4f0e6 0%, #6ECBA6 50%, transparent 100%)", filter: "blur(80px)", top: 0, left: 0 }} />
-      <div className="blob absolute w-[280px] h-[280px] rounded-full opacity-25"
-        style={{ background: "radial-gradient(circle, #e0f5ec 0%, #4faf8a 60%, transparent 100%)", filter: "blur(45px)", top: 0, left: 0 }} />
-      <div className="blob absolute w-[360px] h-[360px] rounded-full opacity-20"
-        style={{ background: "radial-gradient(circle, #c0e8d4 0%, #6ECBA6 55%, transparent 100%)", filter: "blur(65px)", top: 0, left: 0 }} />
+      <div className="blob absolute w-[420px] h-[420px] rounded-full opacity-25"
+        style={{ background: "radial-gradient(circle, #c4bcf5 0%, #7C6FE0 60%, transparent 100%)", filter: "blur(70px)", top: 0, left: 0 }} />
+      <div className="blob absolute w-[320px] h-[320px] rounded-full opacity-15"
+        style={{ background: "radial-gradient(circle, #f0c0e0 0%, #E264AB 60%, transparent 100%)", filter: "blur(60px)", top: 0, left: 0 }} />
+      <div className="blob absolute w-[500px] h-[500px] rounded-full opacity-10"
+        style={{ background: "radial-gradient(circle, #d8d4f8 0%, #7C6FE0 50%, transparent 100%)", filter: "blur(90px)", top: 0, left: 0 }} />
+      <div className="blob absolute w-[280px] h-[280px] rounded-full opacity-20"
+        style={{ background: "radial-gradient(circle, #ffe8c0 0%, #FF6E32 60%, transparent 100%)", filter: "blur(55px)", top: 0, left: 0 }} />
+      <div className="blob absolute w-[360px] h-[360px] rounded-full opacity-15"
+        style={{ background: "radial-gradient(circle, #c8c4f4 0%, #7C6FE0 55%, transparent 100%)", filter: "blur(75px)", top: 0, left: 0 }} />
     </div>
   );
 }
