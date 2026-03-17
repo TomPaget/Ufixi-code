@@ -195,7 +195,7 @@ export default function Support() {
       <PageHeader onMenuClick={() => setMenuOpen(true)} />
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <main className="flex-1 max-w-lg mx-auto w-full px-5 py-6 overflow-y-auto">
+      <main className="flex-1 max-w-lg mx-auto w-full px-5 py-6 overflow-y-auto relative z-10">
         <div className="space-y-4">
           {messages.map((msg, i) => (
             <div key={i} className={cn(
@@ -203,7 +203,7 @@ export default function Support() {
               msg.role === "user" ? "justify-end" : "justify-start"
             )}>
               {msg.role === "assistant" && (
-                <div className="w-8 h-8 rounded-full bg-[#6ECBA6] flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
                   <Bot className="w-5 h-5 text-white" />
                 </div>
               )}
@@ -304,7 +304,7 @@ export default function Support() {
         )}
       </main>
 
-      <div className="sticky bottom-0 border-t bg-white border-slate-100 shadow-md">
+      <div className="sticky bottom-0 border-t bg-white/90 backdrop-blur-md border-slate-100 shadow-md relative z-10">
         <div className="max-w-lg mx-auto px-5 py-4">
           {/* Attachments Preview */}
           {attachments.length > 0 && (
@@ -366,7 +366,8 @@ export default function Support() {
             <Button
               onClick={handleSend}
               disabled={(!input.trim() && attachments.length === 0) || sending}
-              className="bg-[#6ECBA6] hover:bg-[#4faf8a] text-[#1E2D40] rounded-xl px-6"
+              className="rounded-xl px-6 text-white"
+              style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
             >
               {sending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />

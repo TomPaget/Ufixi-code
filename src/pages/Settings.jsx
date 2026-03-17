@@ -240,7 +240,7 @@ export default function Settings() {
       <PageHeader onMenuClick={() => setMenuOpen(true)} />
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <main className="max-w-lg mx-auto px-5 py-6 pb-12">
+      <main className="max-w-lg mx-auto px-5 py-6 pb-12 relative z-10">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="w-full grid grid-cols-3 mb-6 bg-slate-100">
             <TabsTrigger value="account">Account</TabsTrigger>

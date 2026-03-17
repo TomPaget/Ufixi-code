@@ -133,15 +133,17 @@ export default function IssueDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#F5F4FF' }}>
-        <div className="w-8 h-8 border-2 border-[#7C6FE0] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <LavaLampBackground />
+        <div className="w-8 h-8 border-2 border-[#7C6FE0] border-t-transparent rounded-full animate-spin relative z-10" />
       </div>
     );
   }
 
   if (!issue) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#F5F4FF' }}>
+      <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <LavaLampBackground />
         <div className="text-center">
           <p className="mb-4" style={{ color: '#6B7A8D' }}>Issue not found</p>
           <Button onClick={() => navigate(createPageUrl("Home"))}>Go Home</Button>
