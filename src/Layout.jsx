@@ -15,7 +15,7 @@ function LayoutContent({ children, currentPageName }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0.12, ease: "easeInOut" }}
             style={{ minHeight: '100vh' }}
           >
             {children}

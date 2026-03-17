@@ -13,7 +13,7 @@ const customerMenuItems = [
   { icon: HomeIcon, label: "Home", page: "Home" },
   // { icon: Mail, label: "Messages", page: "Messages" }, // HIDDEN - Will be re-enabled later
   // { icon: MessageCircle, label: "Community Forum", page: "Forum" }, // HIDDEN - Will be re-enabled later
-  { icon: Building2, label: "Business Membership", page: "BusinessPricing" },
+  // { icon: Building2, label: "Business Membership", page: "BusinessPricing" }, // HIDDEN - re-enable when ready
   // { icon: Briefcase, label: "Trades Account", page: "TradesSignup" }, // HIDDEN - Can be re-enabled later
   // { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" }, // HIDDEN - Can be re-enabled later
   { icon: HelpCircle, label: "Support Chat", page: "Support" },
@@ -92,7 +92,7 @@ export default function HamburgerMenu({ isOpen, onClose }) {
             initial={{ x: -320, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -320, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 320, damping: 30 }}
+            transition={{ type: "tween", duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
             className="fixed left-0 top-0 bottom-0 w-72 z-50"
             style={{
               background: 'linear-gradient(160deg, rgba(21,21,40,0.97) 0%, rgba(30,27,60,0.99) 100%)',
@@ -112,9 +112,9 @@ export default function HamburgerMenu({ isOpen, onClose }) {
                 {menuItems.map((item, i) => (
                   <motion.div
                     key={item.page}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04, type: "spring", stiffness: 300, damping: 25 }}
+                    transition={{ delay: i * 0.03, duration: 0.18, ease: "easeOut" }}
                   >
                     <Link
                       to={createPageUrl(item.page)}
