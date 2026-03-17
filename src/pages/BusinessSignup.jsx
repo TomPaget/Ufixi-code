@@ -79,13 +79,14 @@ export default function BusinessSignup() {
   };
 
   return (
-    <div className="min-h-screen pb-20" style={{ background: "linear-gradient(160deg, #B8D8D8 0%, #C8D8E8 40%, #D0D8E8 70%, #C8D0E0 100%)" }}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      <LavaLampBackground />
       <PageHeader showBack title="Set Up Your Business" onMenuClick={() => setMenuOpen(true)} />
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <main className="max-w-lg mx-auto px-5 py-8 space-y-6">
+      <main className="max-w-lg mx-auto px-5 py-8 space-y-6 relative z-10">
         {/* Selected Plan Badge */}
-        <div className="flex items-center justify-between rounded-2xl px-5 py-4" style={{ background: "linear-gradient(135deg, #64c39f 0%, #1a2f42 100%)", boxShadow: "0 4px 20px rgba(99,196,159,0.3), 0 0 30px rgba(99,196,159,0.25)" }}>
+        <div className="flex items-center justify-between rounded-2xl px-5 py-4" style={{ background: "linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)", boxShadow: "0 4px 24px rgba(226,100,171,0.35)" }}>
           <div>
             <p className="text-xs font-semibold text-white/70">Selected Plan</p>
             <p className="text-xl font-bold text-white">{plan.name}</p>
@@ -97,25 +98,25 @@ export default function BusinessSignup() {
         </div>
 
         {/* Form */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-5">
-          <h2 className="font-bold text-lg" style={{ color: "#1a2f42" }}>Tell us about your business</h2>
+        <div className="rounded-2xl p-6 space-y-5" style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+          <h2 className="font-bold text-lg" style={{ color: "#151528", fontFamily: "'Sora', sans-serif" }}>Tell us about your business</h2>
 
           <div className="space-y-1.5">
-            <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Building2 className="w-4 h-4 text-[#63c49f]" />
+            <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#151528" }}>
+              <Building2 className="w-4 h-4 text-[#7C6FE0]" />
               Company Name *
             </Label>
             <Input
               placeholder="e.g., Smith & Co Estate Agents"
               value={form.companyName}
               onChange={(e) => setForm({ ...form, companyName: e.target.value })}
-              className="rounded-xl border-slate-200"
+              className="rounded-xl border-slate-200 bg-white/80"
             />
           </div>
 
           <div className="space-y-1.5">
-            <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Briefcase className="w-4 h-4 text-[#63c49f]" />
+            <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#151528" }}>
+              <Briefcase className="w-4 h-4 text-[#E264AB]" />
               Business Type *
             </Label>
             <div className="grid grid-cols-2 gap-2">
@@ -126,9 +127,10 @@ export default function BusinessSignup() {
                   onClick={() => setForm({ ...form, businessType: t.value })}
                   className="text-left px-3 py-2.5 rounded-xl border text-sm font-medium transition-all"
                   style={{
-                    borderColor: form.businessType === t.value ? "#63c49f" : "#e2e8f0",
-                    background: form.businessType === t.value ? "rgba(99,196,159,0.08)" : "#fff",
-                    color: form.businessType === t.value ? "#1a2f42" : "#6B7A8D"
+                    borderColor: form.businessType === t.value ? "#7C6FE0" : "rgba(124,111,224,0.2)",
+                    background: form.businessType === t.value ? "rgba(124,111,224,0.1)" : "rgba(255,255,255,0.6)",
+                    backdropFilter: 'blur(8px)',
+                    color: form.businessType === t.value ? "#151528" : "#6B6A8E"
                   }}
                 >
                   {t.label}
@@ -138,8 +140,8 @@ export default function BusinessSignup() {
           </div>
 
           <div className="space-y-1.5">
-            <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <Users className="w-4 h-4 text-[#63c49f]" />
+            <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#151528" }}>
+              <Users className="w-4 h-4 text-[#FF6E32]" />
               Team Size *
             </Label>
             <div className="grid grid-cols-2 gap-2">
@@ -150,9 +152,10 @@ export default function BusinessSignup() {
                   onClick={() => setForm({ ...form, teamSize: size })}
                   className="text-left px-3 py-2.5 rounded-xl border text-sm font-medium transition-all"
                   style={{
-                    borderColor: form.teamSize === size ? "#63c49f" : "#e2e8f0",
-                    background: form.teamSize === size ? "rgba(99,196,159,0.08)" : "#fff",
-                    color: form.teamSize === size ? "#1a2f42" : "#6B7A8D"
+                    borderColor: form.teamSize === size ? "#7C6FE0" : "rgba(124,111,224,0.2)",
+                    background: form.teamSize === size ? "rgba(124,111,224,0.1)" : "rgba(255,255,255,0.6)",
+                    backdropFilter: 'blur(8px)',
+                    color: form.teamSize === size ? "#151528" : "#6B6A8E"
                   }}
                 >
                   {size}
@@ -162,29 +165,29 @@ export default function BusinessSignup() {
           </div>
 
           <div className="space-y-1.5">
-            <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#1a2f42" }}>
-              <MapPin className="w-4 h-4 text-[#63c49f]" />
-              Location <span className="font-normal text-xs" style={{ color: "#6B7A8D" }}>(optional)</span>
+            <Label className="flex items-center gap-2 text-sm font-semibold" style={{ color: "#151528" }}>
+              <MapPin className="w-4 h-4 text-[#E264AB]" />
+              Location <span className="font-normal text-xs" style={{ color: "#6B6A8E" }}>(optional)</span>
             </Label>
             <Input
               placeholder="e.g., London, Manchester..."
               value={form.location}
               onChange={(e) => setForm({ ...form, location: e.target.value })}
-              className="rounded-xl border-slate-200"
+              className="rounded-xl border-slate-200 bg-white/80"
             />
           </div>
         </div>
 
         {/* Summary & CTA */}
         <div className="space-y-3">
-          <p className="text-xs text-center" style={{ color: "#6B7A8D" }}>
+          <p className="text-xs text-center" style={{ color: "#6B6A8E" }}>
             Cancel anytime. No hidden fees. Secure payment via Stripe.
           </p>
           <Button
             onClick={handleSubmit}
             disabled={!isValid || isSubmitting}
-            className="w-full h-12 rounded-2xl font-semibold text-white flex items-center justify-center gap-2"
-            style={{ background: isValid ? "#63c49f" : "#c8d0da" }}
+            className="w-full h-12 rounded-2xl font-semibold text-white flex items-center justify-center gap-2 border-0"
+            style={{ background: isValid ? "linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)" : "rgba(21,21,40,0.25)", boxShadow: isValid ? "0 4px 24px rgba(226,100,171,0.35)" : "none" }}
           >
             {isSubmitting ? (
               <span>Processing...</span>
