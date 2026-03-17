@@ -179,7 +179,6 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
 
   const pageStyle = {
     minHeight: "100vh",
-    background: "linear-gradient(160deg, #B8D8D8 0%, #C8D8E8 40%, #D0D8E8 70%, #C8D0E0 100%)",
   };
 
   const handleFileSelect = (type, file) => {

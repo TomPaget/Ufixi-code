@@ -117,10 +117,11 @@ export default function History() {
   const tradeTypes = [...new Set(issues.map(i => i.trade_type).filter(Boolean))];
 
   return (
-    <div className="min-h-screen pb-20 bg-[#F5F7FA]">
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      <LavaLampBackground />
       <PageHeader showBack title="Dashboard" subtitle="Track all your issues" />
 
-      <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
+      <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12 relative z-10">
         {/* Statistics Overview */}
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-2xl p-4 border bg-white border-slate-100 shadow-sm">

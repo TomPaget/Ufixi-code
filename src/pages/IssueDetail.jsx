@@ -151,10 +151,11 @@ export default function IssueDetail() {
   }
 
   return (
-    <div className="min-h-screen pb-20" style={{ background: '#F5F4FF' }}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      <LavaLampBackground />
       <PageHeader showBack title="Diagnosis" />
 
-      <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
+      <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12 relative z-10">
         {/* Media Preview */}
         {issue.media_url && (
           <motion.div
