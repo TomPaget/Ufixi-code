@@ -132,15 +132,15 @@ export default function IssueDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#63c49f] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#F5F4FF' }}>
+        <div className="w-8 h-8 border-2 border-[#7C6FE0] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (!issue) {
     return (
-      <div className="min-h-screen bg-[#F5F7FA] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#F5F4FF' }}>
         <div className="text-center">
           <p className="mb-4" style={{ color: '#6B7A8D' }}>Issue not found</p>
           <Button onClick={() => navigate(createPageUrl("Home"))}>Go Home</Button>
@@ -150,7 +150,7 @@ export default function IssueDetail() {
   }
 
   return (
-    <div className="min-h-screen pb-20 bg-[#F5F7FA]">
+    <div className="min-h-screen pb-20" style={{ background: '#F5F4FF' }}>
       <PageHeader showBack title="Diagnosis" />
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6 pb-12">
@@ -218,7 +218,7 @@ export default function IssueDetail() {
               )}
               <Button
                 size="sm"
-                className="rounded-xl bg-emerald-600 hover:bg-emerald-700"
+                className="rounded-xl text-white" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
                 onClick={() => setShowResolveDialog(true)}
               >
                 <CheckCircle2 className="w-4 h-4 mr-1" />
@@ -285,7 +285,7 @@ export default function IssueDetail() {
           {/* Explanation */}
           <p className="leading-relaxed mt-4" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
           {issue.historical_insights?.recommended_approach && (
-            <div className="mt-4 p-4 bg-[#63c49f]/5 rounded-xl border border-[#63c49f]/20">
+            <div className="mt-4 p-4 rounded-xl" style={{ background: 'rgba(124,111,224,0.05)', border: '1px solid rgba(124,111,224,0.15)' }}>
               <p className="text-sm font-semibold mb-2" style={{ color: '#1a2f42' }}>
                 💡 Based on {issue.historical_insights.similar_cases_count} similar cases:
               </p>
@@ -366,7 +366,7 @@ export default function IssueDetail() {
                     <ul className="space-y-2 pt-4">
                       {issue.risks.map((risk, i) => (
                         <li key={i} className="flex items-start gap-2" style={{ color: '#1a2f42' }}>
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#63c49f] mt-2 flex-shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#7C6FE0] mt-2 flex-shrink-0" />
                           {risk}
                         </li>
                       ))}
@@ -627,7 +627,7 @@ export default function IssueDetail() {
             <Button
               onClick={handleResolve}
               disabled={updateIssueMutation.isPending}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 rounded-xl"
+              className="w-full rounded-xl text-white" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
             >
               <CheckCircle2 className="w-4 h-4 mr-2" />
               {updateIssueMutation.isPending ? "Saving..." : "Mark Resolved"}

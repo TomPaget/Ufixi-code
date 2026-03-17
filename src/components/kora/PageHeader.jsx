@@ -26,25 +26,27 @@ export default function PageHeader({ onMenuClick, showBack, title, subtitle, sho
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       className={`sticky top-0 z-30 transition-all duration-300 bg-transparent ${isScrolled ? 'py-2' : 'py-3'}`}
+      style={{ background: 'transparent' }}
     >
       <div
-        className="max-w-lg mx-auto bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between"
+        className="max-w-lg mx-auto rounded-2xl flex items-center justify-between"
+        style={{ background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(16px)', border: '1px solid rgba(124,111,224,0.12)', boxShadow: '0 2px 16px rgba(124,111,224,0.08)' }}
         style={{ margin: '0 auto', padding: '10px 16px', maxWidth: '32rem' }}
       >
         {/* Left: hamburger or back */}
         {onMenuClick ? (
           <button
             onClick={onMenuClick}
-            className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
-            style={{ color: '#1a2f42' }}
+            className="w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-90"
+            style={{ color: '#151528' }}
           >
             <Menu className="w-5 h-5" />
           </button>
         ) : showBack ? (
           <button
             onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
-            style={{ color: '#1a2f42' }}
+            className="w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-90"
+            style={{ color: '#151528' }}
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -53,8 +55,8 @@ export default function PageHeader({ onMenuClick, showBack, title, subtitle, sho
         {/* Centre: logo or title */}
         {title ? (
           <div className="flex-1 text-center px-2">
-            <p className="font-bold text-base truncate" style={{ color: '#1a2f42' }}>{title}</p>
-            {subtitle && <p className="text-xs" style={{ color: '#6B7A8D' }}>{subtitle}</p>}
+            <p className="font-bold text-base truncate" style={{ fontFamily: "'Sora', sans-serif", color: '#151528' }}>{title}</p>
+            {subtitle && <p className="text-xs" style={{ color: '#6B6A8E' }}>{subtitle}</p>}
           </div>
         ) : (
           <img
