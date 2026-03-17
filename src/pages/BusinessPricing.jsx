@@ -101,22 +101,23 @@ export default function BusinessPricing() {
   };
 
   return (
-    <div className="min-h-screen pb-20" style={{ background: 'linear-gradient(160deg, #B8D8D8 0%, #C8D8E8 40%, #D0D8E8 70%, #C8D0E0 100%)' }}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      <LavaLampBackground />
       <PageHeader onMenuClick={() => setMenuOpen(true)} />
       <HamburgerMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <main className="max-w-6xl mx-auto px-5 py-12 space-y-16">
+      <main className="max-w-6xl mx-auto px-5 py-12 space-y-16 relative z-10">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-[#63c49f]/10 border-[#63c49f]/20" style={{ color: '#1a2f42' }}>
-            <Building2 className="w-4 h-4 text-[#63c49f]" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border" style={{ background: 'rgba(124,111,224,0.1)', borderColor: 'rgba(124,111,224,0.2)', color: '#151528' }}>
+            <Building2 className="w-4 h-4" style={{ color: '#7C6FE0' }} />
             <span className="text-sm font-semibold">For Estate Agents & Businesses</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold" style={{ color: '#1a2f42' }}>
+          <h1 className="text-3xl md:text-4xl font-bold" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>
             Property Issues?<br />
-            <span style={{ color: '#63c49f' }}>Instant Answers.</span>
+            <span style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Instant Answers.</span>
           </h1>
-          <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
+          <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B6A8E' }}>
             See a problem during a viewing? Need a quick explanation for your client? 
             UFixi gives you instant, professional property diagnostics on the spot.
           </p>
