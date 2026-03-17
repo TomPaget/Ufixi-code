@@ -42,7 +42,7 @@ export default function Layout({ children, currentPageName }) {
                   --color-surface: #FFFFFF;
                 }
                 body {
-                  background: #F5F4FF;
+                  background: linear-gradient(135deg, #fdf6ff 0%, #fff5f0 50%, #fef0fa 100%);
                   min-height: 100vh;
                   font-family: 'DM Sans', sans-serif;
                 }

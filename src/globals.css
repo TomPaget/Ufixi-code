@@ -13,7 +13,7 @@ css
   body {
     color: #151528;
     font-family: 'DM Sans', sans-serif;
-    background: #F5F4FF;
+    background: linear-gradient(135deg, #fdf6ff 0%, #fff5f0 50%, #fef0fa 100%);
     min-height: 100vh;
   }
 
