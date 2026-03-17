@@ -343,7 +343,8 @@ export default function Settings() {
               <Button
                   onClick={handleSaveProfile}
                   disabled={updateUserMutation.isPending}
-                  className="w-full" style={{ background: '#63c49f', color: '#fff' }}>
+                  className="w-full border-0 text-white"
+                  style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
 
                 {updateUserMutation.isPending ? "Saving..." : "Save Changes"}
               </Button>
