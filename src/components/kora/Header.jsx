@@ -41,7 +41,6 @@ export default function Header({ onMenuClick, onGoPremium }) {
             src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/7950a6a3d_ufixi_White_RGB.png"
             alt="Ufixi Logo"
             className="object-contain h-8"
-            style={{}
           />
         </div>
 
