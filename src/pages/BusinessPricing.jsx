@@ -18,6 +18,7 @@ import {
   Home
 } from "lucide-react";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 const plans = [
   {

@@ -11,6 +11,7 @@ import ReactMarkdown from "react-markdown";
 import PageHeader from "@/components/kora/PageHeader";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
 import SupportContactForm from "@/components/kora/SupportContactForm";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 export default function Support() {
   const navigate = useNavigate();
