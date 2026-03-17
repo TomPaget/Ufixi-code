@@ -667,7 +667,7 @@ export default function Home() {
    };
 
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #B8D8D8 0%, #C8D8E8 40%, #D0D8E8 70%, #C8D0E0 100%)' }}>
+    <div className="min-h-screen pb-20 relative overflow-hidden" style={{ background: '#F5F4FF' }}>
       <LavaLampBackground />
       
       {showOnboarding && (
@@ -688,10 +688,10 @@ export default function Home() {
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Poppins', sans-serif", color: '#1a2f42', letterSpacing: '-0.02em' }}>
-              What needs <span style={{ color: '#63c49f' }}>fixing?</span>
+          <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>
+              What needs <span style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>fixing?</span>
             </h1>
-            <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B7A8D' }}>
+            <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B6A8E' }}>
               Upload a photo or video and get instant AI-powered repair assessments.
             </p>
         </div>
@@ -702,21 +702,21 @@ export default function Home() {
             className="grid grid-cols-3 gap-3"
           >
             <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
-                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
+                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#7C6FE0]" />
                 <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
                   {issues.filter(i => i.status === "active").length}
                 </p>
                 <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Active</p>
               </div>
               <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
-                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
+                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#7C6FE0]" />
                 <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
                   {issues.filter(i => i.urgency === "fix_soon").length}
                 </p>
                 <p className="text-xs font-semibold" style={{ color: '#6B7A8D' }}>Fix Soon</p>
               </div>
               <div className="rounded-2xl p-4 text-center bg-white border border-slate-100 shadow-sm">
-                <History className="w-5 h-5 mx-auto mb-1 text-[#63c49f]" />
+                <History className="w-5 h-5 mx-auto mb-1 text-[#7C6FE0]" />
                 <p className="text-xl font-bold" style={{ color: '#1a2f42' }}>
                   {issues.filter(i => i.status === "resolved").length}
                 </p>
@@ -746,15 +746,15 @@ export default function Home() {
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                             className="w-40 h-40 rounded-full flex flex-col items-center justify-center gap-2 border-0 transition-transform active:scale-95"
                             style={{
-                              background: 'linear-gradient(145deg, #63c49f 0%, #4faf8a 100%)',
-                              boxShadow: '0 0 0 16px rgba(99,196,159,0.12), 0 0 0 32px rgba(99,196,159,0.06), 0 8px 40px rgba(99,196,159,0.4)',
+                              background: 'linear-gradient(135deg, #7C6FE0 0%, #E264AB 100%)',
+                              boxShadow: '0 0 0 16px rgba(124,111,224,0.12), 0 0 0 32px rgba(124,111,224,0.06), 0 8px 40px rgba(124,111,224,0.4)',
                               color: '#fff'
                             }}
                           >
                             <Plus className="w-12 h-12 text-white" strokeWidth={2.5} />
                             <span className="text-sm font-bold text-white tracking-wide">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
                           </RippleButton>
-                          <p className="text-sm font-medium mt-6" style={{ color: '#6B7A8D' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
+                          <p className="text-sm font-medium mt-6" style={{ color: '#6B6A8E' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
                     </div>
               </div>
             )}
@@ -767,10 +767,10 @@ export default function Home() {
             className="w-full flex items-center justify-between p-4 rounded-2xl bg-white border border-slate-100 shadow-sm transition-all hover:shadow-md active:scale-[0.99]"
           >
             <span className="font-bold flex items-center gap-2" style={{ color: '#1a2f42' }}>
-              <History className="w-5 h-5 text-[#63c49f]" />
+              <History className="w-5 h-5 text-[#7C6FE0]" />
               Recent Scans
               {issues.length > 0 && (
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#63c49f]/10 text-[#63c49f]">{issues.length}</span>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#7C6FE0]/10 text-[#7C6FE0]">{issues.length}</span>
               )}
             </span>
             {showRecentIssues ? (
@@ -801,15 +801,15 @@ export default function Home() {
                       ))}
                       <Link
                         to={createPageUrl("History")}
-                        className="block text-center text-sm font-semibold text-[#63c49f] hover:text-[#4faf8a] py-2 transition-colors"
+                        className="block text-center text-sm font-semibold text-[#7C6FE0] hover:text-[#6B5FD0] py-2 transition-colors"
                       >
                         View All Issues →
                       </Link>
                     </>
                   ) : (
                     <div className="text-center py-12 rounded-3xl border border-slate-100 bg-white" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
-                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(99,196,159,0.1)', border: '1px solid rgba(99,196,159,0.2)' }}>
-                      <Sparkles className="w-8 h-8 text-[#63c49f]" />
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(124,111,224,0.1)', border: '1px solid rgba(124,111,224,0.2)' }}>
+                      <Sparkles className="w-8 h-8 text-[#7C6FE0]" />
                       </div>
                       <p className="font-semibold" style={{ color: '#1a2f42' }}>No issues scanned yet</p>
                       <p className="text-sm mt-1" style={{ color: '#6B7A8D' }}>Tap the button above to get started</p>
@@ -876,7 +876,7 @@ export default function Home() {
             <Button
               onClick={handlePayAndScan}
               disabled={processingPayment}
-              className="w-full bg-[#63c49f] hover:bg-[#63c49f]/90 text-[#1a2f42] h-12 rounded-xl font-semibold"
+              className="w-full h-12 rounded-xl font-semibold text-white" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
             >
               {processingPayment ? (
                 <>
