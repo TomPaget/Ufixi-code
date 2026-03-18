@@ -2,6 +2,7 @@ import { ThemeProvider } from "@/components/kora/ThemeProvider";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { AnimatePresence, motion } from "framer-motion";
+import BottomNav from "@/components/kora/BottomNav";
 
 function LayoutContent({ children, currentPageName }) {
     const { theme } = useTheme();
