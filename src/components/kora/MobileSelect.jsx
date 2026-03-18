@@ -49,7 +49,8 @@ export default function MobileSelect({ value, onChange, options = [], placeholde
                   onClick={() => { onChange(opt.value); setOpen(false); }}
                   className="w-full flex items-center justify-between px-4 py-4 rounded-xl mb-1 transition-colors text-left text-sm font-medium active:bg-slate-50"
                   style={{
-                    minHeight: 52,
+                    minHeight: "52px",
+                    minWidth: "44px",
                     background: isSelected ? "rgba(124,111,224,0.08)" : "transparent",
                     color: isSelected ? "#7C6FE0" : "#1a2f42",
                     border: isSelected ? "1px solid rgba(124,111,224,0.25)" : "1px solid transparent",
