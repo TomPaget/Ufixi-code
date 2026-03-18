@@ -765,8 +765,8 @@ export default function Home() {
                             <Plus className="w-12 h-12 text-white" strokeWidth={2.5} />
                             <span className="text-sm font-bold text-white tracking-wide">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
                           </RippleButton>
-                          <p className="text-sm font-medium" style={{ color: '#6B6A8E' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
-                    </div>
+                          <p className="text-sm font-medium mt-4" style={{ color: '#6B6A8E' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
+                          </div>
               </div>
             )}
                     </AnimatePresence>
