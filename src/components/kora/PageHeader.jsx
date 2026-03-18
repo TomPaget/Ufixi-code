@@ -37,12 +37,8 @@ export default function PageHeader({
       style={{ background: 'transparent' }}
     >
       <div
-        className="max-w-lg mx-auto rounded-2xl flex items-center justify-between"
+        className="max-w-lg mx-auto flex items-center justify-between"
         style={{
-          background: 'rgba(255,255,255,0.85)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(124,111,224,0.12)',
-          boxShadow: '0 2px 16px rgba(124,111,224,0.08)',
           margin: '0 auto',
           padding: '10px 16px',
           maxWidth: '32rem',
