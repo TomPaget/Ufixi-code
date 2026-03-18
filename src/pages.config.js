@@ -89,7 +89,7 @@ import __Layout from './Layout.jsx';
 
 // Lazy-load non-critical pages for better performance
 const LazyChat = lazy(() => import('./pages/Chat'));
-const LazyCon consultationSummary = lazy(() => import('./pages/ConsultationSummary'));
+const LazyConsultationSummary = lazy(() => import('./pages/ConsultationSummary'));
 const LazyContractorManagement = lazy(() => import('./pages/ContractorManagement'));
 const LazyContractors = lazy(() => import('./pages/Contractors'));
 const LazyCreatePost = lazy(() => import('./pages/CreatePost'));
