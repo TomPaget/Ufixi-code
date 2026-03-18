@@ -6,34 +6,42 @@ export default function LavaLampBackground() {
     >
       <style>{`
         @keyframes blob1 {
-          0%   { transform: translate(10vw, 15vh) scale(1); }
-          33%  { transform: translate(45vw, 35vh) scale(1.1); }
-          66%  { transform: translate(25vw, 60vh) scale(0.92); }
-          100% { transform: translate(10vw, 15vh) scale(1); }
+          0%   { transform: translate(5vw, 5vh) scale(1); }
+          20%  { transform: translate(70vw, 30vh) scale(1.15); }
+          40%  { transform: translate(40vw, 75vh) scale(0.9); }
+          60%  { transform: translate(80vw, 85vh) scale(1.1); }
+          80%  { transform: translate(15vw, 55vh) scale(0.88); }
+          100% { transform: translate(5vw, 5vh) scale(1); }
         }
         @keyframes blob2 {
-          0%   { transform: translate(60vw, 10vh) scale(1); }
-          33%  { transform: translate(20vw, 40vh) scale(0.9); }
-          66%  { transform: translate(70vw, 55vh) scale(1.08); }
-          100% { transform: translate(60vw, 10vh) scale(1); }
+          0%   { transform: translate(75vw, 5vh) scale(1); }
+          20%  { transform: translate(10vw, 45vh) scale(0.88); }
+          40%  { transform: translate(85vw, 70vh) scale(1.12); }
+          60%  { transform: translate(30vw, 90vh) scale(0.95); }
+          80%  { transform: translate(60vw, 20vh) scale(1.08); }
+          100% { transform: translate(75vw, 5vh) scale(1); }
         }
         @keyframes blob3 {
-          0%   { transform: translate(30vw, 50vh) scale(1); }
-          33%  { transform: translate(65vw, 20vh) scale(1.12); }
-          66%  { transform: translate(15vw, 30vh) scale(0.88); }
-          100% { transform: translate(30vw, 50vh) scale(1); }
+          0%   { transform: translate(40vw, 80vh) scale(1); }
+          20%  { transform: translate(80vw, 10vh) scale(1.1); }
+          40%  { transform: translate(5vw, 30vh) scale(0.85); }
+          60%  { transform: translate(55vw, 60vh) scale(1.15); }
+          80%  { transform: translate(20vw, 90vh) scale(0.9); }
+          100% { transform: translate(40vw, 80vh) scale(1); }
         }
         @keyframes blob4 {
-          0%   { transform: translate(75vw, 60vh) scale(1); }
-          33%  { transform: translate(40vw, 70vh) scale(0.95); }
-          66%  { transform: translate(55vw, 25vh) scale(1.05); }
-          100% { transform: translate(75vw, 60vh) scale(1); }
+          0%   { transform: translate(60vw, 50vh) scale(1); }
+          25%  { transform: translate(5vw, 85vh) scale(1.1); }
+          50%  { transform: translate(75vw, 15vh) scale(0.88); }
+          75%  { transform: translate(35vw, 40vh) scale(1.05); }
+          100% { transform: translate(60vw, 50vh) scale(1); }
         }
         @keyframes blob5 {
-          0%   { transform: translate(50vw, 70vh) scale(1); }
-          33%  { transform: translate(80vw, 40vh) scale(1.08); }
-          66%  { transform: translate(35vw, 15vh) scale(0.93); }
-          100% { transform: translate(50vw, 70vh) scale(1); }
+          0%   { transform: translate(20vw, 20vh) scale(1); }
+          25%  { transform: translate(85vw, 75vh) scale(1.12); }
+          50%  { transform: translate(50vw, 95vh) scale(0.9); }
+          75%  { transform: translate(10vw, 60vh) scale(1.08); }
+          100% { transform: translate(20vw, 20vh) scale(1); }
         }
       `}</style>
 
