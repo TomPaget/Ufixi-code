@@ -34,13 +34,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue } from
-"@/components/ui/select";
+import MobileSelect from "@/components/kora/MobileSelect";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 // cn is still used in notification preferences button
