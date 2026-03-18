@@ -41,6 +41,39 @@ export default function Home() {
   const [pendingIssueData, setPendingIssueData] = useState(null);
   const [showRecentIssues, setShowRecentIssues] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const [pullRefreshing, setPullRefreshing] = useState(false);
+  const [pullY, setPullY] = useState(0);
+  const touchStartY = useRef(0);
+  const PULL_THRESHOLD = 70;
+
+  const handleRefresh = useCallback(async () => {
+    setPullRefreshing(true);
+    await Promise.all([
+      queryClient.invalidateQueries(["issues"]),
+      queryClient.invalidateQueries(["user"]),
+    ]);
+    setPullRefreshing(false);
+    setPullY(0);
+  }, [queryClient]);
+
+  const handleTouchStart = useCallback((e) => {
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchMove = useCallback((e) => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    if (scrollTop > 0) return;
+    const diff = e.touches[0].clientY - touchStartY.current;
+    if (diff > 0) setPullY(Math.min(diff * 0.4, PULL_THRESHOLD));
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (pullY >= PULL_THRESHOLD) {
+      handleRefresh();
+    } else {
+      setPullY(0);
+    }
+  }, [pullY, handleRefresh]);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
