@@ -368,10 +368,15 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
   // ─────────────────────────────────────────────
   if (step === "upload") {
     return (
-      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto relative overflow-hidden">
+      <div style={pageStyle} className="fixed inset-0 z-50 overflow-hidden relative">
         <LavaLampBackground />
-        <div className="max-w-lg mx-auto px-5 py-6 space-y-5 relative z-10">
-          <div className="flex items-center gap-3 mb-2">
+        <div className="max-w-lg mx-auto px-5 py-4 space-y-3 relative z-10 flex flex-col h-full">
+          {/* Logo */}
+          <div className="text-center pt-1 pb-1">
+            <span className="text-2xl font-bold" style={{ fontFamily: "'Sora', sans-serif", background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>ufixi</span>
+          </div>
+
+          <div className="flex items-center gap-3">
             <button
               onClick={onCancel}
               className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm"
@@ -381,8 +386,8 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
             <h2 className="text-xl font-bold text-[#1E2D40]">Scan Issue</h2>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 shadow-sm">
-            <p className="font-semibold text-[#1E2D40] mb-2">Tips for best results:</p>
+          <div className="bg-white rounded-2xl px-4 py-3 shadow-sm">
+            <p className="font-semibold text-[#1E2D40] mb-1.5 text-sm">Tips for best results:</p>
             <ul className="space-y-1">
               {[
                 "Ensure good lighting and focus",
@@ -405,7 +410,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
             </div>
           )}
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             <UploadMethodRow
               icon={Camera}
               title="Take Photo"
@@ -437,9 +442,11 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
           <input ref={uploadInputRef} type="file" accept="image/*,video/*" className="hidden"
             onChange={(e) => { const f = e.target.files[0]; handleFileSelect(f?.type.startsWith("video") ? "video" : "photo", f); }} />
 
-          <GradientButton onClick={handleMethodContinue} disabled={!uploadMethod}>
-            Continue
-          </GradientButton>
+          <div className="mt-auto pt-2">
+            <GradientButton onClick={handleMethodContinue} disabled={!uploadMethod}>
+              Continue
+            </GradientButton>
+          </div>
         </div>
       </div>
     );
