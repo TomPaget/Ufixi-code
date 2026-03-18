@@ -95,7 +95,7 @@ export default function HamburgerMenu({ isOpen, onClose }) {
             transition={{ type: "tween", duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
             className="fixed left-0 top-0 bottom-0 w-72 z-50"
             style={{
-              background: 'linear-gradient(160deg, rgba(21,21,40,0.97) 0%, rgba(30,27,60,0.99) 100%)',
+              background: '#00182f',
               backdropFilter: 'blur(30px)',
               boxShadow: '4px 0 40px rgba(0,0,0,0.25)'
             }}
@@ -122,7 +122,7 @@ export default function HamburgerMenu({ isOpen, onClose }) {
                       className="flex items-center gap-3 p-3 rounded-xl transition-all active:scale-95 hover:bg-white/10 text-white"
                     >
                       <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/10">
-                        <item.icon className="w-5 h-5 text-[#7C6FE0]" />
+                        <item.icon className="w-5 h-5" style={{ color: '#FF6B35' }} />
                       </div>
                       <span className="font-medium">{item.label}</span>
                     </Link>
@@ -135,7 +135,7 @@ export default function HamburgerMenu({ isOpen, onClose }) {
                             onClick={onClose}
                             className="flex items-center gap-3 p-2 rounded-xl transition-all text-sm hover:bg-white/10 text-white/70"
                           >
-                            <subitem.icon className="w-4 h-4 text-[#7C6FE0]" />
+                            <subitem.icon className="w-4 h-4" style={{ color: '#FF6B35' }} />
                             <span>{subitem.label}</span>
                           </Link>
                         ))}
