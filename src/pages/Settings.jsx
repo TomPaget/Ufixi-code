@@ -138,6 +138,19 @@ export default function Settings() {
     base44.auth.logout();
   };
 
+  const handleDeleteAccount = async () => {
+    if (deleteConfirmText !== "DELETE") return;
+    setDeleting(true);
+    try {
+      await base44.auth.updateMe({ account_deletion_requested: true, account_deletion_date: new Date().toISOString() });
+      base44.auth.logout();
+    } catch (error) {
+      console.error("Account deletion failed:", error);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const handleCancelSubscription = async () => {
     setCancelling(true);
     try {
