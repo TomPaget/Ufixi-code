@@ -445,20 +445,11 @@ Return the exact coordinates and verify the postcode is valid.`,
         )}
 
         {/* Filters */}
-         <div 
-           className="rounded-2xl p-5 space-y-4 border-2"
-           style={{
-             background: getGradientStyle(theme, 'main').replace('rgba(', 'rgba(').replace(/, 0\.\d+\)/, ', 0.3)'),
-             backdropFilter: getBackdropFilter(),
-             WebkitBackdropFilter: getBackdropFilter(),
-             boxShadow: getBoxShadow('main'),
-             borderColor: getBorderColor(theme),
-           }}
-         >
+         <div className="rounded-2xl p-5 space-y-4" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <Filter className="w-5 h-5 text-[#F7B600]" />
-              <h2 className="font-bold text-white">Filters</h2>
+              <Filter className="w-5 h-5 text-[#7C6FE0]" />
+              <h2 className="font-bold" style={{ color: '#151528' }}>Filters</h2>
             </div>
             <div className="flex gap-2">
               <Button
@@ -499,99 +490,84 @@ Return the exact coordinates and verify the postcode is valid.`,
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm font-medium mb-1 block text-white">
-                Trade Type
-              </label>
-              <Select value={tradeType} onValueChange={(value) => {
-                setTradeType(value);
-                if (location) {
-                  setTimeout(() => searchLocalTradesmen(), 100);
-                }
-              }}>
-                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Trades</SelectItem>
-                  <SelectItem value="plumbing">Plumbing</SelectItem>
-                  <SelectItem value="electrical">Electrical</SelectItem>
-                  <SelectItem value="general">General</SelectItem>
-                  <SelectItem value="carpentry">Carpentry</SelectItem>
-                  <SelectItem value="hvac">HVAC</SelectItem>
-                  <SelectItem value="roofing">Roofing</SelectItem>
-                  <SelectItem value="painting">Painting</SelectItem>
-                  <SelectItem value="appliances">Appliances</SelectItem>
-                </SelectContent>
-              </Select>
+              <label className="text-sm font-medium mb-1 block" style={{ color: '#151528' }}>Trade Type</label>
+              <MobileSelect
+                value={tradeType}
+                onChange={(value) => { setTradeType(value); if (location) setTimeout(() => searchLocalTradesmen(), 100); }}
+                className="w-full"
+                options={[
+                  { value: "all", label: "All Trades" },
+                  { value: "plumbing", label: "Plumbing" },
+                  { value: "electrical", label: "Electrical" },
+                  { value: "general", label: "General" },
+                  { value: "carpentry", label: "Carpentry" },
+                  { value: "hvac", label: "HVAC" },
+                  { value: "roofing", label: "Roofing" },
+                  { value: "painting", label: "Painting" },
+                  { value: "appliances", label: "Appliances" },
+                ]}
+              />
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-1 block text-white">
-                Sort By
-              </label>
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="rating">Highest Rated</SelectItem>
-                  <SelectItem value="distance">Nearest</SelectItem>
-                  <SelectItem value="price">Lowest Price</SelectItem>
-                  <SelectItem value="experience">Most Experienced</SelectItem>
-                </SelectContent>
-              </Select>
+              <label className="text-sm font-medium mb-1 block" style={{ color: '#151528' }}>Sort By</label>
+              <MobileSelect
+                value={sortBy}
+                onChange={setSortBy}
+                className="w-full"
+                options={[
+                  { value: "rating", label: "Highest Rated" },
+                  { value: "distance", label: "Nearest" },
+                  { value: "price", label: "Lowest Price" },
+                  { value: "experience", label: "Most Experienced" },
+                ]}
+              />
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-1 block text-white">
-                Max {currencySymbol}/hour
-              </label>
-              <Select value={maxCost} onValueChange={setMaxCost}>
-                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="any">Any</SelectItem>
-                  <SelectItem value="50">Under {currencySymbol}50</SelectItem>
-                  <SelectItem value="70">Under {currencySymbol}70</SelectItem>
-                  <SelectItem value="100">Under {currencySymbol}100</SelectItem>
-                </SelectContent>
-              </Select>
+              <label className="text-sm font-medium mb-1 block" style={{ color: '#151528' }}>Max {currencySymbol}/hour</label>
+              <MobileSelect
+                value={maxCost}
+                onChange={setMaxCost}
+                className="w-full"
+                options={[
+                  { value: "any", label: "Any" },
+                  { value: "50", label: `Under ${currencySymbol}50` },
+                  { value: "70", label: `Under ${currencySymbol}70` },
+                  { value: "100", label: `Under ${currencySymbol}100` },
+                ]}
+              />
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-1 block text-white">
-                Distance
-              </label>
-              <Select value={searchRadius.toString()} onValueChange={(v) => setSearchRadius(parseInt(v))}>
-                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="5">5 miles</SelectItem>
-                  <SelectItem value="10">10 miles</SelectItem>
-                  <SelectItem value="20">20 miles</SelectItem>
-                  <SelectItem value="50">50 miles</SelectItem>
-                </SelectContent>
-              </Select>
+              <label className="text-sm font-medium mb-1 block" style={{ color: '#151528' }}>Distance</label>
+              <MobileSelect
+                value={searchRadius.toString()}
+                onChange={(v) => setSearchRadius(parseInt(v))}
+                className="w-full"
+                options={[
+                  { value: "5", label: "5 miles" },
+                  { value: "10", label: "10 miles" },
+                  { value: "20", label: "20 miles" },
+                  { value: "50", label: "50 miles" },
+                ]}
+              />
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-1 block text-white">
-                Min Rating
-              </label>
-              <Select value={minRating.toString()} onValueChange={(v) => setMinRating(parseFloat(v))}>
-                <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="0">Any Rating</SelectItem>
-                  <SelectItem value="3">3+ Stars</SelectItem>
-                  <SelectItem value="3.5">3.5+ Stars</SelectItem>
-                  <SelectItem value="4">4+ Stars</SelectItem>
-                  <SelectItem value="4.5">4.5+ Stars</SelectItem>
-                </SelectContent>
-              </Select>
+              <label className="text-sm font-medium mb-1 block" style={{ color: '#151528' }}>Min Rating</label>
+              <MobileSelect
+                value={minRating.toString()}
+                onChange={(v) => setMinRating(parseFloat(v))}
+                className="w-full"
+                options={[
+                  { value: "0", label: "Any Rating" },
+                  { value: "3", label: "3+ Stars" },
+                  { value: "3.5", label: "3.5+ Stars" },
+                  { value: "4", label: "4+ Stars" },
+                  { value: "4.5", label: "4.5+ Stars" },
+                ]}
+              />
             </div>
           </div>
 
