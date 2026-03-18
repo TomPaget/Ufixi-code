@@ -147,7 +147,8 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
         {onDelete && (
           <button
             onClick={handleDelete}
-            className="absolute top-3 right-3 p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+            className="absolute top-2 right-2 w-11 h-11 flex items-center justify-center rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+            aria-label="Delete issue"
           >
             <Trash2 className="w-4 h-4" />
           </button>

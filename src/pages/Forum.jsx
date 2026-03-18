@@ -346,10 +346,17 @@ export default function Forum() {
                          by {post.author_name || "Anonymous"} • {format(new Date(post.created_date), "MMM d")}
                        </span>
                       <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1">
-                          <ThumbsUp className="w-3 h-3" />
-                          {post.likes}
-                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            likeMutation.mutate({ id: post.id, likes: (post.likes || 0) + 1 });
+                          }}
+                          className="flex items-center gap-1 min-h-[44px] min-w-[44px] justify-center rounded-lg hover:bg-white/20 transition-colors"
+                        >
+                          <ThumbsUp className="w-3.5 h-3.5 text-white" />
+                          <span className="text-white">{post.likes || 0}</span>
+                        </button>
                         <span className="flex items-center gap-1">
                           <MessageSquare className="w-3 h-3" />
                           {post.comments_count}
