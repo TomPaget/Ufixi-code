@@ -292,7 +292,7 @@ export default function Settings() {
                     className="w-14 h-14 rounded-full object-cover shadow-lg" /> :
 
 
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg" style={{ background: 'rgba(124,111,224,0.12)', border: '1px solid rgba(124,111,224,0.25)' }}>
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg" style={{ background: 'rgba(255,107,53,0.12)', border: '1px solid rgba(255,107,53,0.25)' }}>
                   <User className="w-7 h-7 text-[#FF6B35]" />
                 </div>
                   }
@@ -376,7 +376,7 @@ export default function Settings() {
               }
 
           {/* Location Section */}
-          <div className="rounded-xl p-4" style={{ background: 'rgba(124,111,224,0.07)', border: '1px solid rgba(124,111,224,0.18)' }}>
+          <div className="rounded-xl p-4" style={{ background: 'rgba(255,107,53,0.07)', border: '1px solid rgba(255,107,53,0.18)' }}>
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3 flex-1">
                 <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#FF6B35]" : "text-slate-400"}`} />
@@ -469,7 +469,7 @@ export default function Settings() {
             <h3 className="font-semibold mb-4" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>Business Subscription</h3>
 
             <div className="space-y-4">
-              <div className="p-4 rounded-xl" style={{ background: 'rgba(124,111,224,0.07)', border: '1px solid rgba(124,111,224,0.18)' }}>
+              <div className="p-4 rounded-xl" style={{ background: 'rgba(255,107,53,0.07)', border: '1px solid rgba(255,107,53,0.18)' }}>
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-semibold" style={{ color: '#151528' }}>
                     {user?.business_plan ? `${user.business_plan.charAt(0).toUpperCase() + user.business_plan.slice(1)} Plan` : 'Business Plan'}
@@ -624,7 +624,7 @@ export default function Settings() {
                   unreadNotifications.map((notification) => {
                     const Icon = typeIcons[notification.type] || Info;
                     return (
-                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.02]" style={{ background: 'rgba(124,111,224,0.07)', border: '2px solid rgba(124,111,224,0.25)', backdropFilter: 'blur(8px)' }}>
+                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.02]" style={{ background: 'rgba(255,107,53,0.07)', border: '2px solid rgba(255,107,53,0.25)', backdropFilter: 'blur(8px)' }}>
                           <div className="flex items-start gap-3">
                             <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(124,111,224,0.12)' }}>
                               <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
@@ -675,9 +675,9 @@ export default function Settings() {
                   notifications.map((notification) => {
                     const Icon = typeIcons[notification.type] || Info;
                     return (
-                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.01]" style={{ background: notification.read ? 'rgba(255,255,255,0.5)' : 'rgba(124,111,224,0.07)', border: notification.read ? '1px solid rgba(124,111,224,0.1)' : '1px solid rgba(124,111,224,0.25)', backdropFilter: 'blur(8px)' }}>
+                      <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.01]" style={{ background: notification.read ? 'rgba(255,255,255,0.5)' : 'rgba(255,107,53,0.07)', border: notification.read ? '1px solid rgba(255,107,53,0.1)' : '1px solid rgba(255,107,53,0.25)', backdropFilter: 'blur(8px)' }}>
                           <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(124,111,224,0.1)' }}>
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,107,53,0.1)' }}>
                               <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
                             </div>
                             <div className="flex-1 min-w-0">
