@@ -302,16 +302,7 @@ Return the exact coordinates and verify the postcode is valid.`,
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
         {/* Location & Refresh */}
-        <div 
-          className="rounded-2xl p-5 border-2"
-          style={{
-            background: getGradientStyle(theme, 'main'),
-            backdropFilter: getBackdropFilter(),
-            WebkitBackdropFilter: getBackdropFilter(),
-            boxShadow: getBoxShadow('main'),
-            borderColor: getBorderColor(theme),
-          }}
-        >
+        <div className="rounded-2xl p-5 border" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
           {location ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -344,25 +335,12 @@ Return the exact coordinates and verify the postcode is valid.`,
                   placeholder="e.g., SW1A 1AA"
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
-                  style={{
-                    background: getGradientStyle(theme, 'main'),
-                    backdropFilter: getBackdropFilter(),
-                    WebkitBackdropFilter: getBackdropFilter(),
-                    boxShadow: getBoxShadow('main'),
-                    borderColor: getBorderColor(theme),
-                  }}
-                  className="border-2"
+                  className="border"
                 />
                 <Button
                    onClick={handlePostcodeSearch}
-                   style={{
-                     background: getGradientStyle(theme, 'main'),
-                     backdropFilter: getBackdropFilter(),
-                     WebkitBackdropFilter: getBackdropFilter(),
-                     boxShadow: getBoxShadow('main'),
-                     borderColor: getBorderColor(theme),
-                   }}
-                   className="text-white font-semibold border-2"
+                   className="font-semibold"
+                   style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', color: '#fff', border: 'none' }}
                  >
                    Search
                  </Button>
@@ -375,31 +353,25 @@ Return the exact coordinates and verify the postcode is valid.`,
         {location && tradesmen.length > 0 && (
           <Button
             onClick={() => setShowMap(!showMap)}
-            style={{
-              background: getGradientStyle(theme, 'main'),
-              backdropFilter: getBackdropFilter(),
-              WebkitBackdropFilter: getBackdropFilter(),
-              boxShadow: getBoxShadow('main'),
-              borderColor: getBorderColor(theme),
-            }}
-            className="w-full border-2 gap-2 text-white"
+            className="w-full gap-2"
+            style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)', color: '#151528' }}
           >
-            <Map className="w-4 h-4" />
+            <Map className="w-4 h-4 text-[#7C6FE0]" />
             {showMap ? "Hide Map" : "Show Map"}
           </Button>
         )}
 
         {/* Mini Map */}
         {showMap && location && (
-          <div className="rounded-2xl overflow-hidden border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/20">
+          <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
             <div className="p-3 border-b">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#F7B600]" />
-                <p className="text-sm font-medium text-white">
-                  Your Location: {postcode || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
+                <p className="text-sm font-medium" style={{ color: '#151528' }}>
+                Your Location: {postcode || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
                 </p>
                 </div>
-                <p className="text-xs mt-1 text-white">
+                <p className="text-xs mt-1" style={{ color: '#6B6A8E' }}>
                 Red marker shows your exact location
                 </p>
             </div>
@@ -419,19 +391,19 @@ Return the exact coordinates and verify the postcode is valid.`,
 
         {/* Saved Searches */}
         {savedSearches.length > 0 && (
-          <div className="rounded-2xl p-4 border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/20">
+          <div className="rounded-2xl p-4" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
             <button
               onClick={() => setShowSavedSearches(!showSavedSearches)}
               className="w-full flex items-center justify-between"
             >
               <div className="flex items-center gap-2">
                 <Bookmark className="w-5 h-5 text-[#F7B600]" />
-                <h3 className="font-bold text-white">
+                <h3 className="font-bold" style={{ color: '#151528' }}>
                   Saved Searches ({savedSearches.length})
                 </h3>
               </div>
               <ChevronDown className={cn(
-                "w-5 h-5 transition-transform text-white",
+                "w-5 h-5 transition-transform text-slate-400",
                 showSavedSearches && "rotate-180"
               )} />
             </button>
@@ -452,7 +424,7 @@ Return the exact coordinates and verify the postcode is valid.`,
                     }}
                     className="w-full text-left p-3 rounded-xl border flex items-center justify-between hover:scale-[1.02] transition-transform bg-slate-50 border-slate-200 hover:border-[#57CFA4]"
                   >
-                    <span className="font-medium text-sm text-white">
+                    <span className="font-medium text-sm" style={{ color: '#151528' }}>
                       {search.name}
                     </span>
                     <button
