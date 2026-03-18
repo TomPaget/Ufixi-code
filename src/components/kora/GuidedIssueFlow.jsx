@@ -631,7 +631,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
           </div>
 
           {/* Bot avatar */}
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-3">
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg"
               style={{ background: `linear-gradient(135deg, ${GREEN} 0%, ${NAVY} 100%)` }}
