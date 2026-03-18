@@ -695,7 +695,7 @@ export default function Home() {
 
       <Header onMenuClick={() => setMenuOpen(true)} onGoPremium={() => setShowPremiumModal(true)} />
 
-      <main className="max-w-lg mx-auto px-5 py-4 space-y-8">
+      <main className="max-w-lg mx-auto px-5 py-6 space-y-10">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>

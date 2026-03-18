@@ -47,7 +47,6 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import EmailTradesman from './pages/EmailTradesman';
 import BusinessPricing from './pages/BusinessPricing';
 import BusinessSignup from './pages/BusinessSignup';
 import Chat from './pages/Chat';
@@ -55,10 +54,10 @@ import ConsultationSummary from './pages/ConsultationSummary';
 import ContractorManagement from './pages/ContractorManagement';
 import Contractors from './pages/Contractors';
 import CreatePost from './pages/CreatePost';
+import FindTradesmen from './pages/FindTradesmen';
 import Forum from './pages/Forum';
 import ForumPost from './pages/ForumPost';
 import History from './pages/History';
-import Home from './pages/Home';
 import HomeProfile from './pages/HomeProfile';
 import Integrations from './pages/Integrations';
 import Invoices from './pages/Invoices';
@@ -83,11 +82,12 @@ import TradesSignup from './pages/TradesSignup';
 import TradesSuccess from './pages/TradesSuccess';
 import Upgrade from './pages/Upgrade';
 import VideoCall from './pages/VideoCall';
+import EmailTradesman from './pages/EmailTradesman';
+import Home from './pages/Home';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "EmailTradesman": EmailTradesman,
     "BusinessPricing": BusinessPricing,
     "BusinessSignup": BusinessSignup,
     "Chat": Chat,
@@ -95,10 +95,10 @@ export const PAGES = {
     "ContractorManagement": ContractorManagement,
     "Contractors": Contractors,
     "CreatePost": CreatePost,
+    "FindTradesmen": FindTradesmen,
     "Forum": Forum,
     "ForumPost": ForumPost,
     "History": History,
-    "Home": Home,
     "HomeProfile": HomeProfile,
     "Integrations": Integrations,
     "Invoices": Invoices,
@@ -123,6 +123,8 @@ export const PAGES = {
     "TradesSuccess": TradesSuccess,
     "Upgrade": Upgrade,
     "VideoCall": VideoCall,
+    "EmailTradesman": EmailTradesman,
+    "Home": Home,
 }
 
 export const pagesConfig = {
