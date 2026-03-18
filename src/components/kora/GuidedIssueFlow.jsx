@@ -379,7 +379,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
           <div className="flex items-center gap-3">
             <button
               onClick={onCancel}
-              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm"
+              className="w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-sm"
             >
               <ArrowLeft className="w-5 h-5 text-[#1E2D40]" />
             </button>
@@ -467,7 +467,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setStep("upload")}
-              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm"
+              className="w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-sm"
             >
               <ArrowLeft className="w-5 h-5 text-[#1E2D40]" />
             </button>
@@ -606,7 +606,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
                   ? setCurrentQuestionIdx(currentQuestionIdx - 1)
                   : setStep("details")
               }
-              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm flex-shrink-0"
+              className="w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-sm flex-shrink-0"
             >
               <ArrowLeft className="w-5 h-5 text-[#1E2D40]" />
             </button>
@@ -764,7 +764,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
 
           <button
             onClick={onCancel}
-            className="w-full py-3 text-center text-slate-500 font-medium hover:text-red-600 transition-colors"
+            className="w-full py-3 min-h-[44px] text-center text-slate-500 font-medium hover:text-red-600 transition-colors"
           >
             Discard and close
           </button>
@@ -791,7 +791,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
           <div className="flex items-center gap-3">
             <button
               onClick={onCancel}
-              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm"
+              className="w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-sm"
             >
               <ArrowLeft className="w-5 h-5 text-[#1E2D40]" />
             </button>
@@ -967,7 +967,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
 
           <button
             onClick={onCancel}
-            className="w-full py-3 text-center text-slate-500 font-medium hover:text-red-600 transition-colors"
+            className="w-full py-3 min-h-[44px] text-center text-slate-500 font-medium hover:text-red-600 transition-colors"
           >
             Close without saving
           </button>
