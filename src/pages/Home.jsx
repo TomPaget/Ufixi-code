@@ -695,7 +695,7 @@ export default function Home() {
 
       <Header onMenuClick={() => setMenuOpen(true)} onGoPremium={() => setShowPremiumModal(true)} />
 
-      <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
+      <main className="max-w-lg mx-auto px-5 py-4 space-y-8">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>
@@ -751,7 +751,7 @@ export default function Home() {
              <div
                key="button"
              >
-              <div className="flex flex-col items-center gap-4 py-12">
+              <div className="flex flex-col items-center gap-4 py-8">
                       <RippleButton
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                             aria-label={needsPayment ? "Pay to scan a new issue" : "Scan a new issue"}
@@ -765,7 +765,7 @@ export default function Home() {
                             <Plus className="w-12 h-12 text-white" strokeWidth={2.5} />
                             <span className="text-sm font-bold text-white tracking-wide">{needsPayment ? 'Pay to Scan' : 'Scan'}</span>
                           </RippleButton>
-                          <p className="text-sm font-medium mt-6" style={{ color: '#6B6A8E' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
+                          <p className="text-sm font-medium" style={{ color: '#6B6A8E' }}>{needsPayment ? 'Pay £0.99 to scan a new issue' : 'Tap to scan a new issue'}</p>
                     </div>
               </div>
             )}
@@ -836,9 +836,7 @@ export default function Home() {
         </section>
 
         {/* Disclaimer */}
-        <div className="mt-auto pt-4">
-          <Disclaimer />
-        </div>
+        <Disclaimer />
         </main>
 
         {/* Banner Ad Space */}
