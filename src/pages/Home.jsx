@@ -751,7 +751,7 @@ export default function Home() {
              <div
                key="button"
              >
-              <div className="flex flex-col items-center gap-4 py-8">
+              <div className="flex flex-col items-center justify-center gap-4 py-8 w-full text-center">
                       <RippleButton
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                             aria-label={needsPayment ? "Pay to scan a new issue" : "Scan a new issue"}
