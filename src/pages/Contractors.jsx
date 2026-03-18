@@ -168,12 +168,11 @@ export default function Contractors() {
             )}>My Contractors</h1>
           </div>
           <Button
-            size="sm"
             onClick={() => {
               resetForm();
               setShowDialog(true);
             }}
-            className="bg-blue-600 hover:bg-blue-700 rounded-xl"
+            className="h-11 px-4 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm"
           >
             <Plus className="w-4 h-4 mr-1" />
             Add
@@ -212,9 +211,13 @@ export default function Contractors() {
                       "font-semibold",
                       theme === "dark" ? "text-slate-100" : "text-slate-900"
                     )}>{contractor.name}</h3>
-                    <button onClick={() => toggleFavorite(contractor)}>
+                    <button
+                      onClick={() => toggleFavorite(contractor)}
+                      className="w-11 h-11 flex items-center justify-center rounded-xl -mr-2"
+                      aria-label={contractor.is_favorite ? "Remove from favourites" : "Add to favourites"}
+                    >
                       <Heart className={cn(
-                        "w-4 h-4",
+                        "w-5 h-5",
                         contractor.is_favorite
                           ? "fill-red-500 text-red-500"
                           : theme === "dark" ? "text-slate-500" : "text-slate-400"
@@ -259,7 +262,7 @@ export default function Contractors() {
                   <a
                     href={`tel:${contractor.phone}`}
                     className={cn(
-                      "flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border text-sm",
+                      "flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border text-sm min-h-[44px]",
                       theme === "dark"
                         ? "bg-slate-700/50 border-slate-600 text-slate-300 hover:bg-slate-700"
                         : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
@@ -273,7 +276,7 @@ export default function Contractors() {
                   <a
                     href={`mailto:${contractor.email}`}
                     className={cn(
-                      "flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border text-sm",
+                      "flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border text-sm min-h-[44px]",
                       theme === "dark"
                         ? "bg-slate-700/50 border-slate-600 text-slate-300 hover:bg-slate-700"
                         : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
@@ -284,10 +287,10 @@ export default function Contractors() {
                   </a>
                 )}
                 <Button
-                  size="sm"
                   variant="ghost"
                   onClick={() => handleEdit(contractor)}
                   className={cn(
+                    "h-11 px-3 text-sm",
                     theme === "dark" ? "text-slate-400" : "text-slate-600"
                   )}
                 >
