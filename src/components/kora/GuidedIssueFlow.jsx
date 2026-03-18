@@ -373,7 +373,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
         <div className="max-w-lg mx-auto px-5 py-4 space-y-3 relative z-10 flex flex-col h-full">
           {/* Logo */}
           <div className="text-center pt-1 pb-1">
-            <span className="text-2xl font-bold" style={{ fontFamily: "'Sora', sans-serif", background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>ufixi</span>
+            <img src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/87b742216_ufixi_navy_RGBi.png" alt="Ufixi" className="h-8 mx-auto" />
           </div>
 
           <div className="flex items-center gap-3">
@@ -462,7 +462,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
         <div className="max-w-lg mx-auto px-5 py-3 space-y-3 pb-8 relative z-10">
           {/* Logo */}
           <div className="text-center pt-1 pb-1">
-            <span className="text-2xl font-bold" style={{ fontFamily: "'Sora', sans-serif", background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>ufixi</span>
+            <img src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/87b742216_ufixi_navy_RGBi.png" alt="Ufixi" className="h-8 mx-auto" />
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -596,7 +596,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
         <div className="max-w-lg mx-auto px-5 py-4 flex flex-col h-full relative z-10">
           {/* Logo */}
           <div className="text-center pt-1 pb-2">
-            <span className="text-2xl font-bold" style={{ fontFamily: "'Sora', sans-serif", background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>ufixi</span>
+            <img src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/87b742216_ufixi_navy_RGBi.png" alt="Ufixi" className="h-8 mx-auto" />
           </div>
           {/* Header */}
           <div className="flex items-center gap-4 mb-4">
