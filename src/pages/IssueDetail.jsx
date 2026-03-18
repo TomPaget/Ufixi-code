@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import MobileSelect from "@/components/kora/MobileSelect";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { format } from "date-fns";
@@ -82,24 +83,34 @@ export default function IssueDetail() {
 
   const updateIssueMutation = useMutation({
     mutationFn: (data) => base44.entities.Issue.update(issueId, data),
-    onSuccess: async (updatedIssue, variables) => {
+    onMutate: async (variables) => {
+      await queryClient.cancelQueries(["issue", issueId]);
+      const previousIssue = queryClient.getQueryData(["issue", issueId]);
+      queryClient.setQueryData(["issue", issueId], (old) => old ? { ...old, ...variables } : old);
+      return { previousIssue };
+    },
+    onError: (_err, _variables, context) => {
+      if (context?.previousIssue) {
+        queryClient.setQueryData(["issue", issueId], context.previousIssue);
+      }
+    },
+    onSuccess: async (_updatedIssue, variables) => {
       queryClient.invalidateQueries(["issue", issueId]);
       queryClient.invalidateQueries(["issues"]);
       setShowResolveDialog(false);
-      
-      // Send notification if status changed
-      if (variables.status && variables.status !== issue.status) {
+
+      if (variables.status && variables.status !== issue?.status) {
         try {
           await base44.functions.invoke('createIssueNotification', {
             issueId: issueId,
-            userId: user.id,
+            userId: user?.id,
             notificationType: 'status_changed'
           });
         } catch (error) {
           console.error('Failed to send notification:', error);
         }
       }
-    }
+    },
   });
 
   const isPremium = false; // Removed premium features
