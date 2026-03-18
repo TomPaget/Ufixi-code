@@ -8,6 +8,8 @@ css
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Prevent web-style bounce/overscroll */
+    overscroll-behavior: none;
   }
 
   body {
@@ -15,10 +17,23 @@ css
     font-family: 'DM Sans', sans-serif;
     background: linear-gradient(135deg, #fdf6ff 0%, #fff5f0 50%, #fef0fa 100%);
     min-height: 100vh;
+    /* iOS safe area support */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    /* Prevent web-style bounce */
+    overscroll-behavior: none;
   }
 
   * {
     -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Disable text selection on interactive elements */
+  button, a, [role="button"], label {
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
