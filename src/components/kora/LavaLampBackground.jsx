@@ -59,7 +59,7 @@ export default function LavaLampBackground() {
         position: 'absolute', width: 520, height: 520, top: 0, left: 0,
         background: "radial-gradient(circle, rgba(226,100,171,0.30) 0%, rgba(226,100,171,0.08) 55%, transparent 100%)",
         filter: "blur(55px)",
-        animation: "blob2 28s ease-in-out infinite",
+        animation: "blob2 10s ease-in-out infinite",
         willChange: "transform",
         borderRadius: '50%',
       }} />
