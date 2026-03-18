@@ -32,7 +32,7 @@ export default function NotificationBell() {
       to={createPageUrl("Notifications")}
       className="relative w-10 h-10 rounded-xl flex items-center justify-center transition-colors hover:bg-slate-100"
     >
-      <Bell className="w-5 h-5 text-white" />
+      <Bell className="w-5 h-5" style={{ color: '#7C6FE0' }} />
       {unreadCount > 0 && (
         <motion.span
           initial={{ scale: 0 }}
