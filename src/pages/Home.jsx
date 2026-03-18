@@ -700,7 +700,28 @@ export default function Home() {
    };
 
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden" style={{ background: 'transparent' }}>
+    <div
+      className="min-h-screen pb-20 relative overflow-hidden"
+      style={{ background: 'transparent' }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Pull-to-refresh indicator */}
+      {pullY > 0 && (
+        <div
+          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center transition-all"
+          style={{ height: `${pullY}px`, background: 'rgba(124,111,224,0.08)' }}
+        >
+          {pullRefreshing ? (
+            <Loader2 className="w-5 h-5 animate-spin text-[#7C6FE0]" />
+          ) : (
+            <span className="text-xs font-medium text-[#7C6FE0]">
+              {pullY >= PULL_THRESHOLD ? "Release to refresh" : "Pull to refresh"}
+            </span>
+          )}
+        </div>
+      )}
       <LavaLampBackground />
       
       {showOnboarding && (
