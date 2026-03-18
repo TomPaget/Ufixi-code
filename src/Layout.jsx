@@ -21,6 +21,7 @@ function LayoutContent({ children, currentPageName }) {
             {children}
           </motion.div>
         </AnimatePresence>
+        <BottomNav />
       </div>
     );
   }
