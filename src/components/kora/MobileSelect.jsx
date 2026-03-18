@@ -26,7 +26,7 @@ export default function MobileSelect({ value, onChange, options = [], placeholde
         aria-label={placeholder}
         onClick={() => setOpen(true)}
         className={`flex items-center justify-between gap-2 h-11 px-4 rounded-xl border bg-white border-slate-200 text-sm font-medium transition-colors active:bg-slate-50 ${className}`}
-        style={{ color: "#1a2f42", minHeight: 44 }}
+        style={{ color: "#1a2f42", minHeight: "44px", minWidth: "44px" }}
       >
         <span className="truncate">{selectedLabel}</span>
         <ChevronDown className="w-4 h-4 flex-shrink-0 text-slate-400" />
