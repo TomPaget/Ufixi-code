@@ -571,6 +571,15 @@ export default function Settings() {
               Cancel Subscription
             </Button>
           )}
+
+          <Button
+            variant="outline"
+            onClick={() => setShowDeleteDialog(true)}
+            className="w-full h-10 rounded-xl border-red-100 text-red-400 hover:bg-red-50 text-sm"
+          >
+            <Trash2 className="w-4 h-4 mr-2" />
+            Delete Account
+          </Button>
         </motion.div>
           </TabsContent>
 
