@@ -330,18 +330,19 @@ export default function Settings() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label className="text-sm mb-1 block" style={{ color: '#1a2f42' }}>Country</Label>
-                  <Select value={user?.country || ""} onValueChange={(value) => { base44.auth.updateMe({ country: value }); queryClient.invalidateQueries(["user"]); }}>
-                    <SelectTrigger className="bg-white border-slate-200">
-                      <SelectValue placeholder="Select country" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="UK">United Kingdom</SelectItem>
-                      <SelectItem value="US">United States</SelectItem>
-                      <SelectItem value="CA">Canada</SelectItem>
-                      <SelectItem value="AU">Australia</SelectItem>
-                      <SelectItem value="IE">Ireland</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <MobileSelect
+                    value={user?.country || ""}
+                    onChange={(value) => { base44.auth.updateMe({ country: value }); queryClient.invalidateQueries(["user"]); }}
+                    placeholder="Select country"
+                    className="w-full mt-1"
+                    options={[
+                      { value: "UK", label: "United Kingdom" },
+                      { value: "US", label: "United States" },
+                      { value: "CA", label: "Canada" },
+                      { value: "AU", label: "Australia" },
+                      { value: "IE", label: "Ireland" },
+                    ]}
+                  />
                 </div>
 
                 <div>
@@ -763,31 +764,33 @@ export default function Settings() {
           <div className="space-y-3">
             <div>
               <Label style={{ color: '#6B7A8D' }}>Language</Label>
-              <Select value={user?.language || "en"} onValueChange={(val) => updateUserMutation.mutate({ language: val })}>
-                <SelectTrigger className="mt-1 bg-white border-slate-200">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="es">Español</SelectItem>
-                  <SelectItem value="fr">Français</SelectItem>
-                  <SelectItem value="de">Deutsch</SelectItem>
-                </SelectContent>
-              </Select>
+              <MobileSelect
+                value={user?.language || "en"}
+                onChange={(val) => updateUserMutation.mutate({ language: val })}
+                placeholder="Language"
+                className="w-full mt-1"
+                options={[
+                  { value: "en", label: "English" },
+                  { value: "es", label: "Español" },
+                  { value: "fr", label: "Français" },
+                  { value: "de", label: "Deutsch" },
+                ]}
+              />
             </div>
-            
+
             <div>
               <Label style={{ color: '#6B7A8D' }}>Currency</Label>
-              <Select value={user?.currency || "GBP"} onValueChange={(val) => updateUserMutation.mutate({ currency: val })}>
-                <SelectTrigger className="mt-1 bg-white border-slate-200">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="GBP">£ GBP (British Pound)</SelectItem>
-                  <SelectItem value="USD">$ USD (US Dollar)</SelectItem>
-                  <SelectItem value="EUR">€ EUR (Euro)</SelectItem>
-                </SelectContent>
-              </Select>
+              <MobileSelect
+                value={user?.currency || "GBP"}
+                onChange={(val) => updateUserMutation.mutate({ currency: val })}
+                placeholder="Currency"
+                className="w-full mt-1"
+                options={[
+                  { value: "GBP", label: "£ GBP (British Pound)" },
+                  { value: "USD", label: "$ USD (US Dollar)" },
+                  { value: "EUR", label: "€ EUR (Euro)" },
+                ]}
+              />
             </div>
           </div>
         </motion.section>
