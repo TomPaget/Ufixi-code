@@ -394,7 +394,7 @@ export default function Settings() {
                     onClick={handleRequestLocation}
                     disabled={requestingLocation}
                     className="rounded-xl text-white border-0"
-                    style={{ background: user?.location_services_enabled ? 'rgba(100,100,120,0.5)' : 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
+                    style={{ background: user?.location_services_enabled ? 'rgba(100,100,120,0.5)' : 'linear-gradient(135deg, #FF6B35, #E8365D)' }}>
 
                 {requestingLocation ?
                     <Loader2 className="w-4 h-4 animate-spin" /> :

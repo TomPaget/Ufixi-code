@@ -203,7 +203,7 @@ export default function Support() {
               msg.role === "user" ? "justify-end" : "justify-start"
             )}>
               {msg.role === "assistant" && (
-                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #FF6B35, #E8365D)' }}>
                   <Bot className="w-5 h-5 text-white" />
                 </div>
               )}
@@ -367,7 +367,7 @@ export default function Support() {
               onClick={handleSend}
               disabled={(!input.trim() && attachments.length === 0) || sending}
               className="rounded-xl px-6 text-white"
-              style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
+              style={{ background: 'linear-gradient(135deg, #FF6B35, #E8365D)' }}
             >
               {sending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
