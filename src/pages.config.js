@@ -47,6 +47,7 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import { lazy } from 'react';
 import BusinessPricing from './pages/BusinessPricing';
 import BusinessSignup from './pages/BusinessSignup';
 import Chat from './pages/Chat';
@@ -85,6 +86,41 @@ import VideoCall from './pages/VideoCall';
 import EmailTradesman from './pages/EmailTradesman';
 import Home from './pages/Home';
 import __Layout from './Layout.jsx';
+
+// Lazy-load non-critical pages for better performance
+const LazyChat = lazy(() => import('./pages/Chat'));
+const LazyCon consultationSummary = lazy(() => import('./pages/ConsultationSummary'));
+const LazyContractorManagement = lazy(() => import('./pages/ContractorManagement'));
+const LazyContractors = lazy(() => import('./pages/Contractors'));
+const LazyCreatePost = lazy(() => import('./pages/CreatePost'));
+const LazyFindTradesmen = lazy(() => import('./pages/FindTradesmen'));
+const LazyForum = lazy(() => import('./pages/Forum'));
+const LazyForumPost = lazy(() => import('./pages/ForumPost'));
+const LazyHistory = lazy(() => import('./pages/History'));
+const LazyHomeProfile = lazy(() => import('./pages/HomeProfile'));
+const LazyIntegrations = lazy(() => import('./pages/Integrations'));
+const LazyInvoices = lazy(() => import('./pages/Invoices'));
+const LazyIssueDetail = lazy(() => import('./pages/IssueDetail'));
+const LazyJobDetail = lazy(() => import('./pages/JobDetail'));
+const LazyMessages = lazy(() => import('./pages/Messages'));
+const LazyMyJobs = lazy(() => import('./pages/MyJobs'));
+const LazyNotifications = lazy(() => import('./pages/Notifications'));
+const LazyPostJob = lazy(() => import('./pages/PostJob'));
+const LazyPropertyDetail = lazy(() => import('./pages/PropertyDetail'));
+const LazyPropertyIssues = lazy(() => import('./pages/PropertyIssues'));
+const LazySettings = lazy(() => import('./pages/Settings'));
+const LazySupport = lazy(() => import('./pages/Support'));
+const LazyTeamManagement = lazy(() => import('./pages/TeamManagement'));
+const LazyTradesBoost = lazy(() => import('./pages/TradesBoost'));
+const LazyTradesDashboard = lazy(() => import('./pages/TradesDashboard'));
+const LazyTradesPayment = lazy(() => import('./pages/TradesPayment'));
+const LazyTradesPending = lazy(() => import('./pages/TradesPending'));
+const LazyTradesProfile = lazy(() => import('./pages/TradesProfile'));
+const LazyTradesSignup = lazy(() => import('./pages/TradesSignup'));
+const LazyTradesSuccess = lazy(() => import('./pages/TradesSuccess'));
+const LazyUpgrade = lazy(() => import('./pages/Upgrade'));
+const LazyVideoCall = lazy(() => import('./pages/VideoCall'));
+const LazyEmailTradesman = lazy(() => import('./pages/EmailTradesman'));
 
 
 export const PAGES = {
