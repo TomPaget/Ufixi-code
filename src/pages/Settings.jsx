@@ -293,7 +293,7 @@ export default function Settings() {
 
 
                   <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg" style={{ background: 'rgba(124,111,224,0.12)', border: '1px solid rgba(124,111,224,0.25)' }}>
-                  <User className="w-7 h-7 text-[#7C6FE0]" />
+                  <User className="w-7 h-7 text-[#FF6B35]" />
                 </div>
                   }
               <label className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg ${uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform"}`} style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
@@ -368,7 +368,7 @@ export default function Settings() {
                   onClick={handleSaveProfile}
                   disabled={updateUserMutation.isPending}
                   className="w-full border-0 text-white"
-                  style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
+                  style={{ background: 'linear-gradient(135deg, #FF6B35, #E8365D)' }}>
 
                 {updateUserMutation.isPending ? "Saving..." : "Save Changes"}
               </Button>
@@ -379,7 +379,7 @@ export default function Settings() {
           <div className="rounded-xl p-4" style={{ background: 'rgba(124,111,224,0.07)', border: '1px solid rgba(124,111,224,0.18)' }}>
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3 flex-1">
-                <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#7C6FE0]" : "text-slate-400"}`} />
+                <MapPin className={`w-5 h-5 mt-0.5 ${user?.location_services_enabled ? "text-[#FF6B35]" : "text-slate-400"}`} />
                 <div className="flex-1">
                   <p className="font-medium text-sm" style={{ color: '#1a2f42' }}>Location Services</p>
                   <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>
@@ -428,30 +428,30 @@ export default function Settings() {
                 onValueChange={handleUserTypeChange}
                 className="space-y-3">
 
-            <Label htmlFor="renter" className="flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all" style={{ borderColor: user?.user_type === "renter" ? "#7C6FE0" : "rgba(124,111,224,0.2)", background: user?.user_type === "renter" ? "rgba(124,111,224,0.08)" : "rgba(255,255,255,0.5)" }}>
+            <Label htmlFor="renter" className="flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all" style={{ borderColor: user?.user_type === "renter" ? "#FF6B35" : "rgba(255,107,53,0.2)", background: user?.user_type === "renter" ? "rgba(255,107,53,0.08)" : "rgba(255,255,255,0.5)" }}>
               <RadioGroupItem value="renter" id="renter" className="sr-only" />
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(124,111,224,0.1)', border: '1px solid rgba(124,111,224,0.2)' }}>
-                <Building2 className="w-6 h-6 text-[#7C6FE0]" />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)' }}>
+                <Building2 className="w-6 h-6 text-[#FF6B35]" />
               </div>
               <div className="flex-1">
                 <p className="font-medium" style={{ color: '#151528' }}>Renter</p>
                 <p className="text-sm" style={{ color: '#6B6A8E' }}>I rent my home</p>
               </div>
-              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center" style={{ borderColor: user?.user_type === "renter" ? "#7C6FE0" : "#cbd5e1", background: user?.user_type === "renter" ? "#7C6FE0" : "transparent" }}>
+              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center" style={{ borderColor: user?.user_type === "renter" ? "#FF6B35" : "#cbd5e1", background: user?.user_type === "renter" ? "#FF6B35" : "transparent" }}>
                 {user?.user_type === "renter" && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </Label>
 
-            <Label htmlFor="homeowner" className="flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all" style={{ borderColor: user?.user_type === "homeowner" ? "#E264AB" : "rgba(226,100,171,0.2)", background: user?.user_type === "homeowner" ? "rgba(226,100,171,0.08)" : "rgba(255,255,255,0.5)" }}>
+            <Label htmlFor="homeowner" className="flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all" style={{ borderColor: user?.user_type === "homeowner" ? "#E8365D" : "rgba(232,54,93,0.2)", background: user?.user_type === "homeowner" ? "rgba(232,54,93,0.08)" : "rgba(255,255,255,0.5)" }}>
               <RadioGroupItem value="homeowner" id="homeowner" className="sr-only" />
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(226,100,171,0.1)', border: '1px solid rgba(226,100,171,0.2)' }}>
-                <Home className="w-6 h-6 text-[#E264AB]" />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(232,54,93,0.1)', border: '1px solid rgba(232,54,93,0.2)' }}>
+                <Home className="w-6 h-6 text-[#E8365D]" />
               </div>
               <div className="flex-1">
                 <p className="font-medium" style={{ color: '#151528' }}>Homeowner</p>
                 <p className="text-sm" style={{ color: '#6B6A8E' }}>I own my home</p>
               </div>
-              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center" style={{ borderColor: user?.user_type === "homeowner" ? "#E264AB" : "#cbd5e1", background: user?.user_type === "homeowner" ? "#E264AB" : "transparent" }}>
+              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center" style={{ borderColor: user?.user_type === "homeowner" ? "#E8365D" : "#cbd5e1", background: user?.user_type === "homeowner" ? "#E8365D" : "transparent" }}>
                 {user?.user_type === "homeowner" && <div className="w-2 h-2 rounded-full bg-white" />}
               </div>
             </Label>
@@ -474,7 +474,7 @@ export default function Settings() {
                   <span className="font-semibold" style={{ color: '#151528' }}>
                     {user?.business_plan ? `${user.business_plan.charAt(0).toUpperCase() + user.business_plan.slice(1)} Plan` : 'Business Plan'}
                   </span>
-                  <span className="text-sm font-bold text-[#7C6FE0]">
+                  <span className="text-sm font-bold text-[#FF6B35]">
                     £{user?.business_monthly_price || 0}/month
                   </span>
                 </div>
@@ -539,7 +539,7 @@ export default function Settings() {
               style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
           <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-white/40">
             <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 text-[#7C6FE0]" />
+              <Shield className="w-5 h-5 text-[#FF6B35]" />
               <span style={{ color: '#151528' }}>Privacy Policy</span>
             </div>
             <ChevronRight className="w-5 h-5 text-slate-400" />
@@ -547,7 +547,7 @@ export default function Settings() {
           <div className="h-px" style={{ background: 'rgba(124,111,224,0.12)' }} />
           <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-white/40">
             <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 text-[#E264AB]" />
+              <Shield className="w-5 h-5 text-[#E8365D]" />
               <span style={{ color: '#151528' }}>Terms of Service</span>
             </div>
             <ChevronRight className="w-5 h-5 text-slate-400" />
@@ -597,7 +597,7 @@ export default function Settings() {
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold" style={{ color: '#1a2f42' }}>Your Notifications</h2>
                 {unreadNotifications.length > 0 &&
-                <Button variant="ghost" size="sm" onClick={() => markAllReadMutation.mutate()} className="text-sm text-[#7C6FE0]">
+                <Button variant="ghost" size="sm" onClick={() => markAllReadMutation.mutate()} className="text-sm text-[#FF6B35]">
 
                     Mark all read
                   </Button>
@@ -744,13 +744,13 @@ export default function Settings() {
                         });
                       }}
                       className="w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left"
-                      style={{ borderColor: isEnabled ? '#7C6FE0' : 'rgba(124,111,224,0.2)', background: isEnabled ? 'rgba(124,111,224,0.08)' : 'rgba(255,255,255,0.4)' }}>
+                      style={{ borderColor: isEnabled ? '#FF6B35' : 'rgba(255,107,53,0.2)', background: isEnabled ? 'rgba(255,107,53,0.08)' : 'rgba(255,255,255,0.4)' }}>
 
                   <div className="flex-1">
                     <p className="font-medium text-sm" style={{ color: '#1a2f42' }}>{pref.label}</p>
                     <p className="text-xs mt-0.5" style={{ color: '#6B7A8D' }}>{pref.description}</p>
                   </div>
-                  <div className="w-12 h-6 rounded-full transition-all" style={{ background: isEnabled ? 'linear-gradient(135deg, #7C6FE0, #E264AB)' : '#cbd5e1' }}>
+                  <div className="w-12 h-6 rounded-full transition-all" style={{ background: isEnabled ? 'linear-gradient(135deg, #FF6B35, #E8365D)' : '#cbd5e1' }}>
                     <div className={cn(
                           "w-5 h-5 rounded-full bg-white shadow-lg transition-all mt-0.5",
                           isEnabled ? "ml-6" : "ml-0.5"
