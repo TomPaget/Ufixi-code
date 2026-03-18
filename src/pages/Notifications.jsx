@@ -93,10 +93,9 @@ export default function Notifications() {
   const readNotifications = notifications.filter(n => n.read);
 
   return (
-    <div className={cn(
-      "min-h-screen pb-20",
-      theme === "dark" ? "bg-[#0F1E2E]" : "bg-white"
-    )}>
+    <div className="min-h-screen pb-20 relative overflow-hidden">
+      <LavaLampBackground />
+      <div className="relative z-10">
       <header className={cn(
         "sticky top-0 z-30 border-b-2",
         theme === "dark" ? "bg-[#0F1E2E] border-[#57CFA4]" : "bg-white border-[#1E3A57]/20"
