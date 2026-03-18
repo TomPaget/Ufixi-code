@@ -119,10 +119,21 @@ export default function Settings() {
 
   const updateUserMutation = useMutation({
     mutationFn: (data) => base44.auth.updateMe(data),
+    onMutate: async (variables) => {
+      await queryClient.cancelQueries(["user"]);
+      const previousUser = queryClient.getQueryData(["user"]);
+      queryClient.setQueryData(["user"], (old) => old ? { ...old, ...variables } : old);
+      return { previousUser };
+    },
+    onError: (_err, _variables, context) => {
+      if (context?.previousUser) {
+        queryClient.setQueryData(["user"], context.previousUser);
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(["user"]);
       setEditingProfile(false);
-    }
+    },
   });
 
   const handleUserTypeChange = (value) => {

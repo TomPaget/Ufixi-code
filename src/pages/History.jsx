@@ -226,9 +226,9 @@ export default function History() {
           </p>
           {totalPages > 1 && (
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="rounded-xl">Previous</Button>
+              <Button variant="outline" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="rounded-xl h-11 px-3 text-sm">Previous</Button>
               <span className="text-sm px-3" style={{ color: '#1a2f42' }}>{page} / {totalPages}</span>
-              <Button variant="outline" size="sm" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="rounded-xl">Next</Button>
+              <Button variant="outline" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="rounded-xl h-11 px-3 text-sm">Next</Button>
             </div>
           )}
         </div>
