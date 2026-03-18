@@ -781,7 +781,7 @@ export default function Home() {
             style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)', minHeight: 44 }}
           >
             <span className="font-bold flex items-center gap-2" style={{ color: '#151528' }}>
-              <History className="w-5 h-5 text-[#7C6FE0]" />
+              <History className="w-5 h-5" style={{ color: '#FF6B35' }} />
               Recent Scans
               {issues.length > 0 && (
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#7C6FE0]/10 text-[#7C6FE0]">{issues.length}</span>
