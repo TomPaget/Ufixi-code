@@ -1,22 +1,30 @@
 import { useState, useEffect } from "react";
 import { Menu, ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import NotificationBell from "@/components/kora/NotificationBell";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNav } from "@/lib/NavigationContext";
 
 /**
  * Shared header used across all pages.
  * - If onMenuClick is provided: shows hamburger + logo + bell (Home-style)
- * - If showBack is true: shows back arrow + title + optional bell
+ * - If showBack is true OR canGoBack (auto): shows back arrow + title
+ * - Pass showBack={false} to forcibly hide the back button on a deep page.
  */
-export default function PageHeader({ onMenuClick, showBack, title, subtitle, showBell = true }) {
-  const navigate = useNavigate();
+export default function PageHeader({
+  onMenuClick,
+  showBack,       // explicit override; if undefined, auto-detects via canGoBack
+  title,
+  subtitle,
+  showBell = true,
+}) {
+  const { goBack, canGoBack } = useNav();
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const shouldShowBack = showBack !== undefined ? showBack : (!onMenuClick && canGoBack);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -25,13 +33,20 @@ export default function PageHeader({ onMenuClick, showBack, title, subtitle, sho
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`sticky top-0 z-30 transition-all duration-300 bg-transparent ${isScrolled ? 'py-2' : 'py-3'}`}
+      className={`sticky top-0 z-30 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}
       style={{ background: 'transparent' }}
     >
       <div
         className="max-w-lg mx-auto rounded-2xl flex items-center justify-between"
-        style={{ background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(16px)', border: '1px solid rgba(124,111,224,0.12)', boxShadow: '0 2px 16px rgba(124,111,224,0.08)' }}
-        style={{ margin: '0 auto', padding: '10px 16px', maxWidth: '32rem' }}
+        style={{
+          background: 'rgba(255,255,255,0.85)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(124,111,224,0.12)',
+          boxShadow: '0 2px 16px rgba(124,111,224,0.08)',
+          margin: '0 auto',
+          padding: '10px 16px',
+          maxWidth: '32rem',
+        }}
       >
         {/* Left: hamburger or back */}
         {onMenuClick ? (
@@ -43,16 +58,18 @@ export default function PageHeader({ onMenuClick, showBack, title, subtitle, sho
           >
             <Menu className="w-5 h-5" />
           </button>
-        ) : showBack ? (
+        ) : shouldShowBack ? (
           <button
-            onClick={() => navigate(-1)}
+            onClick={goBack}
             aria-label="Go back"
             className="rounded-xl flex items-center justify-center gap-1 transition-all active:scale-90 font-medium text-sm"
             style={{ color: '#151528', minWidth: 44, minHeight: 44, paddingLeft: 4, paddingRight: 8 }}
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
-        ) : <div style={{ minWidth: 44 }} />}
+        ) : (
+          <div style={{ minWidth: 44 }} />
+        )}
 
         {/* Centre: logo or title */}
         {title ? (
