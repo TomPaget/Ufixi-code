@@ -50,40 +50,7 @@
 import { lazy } from 'react';
 import BusinessPricing from './pages/BusinessPricing';
 import BusinessSignup from './pages/BusinessSignup';
-import Chat from './pages/Chat';
-import ConsultationSummary from './pages/ConsultationSummary';
-import ContractorManagement from './pages/ContractorManagement';
-import Contractors from './pages/Contractors';
-import CreatePost from './pages/CreatePost';
-import FindTradesmen from './pages/FindTradesmen';
-import Forum from './pages/Forum';
-import ForumPost from './pages/ForumPost';
-import History from './pages/History';
-import HomeProfile from './pages/HomeProfile';
-import Integrations from './pages/Integrations';
-import Invoices from './pages/Invoices';
-import IssueDetail from './pages/IssueDetail';
-import JobDetail from './pages/JobDetail';
 import Landing from './pages/Landing';
-import Messages from './pages/Messages';
-import MyJobs from './pages/MyJobs';
-import Notifications from './pages/Notifications';
-import PostJob from './pages/PostJob';
-import PropertyDetail from './pages/PropertyDetail';
-import PropertyIssues from './pages/PropertyIssues';
-import Settings from './pages/Settings';
-import Support from './pages/Support';
-import TeamManagement from './pages/TeamManagement';
-import TradesBoost from './pages/TradesBoost';
-import TradesDashboard from './pages/TradesDashboard';
-import TradesPayment from './pages/TradesPayment';
-import TradesPending from './pages/TradesPending';
-import TradesProfile from './pages/TradesProfile';
-import TradesSignup from './pages/TradesSignup';
-import TradesSuccess from './pages/TradesSuccess';
-import Upgrade from './pages/Upgrade';
-import VideoCall from './pages/VideoCall';
-import EmailTradesman from './pages/EmailTradesman';
 import Home from './pages/Home';
 import __Layout from './Layout.jsx';
 
@@ -121,7 +88,6 @@ const LazyTradesSuccess = lazy(() => import('./pages/TradesSuccess'));
 const LazyUpgrade = lazy(() => import('./pages/Upgrade'));
 const LazyVideoCall = lazy(() => import('./pages/VideoCall'));
 const LazyEmailTradesman = lazy(() => import('./pages/EmailTradesman'));
-
 
 export const PAGES = {
     "BusinessPricing": BusinessPricing,
@@ -161,7 +127,7 @@ export const PAGES = {
     "VideoCall": LazyVideoCall,
     "EmailTradesman": LazyEmailTradesman,
     "Home": Home,
-}
+};
 
 export const pagesConfig = {
     mainPage: "Home",
