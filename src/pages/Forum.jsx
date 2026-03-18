@@ -53,6 +53,24 @@ export default function Forum() {
     }
   });
 
+  const likeMutation = useMutation({
+    mutationFn: ({ id, likes }) => base44.entities.ForumPost.update(id, { likes }),
+    onMutate: async ({ id, likes }) => {
+      await queryClient.cancelQueries(["forum-posts", selectedCategory]);
+      const previous = queryClient.getQueryData(["forum-posts", selectedCategory]);
+      queryClient.setQueryData(["forum-posts", selectedCategory], (old = []) =>
+        old.map((p) => p.id === id ? { ...p, likes } : p)
+      );
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(["forum-posts", selectedCategory], context.previous);
+      }
+    },
+    onSettled: () => queryClient.invalidateQueries(["forum-posts", selectedCategory]),
+  });
+
   // Apply client-side filters
   const filteredPosts = posts.filter(post => {
     // Search query filter
