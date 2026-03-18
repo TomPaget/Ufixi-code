@@ -37,41 +37,46 @@ export default function LavaLampBackground() {
         }
       `}</style>
 
+      {/* Purple */}
       <div style={{
         position: 'absolute', width: 600, height: 600, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(124,111,224,0.55) 0%, rgba(124,111,224,0.18) 55%, transparent 100%)",
+        background: "radial-gradient(circle, rgba(124,111,224,0.52) 0%, rgba(124,111,224,0.16) 55%, transparent 100%)",
         filter: "blur(60px)",
         animation: "blob1 22s ease-in-out infinite",
         willChange: "transform",
         borderRadius: '50%',
       }} />
+      {/* Soft pink — toned down */}
       <div style={{
         position: 'absolute', width: 520, height: 520, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(226,100,171,0.52) 0%, rgba(226,100,171,0.15) 55%, transparent 100%)",
+        background: "radial-gradient(circle, rgba(226,100,171,0.30) 0%, rgba(226,100,171,0.08) 55%, transparent 100%)",
         filter: "blur(55px)",
         animation: "blob2 28s ease-in-out infinite",
         willChange: "transform",
         borderRadius: '50%',
       }} />
+      {/* Sunset orange — boosted */}
       <div style={{
-        position: 'absolute', width: 560, height: 560, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(255,110,50,0.45) 0%, rgba(255,110,50,0.12) 55%, transparent 100%)",
+        position: 'absolute', width: 580, height: 580, top: 0, left: 0,
+        background: "radial-gradient(circle, rgba(255,110,50,0.55) 0%, rgba(255,140,30,0.18) 55%, transparent 100%)",
         filter: "blur(65px)",
         animation: "blob3 32s ease-in-out infinite",
         willChange: "transform",
         borderRadius: '50%',
       }} />
+      {/* Warm yellow-amber */}
       <div style={{
-        position: 'absolute', width: 440, height: 440, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(150,100,240,0.48) 0%, rgba(150,100,240,0.12) 55%, transparent 100%)",
-        filter: "blur(50px)",
+        position: 'absolute', width: 460, height: 460, top: 0, left: 0,
+        background: "radial-gradient(circle, rgba(255,200,50,0.40) 0%, rgba(255,180,20,0.12) 55%, transparent 100%)",
+        filter: "blur(52px)",
         animation: "blob4 25s ease-in-out infinite",
         willChange: "transform",
         borderRadius: '50%',
       }} />
+      {/* Orange-gold */}
       <div style={{
-        position: 'absolute', width: 480, height: 480, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(255,80,120,0.42) 0%, rgba(255,80,120,0.1) 55%, transparent 100%)",
+        position: 'absolute', width: 500, height: 500, top: 0, left: 0,
+        background: "radial-gradient(circle, rgba(255,150,40,0.38) 0%, rgba(255,120,20,0.10) 55%, transparent 100%)",
         filter: "blur(58px)",
         animation: "blob5 35s ease-in-out infinite",
         willChange: "transform",
