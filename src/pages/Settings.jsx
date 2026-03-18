@@ -563,7 +563,7 @@ export default function Settings() {
             <Button
               variant="outline"
               onClick={() => setShowCancelDialog(true)}
-              className="w-full h-10 rounded-xl border-slate-200 text-slate-500 hover:bg-slate-50 text-sm"
+              className="w-full h-12 rounded-xl border-slate-200 text-slate-500 hover:bg-slate-50 text-sm"
             >
               Cancel Subscription
             </Button>
@@ -572,7 +572,7 @@ export default function Settings() {
           <Button
             variant="outline"
             onClick={() => setShowDeleteDialog(true)}
-            className="w-full h-10 rounded-xl border-red-100 text-red-400 hover:bg-red-50 text-sm"
+            className="w-full h-12 rounded-xl border-red-100 text-red-400 hover:bg-red-50 text-sm"
           >
             <Trash2 className="w-4 h-4 mr-2" />
             Delete Account
@@ -628,23 +628,21 @@ export default function Settings() {
                               <Button
                               variant="ghost"
                               size="icon"
-                              className="h-8 w-8"
+                              className="h-11 w-11"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 markReadMutation.mutate(notification.id);
                               }}>
-
                                 <Check className="w-4 h-4" />
                               </Button>
                               <Button
                               variant="ghost"
                               size="icon"
-                              className="h-8 w-8 text-red-500"
+                              className="h-11 w-11 text-red-500"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 deleteMutation.mutate(notification.id);
                               }}>
-
                                 <Trash2 className="w-4 h-4" />
                               </Button>
                             </div>
@@ -680,12 +678,11 @@ export default function Settings() {
                             <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 text-red-500"
+                            className="h-11 w-11 text-red-500"
                             onClick={(e) => {
                               e.stopPropagation();
                               deleteMutation.mutate(notification.id);
                             }}>
-
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
