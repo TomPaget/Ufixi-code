@@ -346,7 +346,7 @@ export default function Support() {
               size="icon"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading || sending}
-              className="rounded-xl border-slate-200 hover:bg-slate-50"
+              className="rounded-xl border-slate-200 bg-white hover:bg-white"
               style={{ color: '#FF6E32' }}
             >
               {uploading ? (
