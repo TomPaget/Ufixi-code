@@ -134,9 +134,9 @@ export default function Notifications() {
             </Button>
           )}
         </div>
-      </header>
+        </header>
 
-      <main className="max-w-lg mx-auto px-5 py-6">
+        <main className="max-w-lg mx-auto px-5 py-6">
         <Tabs defaultValue="unread" className="w-full">
           <TabsList className={cn(
             "w-full grid grid-cols-2 mb-6",
