@@ -64,18 +64,39 @@ export default function Contractors() {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => base44.entities.Contractor.update(id, data),
+    onMutate: async ({ id, data }) => {
+      // Only optimistically update for non-dialog saves (e.g. favorite toggle)
+      if (!showDialog) {
+        await queryClient.cancelQueries(["contractors"]);
+        const previous = queryClient.getQueryData(["contractors"]);
+        queryClient.setQueryData(["contractors"], (old = []) =>
+          old.map((c) => c.id === id ? { ...c, ...data } : c)
+        );
+        return { previous };
+      }
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) queryClient.setQueryData(["contractors"], context.previous);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(["contractors"]);
       setShowDialog(false);
       resetForm();
-    }
+    },
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id) => base44.entities.Contractor.delete(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["contractors"]);
-    }
+    onMutate: async (id) => {
+      await queryClient.cancelQueries(["contractors"]);
+      const previous = queryClient.getQueryData(["contractors"]);
+      queryClient.setQueryData(["contractors"], (old = []) => old.filter((c) => c.id !== id));
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) queryClient.setQueryData(["contractors"], context.previous);
+    },
+    onSettled: () => queryClient.invalidateQueries(["contractors"]),
   });
 
   const resetForm = () => {
