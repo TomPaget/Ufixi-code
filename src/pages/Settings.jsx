@@ -72,6 +72,7 @@ export default function Settings() {
   const [cancelling, setCancelling] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [deleteStep, setDeleteStep] = useState(1); // 1 = warning, 2 = confirm
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
   const [deleting, setDeleting] = useState(false);
 
@@ -803,35 +804,74 @@ export default function Settings() {
         </Tabs>
       </main>
 
-      {/* Delete Account Dialog */}
-      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+      {/* Delete Account Dialog — 2-step */}
+      <Dialog open={showDeleteDialog} onOpenChange={(open) => { setShowDeleteDialog(open); if (!open) { setDeleteStep(1); setDeleteConfirmText(""); } }}>
         <DialogContent className="max-w-md bg-white">
-          <DialogHeader>
-            <DialogTitle style={{ color: '#1a2f42' }}>Delete Account?</DialogTitle>
-            <DialogDescription style={{ color: '#6B7A8D' }}>
-              This action is permanent. All your data, issues, and history will be deleted. Type <strong>DELETE</strong> to confirm.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="my-2">
-            <Input
-              value={deleteConfirmText}
-              onChange={(e) => setDeleteConfirmText(e.target.value)}
-              placeholder="Type DELETE to confirm"
-              className="bg-white border-red-200 focus:border-red-400"
-            />
-          </div>
-          <DialogFooter className="gap-2 sm:gap-0">
-            <Button variant="outline" onClick={() => { setShowDeleteDialog(false); setDeleteConfirmText(""); }} disabled={deleting}>
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleDeleteAccount}
-              disabled={deleting || deleteConfirmText !== "DELETE"}
-            >
-              {deleting ? "Deleting..." : "Delete My Account"}
-            </Button>
-          </DialogFooter>
+          {deleteStep === 1 ? (
+            <>
+              <DialogHeader>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: 'rgba(239,68,68,0.1)' }}>
+                  <AlertTriangle className="w-7 h-7 text-red-500" />
+                </div>
+                <DialogTitle className="text-center text-lg" style={{ color: '#1a2f42' }}>Delete Your Account?</DialogTitle>
+                <DialogDescription className="text-center" style={{ color: '#6B7A8D' }}>
+                  This is permanent and cannot be undone.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="my-3 space-y-2 rounded-xl p-4" style={{ background: 'rgba(239,68,68,0.05)', border: '1px solid rgba(239,68,68,0.15)' }}>
+                {[
+                  "All your issues and diagnostic history will be deleted",
+                  "Your saved contractors and preferences will be removed",
+                  "Any active subscriptions must be cancelled separately",
+                  "This action cannot be reversed",
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-1.5 flex-shrink-0" />
+                    <p className="text-sm" style={{ color: '#1a2f42' }}>{item}</p>
+                  </div>
+                ))}
+              </div>
+              <DialogFooter className="flex-col gap-2 sm:flex-col">
+                <Button variant="destructive" className="w-full h-12" onClick={() => setDeleteStep(2)}>
+                  I understand, continue
+                </Button>
+                <Button variant="outline" className="w-full h-12" onClick={() => setShowDeleteDialog(false)}>
+                  Keep my account
+                </Button>
+              </DialogFooter>
+            </>
+          ) : (
+            <>
+              <DialogHeader>
+                <DialogTitle style={{ color: '#1a2f42' }}>Final Confirmation</DialogTitle>
+                <DialogDescription style={{ color: '#6B7A8D' }}>
+                  Type <strong style={{ color: '#ef4444' }}>DELETE</strong> in capitals to permanently delete your account.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="my-3">
+                <Input
+                  value={deleteConfirmText}
+                  onChange={(e) => setDeleteConfirmText(e.target.value)}
+                  placeholder="Type DELETE to confirm"
+                  className="h-12 bg-white border-red-200 focus:border-red-400 text-center font-semibold tracking-widest"
+                  autoFocus
+                />
+              </div>
+              <DialogFooter className="flex-col gap-2 sm:flex-col">
+                <Button
+                  variant="destructive"
+                  className="w-full h-12"
+                  onClick={handleDeleteAccount}
+                  disabled={deleting || deleteConfirmText !== "DELETE"}
+                >
+                  {deleting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Deleting…</> : "Delete My Account Forever"}
+                </Button>
+                <Button variant="outline" className="w-full h-12" onClick={() => { setDeleteStep(1); setDeleteConfirmText(""); }} disabled={deleting}>
+                  Go back
+                </Button>
+              </DialogFooter>
+            </>
+          )}
         </DialogContent>
       </Dialog>
 
