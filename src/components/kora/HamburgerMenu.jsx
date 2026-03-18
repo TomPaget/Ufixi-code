@@ -136,7 +136,6 @@ export default function HamburgerMenu({ isOpen, onClose }) {
                             className="flex items-center gap-3 p-2 rounded-xl transition-all text-sm hover:bg-white/10 text-white/70"
                           >
                             <subitem.icon className="w-4 h-4" style={{ color: '#FF6B35' }} />
-
                             <span>{subitem.label}</span>
                           </Link>
                         ))}
