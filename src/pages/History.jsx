@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { format } from "date-fns";
@@ -20,19 +20,16 @@ import PageHeader from "@/components/kora/PageHeader";
 import LavaLampBackground from "@/components/kora/LavaLampBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { motion } from "framer-motion";
 import IssueCard from "@/components/kora/IssueCard";
+import MobileSelect from "@/components/kora/MobileSelect";
+import PullToRefreshIndicator from "@/components/kora/PullToRefreshIndicator";
+import { usePullToRefresh } from "@/hooks/usePullToRefresh";
 
 
 export default function History() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [statusFilter, setStatusFilter] = useState("all");
   const [urgencyFilter, setUrgencyFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -51,6 +48,10 @@ export default function History() {
   const { data: allIssues = [], isLoading } = useQuery({
     queryKey: ["issues", "all"],
     queryFn: () => base44.entities.Issue.list("-created_date", 1000)
+  });
+
+  const { pullY, pullRefreshing, PULL_THRESHOLD, handlers } = usePullToRefresh(async () => {
+    await queryClient.invalidateQueries(["issues"]);
   });
 
   const issues = allIssues;
@@ -115,8 +116,40 @@ export default function History() {
   // Get unique trade types for filter
   const tradeTypes = [...new Set(issues.map(i => i.trade_type).filter(Boolean))];
 
+  const statusOptions = [
+    { value: "all", label: "All Status" },
+    { value: "active", label: "Active" },
+    { value: "in_progress", label: "In Progress" },
+    { value: "resolved", label: "Resolved" },
+  ];
+  const urgencyOptions = [
+    { value: "all", label: "All Urgency" },
+    { value: "fix_now", label: "Fix Now" },
+    { value: "fix_soon", label: "Fix Soon" },
+    { value: "ignore", label: "Ignore" },
+  ];
+  const priorityOptions = [
+    { value: "all", label: "All Priority" },
+    { value: "critical", label: "Critical" },
+    { value: "high", label: "High" },
+    { value: "medium", label: "Medium" },
+    { value: "low", label: "Low" },
+  ];
+  const sortOptions = [
+    { value: "priority", label: "Priority" },
+    { value: "newest", label: "Newest" },
+    { value: "oldest", label: "Oldest" },
+    { value: "severity", label: "Severity" },
+    { value: "cost", label: "Cost" },
+  ];
+  const tradeOptions = [
+    { value: "all", label: "All Trades" },
+    ...tradeTypes.map((t) => ({ value: t, label: t.charAt(0).toUpperCase() + t.slice(1) })),
+  ];
+
   return (
-    <div className="min-h-screen pb-20 relative overflow-hidden">
+    <div className="min-h-screen pb-20 relative overflow-hidden" {...handlers}>
+      <PullToRefreshIndicator pullY={pullY} pullRefreshing={pullRefreshing} threshold={PULL_THRESHOLD} />
       <LavaLampBackground />
       <PageHeader showBack title="Dashboard" subtitle="Track all your issues" />
 
@@ -173,14 +206,17 @@ export default function History() {
 
         {/* Filters & Sort */}
         <div className="space-y-3">
-          <div className="flex gap-3">
-            <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-              <SelectTrigger className="flex-1 h-11 rounded-xl border-2 bg-white/60 backdrop-blur-md border-white/20 text-white">
-                <SelectValue placeholder="Priority" />
-              </SelectTrigger>
-...
-            </Select>
+          <div className="grid grid-cols-2 gap-2">
+            <MobileSelect value={statusFilter} onChange={setStatusFilter} options={statusOptions} placeholder="Status" className="w-full" />
+            <MobileSelect value={urgencyFilter} onChange={setUrgencyFilter} options={urgencyOptions} placeholder="Urgency" className="w-full" />
           </div>
+          <div className="grid grid-cols-2 gap-2">
+            <MobileSelect value={priorityFilter} onChange={setPriorityFilter} options={priorityOptions} placeholder="Priority" className="w-full" />
+            <MobileSelect value={sortBy} onChange={setSortBy} options={sortOptions} placeholder="Sort by" className="w-full" />
+          </div>
+          {tradeTypes.length > 0 && (
+            <MobileSelect value={tradeFilter} onChange={setTradeFilter} options={tradeOptions} placeholder="Trade Type" className="w-full" />
+          )}
         </div>
 
         {/* Results Summary */}
