@@ -18,7 +18,9 @@ import {
   ExternalLink,
   AlertCircle,
   Shield,
-  Phone
+  Phone,
+  Mail,
+  Crown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -452,6 +454,31 @@ export default function IssueDetail() {
             responsibility={issue.responsibility}
             tradeType={issue.trade_type}
           />
+        </div>
+
+        {/* Email a Tradesman - Premium Feature */}
+        <div
+          className="rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer active:scale-[0.99] transition-transform"
+          style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.2)' }}
+          onClick={() => navigate(`/EmailTradesman?id=${issueId}`)}
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)' }}>
+              <Mail className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="font-semibold text-sm" style={{ color: '#151528' }}>Email a Tradesman</p>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white flex items-center gap-0.5"
+                  style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB)' }}>
+                  <Crown className="w-2.5 h-2.5" /> Premium
+                </span>
+              </div>
+              <p className="text-xs mt-0.5" style={{ color: '#6B6A8E' }}>Send a ready-made email with your scan results</p>
+            </div>
+          </div>
+          <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#7C6FE0' }} />
         </div>
 
         {/* Team Comments */}
