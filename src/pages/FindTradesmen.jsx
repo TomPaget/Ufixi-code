@@ -4,21 +4,16 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import TradespersonCard from "@/components/kora/TradespersonCard";
 import { createPageUrl } from "@/utils";
-import { Menu, MapPin, Star, Navigation, Phone, Mail, Filter, DollarSign, RefreshCw, Map, Bookmark, Plus, X, Check, ChevronDown, Award, Clock, Wrench } from "lucide-react";
+import { MapPin, Filter, RefreshCw, Map, Bookmark, X, Check, ChevronDown, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import MobileSelect from "@/components/kora/MobileSelect";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { getGradientStyle, getBackdropFilter, getBoxShadow, getBorderColor } from "@/components/kora/gradientThemes";
 import HamburgerMenu from "@/components/kora/HamburgerMenu";
+import Header from "@/components/kora/Header";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 export default function FindTradesmen() {
   const navigate = useNavigate();
