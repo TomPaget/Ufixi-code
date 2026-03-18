@@ -308,10 +308,8 @@ Return the exact coordinates and verify the postcode is valid.`,
               <div className="flex items-center gap-3">
                 <MapPin className="w-6 h-6 text-[#57CFA4]" />
                 <div>
-                  <p className="font-semibold text-white">
-                    Location Enabled
-                  </p>
-                  <p className="text-sm text-white">
+                  <p className="font-semibold" style={{ color: '#151528' }}>Location Enabled</p>
+                  <p className="text-sm" style={{ color: '#6B6A8E' }}>
                     {postcode ? `${postcode} • ` : ""}{tradesmen.length} tradesmen found
                   </p>
                 </div>
@@ -319,7 +317,8 @@ Return the exact coordinates and verify the postcode is valid.`,
               <Button
                 onClick={() => searchLocalTradesmen()}
                 disabled={loading}
-                className="bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#0F1E2E] gap-2"
+                className="gap-2"
+                style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', color: '#fff', border: 'none' }}
               >
                 <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
                 Refresh
@@ -327,9 +326,7 @@ Return the exact coordinates and verify the postcode is valid.`,
             </div>
           ) : (
             <div>
-              <p className="font-semibold mb-2 text-white">
-                Enter your postcode
-              </p>
+              <p className="font-semibold mb-2" style={{ color: '#151528' }}>Enter your postcode</p>
               <div className="flex gap-2">
                 <Input
                   placeholder="e.g., SW1A 1AA"
@@ -579,9 +576,7 @@ Return the exact coordinates and verify the postcode is valid.`,
               className="space-y-4 pt-4 border-t"
             >
               <div>
-                <label className="text-sm font-medium mb-2 block text-white">
-                  Services Offered
-                </label>
+                <label className="text-sm font-medium mb-2 block" style={{ color: '#151528' }}>Services Offered</label>
                 <div className="flex flex-wrap gap-2">
                   {["Emergency Repairs", "Installations", "Maintenance", "Inspections", "Consultations"].map((service) => (
                     <button
@@ -606,44 +601,38 @@ Return the exact coordinates and verify the postcode is valid.`,
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block text-white">
-                  Minimum Experience
-                </label>
-                <Select value={minExperience} onValueChange={setMinExperience}>
-                  <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="any">Any Experience</SelectItem>
-                    <SelectItem value="1">1+ years</SelectItem>
-                    <SelectItem value="3">3+ years</SelectItem>
-                    <SelectItem value="5">5+ years</SelectItem>
-                    <SelectItem value="10">10+ years</SelectItem>
-                  </SelectContent>
-                </Select>
+                <label className="text-sm font-medium mb-2 block" style={{ color: '#151528' }}>Minimum Experience</label>
+                <MobileSelect
+                  value={minExperience}
+                  onChange={setMinExperience}
+                  className="w-full"
+                  options={[
+                    { value: "any", label: "Any Experience" },
+                    { value: "1", label: "1+ years" },
+                    { value: "3", label: "3+ years" },
+                    { value: "5", label: "5+ years" },
+                    { value: "10", label: "10+ years" },
+                  ]}
+                />
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block text-white">
-                  Availability
-                </label>
-                <Select value={availability} onValueChange={setAvailability}>
-                  <SelectTrigger className="border-2 bg-white/85 backdrop-blur-md border-[#1E3A57]/60">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="any">Any Availability</SelectItem>
-                    <SelectItem value="emergency_24_7">Emergency 24/7</SelectItem>
-                    <SelectItem value="today">Available Today</SelectItem>
-                    <SelectItem value="this_week">This Week</SelectItem>
-                  </SelectContent>
-                </Select>
+                <label className="text-sm font-medium mb-2 block" style={{ color: '#151528' }}>Availability</label>
+                <MobileSelect
+                  value={availability}
+                  onChange={setAvailability}
+                  className="w-full"
+                  options={[
+                    { value: "any", label: "Any Availability" },
+                    { value: "emergency_24_7", label: "Emergency 24/7" },
+                    { value: "today", label: "Available Today" },
+                    { value: "this_week", label: "This Week" },
+                  ]}
+                />
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block text-white">
-                  Certifications Required
-                </label>
+                <label className="text-sm font-medium mb-2 block" style={{ color: '#151528' }}>Certifications Required</label>
                 <div className="flex flex-wrap gap-2">
                   {["Gas Safe", "NICEIC", "CSCS", "City & Guilds", "NVQ"].map((cert) => (
                     <button
@@ -674,24 +663,20 @@ Return the exact coordinates and verify the postcode is valid.`,
         <div className="space-y-3">
           {loading ? (
             <div className="text-center py-12">
-              <RefreshCw className="w-8 h-8 animate-spin text-[#57CFA4] mx-auto mb-3" />
-              <p className="text-sm text-white">
+              <RefreshCw className="w-8 h-8 animate-spin text-[#7C6FE0] mx-auto mb-3" />
+              <p className="text-sm font-medium" style={{ color: '#6B6A8E' }}>
                 Searching Google Maps, Checkatrade, RatedPeople & local directories...
               </p>
             </div>
           ) : filteredTradesmen.length === 0 ? (
-            <div className="text-center py-12 rounded-2xl border-2 bg-white/30 backdrop-blur-md border-[#1E3A57]/20">
-              <MapPin className="w-12 h-12 mx-auto mb-3 text-[#57CFA4]" />
-              <p className="text-white">
-                No tradesmen found
-              </p>
-              <p className="text-sm mt-1 text-white">
-                Try enabling location or entering a postcode
-              </p>
+            <div className="text-center py-12 rounded-2xl" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+              <MapPin className="w-12 h-12 mx-auto mb-3 text-[#7C6FE0]" />
+              <p className="font-semibold" style={{ color: '#151528' }}>No tradesmen found</p>
+              <p className="text-sm mt-1" style={{ color: '#6B6A8E' }}>Try enabling location or entering a postcode</p>
             </div>
           ) : (
             <>
-              <p className="text-sm font-medium text-white">
+              <p className="text-sm font-medium" style={{ color: '#6B6A8E' }}>
                 {filteredTradesmen.length} tradesmen found
               </p>
 
