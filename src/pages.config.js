@@ -47,6 +47,7 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
+import EmailTradesman from './pages/EmailTradesman';
 import BusinessPricing from './pages/BusinessPricing';
 import BusinessSignup from './pages/BusinessSignup';
 import Chat from './pages/Chat';
@@ -86,6 +87,7 @@ import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
+    "EmailTradesman": EmailTradesman,
     "BusinessPricing": BusinessPricing,
     "BusinessSignup": BusinessSignup,
     "Chat": Chat,
