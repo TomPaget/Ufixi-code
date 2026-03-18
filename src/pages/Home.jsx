@@ -711,22 +711,22 @@ export default function Home() {
           <div
             className="grid grid-cols-3 gap-3"
           >
-            <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,110,50,0.15)' }}>
-                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#FF6E32]" />
+            <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,107,53,0.15)' }}>
+                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#FF6B35]" />
                 <p className="text-xl font-bold" style={{ color: '#151528' }}>
                   {issues.filter(i => i.status === "active").length}
                 </p>
                 <p className="text-xs font-semibold" style={{ color: '#6B6A8E' }}>Active</p>
               </div>
-              <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(226,100,171,0.15)' }}>
-                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#E264AB]" />
+              <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(232,54,93,0.15)' }}>
+                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#E8365D]" />
                 <p className="text-xl font-bold" style={{ color: '#151528' }}>
                   {issues.filter(i => i.urgency === "fix_soon").length}
                 </p>
                 <p className="text-xs font-semibold" style={{ color: '#6B6A8E' }}>Fix Soon</p>
               </div>
-              <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
-                <History className="w-5 h-5 mx-auto mb-1 text-[#7C6FE0]" />
+              <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(232,54,93,0.15)' }}>
+                <History className="w-5 h-5 mx-auto mb-1 text-[#E8365D]" />
                 <p className="text-xl font-bold" style={{ color: '#151528' }}>
                   {issues.filter(i => i.status === "resolved").length}
                 </p>
@@ -822,8 +822,8 @@ export default function Home() {
                     </>
                   ) : (
                     <div className="text-center py-12 rounded-3xl" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.12)' }}>
-                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'linear-gradient(135deg, rgba(255,110,50,0.1), rgba(226,100,171,0.1))', border: '1px solid rgba(226,100,171,0.2)' }}>
-                      <Sparkles className="w-8 h-8 text-[#E264AB]" />
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'linear-gradient(135deg, rgba(255,107,53,0.1), rgba(232,54,93,0.1))', border: '1px solid rgba(232,54,93,0.2)' }}>
+                      <Sparkles className="w-8 h-8 text-[#E8365D]" />
                       </div>
                       <p className="font-semibold" style={{ color: '#151528' }}>No issues scanned yet</p>
                       <p className="text-sm mt-1" style={{ color: '#6B6A8E' }}>Tap the button above to get started</p>
@@ -888,7 +888,7 @@ export default function Home() {
             <Button
               onClick={handlePayAndScan}
               disabled={processingPayment}
-              className="w-full h-12 rounded-xl font-semibold text-white" style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)' }}
+              className="w-full h-12 rounded-xl font-semibold text-white" style={{ background: 'linear-gradient(135deg, #FF6B35, #E8365D)' }}
             >
               {processingPayment ? (
                 <>
