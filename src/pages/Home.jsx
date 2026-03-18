@@ -695,7 +695,7 @@ export default function Home() {
 
       <Header onMenuClick={() => setMenuOpen(true)} onGoPremium={() => setShowPremiumModal(true)} />
 
-      <main className="max-w-lg mx-auto px-5 py-6 space-y-6">
+      <main className="max-w-lg mx-auto px-5 py-4 space-y-4">
         {/* Welcome Section */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>
@@ -751,7 +751,7 @@ export default function Home() {
              <div
                key="button"
              >
-              <div className="flex flex-col items-center gap-4 py-12">
+              <div className="flex flex-col items-center gap-4 py-6">
                       <RippleButton
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
                             aria-label={needsPayment ? "Pay to scan a new issue" : "Scan a new issue"}
@@ -836,9 +836,7 @@ export default function Home() {
         </section>
 
         {/* Disclaimer */}
-        <div className="mt-auto pt-4">
-          <Disclaimer />
-        </div>
+        <Disclaimer />
         </main>
 
         {/* Banner Ad Space */}
