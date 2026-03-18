@@ -3,7 +3,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { AnimatePresence, motion } from "framer-motion";
 import BottomNav from "@/components/kora/BottomNav";
-import { NavigationProvider, useNav } from "@/lib/NavigationContext";
+import { useNav } from "@/lib/NavigationContext";
 
 /** Variants for slide-based page transitions. */
 const variants = {
@@ -71,10 +71,7 @@ export default function Layout({ children, currentPageName }) {
             font-family: 'DM Sans', sans-serif;
           }
         `}</style>
-        {/* NavigationProvider lives inside Router (via App.jsx), so it can use useNavigate/useLocation */}
-        <NavigationProvider>
-          <LayoutContent currentPageName={currentPageName}>{children}</LayoutContent>
-        </NavigationProvider>
+        <LayoutContent currentPageName={currentPageName}>{children}</LayoutContent>
       </ErrorBoundary>
     </ThemeProvider>
   );
