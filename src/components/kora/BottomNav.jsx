@@ -34,8 +34,10 @@ export default function BottomNav() {
           <Link
             key={page}
             to={href}
-            className="flex flex-col items-center gap-0.5 px-4 py-1 rounded-xl transition-all"
-            style={{ userSelect: "none", WebkitUserSelect: "none" }}
+            aria-label={label}
+            aria-current={isActive ? "page" : undefined}
+            className="flex flex-col items-center gap-0.5 px-3 rounded-xl transition-all"
+            style={{ userSelect: "none", WebkitUserSelect: "none", minWidth: 44, minHeight: 44, justifyContent: "center" }}
           >
             <Icon
               className="w-5 h-5 transition-colors"

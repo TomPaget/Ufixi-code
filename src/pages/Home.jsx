@@ -708,13 +708,19 @@ export default function Home() {
       onTouchEnd={handleTouchEnd}
     >
       {/* Pull-to-refresh indicator */}
-      {pullY > 0 && (
+      {(pullY > 0 || pullRefreshing) && (
         <div
           className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center transition-all"
-          style={{ height: `${pullY}px`, background: 'rgba(124,111,224,0.08)' }}
+          style={{ height: pullRefreshing ? 56 : `${pullY}px`, background: 'rgba(124,111,224,0.08)' }}
+          role="status"
+          aria-label={pullRefreshing ? "Refreshing" : "Pull to refresh"}
+          aria-live="polite"
         >
           {pullRefreshing ? (
-            <Loader2 className="w-5 h-5 animate-spin text-[#7C6FE0]" />
+            <div className="flex items-center gap-2">
+              <Loader2 className="w-5 h-5 animate-spin text-[#7C6FE0]" />
+              <span className="text-xs font-medium text-[#7C6FE0]">Refreshing…</span>
+            </div>
           ) : (
             <span className="text-xs font-medium text-[#7C6FE0]">
               {pullY >= PULL_THRESHOLD ? "Release to refresh" : "Pull to refresh"}
@@ -798,6 +804,7 @@ export default function Home() {
               <div className="flex flex-col items-center gap-4 py-12">
                       <RippleButton
                             onClick={() => needsPayment ? setShowPaymentDialog(true) : setShowScanner(true)}
+                            aria-label={needsPayment ? "Pay to scan a new issue" : "Scan a new issue"}
                             className="w-40 h-40 rounded-full flex flex-col items-center justify-center gap-2 border-0 transition-transform active:scale-95"
                             style={{
                              background: 'linear-gradient(135deg, #FF6E32 0%, #E264AB 50%, #7C6FE0 100%)',
@@ -818,8 +825,10 @@ export default function Home() {
         <section>
           <button
             onClick={() => setShowRecentIssues(!showRecentIssues)}
+            aria-expanded={showRecentIssues}
+            aria-controls="recent-issues-list"
             className="w-full flex items-center justify-between p-4 rounded-2xl transition-all hover:shadow-md active:scale-[0.99]"
-            style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}
+            style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)', minHeight: 44 }}
           >
             <span className="font-bold flex items-center gap-2" style={{ color: '#151528' }}>
               <History className="w-5 h-5 text-[#7C6FE0]" />

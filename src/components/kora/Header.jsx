@@ -29,8 +29,9 @@ export default function Header({ onMenuClick, onGoPremium }) {
         {/* Left: Menu */}
         <button
           onClick={onMenuClick}
-          className="w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-90 flex-shrink-0"
-          style={{ color: '#151528' }}
+          aria-label="Open navigation menu"
+          className="rounded-xl flex items-center justify-center transition-all active:scale-90 flex-shrink-0"
+          style={{ color: '#151528', minWidth: 44, minHeight: 44 }}
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -57,7 +58,8 @@ export default function Header({ onMenuClick, onGoPremium }) {
                 ]
               }}
               transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95"
+              aria-label="Upgrade to Premium"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95"
               style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB)', color: '#fff' }}
             >
               <Sparkles className="w-3.5 h-3.5" />
