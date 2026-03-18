@@ -591,11 +591,15 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
     const optionIcons = [CalendarDays, TrendingUp, TrendingDown, CircleHelp, Timer, ArrowRight, Wrench, Eye];
 
     return (
-      <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto relative overflow-hidden">
+      <div style={pageStyle} className="fixed inset-0 z-50 overflow-hidden relative">
         <LavaLampBackground />
-        <div className="max-w-lg mx-auto px-5 py-6 flex flex-col min-h-screen relative z-10">
+        <div className="max-w-lg mx-auto px-5 py-4 flex flex-col h-full relative z-10">
+          {/* Logo */}
+          <div className="text-center pt-1 pb-2">
+            <span className="text-2xl font-bold" style={{ fontFamily: "'Sora', sans-serif", background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>ufixi</span>
+          </div>
           {/* Header */}
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() =>
                 currentQuestionIdx > 0
