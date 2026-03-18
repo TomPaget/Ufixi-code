@@ -359,6 +359,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
       }
     } catch (err) {
       setError(err.message || "Failed to store issue. Please try again.");
+    } finally {
       setAnalyzing(false);
     }
   };
