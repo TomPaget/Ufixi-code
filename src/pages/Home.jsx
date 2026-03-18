@@ -757,8 +757,8 @@ export default function Home() {
                             aria-label={needsPayment ? "Pay to scan a new issue" : "Scan a new issue"}
                             className="w-40 h-40 rounded-full flex flex-col items-center justify-center gap-2 border-0 transition-transform active:scale-95"
                             style={{
-                             background: 'linear-gradient(135deg, #FF6E32 0%, #E264AB 50%, #7C6FE0 100%)',
-                             boxShadow: '0 0 0 16px rgba(255,110,50,0.1), 0 0 0 32px rgba(226,100,171,0.06), 0 8px 48px rgba(255,110,50,0.45)',
+                             background: 'linear-gradient(135deg, #FF6B35, #E8365D)',
+                             boxShadow: '0 0 0 16px rgba(255,107,53,0.1), 0 0 0 32px rgba(232,54,93,0.06), 0 8px 48px rgba(255,107,53,0.45)',
                              color: '#fff'
                             }}
                           >
