@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 const typeIcons = {
   issue_update: AlertTriangle,
