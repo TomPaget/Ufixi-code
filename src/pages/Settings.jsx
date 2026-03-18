@@ -72,9 +72,12 @@ export default function Settings() {
   const [cancelling, setCancelling] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [deleteStep, setDeleteStep] = useState(1); // 1 = warning, 2 = confirm
+  const [deleteStep, setDeleteStep] = useState(1); // 1 = warning, 2 = confirm, 3 = email verification
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
+  const [deleteVerificationCode, setDeleteVerificationCode] = useState("");
+  const [deletingStep, setDeletingStep] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [verificationCodeSent, setVerificationCodeSent] = useState(false);
 
   const { data: user } = useQuery({
     queryKey: ["user"],
