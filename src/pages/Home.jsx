@@ -699,7 +699,7 @@ export default function Home() {
         {/* Welcome Section */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>
-              What needs <span style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>fixing?</span>
+              What needs <span style={{ background: 'linear-gradient(135deg, #FF6B35, #E8365D)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>fixing?</span>
             </h1>
             <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B6A8E' }}>
               Upload a photo or video and get instant AI-powered repair assessments.
