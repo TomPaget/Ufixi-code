@@ -459,7 +459,11 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
     return (
       <div style={pageStyle} className="fixed inset-0 z-50 overflow-y-auto relative overflow-hidden">
         <LavaLampBackground />
-        <div className="max-w-lg mx-auto px-5 py-6 space-y-5 pb-12 relative z-10">
+        <div className="max-w-lg mx-auto px-5 py-3 space-y-3 pb-8 relative z-10">
+          {/* Logo */}
+          <div className="text-center pt-1 pb-1">
+            <span className="text-2xl font-bold" style={{ fontFamily: "'Sora', sans-serif", background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>ufixi</span>
+          </div>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setStep("upload")}
@@ -468,8 +472,8 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
               <ArrowLeft className="w-5 h-5 text-[#1E2D40]" />
             </button>
             <div>
-              <h2 className="text-2xl font-bold text-[#1E2D40]">Describe the Issue</h2>
-              <p className="text-sm text-slate-500">Tell us more details to help our AI provide the best solution</p>
+              <h2 className="text-xl font-bold text-[#1E2D40]">Describe the Issue</h2>
+              <p className="text-sm text-slate-500">Tell us more details to help our AI</p>
             </div>
           </div>
 
