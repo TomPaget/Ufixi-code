@@ -313,7 +313,8 @@ export default function Settings() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setEditingProfile(!editingProfile)}
-                  className="rounded-xl hover:bg-slate-100">
+                  aria-label={editingProfile ? "Cancel editing profile" : "Edit profile"}
+                  className="rounded-xl hover:bg-slate-100 w-11 h-11">
 
               <Edit2 className="w-4 h-4" />
             </Button>
@@ -556,6 +557,7 @@ export default function Settings() {
           <Button
                 variant="outline"
                 onClick={handleLogout}
+                aria-label="Log out of your account"
                 className="w-full h-12 rounded-xl border-red-200 bg-red-50 text-red-600 hover:bg-red-100">
 
             <LogOut className="w-5 h-5 mr-2" />
