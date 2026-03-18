@@ -839,70 +839,103 @@ export default function Settings() {
       <Dialog open={showDeleteDialog} onOpenChange={(open) => { setShowDeleteDialog(open); if (!open) { setDeleteStep(1); setDeleteConfirmText(""); } }}>
         <DialogContent className="max-w-md bg-white">
           {deleteStep === 1 ? (
-            <>
-              <DialogHeader>
-                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: 'rgba(239,68,68,0.1)' }}>
-                  <AlertTriangle className="w-7 h-7 text-red-500" />
-                </div>
-                <DialogTitle className="text-center text-lg" style={{ color: '#1a2f42' }}>Delete Your Account?</DialogTitle>
-                <DialogDescription className="text-center" style={{ color: '#6B7A8D' }}>
-                  This is permanent and cannot be undone.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="my-3 space-y-2 rounded-xl p-4" style={{ background: 'rgba(239,68,68,0.05)', border: '1px solid rgba(239,68,68,0.15)' }}>
-                {[
-                  "All your issues and diagnostic history will be deleted",
-                  "Your saved contractors and preferences will be removed",
-                  "Any active subscriptions must be cancelled separately",
-                  "This action cannot be reversed",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-1.5 flex-shrink-0" />
-                    <p className="text-sm" style={{ color: '#1a2f42' }}>{item}</p>
+                <>
+                  <DialogHeader>
+                    <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: 'rgba(239,68,68,0.1)' }}>
+                      <AlertTriangle className="w-7 h-7 text-red-500" />
+                    </div>
+                    <DialogTitle className="text-center text-lg" style={{ color: '#1a2f42' }}>Delete Your Account?</DialogTitle>
+                    <DialogDescription className="text-center" style={{ color: '#6B7A8D' }}>
+                      This is permanent and cannot be undone.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="my-3 space-y-2 rounded-xl p-4" style={{ background: 'rgba(239,68,68,0.05)', border: '1px solid rgba(239,68,68,0.15)' }}>
+                    {[
+                      "All your issues and diagnostic history will be deleted",
+                      "Your saved contractors and preferences will be removed",
+                      "Any active subscriptions must be cancelled separately",
+                      "This action cannot be reversed",
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-1.5 flex-shrink-0" />
+                        <p className="text-sm" style={{ color: '#1a2f42' }}>{item}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <DialogFooter className="flex-col gap-2 sm:flex-col">
-                <Button variant="destructive" className="w-full h-12" onClick={() => setDeleteStep(2)}>
-                  I understand, continue
-                </Button>
-                <Button variant="outline" className="w-full h-12" onClick={() => setShowDeleteDialog(false)}>
-                  Keep my account
-                </Button>
-              </DialogFooter>
-            </>
-          ) : (
-            <>
-              <DialogHeader>
-                <DialogTitle style={{ color: '#1a2f42' }}>Final Confirmation</DialogTitle>
-                <DialogDescription style={{ color: '#6B7A8D' }}>
-                  Type <strong style={{ color: '#ef4444' }}>DELETE</strong> in capitals to permanently delete your account.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="my-3">
-                <Input
-                  value={deleteConfirmText}
-                  onChange={(e) => setDeleteConfirmText(e.target.value)}
-                  placeholder="Type DELETE to confirm"
-                  className="h-12 bg-white border-red-200 focus:border-red-400 text-center font-semibold tracking-widest"
-                  autoFocus
-                />
-              </div>
-              <DialogFooter className="flex-col gap-2 sm:flex-col">
-                <Button
-                  variant="destructive"
-                  className="w-full h-12"
-                  onClick={handleDeleteAccount}
-                  disabled={deleting || deleteConfirmText !== "DELETE"}
-                >
-                  {deleting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Deleting…</> : "Delete My Account Forever"}
-                </Button>
-                <Button variant="outline" className="w-full h-12" onClick={() => { setDeleteStep(1); setDeleteConfirmText(""); }} disabled={deleting}>
-                  Go back
-                </Button>
-              </DialogFooter>
-            </>
-          )}
+                  <DialogFooter className="flex-col gap-2 sm:flex-col">
+                    <Button variant="destructive" className="w-full h-12" onClick={() => setDeleteStep(2)}>
+                      I understand, continue
+                    </Button>
+                    <Button variant="outline" className="w-full h-12" onClick={() => setShowDeleteDialog(false)}>
+                      Keep my account
+                    </Button>
+                  </DialogFooter>
+                </>
+              ) : deleteStep === 2 ? (
+                <>
+                  <DialogHeader>
+                    <DialogTitle style={{ color: '#1a2f42' }}>Confirm Deletion</DialogTitle>
+                    <DialogDescription style={{ color: '#6B7A8D' }}>
+                      Type <strong style={{ color: '#ef4444' }}>DELETE</strong> in capitals to proceed.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="my-3">
+                    <Input
+                      value={deleteConfirmText}
+                      onChange={(e) => setDeleteConfirmText(e.target.value)}
+                      placeholder="Type DELETE to confirm"
+                      className="h-12 bg-white border-red-200 focus:border-red-400 text-center font-semibold tracking-widest"
+                      autoFocus
+                    />
+                  </div>
+                  <DialogFooter className="flex-col gap-2 sm:flex-col">
+                    <Button
+                      variant="destructive"
+                      className="w-full h-12"
+                      onClick={handleSendVerificationCode}
+                      disabled={deletingStep || deleteConfirmText !== "DELETE"}
+                    >
+                      {deletingStep === "sending" ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sending…</> : "Send Verification Code"}
+                    </Button>
+                    <Button variant="outline" className="w-full h-12" onClick={() => { setDeleteStep(1); setDeleteConfirmText(""); }} disabled={deletingStep}>
+                      Go back
+                    </Button>
+                  </DialogFooter>
+                </>
+              ) : (
+                <>
+                  <DialogHeader>
+                    <DialogTitle style={{ color: '#1a2f42' }}>Verify Email</DialogTitle>
+                    <DialogDescription style={{ color: '#6B7A8D' }}>
+                      A verification code has been sent to {user?.email}. Enter it below to complete deletion.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="my-3 space-y-3">
+                    <Input
+                      value={deleteVerificationCode}
+                      onChange={(e) => setDeleteVerificationCode(e.target.value.toUpperCase())}
+                      placeholder="Enter 6-digit code"
+                      className="h-12 bg-white border-slate-200 text-center font-mono text-lg tracking-widest"
+                      maxLength="6"
+                      autoFocus
+                    />
+                    <p className="text-xs text-center" style={{ color: '#6B7A8D' }}>Code expires in 10 minutes</p>
+                  </div>
+                  <DialogFooter className="flex-col gap-2 sm:flex-col">
+                    <Button
+                      variant="destructive"
+                      className="w-full h-12"
+                      onClick={handleDeleteAccount}
+                      disabled={deleting || !deleteVerificationCode || deleteVerificationCode.length !== 6}
+                    >
+                      {deleting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Deleting…</> : "Delete Account"}
+                    </Button>
+                    <Button variant="outline" className="w-full h-12" onClick={() => { setDeleteStep(2); setDeleteVerificationCode(""); }} disabled={deleting}>
+                      Go back
+                    </Button>
+                  </DialogFooter>
+                </>
+              )}
         </DialogContent>
       </Dialog>
 
