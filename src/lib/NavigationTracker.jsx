@@ -9,6 +9,7 @@ export default function NavigationTracker() {
     const { isAuthenticated } = useAuth();
     const { Pages, mainPage } = pagesConfig;
     const mainPageKey = mainPage ?? Object.keys(Pages)[0];
+    const touchStartXRef = useRef(0);
 
     // Post navigation changes to parent window
     useEffect(() => {
@@ -17,6 +18,32 @@ export default function NavigationTracker() {
             url: window.location.href
         }, '*');
     }, [location]);
+
+    // iOS native swipe-to-back gesture support
+    useEffect(() => {
+        const handleTouchStart = (e) => {
+            touchStartXRef.current = e.touches[0]?.clientX || 0;
+        };
+
+        const handleTouchEnd = (e) => {
+            const touchEndX = e.changedTouches[0]?.clientX || 0;
+            const swipeDistance = touchEndX - touchStartXRef.current;
+            
+            // Swipe from left edge > 50px indicates back gesture
+            if (swipeDistance > 50 && touchStartXRef.current < 50) {
+                // Allow native iOS back gesture to work uninterrupted
+                // Don't prevent default - let the browser/OS handle it
+            }
+        };
+
+        document.addEventListener('touchstart', handleTouchStart, { passive: true });
+        document.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        return () => {
+            document.removeEventListener('touchstart', handleTouchStart);
+            document.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, []);
 
     // Log user activity when navigating to a page
     useEffect(() => {
