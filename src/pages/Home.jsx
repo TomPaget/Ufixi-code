@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, History, Sparkles, Calendar, TrendingUp, Loader2, ChevronDown, ChevronUp } from "lucide-react";
@@ -22,6 +22,8 @@ import FeatureTooltip from "@/components/kora/FeatureTooltip";
 import { useTheme } from "@/components/kora/ThemeProvider";
 import { cn } from "@/lib/utils";
 import LavaLampBackground from "@/components/kora/LavaLampBackground";
+import PullToRefreshIndicator from "@/components/kora/PullToRefreshIndicator";
+import { usePullToRefresh } from "@/hooks/usePullToRefresh";
 
 
 const FREE_SCAN_LIMIT = 2;
@@ -41,39 +43,13 @@ export default function Home() {
   const [pendingIssueData, setPendingIssueData] = useState(null);
   const [showRecentIssues, setShowRecentIssues] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const [pullRefreshing, setPullRefreshing] = useState(false);
-  const [pullY, setPullY] = useState(0);
-  const touchStartY = useRef(0);
-  const PULL_THRESHOLD = 70;
 
-  const handleRefresh = useCallback(async () => {
-    setPullRefreshing(true);
+  const { pullY, pullRefreshing, PULL_THRESHOLD, handlers: pullHandlers } = usePullToRefresh(async () => {
     await Promise.all([
       queryClient.invalidateQueries(["issues"]),
       queryClient.invalidateQueries(["user"]),
     ]);
-    setPullRefreshing(false);
-    setPullY(0);
-  }, [queryClient]);
-
-  const handleTouchStart = useCallback((e) => {
-    touchStartY.current = e.touches[0].clientY;
-  }, []);
-
-  const handleTouchMove = useCallback((e) => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    if (scrollTop > 0) return;
-    const diff = e.touches[0].clientY - touchStartY.current;
-    if (diff > 0) setPullY(Math.min(diff * 0.4, PULL_THRESHOLD));
-  }, []);
-
-  const handleTouchEnd = useCallback(() => {
-    if (pullY >= PULL_THRESHOLD) {
-      handleRefresh();
-    } else {
-      setPullY(0);
-    }
-  }, [pullY, handleRefresh]);
+  });
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -703,31 +679,9 @@ export default function Home() {
     <div
       className="min-h-screen pb-20 relative overflow-hidden"
       style={{ background: 'transparent' }}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      {...pullHandlers}
     >
-      {/* Pull-to-refresh indicator */}
-      {(pullY > 0 || pullRefreshing) && (
-        <div
-          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center transition-all"
-          style={{ height: pullRefreshing ? 56 : `${pullY}px`, background: 'rgba(124,111,224,0.08)' }}
-          role="status"
-          aria-label={pullRefreshing ? "Refreshing" : "Pull to refresh"}
-          aria-live="polite"
-        >
-          {pullRefreshing ? (
-            <div className="flex items-center gap-2">
-              <Loader2 className="w-5 h-5 animate-spin text-[#7C6FE0]" />
-              <span className="text-xs font-medium text-[#7C6FE0]">Refreshing…</span>
-            </div>
-          ) : (
-            <span className="text-xs font-medium text-[#7C6FE0]">
-              {pullY >= PULL_THRESHOLD ? "Release to refresh" : "Pull to refresh"}
-            </span>
-          )}
-        </div>
-      )}
+      <PullToRefreshIndicator pullY={pullY} pullRefreshing={pullRefreshing} threshold={PULL_THRESHOLD} />
       <LavaLampBackground />
       
       {showOnboarding && (
