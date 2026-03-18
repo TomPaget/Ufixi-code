@@ -75,8 +75,34 @@ export default function Home() {
 
   const createIssueMutation = useMutation({
     mutationFn: (issueData) => base44.entities.Issue.create(issueData),
+    onMutate: async (issueData) => {
+      // Cancel ongoing queries
+      await queryClient.cancelQueries({ queryKey: ["issues"] });
+      
+      // Snapshot previous data
+      const previousData = queryClient.getQueryData(["issues"]);
+      
+      // Optimistically add the new issue with pending state
+      const optimisticIssue = {
+        id: `pending-${Date.now()}`,
+        ...issueData,
+        created_date: new Date().toISOString(),
+        is_optimistic: true
+      };
+      
+      const newData = [optimisticIssue, ...(previousData || [])];
+      queryClient.setQueryData(["issues"], newData);
+      
+      return { previousData };
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries(["issues"]);
+      queryClient.invalidateQueries({ queryKey: ["issues"] });
+    },
+    onError: (error, variables, context) => {
+      // Rollback on error
+      if (context?.previousData) {
+        queryClient.setQueryData(["issues"], context.previousData);
+      }
     }
   });
 
