@@ -34,6 +34,7 @@ const getStatusStyle = (status, theme) => {
 
 export default function IssueCard({ issue, showCost = false, showResolutionDate = false, onDelete }) {
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const MediaIcon = mediaIcons[issue.media_type] || Image;
   
   const { data: user } = useQuery({
@@ -143,16 +144,27 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
           </div>
         </div>
 
-        {/* Delete button */}
-        {onDelete && (
+        {/* Action buttons */}
+        <div className="absolute top-2 right-2 flex items-center gap-1">
           <button
-            onClick={handleDelete}
-            className="absolute top-2 right-2 w-11 h-11 flex items-center justify-center rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-            aria-label="Delete issue"
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigate(`/EmailTradesman?id=${issue.id}`); }}
+            className="w-9 h-9 flex items-center justify-center rounded-xl transition-colors"
+            style={{ color: '#7C6FE0', background: 'rgba(124,111,224,0.08)' }}
+            aria-label="Email a tradesman"
+            title="Email a Tradesman (Premium)"
           >
-            <Trash2 className="w-4 h-4" />
+            <Mail className="w-4 h-4" />
           </button>
-        )}
+          {onDelete && (
+            <button
+              onClick={handleDelete}
+              className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+              aria-label="Delete issue"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </motion.div>
     </Link>
   );
