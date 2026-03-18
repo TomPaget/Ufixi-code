@@ -296,7 +296,7 @@ export default function Settings() {
                   <User className="w-7 h-7 text-[#FF6B35]" />
                 </div>
                   }
-              <label className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg ${uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform"}`} style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}>
+              <label className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shadow-lg ${uploadingPhoto ? "opacity-50" : "hover:scale-110 transition-transform"}`} style={{ background: 'linear-gradient(135deg, #FF6B35, #E8365D)' }}>
                 <input
                       type="file"
                       accept="image/*"
