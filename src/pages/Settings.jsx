@@ -807,6 +807,38 @@ export default function Settings() {
         </Tabs>
       </main>
 
+      {/* Delete Account Dialog */}
+      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <DialogContent className="max-w-md bg-white">
+          <DialogHeader>
+            <DialogTitle style={{ color: '#1a2f42' }}>Delete Account?</DialogTitle>
+            <DialogDescription style={{ color: '#6B7A8D' }}>
+              This action is permanent. All your data, issues, and history will be deleted. Type <strong>DELETE</strong> to confirm.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="my-2">
+            <Input
+              value={deleteConfirmText}
+              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              placeholder="Type DELETE to confirm"
+              className="bg-white border-red-200 focus:border-red-400"
+            />
+          </div>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => { setShowDeleteDialog(false); setDeleteConfirmText(""); }} disabled={deleting}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteAccount}
+              disabled={deleting || deleteConfirmText !== "DELETE"}
+            >
+              {deleting ? "Deleting..." : "Delete My Account"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Cancel Subscription Dialog */}
       <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
         <DialogContent className="max-w-md bg-white">
