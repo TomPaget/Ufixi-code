@@ -1,6 +1,6 @@
 import { format, differenceInDays } from "date-fns";
-import { ChevronRight, Image, Video, Mic, DollarSign, Calendar, Trash2, Clock } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ChevronRight, Image, Video, Mic, DollarSign, Calendar, Trash2, Clock, Mail } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { createPageUrl } from "@/utils";
 import UrgencyBadge from "./UrgencyBadge";
