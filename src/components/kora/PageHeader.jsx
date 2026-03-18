@@ -37,20 +37,22 @@ export default function PageHeader({ onMenuClick, showBack, title, subtitle, sho
         {onMenuClick ? (
           <button
             onClick={onMenuClick}
-            className="w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-90"
-            style={{ color: '#151528' }}
+            aria-label="Open menu"
+            className="rounded-xl flex items-center justify-center transition-all active:scale-90"
+            style={{ color: '#151528', minWidth: 44, minHeight: 44 }}
           >
             <Menu className="w-5 h-5" />
           </button>
         ) : showBack ? (
           <button
             onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-xl flex items-center justify-center transition-all active:scale-90"
-            style={{ color: '#151528' }}
+            aria-label="Go back"
+            className="rounded-xl flex items-center justify-center gap-1 transition-all active:scale-90 font-medium text-sm"
+            style={{ color: '#151528', minWidth: 44, minHeight: 44, paddingLeft: 4, paddingRight: 8 }}
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
-        ) : <div className="w-10" />}
+        ) : <div style={{ minWidth: 44 }} />}
 
         {/* Centre: logo or title */}
         {title ? (
@@ -67,7 +69,7 @@ export default function PageHeader({ onMenuClick, showBack, title, subtitle, sho
         )}
 
         {/* Right: bell or spacer */}
-        {showBell ? <NotificationBell /> : <div className="w-10" />}
+        {showBell ? <NotificationBell /> : <div style={{ minWidth: 44 }} />}
       </div>
     </motion.header>
   );
