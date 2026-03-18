@@ -703,8 +703,7 @@ Return the exact coordinates and verify the postcode is valid.`,
   );
 }
 
-{/* Old card code preserved below as backup */}
-{false && (
+{false && false && (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
