@@ -174,8 +174,7 @@ export default function Forum() {
             className="h-8 object-contain"
           />
           <Button
-            size="sm"
-            className="absolute right-5 bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] rounded-xl"
+            className="absolute right-5 h-11 px-4 bg-[#F7B600] hover:bg-[#F7B600]/90 text-[#1E3A57] rounded-xl text-sm"
             onClick={() => navigate(createPageUrl("CreatePost"))}
           >
             <Plus className="w-4 h-4 mr-1" />
@@ -209,10 +208,9 @@ export default function Forum() {
             </div>
             <Button
               variant="outline"
-              size="icon"
               onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
                className={cn(
-                 "border-2",
+                 "border-2 h-11 w-11 p-0 shrink-0",
                  showAdvancedFilters 
                    ? "bg-[#57CFA4] border-[#57CFA4] text-white"
                    : "border-[#1E3A57]/20 text-[#1E3A57] hover:bg-slate-50"
@@ -270,14 +268,13 @@ export default function Forum() {
 
                 <Button
                   variant="ghost"
-                  size="sm"
                   onClick={() => {
                     setSearchQuery("");
                     setAuthorFilter("");
                     setDateFrom("");
                     setDateTo("");
                   }}
-                  className="w-full text-xs text-red-600 hover:bg-red-50"
+                  className="w-full h-11 text-sm text-red-600 hover:bg-red-50"
                 >
                   Clear All Filters
                 </Button>
@@ -293,7 +290,7 @@ export default function Forum() {
               key={cat.value}
               onClick={() => setSelectedCategory(cat.value)}
               className={cn(
-                 "px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-colors border-2",
+                 "px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-colors border-2 min-h-[44px]",
                  selectedCategory === cat.value
                    ? "bg-[#57CFA4] border-[#57CFA4] text-white"
                    : "bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-white hover:bg-white/80"
