@@ -175,12 +175,8 @@ export default function Notifications() {
                   <div
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification)}
-                    className={cn(
-                      "rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02]",
-                      theme === "dark"
-                        ? "bg-[#1A2F42] border-[#57CFA4]"
-                        : "bg-blue-50 border-blue-200"
-                    )}
+                    className="rounded-2xl p-4 border-2 cursor-pointer transition-all hover:scale-[1.02]"
+                    style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,110,50,0.15)' }}
                   >
                     <div className="flex items-start gap-3">
                       <div className={cn(
