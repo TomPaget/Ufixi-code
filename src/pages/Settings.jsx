@@ -544,7 +544,7 @@ export default function Settings() {
             </div>
             <ChevronRight className="w-5 h-5 text-slate-400" />
           </button>
-          <div className="h-px" style={{ background: 'rgba(124,111,224,0.12)' }} />
+          <div className="h-px" style={{ background: 'rgba(255,107,53,0.12)' }} />
           <button className="w-full flex items-center justify-between p-4 transition-colors hover:bg-white/40">
             <div className="flex items-center gap-3">
               <Shield className="w-5 h-5 text-[#E8365D]" />
@@ -626,7 +626,7 @@ export default function Settings() {
                     return (
                       <div key={notification.id} onClick={() => handleNotificationClick(notification)} className="rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.02]" style={{ background: 'rgba(255,107,53,0.07)', border: '2px solid rgba(255,107,53,0.25)', backdropFilter: 'blur(8px)' }}>
                           <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(124,111,224,0.12)' }}>
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,107,53,0.12)' }}>
                               <Icon className={`w-5 h-5 ${priorityColors[notification.priority]}`} />
                             </div>
                             <div className="flex-1 min-w-0">
