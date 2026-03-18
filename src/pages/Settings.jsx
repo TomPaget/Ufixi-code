@@ -835,8 +835,8 @@ export default function Settings() {
         </Tabs>
       </main>
 
-      {/* Delete Account Dialog — 2-step */}
-      <Dialog open={showDeleteDialog} onOpenChange={(open) => { setShowDeleteDialog(open); if (!open) { setDeleteStep(1); setDeleteConfirmText(""); } }}>
+      {/* Delete Account Dialog — 3-step with email verification */}
+      <Dialog open={showDeleteDialog} onOpenChange={(open) => { setShowDeleteDialog(open); if (!open) { setDeleteStep(1); setDeleteConfirmText(""); setDeleteVerificationCode(""); } }}>
         <DialogContent className="max-w-md bg-white">
           {deleteStep === 1 ? (
                 <>
