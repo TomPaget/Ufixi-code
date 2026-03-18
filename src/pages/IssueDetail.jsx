@@ -224,16 +224,14 @@ export default function IssueDetail() {
               {issue.status === "active" && (
                 <Button
                   variant="outline"
-                  size="sm"
-                  className="rounded-xl"
+                  className="rounded-xl h-11 px-4 text-sm"
                   onClick={handleMarkInProgress}
                 >
                   Mark In Progress
                 </Button>
               )}
               <Button
-                size="sm"
-                className="rounded-xl text-white" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
+                className="rounded-xl text-white h-11 px-4 text-sm" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
                 onClick={() => setShowResolveDialog(true)}
               >
                 <CheckCircle2 className="w-4 h-4 mr-1" />
@@ -594,17 +592,19 @@ export default function IssueDetail() {
               <label className="text-sm font-medium text-slate-700 mb-2 block">
                 How did you resolve this?
               </label>
-              <select
+              <MobileSelect
                 value={repairMethod}
-                onChange={(e) => setRepairMethod(e.target.value)}
-                className="w-full p-2 border border-slate-300 rounded-xl"
-              >
-                <option value="diy">DIY - Fixed it myself</option>
-                <option value="professional">Hired a professional</option>
-                <option value="landlord">Landlord arranged repair</option>
-                <option value="warranty">Warranty/Insurance covered</option>
-                <option value="other">Other</option>
-              </select>
+                onChange={setRepairMethod}
+                placeholder="Select resolution method"
+                className="w-full"
+                options={[
+                  { value: "diy", label: "DIY - Fixed it myself" },
+                  { value: "professional", label: "Hired a professional" },
+                  { value: "landlord", label: "Landlord arranged repair" },
+                  { value: "warranty", label: "Warranty/Insurance covered" },
+                  { value: "other", label: "Other" },
+                ]}
+              />
             </div>
 
             <div>
@@ -618,7 +618,7 @@ export default function IssueDetail() {
                   placeholder="e.g., 45.50"
                   value={actualCost}
                   onChange={(e) => setActualCost(e.target.value)}
-                  className="flex-1 p-2 border border-slate-300 rounded-xl"
+                  className="flex-1 h-11 px-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7C6FE0]"
                   step="0.01"
                 />
               </div>
