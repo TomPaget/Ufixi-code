@@ -340,6 +340,7 @@ export default function Notifications() {
           </TabsContent>
         </Tabs>
       </main>
+      </div>
     </div>
   );
 }
