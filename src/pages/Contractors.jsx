@@ -354,27 +354,22 @@ export default function Contractors() {
               <Label className={cn(theme === "dark" ? "text-slate-300" : "text-slate-700")}>
                 Specialty *
               </Label>
-              <Select value={formData.specialty} onValueChange={(val) => setFormData({...formData, specialty: val})}>
-                <SelectTrigger className={cn(
-                  "mt-1",
-                  theme === "dark"
-                    ? "bg-slate-700 border-slate-600 text-slate-100"
-                    : "bg-white border-slate-200"
-                )}>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="plumbing">Plumbing</SelectItem>
-                  <SelectItem value="electrical">Electrical</SelectItem>
-                  <SelectItem value="hvac">HVAC</SelectItem>
-                  <SelectItem value="carpentry">Carpentry</SelectItem>
-                  <SelectItem value="roofing">Roofing</SelectItem>
-                  <SelectItem value="painting">Painting</SelectItem>
-                  <SelectItem value="general">General</SelectItem>
-                  <SelectItem value="appliances">Appliances</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
+              <MobileSelect
+                value={formData.specialty}
+                onChange={(val) => setFormData({...formData, specialty: val})}
+                className="w-full mt-1"
+                options={[
+                  { value: "plumbing", label: "Plumbing" },
+                  { value: "electrical", label: "Electrical" },
+                  { value: "hvac", label: "HVAC" },
+                  { value: "carpentry", label: "Carpentry" },
+                  { value: "roofing", label: "Roofing" },
+                  { value: "painting", label: "Painting" },
+                  { value: "general", label: "General" },
+                  { value: "appliances", label: "Appliances" },
+                  { value: "other", label: "Other" },
+                ]}
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
@@ -398,21 +393,12 @@ export default function Contractors() {
                 <Label className={cn(theme === "dark" ? "text-slate-300" : "text-slate-700")}>
                   Rating
                 </Label>
-                <Select value={formData.rating.toString()} onValueChange={(val) => setFormData({...formData, rating: parseInt(val)})}>
-                  <SelectTrigger className={cn(
-                    "mt-1",
-                    theme === "dark"
-                      ? "bg-slate-700 border-slate-600 text-slate-100"
-                      : "bg-white border-slate-200"
-                  )}>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[1,2,3,4,5].map(n => (
-                      <SelectItem key={n} value={n.toString()}>{n} Star{n > 1 ? 's' : ''}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <MobileSelect
+                  value={formData.rating.toString()}
+                  onChange={(val) => setFormData({...formData, rating: parseInt(val)})}
+                  className="w-full mt-1"
+                  options={[1,2,3,4,5].map(n => ({ value: n.toString(), label: `${n} Star${n > 1 ? 's' : ''}` }))}
+                />
               </div>
             </div>
 
