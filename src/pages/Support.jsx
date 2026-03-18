@@ -347,7 +347,7 @@ export default function Support() {
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading || sending}
               className="rounded-xl border-slate-200 hover:bg-slate-50"
-              style={{ color: '#1a2f42' }}
+              style={{ color: '#FF6E32' }}
             >
               {uploading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
