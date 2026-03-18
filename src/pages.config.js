@@ -54,7 +54,6 @@ import ConsultationSummary from './pages/ConsultationSummary';
 import ContractorManagement from './pages/ContractorManagement';
 import Contractors from './pages/Contractors';
 import CreatePost from './pages/CreatePost';
-import FindTradesmen from './pages/FindTradesmen';
 import Forum from './pages/Forum';
 import ForumPost from './pages/ForumPost';
 import History from './pages/History';
@@ -94,7 +93,6 @@ export const PAGES = {
     "ContractorManagement": ContractorManagement,
     "Contractors": Contractors,
     "CreatePost": CreatePost,
-    "FindTradesmen": FindTradesmen,
     "Forum": Forum,
     "ForumPost": ForumPost,
     "History": History,

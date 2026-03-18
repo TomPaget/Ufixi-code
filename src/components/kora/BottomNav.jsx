@@ -1,11 +1,10 @@
 import { useLocation } from "react-router-dom";
-import { Home, History, Settings, Wrench } from "lucide-react";
+import { Home, History, Settings } from "lucide-react";
 import { useNav } from "@/lib/NavigationContext";
 
 const NAV_ITEMS = [
   { label: "Home",        icon: Home,    path: "/Home" },
   { label: "History",     icon: History, path: "/History" },
-  { label: "Find Trades", icon: Wrench,  path: "/FindTradesmen" },
   { label: "Settings",    icon: Settings, path: "/Settings" },
 ];
 
