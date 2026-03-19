@@ -55,19 +55,24 @@ export default function Layout({ children, currentPageName }) {
       <ErrorBoundary>
         <style>{`
           :root {
-            --color-primary: #7C6FE0;
-            --color-primary-hover: #6B5FD0;
-            --color-accent: #E264AB;
+            --color-primary: #E8530A;
+            --color-primary-hover: #C94408;
+            --color-accent: #D93870;
             --color-success: #1D9E75;
-            --color-text-primary: #151528;
-            --color-text-secondary: #6B6A8E;
-            --color-bg: #F5F4FF;
-            --color-surface: #FFFFFF;
+            --color-text-primary: #00172F;
+            --color-text-secondary: rgba(0,23,47,0.55);
+            --color-bg: #FDF6EE;
+            --color-surface: rgba(255,255,255,0.55);
           }
           body {
-            background: linear-gradient(135deg, #fdf6ff 0%, #fff5f0 50%, #fef0fa 100%);
+            background: #FDF6EE;
             min-height: 100vh;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #00172F;
+          }
+          h1, h2, h3, h4, h5, h6 {
+            font-family: 'Vetch', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            letter-spacing: -0.02em;
           }
         `}</style>
         <LayoutContent currentPageName={currentPageName}>{children}</LayoutContent>
