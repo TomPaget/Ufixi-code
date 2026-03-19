@@ -148,7 +148,7 @@ export default function IssueDetail() {
     return (
       <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <LavaLampBackground />
-        <div className="w-8 h-8 border-2 border-[#7C6FE0] border-t-transparent rounded-full animate-spin relative z-10" />
+        <div className="w-8 h-8 border-2 border-[#E8530A] border-t-transparent rounded-full animate-spin relative z-10" />
       </div>
     );
   }
@@ -233,7 +233,7 @@ export default function IssueDetail() {
                 </Button>
               )}
               <Button
-                className="rounded-xl text-white h-11 px-4 text-sm" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
+                className="rounded-xl text-white h-11 px-4 text-sm" style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)' }}
                 onClick={() => setShowResolveDialog(true)}
               >
                 <CheckCircle2 className="w-4 h-4 mr-1" />
@@ -381,7 +381,7 @@ export default function IssueDetail() {
                     <ul className="space-y-2 pt-4">
                       {issue.risks.map((risk, i) => (
                         <li key={i} className="flex items-start gap-2" style={{ color: '#1a2f42' }}>
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#7C6FE0] mt-2 flex-shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E8530A] mt-2 flex-shrink-0" />
                           {risk}
                         </li>
                       ))}
@@ -459,26 +459,26 @@ export default function IssueDetail() {
         {/* Email a Tradesman - Premium Feature */}
         <div
           className="rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer active:scale-[0.99] transition-transform"
-          style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.2)' }}
+          style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(0,23,47,0.08)' }}
           onClick={() => navigate(`/EmailTradesman?id=${issueId}`)}
         >
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)' }}>
+              style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)' }}>
               <Mail className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <p className="font-semibold text-sm" style={{ color: '#151528' }}>Email a Tradesman</p>
                 <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white flex items-center gap-0.5"
-                  style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB)' }}>
+                  style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)' }}>
                   <Crown className="w-2.5 h-2.5" /> Premium
                 </span>
               </div>
               <p className="text-xs mt-0.5" style={{ color: '#6B6A8E' }}>Send a ready-made email with your scan results</p>
             </div>
           </div>
-          <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#7C6FE0' }} />
+          <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#E8530A' }} />
         </div>
 
         {/* Team Comments */}
@@ -645,7 +645,7 @@ export default function IssueDetail() {
                   placeholder="e.g., 45.50"
                   value={actualCost}
                   onChange={(e) => setActualCost(e.target.value)}
-                  className="flex-1 h-11 px-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7C6FE0]"
+                  className="flex-1 h-11 px-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E8530A]"
                   step="0.01"
                 />
               </div>
@@ -669,7 +669,7 @@ export default function IssueDetail() {
             <Button
               onClick={handleResolve}
               disabled={updateIssueMutation.isPending}
-              className="w-full rounded-xl text-white" style={{ background: 'linear-gradient(135deg, #7C6FE0, #E264AB)' }}
+              className="w-full rounded-xl text-white" style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)' }}
             >
               <CheckCircle2 className="w-4 h-4 mr-2" />
               {updateIssueMutation.isPending ? "Saving..." : "Mark Resolved"}

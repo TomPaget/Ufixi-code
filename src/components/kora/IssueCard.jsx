@@ -149,7 +149,7 @@ export default function IssueCard({ issue, showCost = false, showResolutionDate 
           <button
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigate(`/EmailTradesman?id=${issue.id}`); }}
             className="w-9 h-9 flex items-center justify-center rounded-xl transition-colors"
-            style={{ color: '#7C6FE0', background: 'rgba(124,111,224,0.08)' }}
+            style={{ color: '#E8530A', background: 'rgba(232,83,10,0.08)' }}
             aria-label="Email a tradesman"
             title="Email a Tradesman (Premium)"
           >

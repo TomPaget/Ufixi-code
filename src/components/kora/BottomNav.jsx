@@ -20,7 +20,7 @@ export default function BottomNav() {
       style={{
         background: "rgba(255,255,255,0.88)",
         backdropFilter: "blur(20px)",
-        borderTop: "1px solid rgba(124,111,224,0.15)",
+        borderTop: "1px solid rgba(0,23,47,0.08)",
         paddingBottom: "env(safe-area-inset-bottom, 8px)",
         paddingTop: "8px",
         height: "calc(60px + env(safe-area-inset-bottom, 0px))",
@@ -52,12 +52,12 @@ export default function BottomNav() {
           >
             <Icon
               className="w-5 h-5 transition-colors"
-              style={{ color: isActive ? "#7C6FE0" : "#9aa5b4" }}
+              style={{ color: isActive ? "#E8530A" : "#9aa5b4" }}
               strokeWidth={isActive ? 2.5 : 1.8}
             />
             <span
               className="text-[10px] font-semibold transition-colors"
-              style={{ color: isActive ? "#7C6FE0" : "#9aa5b4" }}
+              style={{ color: isActive ? "#E8530A" : "#9aa5b4" }}
             >
               {label}
             </span>
