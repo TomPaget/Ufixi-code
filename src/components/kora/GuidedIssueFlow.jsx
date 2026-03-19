@@ -47,8 +47,8 @@ import IssueChatbot from "@/components/kora/IssueChatbot";
 import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 // Brand colours
-const GREEN = "#7C6FE0";
-const NAVY = "#151528";
+const GREEN = "#E8530A";
+const NAVY = "#D93870";
 
 function GradientButton({ children, onClick, disabled, className = "" }) {
   return (
@@ -81,7 +81,7 @@ function OptionRow({ icon: Icon, label, selected, onClick }) {
           ? "border-transparent text-white"
           : "bg-white/80 border-slate-200 text-[#151528] hover:bg-white"
       )}
-      style={selected ? { background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)' } : {}}
+      style={selected ? { background: 'linear-gradient(135deg, #E8530A, #D93870)' } : {}}
     >
       <div className="flex items-center gap-3">
         {Icon && <Icon className={cn("w-5 h-5", selected ? "text-white" : "text-slate-500")} />}
@@ -103,7 +103,7 @@ function UploadMethodRow({ icon: Icon, title, description, selected, onClick }) 
       onClick={onClick}
       className={cn(
         "w-full flex items-center gap-4 px-4 py-4 rounded-2xl border bg-white transition-all text-left shadow-sm",
-        selected ? "border-[#7C6FE0] ring-1 ring-[#7C6FE0]" : "border-slate-200 hover:border-slate-300"
+        selected ? "border-[#E8530A] ring-1 ring-[#E8530A]" : "border-slate-200 hover:border-slate-300"
       )}
     >
       <div
@@ -118,7 +118,7 @@ function UploadMethodRow({ icon: Icon, title, description, selected, onClick }) 
       </div>
       <div className={cn(
         "w-6 h-6 rounded-full border-2 flex-shrink-0",
-        selected ? "border-[#7C6FE0] bg-[#7C6FE0]" : "border-slate-300"
+        selected ? "border-[#E8530A] bg-[#E8530A]" : "border-slate-300"
       )}>
         {selected && (
           <div className="w-full h-full rounded-full flex items-center justify-center">
@@ -396,7 +396,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
                 "Include surrounding context when possible",
               ].map((tip, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#7C6FE0' }} />
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#E8530A' }} />
                   {tip}
                 </li>
               ))}
@@ -521,17 +521,17 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
                     onClick={() => setCategory(value)}
                     className={cn(
                       "w-full flex items-center gap-3 px-4 py-3 rounded-2xl border bg-white transition-all text-left shadow-sm",
-                      category === value ? "border-[#7C6FE0] ring-1 ring-[#7C6FE0]" : "border-slate-200"
+                      category === value ? "border-[#E8530A] ring-1 ring-[#E8530A]" : "border-slate-200"
                     )}
                   >
                     <div className={cn(
                       "w-9 h-9 rounded-xl flex items-center justify-center",
-                      category === value ? "bg-[#7C6FE0]/20" : "bg-slate-100"
+                      category === value ? "bg-[#E8530A]/20" : "bg-slate-100"
                     )}>
-                      <Icon className={cn("w-5 h-5", category === value ? "text-[#7C6FE0]" : "text-slate-500")} />
+                      <Icon className={cn("w-5 h-5", category === value ? "text-[#E8530A]" : "text-slate-500")} />
                     </div>
                     <span className="font-medium text-[#151528]">{label}</span>
-                    {category === value && <CheckCircle2 className="w-4 h-4 text-[#7C6FE0] ml-auto" />}
+                    {category === value && <CheckCircle2 className="w-4 h-4 text-[#E8530A] ml-auto" />}
                   </button>
                 ))}
               </div>
@@ -540,7 +540,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
             {isBusinessUser && (
               <div className="border-t border-slate-200 pt-4 space-y-3">
                 <div className="flex items-center gap-2 mb-1">
-                  <Building2 className="w-4 h-4 text-[#7C6FE0]" />
+                  <Building2 className="w-4 h-4 text-[#E8530A]" />
                   <p className="font-semibold text-[#1E2D40] text-sm">Property Details</p>
                 </div>
                 <Input
@@ -741,7 +741,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
               <strong>Recent Issues</strong> for <strong>45 days</strong>.
             </p>
             <div className="rounded-xl p-3 mb-5 flex items-start gap-3 bg-slate-50 border border-slate-200">
-              <CheckCircle2 className="w-5 h-5 text-[#7C6FE0] flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-5 h-5 text-[#E8530A] flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm font-medium text-[#1E2D40]">
                   {issueType?.brief_description || "Issue scan"}
@@ -813,7 +813,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
             {suggestions?.estimated_repair_time && (
               <AccordionItem value="time" className="border rounded-2xl px-4 bg-white border-slate-200 shadow-sm">
                 <AccordionTrigger className="flex items-center gap-3 text-[#1E2D40]">
-                  <Clock className="w-5 h-5 flex-shrink-0 text-[#7C6FE0]" />
+                  <Clock className="w-5 h-5 flex-shrink-0 text-[#E8530A]" />
                   How Long Will This Take?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -831,7 +831,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
 
             <AccordionItem value="causes" className="border rounded-2xl px-4 bg-white border-slate-200 shadow-sm">
               <AccordionTrigger className="flex items-center gap-3 text-[#1E2D40]">
-                <Search className="w-5 h-5 flex-shrink-0 text-[#7C6FE0]" />
+                <Search className="w-5 h-5 flex-shrink-0 text-[#E8530A]" />
                 What Caused This?
               </AccordionTrigger>
               <AccordionContent>
@@ -849,7 +849,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
             {suggestions?.diagnostic_steps?.length > 0 && (
               <AccordionItem value="steps" className="border rounded-2xl px-4 bg-white border-slate-200 shadow-sm">
                 <AccordionTrigger className="flex items-center gap-3 text-[#1E2D40]">
-                  <Eye className="w-5 h-5 flex-shrink-0 text-[#7C6FE0]" />
+                  <Eye className="w-5 h-5 flex-shrink-0 text-[#E8530A]" />
                   How to Check What's Wrong
                 </AccordionTrigger>
                 <AccordionContent>
@@ -874,7 +874,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
             {suggestions?.tools_and_materials?.length > 0 && (
               <AccordionItem value="tools" className="border rounded-2xl px-4 bg-white border-slate-200 shadow-sm">
                 <AccordionTrigger className="flex items-center gap-3 text-[#1E2D40]">
-                  <Wrench className="w-5 h-5 flex-shrink-0 text-[#7C6FE0]" />
+                  <Wrench className="w-5 h-5 flex-shrink-0 text-[#E8530A]" />
                   What You'll Need
                 </AccordionTrigger>
                 <AccordionContent>
@@ -911,13 +911,13 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
 
             <AccordionItem value="fixes" className="border rounded-2xl px-4 bg-white border-slate-200 shadow-sm">
               <AccordionTrigger className="flex items-center gap-3 text-[#1E2D40]">
-                <Zap className="w-5 h-5 flex-shrink-0 text-[#7C6FE0]" />
+                <Zap className="w-5 h-5 flex-shrink-0 text-[#E8530A]" />
                 Quick Fixes to Try
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-2">
                   {suggestions?.diy_quick_fixes?.slice(0, 3).map((fix, i) => (
-                    <div key={i} className="p-3 rounded-xl border-l-2 text-sm" style={{ borderColor: '#7C6FE0', background: 'rgba(124,111,224,0.06)' }}>
+                    <div key={i} className="p-3 rounded-xl border-l-2 text-sm" style={{ borderColor: '#E8530A', background: 'rgba(232,83,10,0.06)' }}>
                       <p className="font-medium text-[#1E2D40]">{fix.action}</p>
                       <p className="text-xs mt-1 text-slate-600">{fix.description}</p>
                       <p className={cn(
