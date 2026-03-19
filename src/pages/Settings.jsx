@@ -626,7 +626,7 @@ export default function Settings() {
               </div>
 
               <Tabs defaultValue="unread">
-                <TabsList className="w-full grid grid-cols-2 mb-4" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+                <TabsList className="w-full grid grid-cols-2 mb-4" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(0,23,47,0.08)' }}>
                   <TabsTrigger value="unread">
                     Unread {unreadNotifications.length > 0 &&
                     <Badge className="ml-2 bg-red-500">{unreadNotifications.length}</Badge>
@@ -637,7 +637,7 @@ export default function Settings() {
 
                 <TabsContent value="unread" className="space-y-3">
                   {unreadNotifications.length === 0 ?
-                  <div className="text-center py-12 rounded-2xl" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(124,111,224,0.12)' }}>
+                  <div className="text-center py-12 rounded-2xl" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(0,23,47,0.08)' }}>
                       <Bell className="w-12 h-12 mx-auto mb-3 text-slate-300" />
                       <p style={{ color: '#6B7A8D' }}>No unread notifications</p>
                     </div> :
@@ -688,7 +688,7 @@ export default function Settings() {
 
                 <TabsContent value="all" className="space-y-3">
                   {notifications.length === 0 ?
-                  <div className="text-center py-12 rounded-2xl" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(124,111,224,0.12)' }}>
+                  <div className="text-center py-12 rounded-2xl" style={{ background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(10px)', border: '1px solid rgba(0,23,47,0.08)' }}>
                       <Bell className="w-12 h-12 mx-auto mb-3 text-slate-300" />
                       <p style={{ color: '#6B7A8D' }}>No notifications yet</p>
                     </div> :
@@ -736,7 +736,7 @@ export default function Settings() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="rounded-2xl p-5"
-              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+              style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(14px)', border: '1px solid rgba(0,23,47,0.08)' }}>
           <h3 className="font-semibold mb-4" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>Notification Preferences</h3>
           
           <div className="space-y-3">
@@ -789,7 +789,7 @@ export default function Settings() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
               className="rounded-2xl p-5"
-              style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', border: '1px solid rgba(124,111,224,0.15)' }}>
+              style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(14px)', border: '1px solid rgba(0,23,47,0.08)' }}>
           <h3 className="font-semibold mb-4" style={{ color: '#151528', fontFamily: "'Sora', sans-serif" }}>Language & Currency</h3>
           <div className="space-y-3">
             <div>

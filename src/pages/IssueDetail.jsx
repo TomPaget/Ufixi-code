@@ -300,7 +300,7 @@ export default function IssueDetail() {
           {/* Explanation */}
           <p className="leading-relaxed mt-4" style={{ color: '#1a2f42' }}>{issue.explanation}</p>
           {issue.historical_insights?.recommended_approach && (
-            <div className="mt-4 p-4 rounded-xl" style={{ background: 'rgba(124,111,224,0.05)', border: '1px solid rgba(124,111,224,0.15)' }}>
+            <div className="mt-4 p-4 rounded-xl" style={{ background: 'rgba(232,83,10,0.05)', border: '1px solid rgba(232,83,10,0.15)' }}>
               <p className="text-sm font-semibold mb-2" style={{ color: '#1a2f42' }}>
                 💡 Based on {issue.historical_insights.similar_cases_count} similar cases:
               </p>
