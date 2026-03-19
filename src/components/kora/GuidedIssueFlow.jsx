@@ -219,17 +219,25 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
       setAnalyzing(true);
 
       const triage = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are a professional home inspector analyzing this ${mediaType} to diagnose a maintenance issue. Identify the EXACT problem category from: plumbing, electrical, structural, appliance, hvac, roofing, carpentry, painting, flooring, walls, doors_windows, heating, cooling, other. Provide a SPECIFIC one-sentence technical description.`,
+        prompt: `You are a professional home inspector analyzing this ${mediaType}. First determine if this image clearly shows a home maintenance, appliance, or property issue. If it does NOT (e.g. it's a screenshot, person, landscape, food, car, etc.), set is_home_issue to false. If it IS a home issue, identify the EXACT problem category from: plumbing, electrical, structural, appliance, hvac, roofing, carpentry, painting, flooring, walls, doors_windows, heating, cooling, other. Provide a SPECIFIC one-sentence technical description mentioning the key visible symptom (e.g. "damp patch", "mould growth", "cracked pipe", etc.).`,
         file_urls: [file_url],
         response_json_schema: {
           type: "object",
           properties: {
+            is_home_issue: { type: "boolean" },
             category: { type: "string" },
             brief_description: { type: "string" }
           },
-          required: ["category", "brief_description"]
+          required: ["is_home_issue", "category", "brief_description"]
         }
       });
+
+      if (!triage.is_home_issue) {
+        setStep("not_home_issue");
+        setUploading(false);
+        setAnalyzing(false);
+        return;
+      }
 
       setIssueType(triage);
 
@@ -363,6 +371,47 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
       setAnalyzing(false);
     }
   };
+
+  // ─────────────────────────────────────────────
+  // STEP: Not a home issue
+  // ─────────────────────────────────────────────
+  if (step === "not_home_issue") {
+    return (
+      <div style={pageStyle} className="fixed inset-0 z-50 overflow-hidden relative">
+        <LavaLampBackground />
+        <div className="max-w-lg mx-auto px-5 py-4 space-y-4 relative z-10 flex flex-col h-full justify-center items-center text-center">
+          <div className="w-20 h-20 rounded-full flex items-center justify-center mb-2" style={{ background: 'rgba(232,83,10,0.1)', border: '2px solid rgba(232,83,10,0.3)' }}>
+            <AlertTriangle className="w-10 h-10" style={{ color: '#E8530A' }} />
+          </div>
+          <h2 className="text-2xl font-bold text-[#1E2D40]">Not a Home Issue</h2>
+          <p className="text-slate-600 max-w-xs">
+            The image you uploaded doesn't appear to show a home maintenance or appliance issue. Our AI works best with photos of plumbing, electrical, structural, HVAC, or appliance problems.
+          </p>
+          <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm text-left w-full max-w-xs">
+            <p className="font-semibold text-sm text-[#1E2D40] mb-2">Try uploading a photo of:</p>
+            <ul className="space-y-1.5 text-sm text-slate-600">
+              {["Leaks, pipes, or water damage", "Electrical panels or outlets", "Cracks in walls or ceilings", "Boilers, radiators, or vents", "Broken appliances"].map((ex, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#E8530A' }} />
+                  {ex}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <button
+            onClick={() => { setStep("upload"); setUploadMethod(null); setMediaFile(null); setMediaUrl(null); setError(null); }}
+            className="w-full py-4 rounded-2xl text-white font-semibold text-base transition-all shadow-lg mt-4"
+            style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)' }}
+          >
+            Try a Different Photo
+          </button>
+          <button onClick={onCancel} className="py-3 text-slate-500 font-medium hover:text-red-600 transition-colors">
+            Cancel
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // ─────────────────────────────────────────────
   // STEP: Upload method selection
@@ -777,12 +826,21 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
   // ─────────────────────────────────────────────
   // STEP: Suggestions / results
   // ─────────────────────────────────────────────
-  // Generate a short friendly header from the issue type
-  const issueShortLabel = issueType?.category
-    ? `Looks like a ${issueType.category} issue`
-    : issueType?.brief_description
-    ? issueType.brief_description.split(" ").slice(0, 4).join(" ")
-    : "Here's your diagnosis";
+  // Generate a descriptive header from the brief description (key symptom words)
+  const issueShortLabel = (() => {
+    const desc = issueType?.brief_description || "";
+    // Extract key symptom words from the description
+    const keywordMatches = desc.match(/\b(damp|mould|mold|crack|leak|burst|flood|rust|rot|break|broken|faulty|blockage|block|blocked|damp|stain|water damage|mildew|drip|dripping|loose|fraying|burnt|burn|smoke|sparking|spark|short|overheating|frozen|seized|jammed|peeling|flaking|condensation|corrosion|corrod|sagging|bow|bowing|subsiden|settlment|collapse|split|warp|warped|gap|draft|draught|squeaking|squeak|rattle|noisy|grinding|vibrat|overflow|backing up|smell|odour|odor|discolour|discolor|staining)\b/gi);
+    if (keywordMatches && keywordMatches.length > 0) {
+      const unique = [...new Set(keywordMatches.map(k => k.charAt(0).toUpperCase() + k.slice(1).toLowerCase()))];
+      return unique.slice(0, 3).join(", ") + " Issue";
+    }
+    if (desc.length > 0) {
+      // Use first 6 words of description
+      return desc.split(" ").slice(0, 6).join(" ");
+    }
+    return issueType?.category ? `${issueType.category.charAt(0).toUpperCase() + issueType.category.slice(1)} Issue` : "Here's your diagnosis";
+  })();
 
   if (step === "suggestions") {
     return (
