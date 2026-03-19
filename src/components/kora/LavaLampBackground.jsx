@@ -2,7 +2,7 @@ export default function LavaLampBackground() {
   return (
     <div
       className="fixed inset-0 -z-10 overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #fdf6ff 0%, #fff5f0 50%, #fef0fa 100%)" }}
+      style={{ background: "#FDF6EE" }}
     >
       <style>{`
         @keyframes blob1 {
@@ -36,57 +36,41 @@ export default function LavaLampBackground() {
           75%  { transform: translate(35vw, 40vh) scale(1.05); }
           100% { transform: translate(60vw, 50vh) scale(1); }
         }
-        @keyframes blob5 {
-          0%   { transform: translate(20vw, 20vh) scale(1); }
-          25%  { transform: translate(85vw, 75vh) scale(1.12); }
-          50%  { transform: translate(50vw, 95vh) scale(0.9); }
-          75%  { transform: translate(10vw, 60vh) scale(1.08); }
-          100% { transform: translate(20vw, 20vh) scale(1); }
-        }
       `}</style>
 
-      {/* Purple */}
+      {/* Orange */}
       <div style={{
         position: 'absolute', width: 600, height: 600, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(124,111,224,0.52) 0%, rgba(124,111,224,0.16) 55%, transparent 100%)",
-        filter: "blur(60px)",
-        animation: "blob1 13s ease-in-out infinite",
+        background: "radial-gradient(circle, rgba(232,83,10,0.28) 0%, rgba(232,83,10,0.08) 55%, transparent 100%)",
+        filter: "blur(70px)",
+        animation: "blob1 14s ease-in-out infinite",
         willChange: "transform",
         borderRadius: '50%',
       }} />
-      {/* Soft pink — toned down */}
+      {/* Pink/Red */}
       <div style={{
         position: 'absolute', width: 520, height: 520, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(226,100,171,0.30) 0%, rgba(226,100,171,0.08) 55%, transparent 100%)",
-        filter: "blur(55px)",
-        animation: "blob2 16s ease-in-out infinite",
-        willChange: "transform",
-        borderRadius: '50%',
-      }} />
-      {/* Sunset orange — boosted */}
-      <div style={{
-        position: 'absolute', width: 580, height: 580, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(255,110,50,0.55) 0%, rgba(255,140,30,0.18) 55%, transparent 100%)",
+        background: "radial-gradient(circle, rgba(217,56,112,0.22) 0%, rgba(217,56,112,0.06) 55%, transparent 100%)",
         filter: "blur(65px)",
-        animation: "blob3 14s ease-in-out infinite",
+        animation: "blob2 17s ease-in-out infinite",
         willChange: "transform",
         borderRadius: '50%',
       }} />
-      {/* Warm yellow-amber */}
+      {/* Amber */}
+      <div style={{
+        position: 'absolute', width: 540, height: 540, top: 0, left: 0,
+        background: "radial-gradient(circle, rgba(240,144,10,0.25) 0%, rgba(240,144,10,0.07) 55%, transparent 100%)",
+        filter: "blur(60px)",
+        animation: "blob3 13s ease-in-out infinite",
+        willChange: "transform",
+        borderRadius: '50%',
+      }} />
+      {/* Warm peach */}
       <div style={{
         position: 'absolute', width: 460, height: 460, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(255,200,50,0.40) 0%, rgba(255,180,20,0.12) 55%, transparent 100%)",
-        filter: "blur(52px)",
-        animation: "blob4 17s ease-in-out infinite",
-        willChange: "transform",
-        borderRadius: '50%',
-      }} />
-      {/* Orange-gold */}
-      <div style={{
-        position: 'absolute', width: 500, height: 500, top: 0, left: 0,
-        background: "radial-gradient(circle, rgba(255,150,40,0.38) 0%, rgba(255,120,20,0.10) 55%, transparent 100%)",
-        filter: "blur(58px)",
-        animation: "blob5 12s ease-in-out infinite",
+        background: "radial-gradient(circle, rgba(255,180,80,0.18) 0%, rgba(255,140,40,0.05) 55%, transparent 100%)",
+        filter: "blur(55px)",
+        animation: "blob4 16s ease-in-out infinite",
         willChange: "transform",
         borderRadius: '50%',
       }} />

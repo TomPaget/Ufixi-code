@@ -3,8 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
-import { Sparkles, Zap, DollarSign, BookOpen } from "lucide-react";
+import { Zap, DollarSign, BookOpen } from "lucide-react";
 import LavaLampBackground from "@/components/kora/LavaLampBackground";
 
 export default function Landing() {
@@ -28,71 +27,90 @@ export default function Landing() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #fdf6ff 0%, #fff5f0 50%, #fef0fa 100%)' }}>
-        <div className="w-8 h-8 border-2 border-[#7C6FE0] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FDF6EE' }}>
+        <div className="w-8 h-8 border-2 border-[#E8530A] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden flex items-center justify-center pb-12 pt-8">
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center pb-16 pt-10">
       <LavaLampBackground />
 
-      <div className="max-w-lg mx-auto px-6 text-center space-y-8 relative z-10">
+      <div className="max-w-md mx-auto px-6 text-center space-y-10 relative z-10">
         {/* Logo */}
         <div>
           <img
             src="https://media.base44.com/images/public/6943ddc3165afcd16ccf0414/7950a6a3d_ufixi_White_RGB.png"
-            alt="Ufixi Logo"
-            className="h-10 mx-auto object-contain"
-            style={{ filter: 'drop-shadow(0 2px 8px rgba(124,111,224,0.3))' }}
+            alt="Ufixi"
+            className="h-9 mx-auto object-contain"
+            style={{ filter: 'invert(1) sepia(1) saturate(2) hue-rotate(-20deg) brightness(0.3)' }}
           />
         </div>
 
         {/* Heading */}
-        <div className="space-y-3">
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>
+        <div className="space-y-4">
+          <h1
+            style={{
+              fontFamily: "'Vetch', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              fontSize: 'clamp(2.8rem, 8vw, 4.5rem)',
+              fontWeight: 700,
+              lineHeight: 1.05,
+              letterSpacing: '-0.03em',
+              color: '#00172F',
+            }}
+          >
             What needs{" "}
-            <span style={{ background: 'linear-gradient(135deg, #FF6E32, #E264AB, #7C6FE0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            <span style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               fixing?
             </span>
           </h1>
-          <p className="text-base font-medium max-w-sm mx-auto" style={{ color: '#6B6A8E', fontFamily: "'DM Sans', sans-serif" }}>
-            Upload a photo or video of any home issue and get an instant AI-powered repair assessment.
+          <p style={{ color: 'rgba(0,23,47,0.55)', fontSize: '1rem', fontWeight: 500, maxWidth: '26rem', margin: '0 auto' }}>
+            Clarity before cost. AI diagnoses any home issue in seconds — know what's wrong, what it costs, and what to do.
           </p>
         </div>
 
         {/* CTA Button */}
         <button
           onClick={handleLogin}
-          className="w-full h-16 px-8 text-lg font-bold rounded-2xl text-white transition-all active:scale-95 hover:scale-[1.02] flex items-center justify-center gap-3 mx-auto"
+          className="w-full py-5 px-8 text-base font-bold rounded-2xl text-white transition-all active:scale-95 hover:scale-[1.02]"
           style={{
-            background: 'linear-gradient(135deg, #FF6E32 0%, #E264AB 50%, #7C6FE0 100%)',
-            boxShadow: '0 8px 40px rgba(255,110,50,0.4), 0 2px 12px rgba(226,100,171,0.3)',
-            fontFamily: "'DM Sans', sans-serif"
+            background: 'linear-gradient(135deg, #E8530A 0%, #D93870 100%)',
+            boxShadow: '0 8px 32px rgba(232,83,10,0.35), 0 2px 10px rgba(217,56,112,0.2)',
+            fontFamily: "'Helvetica Neue', sans-serif",
+            letterSpacing: '0.01em',
           }}
         >
-          <Sparkles className="w-5 h-5" />
-          Sign in to scan your issue
+          Get started — it's free
         </button>
 
-        {/* Feature cards */}
-        <div className="grid grid-cols-3 gap-3 pt-2">
+        {/* Feature pills */}
+        <div className="flex flex-wrap gap-2 justify-center">
           {[
-            { icon: Zap, label: "AI Analysis", color: '#FF6E32' },
-            { icon: DollarSign, label: "Cost Estimates", color: '#E264AB' },
-            { icon: BookOpen, label: "Repair Guides", color: '#7C6FE0' },
-          ].map(({ icon: Icon, label, color }) => (
+            { icon: Zap, label: "Instant diagnosis" },
+            { icon: DollarSign, label: "Cost estimates" },
+            { icon: BookOpen, label: "DIY guidance" },
+          ].map(({ icon: Icon, label }) => (
             <div
               key={label}
-              className="rounded-2xl p-4 text-center"
-              style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: `1px solid ${color}26` }}
+              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
+              style={{
+                background: 'rgba(255,255,255,0.6)',
+                backdropFilter: 'blur(12px)',
+                border: '1px solid rgba(0,23,47,0.1)',
+                color: '#00172F',
+              }}
             >
-              <Icon className="w-5 h-5 mx-auto mb-2" style={{ color }} />
-              <p className="text-xs font-semibold" style={{ color: '#151528', fontFamily: "'DM Sans', sans-serif" }}>{label}</p>
+              <Icon className="w-3.5 h-3.5" style={{ color: '#E8530A' }} />
+              {label}
             </div>
           ))}
         </div>
+
+        {/* Tagline */}
+        <p style={{ color: 'rgba(0,23,47,0.38)', fontSize: '0.78rem', fontWeight: 500 }}>
+          No jargon. No guesswork. No wasted call-outs.
+        </p>
       </div>
     </div>
   );
