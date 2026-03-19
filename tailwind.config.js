@@ -4,6 +4,10 @@ module.exports = {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+      fontFamily: {
+        vetch: ["'Vetch'", "'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
+        sans: ["'Helvetica Neue'", "Helvetica", "Arial", "sans-serif"],
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
