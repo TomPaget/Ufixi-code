@@ -492,7 +492,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
                 placeholder="Describe what you're seeing or experiencing..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="bg-white border-slate-200 rounded-2xl min-h-[100px] text-[#1E2D40] placeholder:text-slate-400 shadow-sm focus:border-[#6ECBA6] focus-visible:ring-[#6ECBA6]"
+                className="bg-white border-slate-200 rounded-2xl min-h-[100px] text-[#1E2D40] placeholder:text-slate-400 shadow-sm focus:border-[#E8530A] focus-visible:ring-[#E8530A]"
               />
             </div>
 
