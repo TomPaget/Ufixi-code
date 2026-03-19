@@ -723,13 +723,26 @@ export default function Home() {
 
       <main className="max-w-lg mx-auto px-5 py-6 space-y-10">
         {/* Welcome Section */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ fontFamily: "'Sora', sans-serif", color: '#151528', letterSpacing: '-0.02em' }}>
-              What needs <span style={{ background: 'linear-gradient(135deg, #FF6B35, #E8365D)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>fixing?</span>
-            </h1>
-            <p className="text-sm max-w-2xl mx-auto font-medium" style={{ color: '#6B6A8E' }}>
-              Upload a photo or video and get instant AI-powered repair assessments.
-            </p>
+        <div className="text-center space-y-3">
+          <h1
+            style={{
+              fontFamily: "'Vetch', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              fontSize: 'clamp(2.4rem, 7vw, 3.5rem)',
+              fontWeight: 700,
+              lineHeight: 1.05,
+              letterSpacing: '-0.03em',
+              color: '#00172F',
+              marginTop: '1rem',
+            }}
+          >
+            What needs{" "}
+            <span style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              fixing?
+            </span>
+          </h1>
+          <p className="text-sm max-w-xs mx-auto" style={{ color: 'rgba(0,23,47,0.55)', fontWeight: 500 }}>
+            Upload a photo or video and get an instant AI-powered repair assessment.
+          </p>
         </div>
 
         {/* Quick Stats */}
@@ -737,26 +750,26 @@ export default function Home() {
           <div
             className="grid grid-cols-3 gap-3"
           >
-            <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,107,53,0.15)' }}>
-                <TrendingUp className="w-5 h-5 mx-auto mb-1 text-[#FF6B35]" />
-                <p className="text-xl font-bold" style={{ color: '#151528' }}>
+            <div className="rounded-2xl p-4 text-center" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(0,23,47,0.08)' }}>
+                <TrendingUp className="w-5 h-5 mx-auto mb-1" style={{ color: '#E8530A' }} />
+                <p className="text-xl font-bold" style={{ color: '#00172F', fontFamily: "'Vetch', sans-serif" }}>
                   {issues.filter(i => i.status === "active").length}
                 </p>
-                <p className="text-xs font-semibold" style={{ color: '#6B6A8E' }}>Active</p>
+                <p className="text-xs font-semibold" style={{ color: 'rgba(0,23,47,0.55)' }}>Active</p>
               </div>
-              <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(232,54,93,0.15)' }}>
-                <Calendar className="w-5 h-5 mx-auto mb-1 text-[#E8365D]" />
-                <p className="text-xl font-bold" style={{ color: '#151528' }}>
+              <div className="rounded-2xl p-4 text-center" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(0,23,47,0.08)' }}>
+                <Calendar className="w-5 h-5 mx-auto mb-1" style={{ color: '#F0900A' }} />
+                <p className="text-xl font-bold" style={{ color: '#00172F', fontFamily: "'Vetch', sans-serif" }}>
                   {issues.filter(i => i.urgency === "fix_soon").length}
                 </p>
-                <p className="text-xs font-semibold" style={{ color: '#6B6A8E' }}>Fix Soon</p>
+                <p className="text-xs font-semibold" style={{ color: 'rgba(0,23,47,0.55)' }}>Fix Soon</p>
               </div>
-              <div className="rounded-2xl p-4 text-center shadow-sm" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(232,54,93,0.15)' }}>
-                <History className="w-5 h-5 mx-auto mb-1 text-[#E8365D]" />
-                <p className="text-xl font-bold" style={{ color: '#151528' }}>
+              <div className="rounded-2xl p-4 text-center" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(0,23,47,0.08)' }}>
+                <History className="w-5 h-5 mx-auto mb-1" style={{ color: '#D93870' }} />
+                <p className="text-xl font-bold" style={{ color: '#00172F', fontFamily: "'Vetch', sans-serif" }}>
                   {issues.filter(i => i.status === "resolved").length}
                 </p>
-                <p className="text-xs font-semibold" style={{ color: '#6B6A8E' }}>Resolved</p>
+                <p className="text-xs font-semibold" style={{ color: 'rgba(0,23,47,0.55)' }}>Resolved</p>
               </div>
           </div>
               )}
@@ -783,8 +796,8 @@ export default function Home() {
                             aria-label={needsPayment ? "Pay to scan a new issue" : "Scan a new issue"}
                             className="w-40 h-40 rounded-full flex flex-col items-center justify-center gap-2 border-0 transition-transform active:scale-95"
                             style={{
-                             background: 'linear-gradient(135deg, #FF6B35, #E8365D)',
-                             boxShadow: '0 0 0 16px rgba(255,107,53,0.1), 0 0 0 32px rgba(232,54,93,0.06), 0 8px 48px rgba(255,107,53,0.45)',
+                             background: 'linear-gradient(135deg, #E8530A, #D93870)',
+                             boxShadow: '0 0 0 16px rgba(232,83,10,0.1), 0 0 0 32px rgba(217,56,112,0.06), 0 8px 48px rgba(232,83,10,0.4)',
                              color: '#fff'
                             }}
                           >
@@ -804,13 +817,13 @@ export default function Home() {
             aria-expanded={showRecentIssues}
             aria-controls="recent-issues-list"
             className="w-full flex items-center justify-between p-4 rounded-2xl transition-all hover:shadow-md active:scale-[0.99]"
-            style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.15)', minHeight: 44 }}
+            style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(0,23,47,0.1)', minHeight: 44 }}
           >
-            <span className="font-bold flex items-center gap-2" style={{ color: '#151528' }}>
-              <History className="w-5 h-5" style={{ color: '#FF6B35' }} />
+            <span className="font-bold flex items-center gap-2" style={{ color: '#00172F' }}>
+              <History className="w-5 h-5" style={{ color: '#E8530A' }} />
               Recent Scans
               {issues.length > 0 && (
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#7C6FE0]/10 text-[#7C6FE0]">{issues.length}</span>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(232,83,10,0.1)', color: '#E8530A' }}>{issues.length}</span>
               )}
             </span>
             {showRecentIssues ? (
@@ -840,19 +853,20 @@ export default function Home() {
                         <IssueCard key={issue.id} issue={issue} onDelete={handleDeleteIssue} />
                       ))}
                       <Link
-                        to={createPageUrl("History")}
-                        className="block text-center text-sm font-semibold text-[#7C6FE0] hover:text-[#6B5FD0] py-2 transition-colors"
+                      to={createPageUrl("History")}
+                      className="block text-center text-sm font-semibold py-2 transition-colors"
+                      style={{ color: '#E8530A' }}
                       >
                         View All Issues →
                       </Link>
                     </>
                   ) : (
-                    <div className="text-center py-12 rounded-3xl" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', border: '1px solid rgba(124,111,224,0.12)' }}>
-                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'linear-gradient(135deg, rgba(255,107,53,0.1), rgba(232,54,93,0.1))', border: '1px solid rgba(232,54,93,0.2)' }}>
-                      <Sparkles className="w-8 h-8 text-[#E8365D]" />
+                    <div className="text-center py-12 rounded-3xl" style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(12px)', border: '1px solid rgba(0,23,47,0.08)' }}>
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(232,83,10,0.08)', border: '1px solid rgba(232,83,10,0.2)' }}>
+                        <Sparkles className="w-8 h-8" style={{ color: '#E8530A' }} />
                       </div>
-                      <p className="font-semibold" style={{ color: '#151528' }}>No issues scanned yet</p>
-                      <p className="text-sm mt-1" style={{ color: '#6B6A8E' }}>Tap the button above to get started</p>
+                      <p className="font-semibold" style={{ color: '#00172F' }}>No issues scanned yet</p>
+                      <p className="text-sm mt-1" style={{ color: 'rgba(0,23,47,0.55)' }}>Tap the button above to get started</p>
                     </div>
                   )}
                 </div>
@@ -914,7 +928,7 @@ export default function Home() {
             <Button
               onClick={handlePayAndScan}
               disabled={processingPayment}
-              className="w-full h-12 rounded-xl font-semibold text-white" style={{ background: 'linear-gradient(135deg, #FF6B35, #E8365D)' }}
+              className="w-full h-12 rounded-xl font-semibold text-white" style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)' }}
             >
               {processingPayment ? (
                 <>
