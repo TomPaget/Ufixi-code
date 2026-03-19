@@ -604,7 +604,8 @@ export default function Settings() {
           <Button
             variant="outline"
             onClick={() => setShowDeleteDialog(true)}
-            className="w-full h-12 rounded-xl border-red-100 text-red-400 hover:bg-red-50 text-sm"
+            className="w-full h-12 rounded-xl text-sm font-semibold"
+            style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', color: '#ef4444' }}
           >
             <Trash2 className="w-4 h-4 mr-2" />
             Delete Account
