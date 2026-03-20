@@ -199,6 +199,7 @@ export default function History() {
             placeholder="Search issues..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            aria-label="Search issues by keyword"
             className="pl-12 h-12 rounded-2xl border bg-white border-slate-200"
             style={{ color: '#1a2f42' }}
           />

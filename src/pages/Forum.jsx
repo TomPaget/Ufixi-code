@@ -193,6 +193,7 @@ export default function Forum() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
                 placeholder="Search posts by keyword..."
+                aria-label="Search forum posts"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 border-2 bg-white/60 backdrop-blur-md border-[#1E3A57]/20 text-white"
@@ -209,6 +210,7 @@ export default function Forum() {
             <Button
               variant="outline"
               onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+              aria-label={showAdvancedFilters ? "Hide advanced filters" : "Show advanced filters"}
                className={cn(
                  "border-2 h-11 w-11 p-0 shrink-0",
                  showAdvancedFilters 
