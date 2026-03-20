@@ -81,10 +81,7 @@ export default function Settings() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteStep, setDeleteStep] = useState(1);
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
-  const [deleteVerificationCode, setDeleteVerificationCode] = useState("");
-  const [deletingStep, setDeletingStep] = useState(null);
   const [deleting, setDeleting] = useState(false);
-  const [verificationCodeSent, setVerificationCodeSent] = useState(false);
   const [notifSubTab, setNotifSubTab] = useState("settings");
 
   const { data: user } = useQuery({
@@ -172,7 +169,7 @@ export default function Settings() {
   };
 
   const handleDeleteAccount = async () => {
-    if (deleteConfirmText !== "DELETE" || !deleteVerificationCode) return;
+    if (deleteConfirmText !== "DELETE") return;
     setDeleting(true);
     try {
       await base44.auth.updateMe({ account_deletion_requested: true, account_deletion_date: new Date().toISOString() });
