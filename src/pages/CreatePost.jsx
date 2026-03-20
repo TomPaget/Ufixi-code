@@ -155,6 +155,7 @@ export default function CreatePost() {
           </label>
           <Input
             placeholder="What's your question or topic?"
+            aria-label="Post title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="bg-white/60 backdrop-blur-md border-slate-200"
@@ -165,23 +166,24 @@ export default function CreatePost() {
           <label className="text-sm font-medium mb-1 block text-[#0F1E2E]/80">
             Category
           </label>
-          <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="bg-white/60 backdrop-blur-md border-slate-200">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="general">General</SelectItem>
-              <SelectItem value="plumbing">Plumbing</SelectItem>
-              <SelectItem value="electrical">Electrical</SelectItem>
-              <SelectItem value="diy">DIY</SelectItem>
-              <SelectItem value="mechanical">Mechanical</SelectItem>
-              <SelectItem value="utilities">Utilities</SelectItem>
-              <SelectItem value="carpentry">Carpentry (Wood)</SelectItem>
-              <SelectItem value="landlord_advice">Landlord Advice</SelectItem>
-              <SelectItem value="renter_advice">Renter Advice</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
-            </SelectContent>
-          </Select>
+          <SelectBottomSheet
+            value={category}
+            onChange={setCategory}
+            placeholder="Select category"
+            className="bg-white/60 backdrop-blur-md border-slate-200"
+            options={[
+              { value: "general", label: "General" },
+              { value: "plumbing", label: "Plumbing" },
+              { value: "electrical", label: "Electrical" },
+              { value: "diy", label: "DIY" },
+              { value: "mechanical", label: "Mechanical" },
+              { value: "utilities", label: "Utilities" },
+              { value: "carpentry", label: "Carpentry (Wood)" },
+              { value: "landlord_advice", label: "Landlord Advice" },
+              { value: "renter_advice", label: "Renter Advice" },
+              { value: "other", label: "Other" },
+            ]}
+          />
         </div>
 
         <div>
@@ -190,6 +192,7 @@ export default function CreatePost() {
           </label>
           <Textarea
             placeholder="Share details, ask questions, or provide tips..."
+            aria-label="Post description"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             className="bg-white/60 backdrop-blur-md border-slate-200 min-h-[150px]"
