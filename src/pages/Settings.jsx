@@ -151,23 +151,6 @@ export default function Settings() {
   const handleUserTypeChange = (value) => updateUserMutation.mutate({ user_type: value });
   const handleLogout = () => base44.auth.logout();
 
-  const handleSendVerificationCode = async () => {
-    setDeletingStep("sending");
-    try {
-      await base44.integrations.Core.SendEmail({
-        to: user?.email,
-        subject: "Confirm Your Account Deletion - UFixi",
-        body: `A request to delete your UFixi account has been initiated. Please return to the app within 10 minutes and enter the verification code below.\n\nVerification Code: ${Math.random().toString().slice(2, 8).toUpperCase()}\n\nIf you did not request this, ignore this email.`
-      });
-      setVerificationCodeSent(true);
-      setDeleteStep(3);
-    } catch (error) {
-      console.error("Failed to send verification email:", error);
-    } finally {
-      setDeletingStep(null);
-    }
-  };
-
   const handleDeleteAccount = async () => {
     if (deleteConfirmText !== "DELETE") return;
     setDeleting(true);
