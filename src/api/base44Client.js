@@ -8,6 +8,5 @@ export const base44 = createClient({
   appId,
   token,
   functionsVersion,
-  serverUrl: 'https://appbuilder-prod.base44.com',
   requiresAuth: false
 });
