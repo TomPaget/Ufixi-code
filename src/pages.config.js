@@ -129,6 +129,7 @@ export const PAGES = {
     "VideoCall": LazyVideoCall,
     "EmailTradesman": LazyEmailTradesman,
     "DataInsights": LazyDataInsights,
+    "MyIssues": LazyMyIssues,
     "Home": Home,
 };
 
