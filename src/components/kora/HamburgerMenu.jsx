@@ -10,15 +10,10 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 
 const customerMenuItems = [
-  { icon: HomeIcon, label: "Home", page: "Home" },
-  // { icon: Mail, label: "Messages", page: "Messages" }, // HIDDEN - Will be re-enabled later
-  // { icon: MessageCircle, label: "Community Forum", page: "Forum" }, // HIDDEN - Will be re-enabled later
-  // { icon: Building2, label: "Business Membership", page: "BusinessPricing" }, // HIDDEN - re-enable when ready
-  // { icon: Briefcase, label: "Trades Account", page: "TradesSignup" }, // HIDDEN - Can be re-enabled later
-  // { icon: MapPin, label: "Find Tradesmen", page: "FindTradesmen" }, // HIDDEN - Can be re-enabled later
-  { icon: HelpCircle, label: "Support Chat", page: "Support" },
-  { icon: Settings, label: "My Account", page: "Settings" }
-  // { icon: HomeIcon, label: "Home Profile", page: "HomeProfile" } // HIDDEN - Will be re-enabled later
+  { icon: HomeIcon,     label: "Home",       page: "Home" },
+  { icon: ClipboardList, label: "My Issues", page: "MyIssues" },
+  { icon: HelpCircle,  label: "Support Chat", page: "Support" },
+  { icon: Settings,    label: "My Account",  page: "Settings" },
 ];
 
 const tradesMenuItems = [

@@ -89,6 +89,7 @@ const LazyUpgrade = lazy(() => import('./pages/Upgrade'));
 const LazyVideoCall = lazy(() => import('./pages/VideoCall'));
 const LazyEmailTradesman = lazy(() => import('./pages/EmailTradesman'));
 const LazyDataInsights = lazy(() => import('./pages/DataInsights'));
+const LazyMyIssues = lazy(() => import('./pages/MyIssues'));
 
 export const PAGES = {
     "BusinessPricing": BusinessPricing,
