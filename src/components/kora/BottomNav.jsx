@@ -1,11 +1,11 @@
 import { useLocation } from "react-router-dom";
-import { Home, History, Settings } from "lucide-react";
+import { Home, ClipboardList, Settings } from "lucide-react";
 import { useNav } from "@/lib/NavigationContext";
 
 const NAV_ITEMS = [
-  { label: "Home",        icon: Home,    path: "/Home" },
-  { label: "History",     icon: History, path: "/History" },
-  { label: "Settings",    icon: Settings, path: "/Settings" },
+  { label: "Home",       icon: Home,          path: "/Home" },
+  { label: "My Issues",  icon: ClipboardList, path: "/MyIssues" },
+  { label: "Settings",   icon: Settings,      path: "/Settings" },
 ];
 
 export default function BottomNav() {

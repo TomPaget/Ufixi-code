@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { X, Home as HomeIcon, History, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Building2, ArrowLeftRight } from "lucide-react";
+import { X, Home as HomeIcon, ClipboardList, Users, Calendar, Settings, MapPin, MessageCircle, HelpCircle, Briefcase, Mail, LayoutDashboard, Bell, FileText, Building2, ArrowLeftRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 import { cn } from "@/lib/utils";
