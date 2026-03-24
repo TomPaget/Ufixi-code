@@ -98,7 +98,7 @@ Deno.serve(async (req) => {
           body: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
               <div style="background: linear-gradient(135deg, #0F1E2E 0%, #1E3A57 100%); padding: 30px; text-align: center;">
-                <h1 style="color: #F7B600; margin: 0; font-size: 32px;">QuoFix</h1>
+                <h1 style="color: #F7B600; margin: 0; font-size: 32px;">Ufixi</h1>
               </div>
               <div style="padding: 30px; background: #fff;">
                 <h2 style="color: #1E3A57; margin-top: 0;">${title}</h2>
@@ -110,7 +110,7 @@ Deno.serve(async (req) => {
                 <a href="https://app.base44.com/issues/${issueId}" style="display: inline-block; background: #57CFA4; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; margin-top: 20px; font-weight: bold;">View Issue Details</a>
               </div>
               <div style="padding: 20px; background: #f5f5f5; text-align: center; color: #666; font-size: 12px;">
-                <p style="margin: 0 0 10px 0;">You're receiving this because you have issue notifications enabled in QuoFix.</p>
+                <p style="margin: 0 0 10px 0;">You're receiving this because you have issue notifications enabled in Ufixi.</p>
                 <p style="margin: 0;"><a href="https://app.base44.com/settings" style="color: #57CFA4; text-decoration: none;">Manage notification preferences</a></p>
               </div>
             </div>

@@ -53,7 +53,7 @@ Keep it warm but professional.`,
       from_name: invoice.tradesperson_name,
       to: invoice.customer_email,
       subject: emailContent.subject,
-      body: `${emailContent.body}\n\n---\nInvoice Number: ${invoice.invoice_number}\nTotal Amount: £${invoice.total_amount.toFixed(2)}\nDue Date: ${new Date(invoice.due_date).toLocaleDateString()}\n\nTo view your invoice, please log in to your QuoFix account.`
+      body: `${emailContent.body}\n\n---\nInvoice Number: ${invoice.invoice_number}\nTotal Amount: £${invoice.total_amount.toFixed(2)}\nDue Date: ${new Date(invoice.due_date).toLocaleDateString()}\n\nTo view your invoice, please log in to your Ufixi account.`
     });
 
     // Update invoice status
