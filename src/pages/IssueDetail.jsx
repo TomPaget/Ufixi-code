@@ -150,6 +150,125 @@ export default function IssueDetail() {
     updateIssueMutation.mutate({ status: "in_progress" });
   };
 
+  const handleExportPDF = async () => {
+    setExportingPDF(true);
+    const { default: jsPDF } = await import('jspdf');
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const pw = doc.internal.pageSize.getWidth();
+    let y = 0;
+
+    // Header bar
+    doc.setFillColor(232, 83, 10);
+    doc.rect(0, 0, pw, 28, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.text('UFixi Issue Report', 14, 18);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Generated ${new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}`, pw - 14, 18, { align: 'right' });
+    y = 38;
+
+    // If there's a photo, try to embed it
+    if (issue.media_url && issue.media_type === 'photo') {
+      try {
+        const res = await fetch(issue.media_url);
+        const blob = await res.blob();
+        const dataUrl = await new Promise(resolve => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(blob);
+        });
+        const imgW = pw - 28;
+        const imgH = 60;
+        doc.addImage(dataUrl, 'JPEG', 14, y, imgW, imgH, '', 'FAST');
+        y += imgH + 8;
+      } catch {}
+    }
+
+    const currency = user?.currency === 'USD' ? '$' : user?.currency === 'EUR' ? '€' : '£';
+    const urgencyLabel = { fix_now: 'Fix Now', fix_soon: 'Fix Soon', ignore: 'Monitor' }[issue.urgency] || issue.urgency;
+
+    // Title
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(0, 23, 47);
+    doc.text(issue.title || '', 14, y);
+    y += 8;
+
+    // Urgency pill (text only)
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(issue.urgency === 'fix_now' ? 220 : issue.urgency === 'fix_soon' ? 217 : 22, issue.urgency === 'fix_now' ? 38 : issue.urgency === 'fix_soon' ? 119 : 163, issue.urgency === 'fix_now' ? 38 : issue.urgency === 'fix_soon' ? 6 : 74);
+    doc.text(`Urgency: ${urgencyLabel}`, 14, y);
+    y += 10;
+
+    const addSection = (title, body) => {
+      if (!body) return;
+      if (y > 260) { doc.addPage(); y = 20; }
+      doc.setDrawColor(232, 83, 10);
+      doc.setLineWidth(0.4);
+      doc.line(14, y, pw - 14, y);
+      y += 5;
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(232, 83, 10);
+      doc.text(title, 14, y);
+      y += 6;
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(55, 65, 81);
+      const lines = doc.splitTextToSize(body, pw - 28);
+      lines.forEach(line => {
+        if (y > 275) { doc.addPage(); y = 20; }
+        doc.text(line, 14, y);
+        y += 5;
+      });
+      y += 4;
+    };
+
+    addSection('Diagnosis', issue.explanation);
+    addSection('Cost Estimates', `DIY: ${issue.diy_cost_min != null ? `${currency}${issue.diy_cost_min}–${currency}${issue.diy_cost_max}` : 'N/A'}    Professional: ${issue.pro_cost_min != null ? `${currency}${issue.pro_cost_min}–${currency}${issue.pro_cost_max}` : 'N/A'}`);
+
+    if (issue.diy_steps?.length) {
+      addSection('DIY Steps', issue.diy_steps.map((s, i) => `${i + 1}. ${s}`).join('\n'));
+    }
+    if (issue.products_needed?.length) {
+      addSection('Products Needed', issue.products_needed.map(p => `• ${p.name}${p.estimatedCost ? ` (~${p.estimatedCost})` : ''}`).join('\n'));
+    }
+    if (issue.risks?.length) {
+      addSection('Risks if Ignored', issue.risks.map(r => `• ${r}`).join('\n'));
+    }
+
+    // Footer
+    const totalPages = doc.internal.getNumberOfPages();
+    for (let p = 1; p <= totalPages; p++) {
+      doc.setPage(p);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(156, 163, 175);
+      doc.text('UFixi · AI-Powered Home Repair Diagnostics · ufxi.app', pw / 2, 292, { align: 'center' });
+      doc.text(`Page ${p} of ${totalPages}`, pw - 14, 292, { align: 'right' });
+    }
+
+    doc.save(`ufxi-report-${(issue.title || 'issue').replace(/\s+/g, '-').toLowerCase()}.pdf`);
+    setExportingPDF(false);
+  };
+
+  const handleEmailReport = async () => {
+    setEmailingSending(true);
+    setEmailSent(false);
+    try {
+      await base44.functions.invoke('emailReport', { issueId });
+      setEmailSent(true);
+      setTimeout(() => setEmailSent(false), 4000);
+    } catch (err) {
+      console.error('Email report failed:', err);
+    } finally {
+      setEmailingSending(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
