@@ -581,6 +581,34 @@ export default function IssueDetail() {
           />
         </div>
 
+        {/* Export & Email Report */}
+        <div className="flex gap-3">
+          <button
+            onClick={handleExportPDF}
+            disabled={exportingPDF}
+            aria-label="Export issue as PDF"
+            className="flex-1 flex items-center justify-center gap-2 h-12 rounded-2xl font-semibold text-sm transition-opacity disabled:opacity-60"
+            style={{ background: 'linear-gradient(135deg, #E8530A, #D93870)', color: '#fff' }}
+          >
+            {exportingPDF ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+            {exportingPDF ? 'Generating…' : 'Export PDF'}
+          </button>
+          <button
+            onClick={handleEmailReport}
+            disabled={emailingSending}
+            aria-label="Email report to yourself"
+            className="flex-1 flex items-center justify-center gap-2 h-12 rounded-2xl font-semibold text-sm border-2 transition-all disabled:opacity-60"
+            style={{
+              borderColor: emailSent ? '#1D9E75' : '#E8530A',
+              color: emailSent ? '#1D9E75' : '#E8530A',
+              background: emailSent ? 'rgba(29,158,117,0.07)' : 'rgba(255,255,255,0.7)',
+            }}
+          >
+            {emailingSending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+            {emailingSending ? 'Sending…' : emailSent ? '✓ Sent!' : 'Email Report'}
+          </button>
+        </div>
+
         {/* Email a Tradesman - Premium Feature */}
         <div
           className="rounded-2xl p-5 flex items-center justify-between gap-4 cursor-pointer active:scale-[0.99] transition-transform"
