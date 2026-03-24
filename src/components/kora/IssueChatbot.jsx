@@ -12,7 +12,7 @@ export default function IssueChatbot({ issueType, issueTitle, suggestions, media
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hi! I've analysed your **${issueTitle || issueType?.category || "home"}** issue. Feel free to ask me anything specific about it — diagnosis, repair steps, costs, or when to call a professional.`
+      content: `Hi! I've analysed your ${issueTitle || issueType?.category || "home"} issue. Feel free to ask me anything specific about it — diagnosis, repair steps, costs, or when to call a professional.`
     }
   ]);
   const [input, setInput] = useState("");
