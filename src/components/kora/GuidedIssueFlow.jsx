@@ -1008,7 +1008,7 @@ export default function GuidedIssueFlow({ onComplete, onSaveIssue, onCancel }) {
             </AccordionItem>
           </Accordion>
 
-          <IssueChatbot issueType={issueType} suggestions={suggestions} mediaUrl={mediaUrl} />
+          <IssueChatbot issueType={issueType} issueTitle={issueShortLabel} suggestions={suggestions} mediaUrl={mediaUrl} />
 
           {error && (
             <div className="p-3 rounded-xl bg-red-50 border border-red-200">

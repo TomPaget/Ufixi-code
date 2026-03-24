@@ -6,13 +6,13 @@ import { MessageCircle, Send, Loader2, X, ChevronDown, Maximize2, Minimize2 } fr
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function IssueChatbot({ issueType, suggestions, mediaUrl }) {
+export default function IssueChatbot({ issueType, issueTitle, suggestions, mediaUrl }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hi! I've analysed your **${issueType?.category || "home"}** issue. Feel free to ask me anything specific about it — diagnosis, repair steps, costs, or when to call a professional.`
+      content: `Hi! I've analysed your **${issueTitle || issueType?.category || "home"}** issue. Feel free to ask me anything specific about it — diagnosis, repair steps, costs, or when to call a professional.`
     }
   ]);
   const [input, setInput] = useState("");
