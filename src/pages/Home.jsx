@@ -664,6 +664,32 @@ export default function Home() {
          console.error('Failed to calculate priority:', error);
        }
 
+       // Write anonymised insight record (no PII)
+       try {
+         const postcodeArea = user?.postcode
+           ? user.postcode.trim().split(' ')[0]
+           : null;
+         await base44.entities.AnonymisedInsight.create({
+           issue_type: pendingIssueData.title || pendingIssueData.trade_type || 'Unknown',
+           trade_type: pendingIssueData.trade_type,
+           urgency: pendingIssueData.urgency,
+           priority: pendingIssueData.priority || null,
+           severity_score: pendingIssueData.severity_score,
+           diy_cost_estimate: pendingIssueData.diy_cost_min != null ? Math.round((pendingIssueData.diy_cost_min + (pendingIssueData.diy_cost_max || pendingIssueData.diy_cost_min)) / 2) : null,
+           pro_cost_estimate: pendingIssueData.pro_cost_min != null ? Math.round((pendingIssueData.pro_cost_min + (pendingIssueData.pro_cost_max || pendingIssueData.pro_cost_min)) / 2) : null,
+           property_category: pendingIssueData.property_category || null,
+           postcode_area: postcodeArea,
+           region: user?.city || user?.region || null,
+           responsibility: pendingIssueData.responsibility || null,
+           diy_safe: pendingIssueData.diy_safe,
+           repair_method: null,
+           status: 'active',
+           issue_date: new Date().toISOString().split('T')[0],
+         });
+       } catch (error) {
+         console.error('Failed to write anonymised insight:', error);
+       }
+
        // Trigger notification
        if (pendingIssueData.severity_score >= 8 || pendingIssueData.urgency === 'fix_now') {
          try {
