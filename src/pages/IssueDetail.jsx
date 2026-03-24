@@ -20,7 +20,10 @@ import {
   Shield,
   Phone,
   Mail,
-  Crown
+  Crown,
+  Download,
+  Send,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -60,6 +63,9 @@ export default function IssueDetail() {
   const urlParams = new URLSearchParams(window.location.search);
   const issueId = urlParams.get("id");
 
+  const [exportingPDF, setExportingPDF] = useState(false);
+  const [emailingSending, setEmailingSending] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const [showDIY, setShowDIY] = useState(false);
   const [showLandlord, setShowLandlord] = useState(false);
   const [showProfessional, setShowProfessional] = useState(false);
